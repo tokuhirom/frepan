@@ -20,11 +20,11 @@ DELIMITER ;
 
 CREATE TABLE IF NOT EXISTS file (
      file_id     int unsigned not null AUTO_INCREMENT PRIMARY KEY
-    ,package     varchar(255) not null
     ,path        varchar(255) not null
-    ,description varchar(255) not null
-    ,dist_id     int unsigned not null
-    ,html        text default null
-    ,INDEX(dist_id, path)
+    ,package     varchar(255)
+    ,description varchar(255)
+    ,dist_id     int unsigned
+    ,html        text
+    ,UNIQUE(dist_id, path)
 ) engine=InnoDB DEFAULT charset=UTF8;
 

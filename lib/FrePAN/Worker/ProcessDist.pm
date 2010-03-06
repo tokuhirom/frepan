@@ -108,15 +108,20 @@ sub run {
             }
             my $html = FrePAN::Pod::POM::View::HTML->print($pom);
             msg "insert $pkg, $f, $desc";
-            $c->db->insert(
-                file => {
-                    dist_id     => $dist->dist_id,
-                    path        => $f->relative->stringify,
+            {
+                my $path = $f->relative->stringify;
+                my $file_row = $c->db->find_or_create(
+                    file => {
+                        dist_id     => $dist->dist_id,
+                        path        => $path,
+                    }
+                );
+                $file_row->update({
                     'package'   => $pkg,
                     description => $desc || '',
                     html        => $html,
-                }
-            );
+                });
+            }
         }
     );
 
