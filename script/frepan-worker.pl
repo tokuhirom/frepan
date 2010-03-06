@@ -18,11 +18,12 @@ use FrePAN::Worker::ProcessDist;
 GetOptions(
     'v|verbose' => \my $verbose,
 );
-$FrePAN::Worker::VERBOSE if $verbose;
+$FrePAN::Worker::VERBOSE=1 if $verbose;
 
 my ($c);
 
 my $config_file = shift @ARGV or pod2usage();
+warn "loading config file $config_file\n";
 my $config = do $config_file or die;
 
 my $pm = Parallel::Prefork->new(
