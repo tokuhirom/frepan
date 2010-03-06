@@ -50,39 +50,18 @@ sub run {
 
     my $txn = $c->db->txn_scope;
 
-    my $replace = sub {
-        my ($self, $table, $params) = @_;
-        my $dbh = $self->dbh;
-        my @keys = keys %$params;
-        my $sql = join('', "REPLACE INTO $table (",
-            join(',', @keys),
-            ") VALUES (",
-            join(',', ("?") x scalar(@keys)),
-            ");"
-        );
-        warn $sql;
-        my $sth = $dbh->prepare($sql);
-        $sth->execute(map { $params->{$_} } @keys);
-    };
-
-    $replace->(
-        $c->db,
+    my $dist = $c->db->find_or_create(
         dist => {
             author   => $info->{author},
-            path     => $info->{path},
             name     => $info->{name},
             version  => $info->{version},
-            requires => encode_json( $requires ),
-            abstract => $meta->{abstract},
         }
     );
-    my $dist = $c->db->single(
-        dist => {
-            name    => $info->{name},
-            version => $info->{version},
-            author  => $info->{author},
-        }
-    );
+    $dist->update({
+        path     => $info->{path},
+        requires => encode_json( $requires ),
+        abstract => $meta->{abstract},
+    });
 
     dir('.')->recurse(
         callback => sub {
