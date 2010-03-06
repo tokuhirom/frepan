@@ -43,7 +43,8 @@ while ( $pm->signal_received ne 'TERM' ) {
     print "ready for run $$\n";
     my $worker = $c->get('Gearman::Worker');
     $worker->register_function( 'frepan/add_dist' => sub {
-        FrePAN::Worker::ProcessDist::run->( decode_json( $_[0]->arg ) )
+        my $data = decode_json($_[0]->arg);
+        FrePAN::Worker::ProcessDist->run( $data );
     });
     $worker->work while 1;
 

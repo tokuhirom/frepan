@@ -1,13 +1,10 @@
 ? my ($dists, $page, $has_next) = @_;
 ? extends 'base.mt';
 ? block body_id => 'RootPage';
-? block title => 'FrePAN page';
+? block title => 'FrePAN';
 ? block content => sub {
 
-<a href="http://feeds.feedburner.com/YetAnotherCpanRecentChanges">RSS</a>
-
-Yes, This is FrePAN. Freshness CPAN site.
-This is only for freshness.
+FrePAN is realtime mirror site of cpan.<a href="/about">see here for more details</a>.
 
 <div class="modules">
 ? for my $dist (@$dists) {
@@ -23,6 +20,13 @@ This is only for freshness.
 </div>
 ? }
 </div>
+
+<div class="clear-both"></div>
+
+<a href="http://feeds.feedburner.com/YetAnotherCpanRecentChanges">
+<img src="/static/img/icons/feed.png" width="28" height="28" />
+</a>
+<br />
 
 <div class="clear-both"></div>
 

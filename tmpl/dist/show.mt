@@ -11,6 +11,7 @@
 <tr><th>Version</th><td><?= $dist->version ?></td></tr>
 <tr><th>Links</th><td>[<a href="http://rt.cpan.org/NoAuth/Bugs.html?Dist=<?= $dist->name ?>">View/Report Bugs</a>] [ <a href="http://deps.cpantesters.org/?module=Plack;perl=latest">Dependencies</a> ]</td></tr>
 </table>
+<img src="<?= $dist->{gravatar_url} ?>" width="80" height="80" class="gravatar" />
 
 <table class="package-list">
 <tr>

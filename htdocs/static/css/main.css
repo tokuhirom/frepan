@@ -97,6 +97,11 @@ body {
 /** dist page */
 #DistPage table.modulemeta {
     margin-bottom: 20px;
+    width: 600px;
+    float:left;
+}
+#DistPage #Content .gravatar {
+    float: right;
 }
 #DistPage table.package-list th {
     font-weight: bold;

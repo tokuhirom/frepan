@@ -18,7 +18,6 @@ sub run {
     my ($class, $info) = @_;
 
     my $c = Amon->context;
-    use Data::Dumper; warn Dumper($info);
 
     my ($author) = ($info->{path} =~ m{^./../([^/]+)/});
     $info->{author} = $author;
@@ -52,9 +51,9 @@ sub run {
 
     my $dist = $c->db->find_or_create(
         dist => {
-            author   => $info->{author},
-            name     => $info->{name},
-            version  => $info->{version},
+            name    => $info->{name},
+            version => $info->{version},
+            author  => $info->{author},
         }
     );
     $dist->update({
