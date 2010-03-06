@@ -18,10 +18,11 @@ sub run {
     my ($class, $info) = @_;
 
     my $c = Amon->context;
+    use Data::Dumper; warn Dumper($info);
 
     my ($author) = ($info->{path} =~ m{^./../([^/]+)/});
     $info->{author} = $author;
-    die "cannot detect author: $info->{path}" unless $author;
+    die "cannot detect author: '$info->{path}'" unless $author;
 
     # fetch
     my $ua = LWP::UserAgent->new(agent => "FrePAN/$FrePAN::VERSION");
