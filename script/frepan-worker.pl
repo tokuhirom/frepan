@@ -1,0 +1,60 @@
+use strict;
+use warnings;
+use FrePAN;
+use Gearman::Worker;
+use LWP::UserAgent;
+use Parallel::Prefork;
+use JSON::XS;
+use File::Temp qw/tempdir/;
+use autodie;
+use Pod::Usage;
+use Getopt::Long;
+use FindBin;
+use File::Spec;
+use lib File::Spec->catdir($FindBin::Bin, '..', 'lib');
+use FrePAN::Worker;
+use FrePAN::Worker::ProcessDist;
+
+GetOptions(
+    'v|verbose' => \my $verbose,
+);
+$FrePAN::Worker::VERBOSE if $verbose;
+
+my ($c);
+
+my $config_file = shift @ARGV or pod2usage();
+my $config = do $config_file or die;
+
+my $pm = Parallel::Prefork->new(
+    {
+        max_workers  => 10,
+        trap_signals => {
+            TERM => 'TERM',
+            HUP  => 'TERM',
+            USR1 => undef,
+        }
+    }
+);
+while ( $pm->signal_received ne 'TERM' ) {
+    $pm->start and next;
+
+    $c = FrePAN->bootstrap(config => $config);
+    print "ready for run $$\n";
+    my $worker = $c->get('Gearman::Worker');
+    $worker->register_function( 'frepan/add_dist' => sub {
+        FrePAN::Worker::ProcessDist::run->( decode_json( $_[0]->arg ) )
+    });
+    $worker->work while 1;
+
+    $pm->finish;
+}
+
+$pm->wait_all_children();
+exit;
+
+__END__
+
+=head1 SYNOPSIS
+
+    % frepan-worker.pl config.pl
+

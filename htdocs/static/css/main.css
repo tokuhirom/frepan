@@ -1,0 +1,144 @@
+/* reset.css */
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, em, img, q, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {margin:0;padding:0;border:0;font-weight:inherit;font-style:inherit;font-size:100%;font-family:inherit;vertical-align:baseline;}
+body {line-height:1.5;}
+table {border-collapse:separate;border-spacing:0;}
+caption, th, td {text-align:left;font-weight:normal;}
+table, td, th {vertical-align:middle;}
+blockquote:before, blockquote:after, q:before, q:after {content:"";}
+blockquote, q {quotes:"" "";}
+a img {border:none;}
+
+/* main */
+html,body {height:100%;}
+body > #Container {height:auto;}
+
+body {
+    color: white;
+    background-color: #fccccc;
+}
+
+#Container {
+    width: 780px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    height: 100%;
+    min-height:100%;
+    color: black;
+}
+
+#Header {
+    height: 70px;
+    font-size: 36px;
+    padding: 2px;
+}
+
+#Header a {
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+#Header .subtitle {
+    font-size: 40%;
+    font-weight: normal;
+}
+
+#Content {
+    padding: 10px;
+    background-color: white;
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+}
+#Content a {
+    text-decoration: none;
+}
+
+.clear-both { clear:both;}
+
+#FooterContainer {
+    font-size: 10px;
+    color: black;
+    bottom:0px;
+    height:20px;
+    width:780px;
+}
+#Footer {
+    text-align: right;
+    padding-right: 10px;
+    padding-top: 2px;
+}
+
+/** RootPage */
+#RootPage #Content .modules {
+    margin-left: 150px;
+    margin-right: 150px;
+    margin-top: 20px;
+}
+#RootPage #Content .modules .abstract {
+    float: left;
+}
+#RootPage #Content .module {
+    margin-bottom: 10px;
+    clear: both;
+}
+#RootPage #Content .module h3 {
+    font-size: 140%;
+}
+#RootPage #Content .author {
+    float: right;
+}
+#RootPage #Content .author img {
+    display: block;
+}
+
+/** dist page */
+#DistPage table.modulemeta {
+    margin-bottom: 20px;
+}
+#DistPage table.package-list th {
+    font-weight: bold;
+}
+#DistPage #Content h2 {
+    font-size: 200%;
+    font-weight: bold;
+    text-align: center;
+}
+
+/** pod page */
+#PodPage .blead-list {
+    font-size: 80%;
+    margin-bottom: 20px;
+}
+#PodPage .pod {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 20px;
+}
+#PodPage .pod h1 {
+    font-size: 120%;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+#PodPage .pod pre {
+    background-color: #fceeee;
+    padding: 4px;
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+}
+#PodPage .pod ul {
+    margin-left: 30px;
+}
+#PodPage .pod ul li {
+    padding: 4px 10px 4px 28px;
+    background-image: url(/static/img/icons/flag.png);
+    background-repeat: no-repeat;
+    background-position: left center;
+    list-style-type: none;
+}
+
+
