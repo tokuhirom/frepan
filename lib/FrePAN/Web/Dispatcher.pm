@@ -8,6 +8,8 @@ sub dispatch {
     my $path = $c->request->path_info;
     if ($path eq '/') {
         call('Root', 'index');
+    } elsif ($path eq '/about') {
+        call('Root', 'about');
     } elsif ($path =~ m{^/~(?<author>[^/]+)/(?<dist_ver>[^/]+)/$}) {
         call('Dist', 'show', $+{author}, $+{dist_ver});
     } elsif ($path =~ m{^/~(?<author>[^/]+)/(?<dist_ver>[^/]+)/(?<path>.+)$}) {

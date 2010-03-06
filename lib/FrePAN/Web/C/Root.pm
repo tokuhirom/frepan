@@ -22,4 +22,8 @@ sub index {
     render("index.mt", \@entries, $page, $has_next);
 }
 
+sub about {
+    render('about.mt')
+}
+
 1;
