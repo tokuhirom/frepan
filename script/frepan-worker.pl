@@ -15,6 +15,9 @@ use lib File::Spec->catdir($FindBin::Bin, '..', 'lib');
 use FrePAN::Worker;
 use FrePAN::Worker::ProcessDist;
 
+our $VERSION = '0.01';
+warn "$0 $VERSION\n";
+
 GetOptions(
     'v|verbose' => \my $verbose,
 );
