@@ -89,6 +89,7 @@ sub run {
             $name_section =~ s/\n//g;
             msg "name: $name_section";
             my ($pkg, $desc) = ($name_section =~ /^(\S+)\s+-\s*(.+)$/);
+            $pkg =~ s/C<(.+)>/$1/; # workaround for Graph::Centrality::Pagerank
             msg "desc: $pkg, $desc";
             unless ($pkg) {
                 my $fh = $f->openr or return;
