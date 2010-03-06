@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS dist (
     ,abstract varchar(255) not null
     ,requires text not null
     ,ctime   int unsigned not null
-    UNIQUE idx_author_name_version (author, name, version)
+    ,UNIQUE idx_author_name_version (author, name, version)
 ) engine=InnoDB DEFAULT charset=UTF8;
 
 DELIMITER |
