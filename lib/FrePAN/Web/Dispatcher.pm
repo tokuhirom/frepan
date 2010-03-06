@@ -12,6 +12,8 @@ sub dispatch {
         call('Dist', 'show', $+{author}, $+{dist_ver});
     } elsif ($path =~ m{^/~(?<author>[^/]+)/(?<dist_ver>[^/]+)/(?<path>.+)$}) {
         call('Dist', 'show_file', $+{author}, $+{dist_ver}, $+{path});
+    } elsif ($path =~ m{^/webhook/friendfeed-cpan$}) {
+        call('Webhook', 'friendfeed');
     } else {
         res_404();
     }
