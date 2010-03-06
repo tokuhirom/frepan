@@ -20,7 +20,7 @@ my $username   = $c->config->{FriendFeed}->{username};
 my $remote_key = $c->config->{FriendFeed}->{remote_key};
 
 my $gearman = AnyEvent::Gearman::Client->new(
-    job_servers => [ '127.0.0.1' ],
+    %{ $c->config->{'Gearman::Client'} }
 );
 
 my $ff = AnyEvent::FriendFeed::Realtime->new(
@@ -52,7 +52,6 @@ sub parse_entry {
         return {
             name        => $1,
             version     => $2,
-            # author_full => $3,
             url         => $4,
             path        => $5,
         };
