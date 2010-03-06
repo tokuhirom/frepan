@@ -14,6 +14,7 @@ sub show {
     my ($class, $author, $dist_ver) = @_;
 
     my $dist = _get_dist($author, $dist_ver);
+    $dist->{gravatar_url} = model('CPAN')->pause_id2gravatar_url($dist->author);
     if ($dist) {
         my @files = db->search(
             file => {
@@ -23,7 +24,6 @@ sub show {
                 order_by => [ {package => 'ASC'} ],
             }
         );
-        use XXX; YYY(\@files);
         render("dist/show.mt", $dist, \@files);
     } else {
         warn 'not found';
