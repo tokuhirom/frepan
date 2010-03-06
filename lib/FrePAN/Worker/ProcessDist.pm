@@ -59,7 +59,6 @@ sub run {
             join(',', ("?") x scalar(@keys)),
             ");"
         );
-        warn $sql;
         my $sth = $dbh->prepare($sql);
         $sth->execute(map { $params->{$_} } @keys);
     };
