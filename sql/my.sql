@@ -3,9 +3,9 @@ CREATE TABLE IF NOT EXISTS dist (
     ,author   varchar(255) not null
     ,name     varchar(255) not null
     ,version  varchar(255) not null
-    ,path     varchar(255) not null
-    ,abstract varchar(255) not null
-    ,requires text not null
+    ,path     varchar(255)
+    ,abstract varchar(255)
+    ,requires text
     ,ctime   int unsigned not null
     ,UNIQUE idx_author_name_version (author, name, version)
 ) engine=InnoDB DEFAULT charset=UTF8;
