@@ -28,7 +28,6 @@ sub friendfeed {
         close $fh;
         my $feed = XML::Feed->parse(\$xml) or die XML::Feed->errstr;
         for my $entry ($feed->entries) {
-            warn '---------------------------';
             my $content = $entry->content;
             my $info = _parse_entry($content->body);
             c->get('Gearman::Client')->dispatch_background(
