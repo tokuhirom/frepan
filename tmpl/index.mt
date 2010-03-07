@@ -13,12 +13,28 @@ FrePAN is realtime mirror site of cpan.<a href="/about">see here for more detail
     <div class="abstract">
         <?= $dist->abstract ?>
     </div>
+    <pre class="changes"><?= $dist->diff ?></pre>
     <div class="author">
         <img src="<?= $dist->{gravatar_url} ?>" class="gravatar" width="80" height="80" />
         <a href="http://search.cpan.org/~<?= lc $dist->author ?>/"><?= lc $dist->author ?></a>
     </div>
+    <div class="clear-both">&nbsp;</div>
 </div>
 ? }
+</div>
+
+<div class="pager">
+    <? if ($page != 1) { ?>
+        <a href="<?= uri_for("/", {page => $page - 1 }) ?>" rel="prev" accesskey="4">&lt;Prev</a>
+    <? } else { ?>
+    &lt;Prev
+    <? } ?>
+    |
+    <? if ($has_next) { ?>
+    <a href="<?= uri_for("/", {page => $page + 1}) ?>" rel="next" accesskey="6">Next&gt;</a>
+    <? } else { ?>
+    Next&gt;
+    <? } ?>
 </div>
 
 <div class="clear-both"></div>

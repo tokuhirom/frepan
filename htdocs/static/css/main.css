@@ -73,12 +73,7 @@ body {
 
 /** RootPage */
 #RootPage #Content .modules {
-    margin-left: 150px;
-    margin-right: 150px;
     margin-top: 20px;
-}
-#RootPage #Content .modules .abstract {
-    float: left;
 }
 #RootPage #Content .module {
     margin-bottom: 10px;
@@ -86,6 +81,19 @@ body {
 }
 #RootPage #Content .module h3 {
     font-size: 140%;
+}
+#RootPage #Content .modules .abstract {
+    float: left;
+}
+#RootPage #Content .modules .changes {
+    float: left;
+    background-color: #fceeee;
+    padding: 4px;
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    width: 600px;
+    margin-left: 10px;
 }
 #RootPage #Content .author {
     float: right;
