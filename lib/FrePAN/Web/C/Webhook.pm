@@ -30,9 +30,13 @@ sub friendfeed {
         for my $entry ($feed->entries) {
             my $content = $entry->content;
             my $info = _parse_entry($content->body);
-            c->get('Gearman::Client')->dispatch_background(
-                'frepan/add_dist' => encode_json($info),
-            ) or die "cannot register job";
+            if ($info) {
+                c->get('Gearman::Client')->dispatch_background(
+                    'frepan/add_dist' => encode_json($info),
+                ) or die "cannot register job";
+            } else {
+                warn "cannot parse body: @{[ $content->body ]}";
+            }
         }
         return res(200, [], ['ok']);
     }
