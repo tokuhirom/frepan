@@ -5,6 +5,7 @@
     <title><? block title => 'FrePAN' ?></title>
     <meta http-equiv="Content-Style-Type" content="text/css" />  
     <meta http-equiv="Content-Script-Type" content="text/javascript" />  
+    <meta rel="alternate" type="application/rss+xml" title="RSS" href="http://feeds.feedburner.com/YetAnotherCpanRecentChanges" />
     <link href="<?= uri_for('/static/css/screen.css') ?>" rel="stylesheet" type="text/css" media="screen" />
     <link href="<?= uri_for('/static/css/main.css') ?>" rel="stylesheet" type="text/css" media="screen" />
 </head>
