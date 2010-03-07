@@ -169,11 +169,11 @@ sub get_old_changes {
     my $orig_cwd = Cwd::getcwd();
 
     unless ($path) {
-        dbg("cannot get path");
+        msg("cannot get path");
         return;
     }
     unless ( -f $path ) {
-        dbg("file not found: $path");
+        msg("file not found: $path");
         return;
     }
     my $tmpdir = tempdir( CLEANUP => 1 );
