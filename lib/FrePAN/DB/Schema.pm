@@ -13,4 +13,9 @@ install_table 'file' => schema {
     columns qw/file_id dist_id package path description html/;
 };
 
+install_table changes => schema {
+    pk 'changes_id';
+    columns qw/dist_id changes_id version body/;
+};
+
 1;

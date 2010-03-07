@@ -28,3 +28,11 @@ CREATE TABLE IF NOT EXISTS file (
     ,UNIQUE(dist_id, path)
 ) engine=InnoDB DEFAULT charset=UTF8;
 
+CREATE TABLE IF NOT EXISTS changes (
+     changes_id  int unsigned not null AUTO_INCREMENT PRIMARY KEY
+    ,dist_id     int unsigned not null
+    ,version     varchar(255) not null
+    ,body        text
+    ,UNIQUE(dist_id, version)
+) engine=InnoDB DEFAULT charset=UTF8;
+

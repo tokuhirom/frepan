@@ -2,11 +2,7 @@ use inc::Module::Install;
 all_from "lib/FrePAN.pm";
 
 tests 't/*.t t/*/*.t t/*/*/*.t';
-requires 'AnyEvent::FriendFeed::Realtime';
-requires 'AnyEvent::Watchdog';
-requires 'AE';
 requires 'Amon';
-requires 'AnyEvent::Gearman::Client';
 requires 'Perl6::Say';
 requires 'JSON::XS';
 requires 'URI';
@@ -18,7 +14,8 @@ requires 'autodie';
 requires 'Pod::POM';
 requires 'parent';
 requires 'Gravatar::URL';
-requires 'XML::Atom';
+requires 'XML::Feed';
+requires 'Algorithm::Diff';
 recursive_author_tests('xt');
 
 WriteAll;
