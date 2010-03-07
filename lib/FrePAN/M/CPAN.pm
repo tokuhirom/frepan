@@ -28,7 +28,6 @@ sub pause_id2gravatar_url {
 
 sub dist2path {
     my ($self, $distname) = @_;
-    warn $distname;
     my $sql = "SELECT auths.cpanid, dists.dist_file FROM dists, auths WHERE dist_name=? AND auths.auth_id=dists.auth_id;";
     my $sth = $self->dbh->prepare($sql);
     $sth->execute($distname) or die "cannot execute";
