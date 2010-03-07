@@ -4,7 +4,6 @@ use 5.010;
 
 sub dispatch {
     my ($class, $c) = @_;
-    warn "@_";
     my $path = $c->request->path_info;
     if ($path eq '/') {
         call('Root', 'index');
