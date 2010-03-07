@@ -15,6 +15,7 @@ requires 'Pod::POM';
 requires 'parent';
 requires 'Gravatar::URL';
 requires 'XML::Feed';
+requires 'Algorithm::Diff';
 recursive_author_tests('xt');
 
 WriteAll;

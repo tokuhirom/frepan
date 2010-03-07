@@ -13,6 +13,11 @@ use LWP::UserAgent;
 use File::Temp qw/tempdir/;
 use JSON::XS;
 use Cwd;
+use DateTime;
+use File::Find::Rule;
+use Algorithm::Diff;
+
+sub p { use Data::Dumper; warn Dumper(@_) }
 
 sub run {
     my ($class, $info) = @_;
@@ -23,7 +28,7 @@ sub run {
     $info->{author} = $author;
     die "cannot detect author: '$info->{path}'" unless $author;
 
-    # fetch
+    # fetch archive
     my $ua = LWP::UserAgent->new(agent => "FrePAN/$FrePAN::VERSION");
     my ($x, $y, $suffix) = fileparse(URI->new($info->{url})->path, qw/zip tar.gz tar.bz2/);
     msg "suffix: $suffix";
@@ -125,9 +130,89 @@ sub run {
         }
     );
 
+    # save changes
+    my $path = $c->model('CPAN')->dist2path($dist->name);
+    my $old_changes = get_old_changes($path);
+    if ($old_changes) {
+        msg "old changes exists";
+        my ($new_changes_file) = grep { -f $_ } qw/Changes ChangeLog/;
+        my $new_changes = read_file($new_changes_file);
+        if ($new_changes) {
+            msg "new changes exists";
+            my $diff = make_diff($old_changes, $new_changes);
+            my $changes = $c->db->find_or_create(
+                changes => {
+                    dist_id => $dist->dist_id,
+                    version => $dist->version,
+                }
+            );
+            $changes->update({
+                body => $diff
+            });
+        } else {
+            msg "new changes not found";
+        }
+    } else {
+        msg "old changes not found";
+    }
+
+    # regen rss
+    $c->model('RSSMaker')->generate();
+
     $txn->commit;
 
     chdir $orig_cwd;
+}
+
+sub get_old_changes {
+    my ($path) = @_;
+    my $orig_cwd = Cwd::getcwd();
+
+    unless ($path) {
+        dbg("cannot get path");
+        return;
+    }
+    unless ( -f $path ) {
+        dbg("file not found: $path");
+        return;
+    }
+    my $tmpdir = tempdir( CLEANUP => 1 );
+    my $ae = Archive::Extract->new(archive => $path);
+    $ae->extract(to => $tmpdir) or die $ae->error();
+    my @files = File::Find::Rule->new()
+                                ->name('Changes', 'ChangeLog')
+                                ->in($tmpdir);
+    my $res = read_file($files[0]);
+    chdir $orig_cwd;
+    return $res;
+}
+
+sub make_diff {
+    my ($old, $new) = @_;
+    my $res = '';
+    my $diff = Algorithm::Diff->new(
+        [ split /\n/, $old ],
+        [ split /\n/, $new ],
+    );
+    $diff->Base(1);
+    while ($diff->Next()) {
+        next if $diff->Same();
+        $res .= "$_\n" for $diff->Items(2);
+    }
+    return $res;
+}
+
+sub write_file {
+    my ($fname, $content) = @_;
+    open my $fh, '>', $fname;
+    print {$fh} $content;
+    close $fh;
+}
+
+sub read_file {
+    my ($fname) = @_;
+    open my $fh, '<', $fname;
+    do { local $/; <$fh> };
 }
 
 sub load_meta {
