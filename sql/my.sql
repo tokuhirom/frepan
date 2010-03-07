@@ -21,9 +21,9 @@ DELIMITER ;
 CREATE TABLE IF NOT EXISTS file (
      file_id     int unsigned not null AUTO_INCREMENT PRIMARY KEY
     ,path        varchar(255) not null
+    ,dist_id     int unsigned not null
     ,package     varchar(255)
     ,description varchar(255)
-    ,dist_id     int unsigned
     ,html        text
     ,UNIQUE(dist_id, path)
 ) engine=InnoDB DEFAULT charset=UTF8;

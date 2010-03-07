@@ -7,11 +7,14 @@
 <h2><?= $dist->name ?></h2>
 
 <table class="modulemeta">
+<tr><th>This Release</th><td><span class="dist-name"><?= $dist->name ?></span>-<span class="dist-version"><?= $dist->version ?> [<a href="<?= $dist->download_url ?>">Download</a>]</span></td>
 <tr><th>Author</th><td><a href="http://search.cpan.org/~<?= lc $dist->author ?>/"><?= $dist->author ?></a></td></tr>
-<tr><th>Version</th><td><?= $dist->version ?></td></tr>
 <tr><th>Links</th><td>[<a href="http://rt.cpan.org/NoAuth/Bugs.html?Dist=<?= $dist->name ?>">View/Report Bugs</a>] [ <a href="http://deps.cpantesters.org/?module=Plack;perl=latest">Dependencies</a> ]</td></tr>
 </table>
+
+
 <img src="<?= $dist->{gravatar_url} ?>" width="80" height="80" class="gravatar" />
+<div class="clear-both">&nbsp;</div>
 
 <table class="package-list">
 <tr>
