@@ -27,7 +27,7 @@ sub run {
     my $ua = LWP::UserAgent->new(agent => "FrePAN/$FrePAN::VERSION");
     my ($x, $y, $suffix) = fileparse(URI->new($info->{url})->path, qw/zip tar.gz tar.bz2/);
     msg "suffix: $suffix";
-    my $tmp = File::Temp->new(UNLINK => 0, SUFFIX => ".$suffix");
+    my $tmp = File::Temp->new(UNLINK => 1, SUFFIX => ".$suffix");
     my $res = $ua->get($info->{url}, ':content_file' => "$tmp");
     $res->code =~ /^(?:304|200)$/ or die "fetch failed: $info->{url}, " . $res->status_line;
 
