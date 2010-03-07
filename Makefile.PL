@@ -18,7 +18,7 @@ requires 'autodie';
 requires 'Pod::POM';
 requires 'parent';
 requires 'Gravatar::URL';
-requires 'XML::Atom';
+requires 'XML::Feed';
 recursive_author_tests('xt');
 
 WriteAll;
