@@ -16,6 +16,9 @@ use Cwd;
 use DateTime;
 use File::Find::Rule;
 use Algorithm::Diff;
+use XMLRPC::Lite;
+use File::Path qw/rmtree/;
+use Carp ();
 
 sub p { use Data::Dumper; warn Dumper(@_) }
 
@@ -63,7 +66,7 @@ sub run {
     );
     $dist->update({
         path     => $info->{path},
-        requires => encode_json( $requires ),
+        requires => $requires ? encode_json( $requires ) : '',
         abstract => $meta->{abstract},
     });
 
@@ -90,12 +93,15 @@ sub run {
                 print $parser->error,"\n";
                 return;
             };
+            my ($pkg, $desc);
             my ($name_section) = map { $_->content } grep { $_->title eq 'NAME' } $pom->head1();
-            $name_section =~ s/\n//g;
-            msg "name: $name_section";
-            my ($pkg, $desc) = ($name_section =~ /^(\S+)\s+-\s*(.+)$/);
-            $pkg =~ s/C<(.+)>/$1/; # workaround for Graph::Centrality::Pagerank
-            msg "desc: $pkg, $desc";
+            if ($name_section) {
+                $name_section =~ s/\n//g;
+                msg "name: $name_section";
+                ($pkg, $desc) = ($name_section =~ /^(\S+)\s+-\s*(.+)$/);
+                $pkg =~ s/[CB]<(.+)>/$1/; # workaround for Graph::Centrality::Pagerank
+                # msg "desc: $pkg, $desc";
+            }
             unless ($pkg) {
                 my $fh = $f->openr or return;
                 SCAN: while (my $line = <$fh>) {
@@ -109,10 +115,10 @@ sub run {
                 $pkg = "$f";
                 $pkg =~ s{^lib/}{};
                 $pkg =~ s/\.pm$//;
-                $pkg =~ s{/}{::};
+                $pkg =~ s{/}{::}g;
             }
             my $html = FrePAN::Pod::POM::View::HTML->print($pom);
-            msg "insert $pkg, $f, $desc";
+            # msg "insert $pkg, $f, $desc";
             {
                 my $path = $f->relative->stringify;
                 my $file_row = $c->db->find_or_create(
@@ -159,6 +165,15 @@ sub run {
     # regen rss
     $c->model('RSSMaker')->generate();
 
+    my $result = XMLRPC::Lite->proxy('http://ping.fc2.com/')
+                              ->call(
+                              'weblogUpdates.ping',
+                              "Yet Another CPAN Recent Changes",
+                              "http://cpanrecent.64p.org/index.rss"
+                 )->result;
+    msg($result->{'message'});
+
+
     $txn->commit;
 
     chdir $orig_cwd;
@@ -176,15 +191,22 @@ sub get_old_changes {
         msg("file not found: $path");
         return;
     }
-    my $tmpdir = tempdir( CLEANUP => 1 );
+    my $tmpdir = tempdir( CLEANUP => 0 );
+    guard { rmtree($tmpdir) };
+
     my $ae = Archive::Extract->new(archive => $path);
     $ae->extract(to => $tmpdir) or die $ae->error();
     my @files = File::Find::Rule->new()
                                 ->name('Changes', 'ChangeLog')
                                 ->in($tmpdir);
-    my $res = read_file($files[0]);
-    chdir $orig_cwd;
-    return $res;
+    if (@files && $files[0]) {
+        my $res = read_file($files[0]);
+        chdir $orig_cwd;
+        return $res;
+    } else {
+        chdir $orig_cwd;
+        return;
+    }
 }
 
 sub make_diff {
@@ -211,6 +233,7 @@ sub write_file {
 
 sub read_file {
     my ($fname) = @_;
+    Carp::croak("missing args for read_file") unless $fname;
     open my $fh, '<', $fname;
     do { local $/; <$fh> };
 }
