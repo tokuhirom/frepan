@@ -83,7 +83,7 @@ sub run {
                 # msg("skip $f, by $no_index");
                 return;
             }
-            if ("$f" =~ m{^(?:t/|inc/)}) {
+            if ("$f" =~ m{^(?:t/|inc/|sample/)}) {
                 # msg("skip $f, by $no_index");
                 return;
             }
