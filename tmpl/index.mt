@@ -11,8 +11,8 @@ FrePAN is realtime mirror site of cpan.<a href="/about">see here for more detail
 <div class="module">
     <h3><img src="/static/img/icons/module.png" /><a href="/~<?= lc $dist->author?>/<?= $dist->name ?>-<?= $dist->version ?>/"><?= $dist->name ?> <?= $dist->version ?></a></h3>
     <div class="module-info">
-        <div class="abstract"><?= $dist->abstract ?></div>
-        <pre class="changes"><?= $dist->diff ?></pre>
+        <div class="abstract"><?= $dist->abstract || '' ?></div>
+        <pre class="changes"><?= $dist->diff || '' ?></pre>
     </div>
     <div class="author">
         <a href="http://search.cpan.org/~<?= lc $dist->author ?>/">
