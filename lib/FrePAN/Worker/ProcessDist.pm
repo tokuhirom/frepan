@@ -43,7 +43,8 @@ sub run {
     my $orig_cwd = Cwd::getcwd();
 
     # extract and chdir
-    my $tmpdir = tempdir(CLEANUP => 1);
+    my $tmpdir = tempdir(CLEANUP => 0);
+    guard { rmtree($tmpdir) };
     my $ae = Archive::Extract->new(archive => $tmp);
     $ae->extract(to => $tmpdir) or die "cannot extract $info->{url}, " . $ae->error;
     my @dirs = grep { -d $_ } dir($tmpdir)->children();
