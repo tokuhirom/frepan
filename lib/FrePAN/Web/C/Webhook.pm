@@ -45,7 +45,7 @@ sub friendfeed {
 sub _parse_entry {
     my $body = shift;
 
-    if ($body =~ m!([\w\-]+) ([0-9\._]*) by (.+?) - <a.*href="(http:.*?/authors/id/(.*?\.tar\.gz))"!) {
+    if ($body =~ m!([\w\-]+) (v?[0-9\._]*) by (.+?) - <a.*href="(http:.*?/authors/id/(.*?\.tar\.gz))"!) {
         return {
             name        => $1,
             version     => $2,
