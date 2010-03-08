@@ -6,7 +6,6 @@ use autodie;
 
 sub new {
     my ($class, $args) = @_;
-    use Data::Dumper; warn Dumper($args);
     bless {%$args}, $class;
 }
 
