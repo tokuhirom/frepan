@@ -99,7 +99,10 @@ sub run {
                 $name_section =~ s/\n//g;
                 msg "name: $name_section";
                 ($pkg, $desc) = ($name_section =~ /^(\S+)\s+-\s*(.+)$/);
-                $pkg =~ s/[CB]<(.+)>/$1/; # workaround for Graph::Centrality::Pagerank
+                if ($pkg) {
+                    # workaround for Graph::Centrality::Pagerank
+                    $pkg =~ s/[CB]<(.+)>/$1/;
+                }
                 # msg "desc: $pkg, $desc";
             }
             unless ($pkg) {
