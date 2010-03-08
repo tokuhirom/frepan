@@ -31,7 +31,7 @@ my $config = do $config_file or die;
 
 my $pm = Parallel::Prefork->new(
     {
-        max_workers  => 10,
+        max_workers  => 3,
         trap_signals => {
             TERM => 'TERM',
             HUP  => 'TERM',
