@@ -19,6 +19,7 @@ use Algorithm::Diff;
 use XMLRPC::Lite;
 use File::Path qw/rmtree/;
 use Carp ();
+use Try::Tiny;
 
 sub p { use Data::Dumper; warn Dumper(@_) }
 
@@ -247,7 +248,14 @@ sub load_meta {
     if (-f 'META.yml') {
         YAML::Tiny::LoadFile('META.yml');
     } elsif (-f 'META.json') {
-        decode_json('META.json');
+        try {
+            open my $fh, '<', 'META.json';
+            my $src = do { local $/; <$fh> };
+            decode_json($src);
+        } catch {
+            warn "cannot open META.json file: $_";
+            +{};
+        };
     } else {
         warn "missing META file in $url:".Cwd::getcwd();
         +{};
