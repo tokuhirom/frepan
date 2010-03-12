@@ -15,7 +15,7 @@ use DateTime;
 use File::Find::Rule;
 use Algorithm::Diff;
 use XMLRPC::Lite;
-use File::Path qw/rmtree make_path/;
+use File::Path qw/rmtree make_path mkpath/;
 use Carp ();
 use Try::Tiny;
 use Amon::Declare;
