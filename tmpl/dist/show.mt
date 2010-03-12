@@ -9,7 +9,7 @@
 <table class="modulemeta">
 <tr><th>This Release</th><td><span class="dist-name"><?= $dist->name ?></span>-<span class="dist-version"><?= $dist->version ?> [<a href="<?= $dist->download_url ?>">Download</a>]</span></td>
 <tr><th>Author</th><td><a href="http://search.cpan.org/~<?= lc $dist->author ?>/"><?= $dist->author ?></a></td></tr>
-<tr><th>Links</th><td>[<a href="http://rt.cpan.org/NoAuth/Bugs.html?Dist=<?= $dist->name ?>">View/Report Bugs</a>] [ <a href="http://deps.cpantesters.org/?module=Plack;perl=latest">Dependencies</a> ]</td></tr>
+<tr><th>Links</th><td>[<a href="http://rt.cpan.org/NoAuth/Bugs.html?Dist=<?= $dist->name ?>">View/Report Bugs</a>] [ <a href="http://deps.cpantesters.org/?module=<?= $dist->name ?>;perl=latest">Dependencies</a> ] [ <a href="http://search.cpan.org/~<?= lc $dist->author ?>/<?= $dist->name ?>-<?= $dist->version ?>">search.cpan.org</a> ]</td></tr>
 </table>
 
 
