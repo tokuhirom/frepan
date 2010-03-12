@@ -10,7 +10,6 @@ use Pod::POM;
 use FrePAN::Pod::POM::View::HTML;
 use YAML::Tiny;
 use LWP::UserAgent;
-use File::Temp qw/tempdir/;
 use JSON::XS;
 use Cwd;
 use DateTime;
@@ -47,15 +46,17 @@ sub run {
 
     # guard.
     my $orig_cwd = Cwd::getcwd();
+    guard { chdir $orig_cwd };
 
     # extract and chdir
-    my $tmpdir = tempdir(CLEANUP => 0);
-    guard { rmtree($tmpdir) };
-    debug "extracting $archivepath";
+    my $srcdir = dir(config()->{srcdir}, uc($author));
+    debug "extracting $archivepath to $srcdir";
+    $srcdir->mkpath;
+    die "cannot mkpath '$srcdir': $!" unless -d $srcdir;
     my $ae = Archive::Extract->new(archive => "$archivepath");
-    $ae->extract(to => $tmpdir) or die "cannot extract $info->{url}, " . $ae->error;
-    my @dirs = grep { -d $_ } dir($tmpdir)->children();
-    chdir(@dirs==1 ? $dirs[0] : $tmpdir);
+    $ae->extract(to => $srcdir) or die "cannot extract $info->{url}, " . $ae->error;
+    my @dirs = grep { -d $_ } dir($srcdir)->children();
+    chdir(@dirs==1 ? $dirs[0] : $srcdir);
 
     # render and register files.
     my $meta = load_meta($info->{url});
@@ -195,23 +196,26 @@ sub run {
 sub get_old_changes {
     my ($path) = @_;
     my $orig_cwd = Cwd::getcwd();
+    guard { chdir $orig_cwd };
 
     unless ($path) {
         msg("cannot get path");
         return;
     }
     unless ( -f $path ) {
-        msg("file not found: $path");
+        msg("[warn]file not found: $path");
         return;
     }
-    my $tmpdir = tempdir( CLEANUP => 0 );
-    guard { rmtree($tmpdir) };
+    my $author = basename(file($path)->dir); # .../A/AU/AUTHOR/Dist-ver.tar.gz
+    my $srcdir = dir(config()->{srcdir}, uc($author));
+    mkpath($srcdir);
+    die "cannot mkpath '$srcdir': $!" unless $srcdir;
 
     my $ae = Archive::Extract->new(archive => $path);
-    $ae->extract(to => $tmpdir) or die $ae->error();
+    $ae->extract(to => $srcdir) or die $ae->error();
     my @files = File::Find::Rule->new()
                                 ->name('Changes', 'ChangeLog')
-                                ->in($tmpdir);
+                                ->in($srcdir);
     if (@files && $files[0]) {
         my $res = read_file($files[0]);
         chdir $orig_cwd;
