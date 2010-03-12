@@ -22,6 +22,7 @@ use Amon::Declare;
 use CPAN::DistnameInfo;
 
 our $DEBUG;
+our $PATH;
 
 sub p { use Data::Dumper; warn Dumper(@_) }
 
@@ -30,6 +31,8 @@ sub debug ($) { logger->debug(@_) }
 
 sub run {
     my ($class, $info) = @_;
+
+    local $PATH = $info->{path};
 
     my $c = Amon->context;
 
@@ -150,28 +153,34 @@ sub run {
     # save changes
     my $path = $c->model('CPAN')->dist2path($dist->name);
     my $old_changes = get_old_changes($path);
-    if ($old_changes) {
+    sub {
+        unless ($old_changes) {
+            msg "old changes not found";
+            return;
+        }
         msg "old changes exists";
         my ($new_changes_file) = grep { -f $_ } qw/Changes ChangeLog/;
-        my $new_changes = read_file($new_changes_file);
-        if ($new_changes) {
-            msg "new changes exists";
-            my $diff = make_diff($old_changes, $new_changes);
-            my $changes = $c->db->find_or_create(
-                changes => {
-                    dist_id => $dist->dist_id,
-                    version => $dist->version,
-                }
-            );
-            $changes->update({
-                body => $diff
-            });
-        } else {
-            msg "new changes not found";
+        unless ($new_changes_file) {
+            msg "missing new changes file";
+            return;
         }
-    } else {
-        msg "old changes not found";
-    }
+        my $new_changes = read_file($new_changes_file);
+        unless ($new_changes) {
+            msg "new changes not found";
+            return;
+        }
+        msg "new changes exists";
+        my $diff = make_diff($old_changes, $new_changes);
+        my $changes = $c->db->find_or_create(
+            changes => {
+                dist_id => $dist->dist_id,
+                version => $dist->version,
+            }
+        );
+        $changes->update({
+            body => $diff
+        });
+    }->();
 
     # regen rss
     $c->model('RSSMaker')->generate();
@@ -250,7 +259,7 @@ sub write_file {
 
 sub read_file {
     my ($fname) = @_;
-    Carp::croak("missing args for read_file") unless $fname;
+    Carp::croak("missing args for read_file($PATH)") unless $fname;
     open my $fh, '<', $fname;
     do { local $/; <$fh> };
 }
