@@ -1,7 +1,6 @@
 package FrePAN::Worker::ProcessDist;
 use FrePAN::Worker;
 use File::Basename;
-use Archive::Extract;
 use URI;
 use Guard;
 use Path::Class;
@@ -20,6 +19,7 @@ use File::Path qw/rmtree make_path/;
 use Carp ();
 use Try::Tiny;
 use Amon::Declare;
+use CPAN::DistnameInfo;
 
 our $DEBUG;
 
@@ -38,7 +38,7 @@ sub run {
     die "cannot detect author: '$info->{path}'" unless $author;
 
     # fetch archive
-    my $archivepath = file($c->model('CPAN')->minicpan, 'authors', 'id', $info->{path});
+    my $archivepath = file($c->model('CPAN')->minicpan, 'authors', 'id', $info->{path})->absolute;
     debug "$archivepath, $info->{path}";
     unless ( -f $archivepath ) {
         $class->mirror($info->{url}, $archivepath);
@@ -53,10 +53,9 @@ sub run {
     debug "extracting $archivepath to $srcdir";
     $srcdir->mkpath;
     die "cannot mkpath '$srcdir': $!" unless -d $srcdir;
-    my $ae = Archive::Extract->new(archive => "$archivepath");
-    $ae->extract(to => $srcdir) or die "cannot extract $info->{url}, " . $ae->error;
-    my @dirs = grep { -d $_ } dir($srcdir)->children();
-    chdir(@dirs==1 ? $dirs[0] : $srcdir);
+    chdir($srcdir);
+    my $distnameinfo = CPAN::DistnameInfo->new($info->{path});
+    model('Archive')->extract($distnameinfo->distvname, "$archivepath");
 
     # render and register files.
     my $meta = load_meta($info->{url});
@@ -210,9 +209,10 @@ sub get_old_changes {
     my $srcdir = dir(config()->{srcdir}, uc($author));
     mkpath($srcdir);
     die "cannot mkpath '$srcdir': $!" unless $srcdir;
+    chdir($srcdir);
 
-    my $ae = Archive::Extract->new(archive => $path);
-    $ae->extract(to => $srcdir) or die $ae->error();
+    my $distnameinfo = CPAN::DistnameInfo->new($path);
+    model('Archive')->extract($distnameinfo->distvname, "$path");
     my @files = File::Find::Rule->new()
                                 ->name('Changes', 'ChangeLog')
                                 ->in($srcdir);
