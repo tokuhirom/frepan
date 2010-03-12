@@ -1,8 +1,11 @@
 package FrePAN::M::CPAN;
 use strict;
 use warnings;
+use parent qw/Class::Accessor::Fast/;
 use Gravatar::URL qw/gravatar_url/;
 use DBI;
+use Path::Class qw/dir file/;
+__PACKAGE__->mk_accessors(qw/minicpan/);
 
 sub new {
     my ($class, $args) = @_;

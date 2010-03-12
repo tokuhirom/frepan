@@ -16,6 +16,8 @@ requires 'parent';
 requires 'Gravatar::URL';
 requires 'XML::Feed';
 requires 'Algorithm::Diff';
+requires 'Log::Dispatch::Screen::Color' => 0.03;
+requires 'Class::Accessor::Fast';
 recursive_author_tests('xt');
 
 WriteAll;

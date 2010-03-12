@@ -2,3 +2,4 @@ config.pl
 Makefile
 inc/
 MYMETA.yml
+tmp/

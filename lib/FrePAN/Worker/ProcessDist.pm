@@ -17,13 +17,17 @@ use DateTime;
 use File::Find::Rule;
 use Algorithm::Diff;
 use XMLRPC::Lite;
-use File::Path qw/rmtree/;
+use File::Path qw/rmtree make_path/;
 use Carp ();
 use Try::Tiny;
+use Amon::Declare;
 
 our $DEBUG;
 
 sub p { use Data::Dumper; warn Dumper(@_) }
+
+sub logger () { c->get("Logger") }
+sub debug ($) { logger->debug(@_) }
 
 sub run {
     my ($class, $info) = @_;
@@ -35,12 +39,11 @@ sub run {
     die "cannot detect author: '$info->{path}'" unless $author;
 
     # fetch archive
-    my $ua = LWP::UserAgent->new(agent => "FrePAN/$FrePAN::VERSION");
-    my ($x, $y, $suffix) = fileparse(URI->new($info->{url})->path, qw/zip tar.gz tar.bz2/);
-    msg "suffix: $suffix";
-    my $tmp = File::Temp->new(UNLINK => 1, SUFFIX => ".$suffix");
-    my $res = $ua->get($info->{url}, ':content_file' => "$tmp");
-    $res->code =~ /^(?:304|200)$/ or die "fetch failed: $info->{url}, " . $res->status_line;
+    my $archivepath = file($c->model('CPAN')->minicpan, 'authors', 'id', $info->{path});
+    debug "$archivepath, $info->{path}";
+    unless ( -f $archivepath ) {
+        $class->mirror($info->{url}, $archivepath);
+    }
 
     # guard.
     my $orig_cwd = Cwd::getcwd();
@@ -48,7 +51,8 @@ sub run {
     # extract and chdir
     my $tmpdir = tempdir(CLEANUP => 0);
     guard { rmtree($tmpdir) };
-    my $ae = Archive::Extract->new(archive => $tmp);
+    debug "extracting $archivepath";
+    my $ae = Archive::Extract->new(archive => "$archivepath");
     $ae->extract(to => $tmpdir) or die "cannot extract $info->{url}, " . $ae->error;
     my @dirs = grep { -d $_ } dir($tmpdir)->children();
     chdir(@dirs==1 ? $dirs[0] : $tmpdir);
@@ -264,6 +268,22 @@ sub load_meta {
         warn "missing META file in $url:".Cwd::getcwd();
         +{};
     }
+}
+
+sub mirror {
+    my ($self, $url, $path) = @_;
+
+    msg "mirror '$url' to '$path'";
+    my $ua = LWP::UserAgent->new(agent => "FrePAN/$FrePAN::VERSION");
+    make_path($path->dir->stringify, {error => \my $err});
+    if (@$err) {
+        for my $diag (@$err) {
+            my ( $file, $message ) = %$diag;
+            print "mkpath: error: '@{[ $file || '' ]}', $message\n";
+        }
+    }
+    my $res = $ua->get($url, ':content_file' => "$path");
+    $res->code =~ /^(?:304|200)$/ or die "fetch failed: $url, $path, " . $res->status_line;
 }
 
 1;
