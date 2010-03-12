@@ -15,6 +15,9 @@ sub extract {
     my ($self, $distvname, $path) = @_;
 
     if ($path =~ /\.tar/) {
+        local $Archive::Tar::CHMOD = 0;
+        local $Archive::Tar::CHOWN = 0;
+
         my $tar = Archive::Tar->new();
         $tar->read($path);
         index([$tar->list_files]->[0], $distvname) == 0 or do {

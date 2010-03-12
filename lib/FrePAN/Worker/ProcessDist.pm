@@ -258,7 +258,12 @@ sub read_file {
 sub load_meta {
     my $url = shift;
     if (-f 'META.yml') {
-        YAML::Tiny::LoadFile('META.yml');
+        try {
+            YAML::Tiny::LoadFile('META.yml');
+        } catch {
+            warn "Cannot open META.yml($url): $_";
+            +{};
+        };
     } elsif (-f 'META.json') {
         try {
             open my $fh, '<', 'META.json';
