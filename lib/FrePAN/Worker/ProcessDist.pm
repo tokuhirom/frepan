@@ -21,6 +21,8 @@ use File::Path qw/rmtree/;
 use Carp ();
 use Try::Tiny;
 
+our $DEBUG;
+
 sub p { use Data::Dumper; warn Dumper(@_) }
 
 sub run {
@@ -77,7 +79,7 @@ sub run {
             my $f = shift;
             msg("processing $f");
             # TODO: show script
-            unless ($f =~ /\.pm$/) {
+            unless ($f =~ /(?:\.pm|\.pod)$/) {
                 # msg("skip $f");
                 return;
             }
@@ -170,13 +172,15 @@ sub run {
     # regen rss
     $c->model('RSSMaker')->generate();
 
-    my $result = XMLRPC::Lite->proxy('http://ping.fc2.com/')
-                              ->call(
-                              'weblogUpdates.ping',
-                              "Yet Another CPAN Recent Changes",
-                              "http://cpanrecent.64p.org/index.rss"
-                 )->result;
-    msg($result->{'message'});
+    unless ($DEBUG) {
+        my $result = XMLRPC::Lite->proxy('http://ping.fc2.com/')
+                                ->call(
+                                'weblogUpdates.ping',
+                                "Yet Another CPAN Recent Changes",
+                                "http://cpanrecent.64p.org/index.rss"
+                    )->result;
+        msg($result->{'message'});
+    }
 
 
     $txn->commit;
