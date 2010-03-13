@@ -7,6 +7,7 @@ use Path::Class;
 use autodie;
 use Pod::POM;
 use FrePAN::Pod::POM::View::HTML;
+use FrePAN::Pod::POM::View::Text;
 use YAML::Tiny;
 use LWP::UserAgent;
 use JSON::XS;
@@ -119,6 +120,7 @@ sub run {
             my ($pkg, $desc);
             my ($name_section) = map { $_->content } grep { $_->title eq 'NAME' } $pom->head1();
             if ($name_section) {
+                $name_section = FrePAN::Pod::POM::View::Text->print($name_section);
                 $name_section =~ s/\n//g;
                 msg "name: $name_section";
                 ($pkg, $desc) = ($name_section =~ /^(\S+)\s+-\s*(.+)$/);
