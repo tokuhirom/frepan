@@ -2,6 +2,9 @@ use FrePAN::Web;
 use Plack::Builder;
 use Plack::App::Directory;
 use Plack::App::URLMap;
+use Plack::MIME;
+
+delete $Plack::MIME::MIME_TYPES->{$_} for qw/.pl .pm .yml .json/;
 
 my $config = do 'config.pl';
 

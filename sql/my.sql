@@ -5,6 +5,17 @@ CREATE TABLE IF NOT EXISTS dist (
     ,version  varchar(255) not null
     ,path     varchar(255)
     ,abstract varchar(255)
+    ,license  varchar(255)
+    ,repository text
+    ,homepage   text
+    ,bugtracker text
+    ,has_manifest tinyint(1) not null default 0
+    ,has_makefile_pl tinyint(1) not null default 0
+    ,has_build_pl tinyint(1) not null default 0
+    ,has_changes tinyint(1) not null default 0
+    ,has_change_log tinyint(1) not null default 0
+    ,has_meta_yml tinyint(1) not null default 0
+    ,has_meta_json tinyint(1) not null default 0
     ,requires text
     ,ctime   int unsigned not null
     ,UNIQUE idx_author_name_version (author, name, version)

@@ -1,4 +1,5 @@
 ? my ($dist, $files) = @_;
+? use String::CamelCase qw/decamelize/;
 ? extends 'base.mt';
 ? block title => 'FrePAN page';
 ? block body_id => 'DistPage';
@@ -13,6 +14,19 @@
 </td>
 <tr><th>Author</th><td><a href="http://search.cpan.org/~<?= lc $dist->author ?>/"><?= $dist->author ?></a></td></tr>
 <tr><th>Links</th><td>[<a href="http://rt.cpan.org/NoAuth/Bugs.html?Dist=<?= $dist->name ?>">View/Report Bugs</a>] [ <a href="http://deps.cpantesters.org/?module=<?= $dist->name ?>;perl=latest">Dependencies</a> ] [ <a href="http://search.cpan.org/~<?= lc $dist->author ?>/<?= $dist->name ?>-<?= $dist->version ?>">search.cpan.org</a> ]</td></tr>
+? for my $meth (qw/license repository homepage bugtracker/) {
+?  if (my $var = $dist->$meth) {
+<tr><th><?= $meth ?></th><td><?= $var ?></td></tr>
+?  }
+? }
+<tr><th>Special Files</th><td>
+? for my $fname (qw/MANIFEST Makefile.PL Build.PL Changes ChangeLog META.yml META.json/) {
+?  (my $key = 'has_' . decamelize($fname)) =~ s/[.]/_/g;
+?  if ( $dist->$key() ) {
+    <a href="/src/<?= uc($dist->author) ?>/<?= $dist->name ?>-<?= $dist->version ?>/<?= $fname ?>"><?= $fname ?></a>
+?  }
+? }
+</td></tr>
 </table>
 
 

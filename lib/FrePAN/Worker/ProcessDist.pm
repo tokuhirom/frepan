@@ -75,11 +75,24 @@ sub run {
             author  => $info->{author},
         }
     );
-    $dist->update({
-        path     => $info->{path},
-        requires => $requires ? encode_json( $requires ) : '',
-        abstract => $meta->{abstract},
-    });
+    $dist->update(
+        {
+            path     => $info->{path},
+            requires => $requires ? encode_json($requires) : '',
+            abstract => $meta->{abstract},
+            repository => $meta->{resources}->{repository} || undef,
+            license    => $meta->{resources}->{license}    || undef,
+            homepage   => $meta->{resources}->{homepage}   || undef,
+            bugtracker => $meta->{resources}->{bugtracker} || undef,
+            has_meta_yml    => ( -f 'META.yml'    ? 1 : 0 ),
+            has_meta_json   => ( -f 'META.json'   ? 1 : 0 ),
+            has_manifest    => ( -f 'MANIFEST'    ? 1 : 0 ),
+            has_makefile_pl => ( -f 'Makefile.PL' ? 1 : 0 ),
+            has_changes     => ( -f 'Changes'     ? 1 : 0 ),
+            has_change_log  => ( -f 'ChangeLog'   ? 1 : 0 ),
+            has_build_pl    => ( -f 'Build.PL'    ? 1 : 0 ),
+        }
+    );
 
     dir('.')->recurse(
         callback => sub {
