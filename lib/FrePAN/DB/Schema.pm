@@ -23,8 +23,11 @@ install_table changes => schema {
     columns qw/dist_id changes_id version body/;
 };
 
+# -------------------------------------------------------------------------
+# cpan db
 
-install_table author => schema {
+# from 01mailrc.txt
+install_table meta_author => schema {
     pk 'pause_id';
     columns qw/pause_id fullname email/;
 };

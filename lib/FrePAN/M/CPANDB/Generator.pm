@@ -17,13 +17,13 @@ sub mk_author {
 
     my @rows;
 
-    db->dbh->do(q{DROP TABLE IF EXISTS author_old});
-    db->dbh->do(q{DROP TABLE IF EXISTS author_tmp});
-    db->dbh->do(q{CREATE TABLE author_tmp LIKE author});
+    db->dbh->do(q{DROP TABLE IF EXISTS meta_author_old});
+    db->dbh->do(q{DROP TABLE IF EXISTS meta_author_tmp});
+    db->dbh->do(q{CREATE TABLE meta_author_tmp LIKE meta_author});
 
     my $insert = sub {
         db->bulk_insert(
-            'author_tmp' => \@rows,
+            'meta_author_tmp' => \@rows,
         );
         @rows = ();
     };
@@ -38,7 +38,7 @@ sub mk_author {
     $insert->() if @rows;
 
     logger->debug("renaming");
-    db->dbh->do(q{RENAME TABLE author TO author_old, author_tmp TO author;});
+    db->dbh->do(q{RENAME TABLE meta_author TO meta_author_old, meta_author_tmp TO meta_author;});
 
     $txn->commit;
 
