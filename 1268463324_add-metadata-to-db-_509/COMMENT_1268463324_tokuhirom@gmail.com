@@ -1,0 +1,8 @@
+- license
+- repository
+- has_manifest
+- has_makefile_pl
+- has_build_pl
+- has_changes
+- has_change_log
+- has_meta_yml
