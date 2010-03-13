@@ -32,4 +32,10 @@ install_table meta_author => schema {
     columns qw/pause_id fullname email/;
 };
 
+# from 02packages.details.txt.gz
+install_table meta_packages => schema {
+    pk 'package';
+    columns qw/package version path/;
+};
+
 1;

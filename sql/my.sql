@@ -53,3 +53,12 @@ CREATE TABLE IF NOT EXISTS meta_author (
     ,email       varchar(255) not null
 ) engine=InnoDB DEFAULT charset=UTF8;
 
+CREATE TABLE IF NOT EXISTS meta_packages (
+     package      varchar(255) BINARY not null PRIMARY KEY
+    ,version      varchar(255) BINARY not null
+    ,path         varchar(255) BINARY not null
+    ,pause_id     varchar(255) BINARY NOT NULL
+    ,dist_name    varchar(255) BINARY NOT NULL
+    ,dist_version varchar(255) BINARY NOT NULL
+) engine=InnoDB DEFAULT charset=UTF8;
+

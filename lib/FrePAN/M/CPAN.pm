@@ -19,7 +19,7 @@ sub dbh { $_[0]->{dbh} }
 
 sub pause_id2gravatar_url {
     my ($self, $pause_id) = @_;
-    my $author = db->single( author => { pause_id => $pause_id } );
+    my $author = db->single( meta_author => { pause_id => $pause_id } );
     if ($author) {
         return gravatar_url(email => $author->email);
     } else {
@@ -30,11 +30,13 @@ sub pause_id2gravatar_url {
 
 sub dist2path {
     my ($self, $distname) = @_;
-    my $sql = "SELECT auths.cpanid, dists.dist_file FROM dists, auths WHERE dist_name=? AND auths.auth_id=dists.auth_id;";
-    my $sth = $self->dbh->prepare($sql);
-    $sth->execute($distname) or die "cannot execute";
-    my ($cpanid, $distfile) = $sth->fetchrow_array();
-    if ($cpanid && $distfile) {
+    my $row = db->single(
+        meta_packages => {
+            dist_name => $distname,
+        }
+    );
+    if ($row) {
+        my ($cpanid, $distfile) = split m{/}, $row->path;
         return File::Spec->catfile(
             $self->{minicpan},
             'authors', 'id',
