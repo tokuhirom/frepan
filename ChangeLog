@@ -1,0 +1,17 @@
+2010-03-13  tokuhirom <tokuhirom atooooo gmail dototettetetete com>
+
+	* いかにしてアップロード日時をえるか:
+
+	http://devel.cpantesters.org/
+
+	こちらから、データを取得できる。backpan からデータをアグリゲートすることも
+	可能らしいが、面倒なので sqlite のデータを取得した方が楽だろう。
+
+	* POD パーザの選択:
+
+	いろいろ種類があるので悩むところだが、Pod::POM がやはりよい。
+	DOM のように操作ができるので便利だ。HTML タグの具合も自由にさしかえられるし。
+
+	次点として Pod::Simple もあげられるが、長年つかってきたので、Pod::POM
+	をこれからもしばらくつかっていこうかとおもっている。
+
