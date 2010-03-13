@@ -5,6 +5,7 @@ use parent qw/Class::Accessor::Fast/;
 use Gravatar::URL qw/gravatar_url/;
 use DBI;
 use Path::Class qw/dir file/;
+use Amon::Declare qw/db/;
 __PACKAGE__->mk_accessors(qw/minicpan/);
 
 sub new {
@@ -18,11 +19,9 @@ sub dbh { $_[0]->{dbh} }
 
 sub pause_id2gravatar_url {
     my ($self, $pause_id) = @_;
-    my $sth = $self->dbh->prepare(q{select email from auths where cpanid=?;});
-    $sth->execute($pause_id) or die "cannot execute";
-    my ($email) = $sth->fetchrow_array();
-    if ($email) {
-        return gravatar_url(email => $email);
+    my $author = db->single( author => { pause_id => $pause_id } );
+    if ($author) {
+        return gravatar_url(email => $author->email);
     } else {
         warn "cannot detect";
         return;

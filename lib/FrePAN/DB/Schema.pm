@@ -23,4 +23,10 @@ install_table changes => schema {
     columns qw/dist_id changes_id version body/;
 };
 
+
+install_table author => schema {
+    pk 'pause_id';
+    columns qw/pause_id fullname email/;
+};
+
 1;

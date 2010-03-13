@@ -47,3 +47,9 @@ CREATE TABLE IF NOT EXISTS changes (
     ,UNIQUE(dist_id, version)
 ) engine=InnoDB DEFAULT charset=UTF8;
 
+CREATE TABLE IF NOT EXISTS author (
+     pause_id    varchar(255) not null PRIMARY KEY
+    ,fullname    varchar(255) not null
+    ,email       varchar(255) not null
+) engine=InnoDB DEFAULT charset=UTF8;
+
