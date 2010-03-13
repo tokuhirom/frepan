@@ -279,20 +279,20 @@ sub read_file {
 
 sub load_meta {
     my $url = shift;
-    if (-f 'META.yml') {
-        try {
-            YAML::Tiny::LoadFile('META.yml');
-        } catch {
-            warn "Cannot open META.yml($url): $_";
-            +{};
-        };
-    } elsif (-f 'META.json') {
+    if (-f 'META.json') {
         try {
             open my $fh, '<', 'META.json';
             my $src = do { local $/; <$fh> };
             decode_json($src);
         } catch {
             warn "cannot open META.json file: $_";
+            +{};
+        };
+    } elsif (-f 'META.yml') {
+        try {
+            YAML::Tiny::LoadFile('META.yml');
+        } catch {
+            warn "Cannot parse META.yml($url): $_";
             +{};
         };
     } else {
