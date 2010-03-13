@@ -10,7 +10,7 @@
 <?= $file->path ?>
 </div>
 
-<div class="source"><a href="http://cpansearch.perl.org/src/<?= uc $dist->author ?>/<?= $dist->name ?>-<?= $dist->version ?>/<?= $file->path ?>">SOURCE</a></div>
+<div class="source"><a href="/src/<?= uc $dist->author ?>/<?= $dist->name ?>-<?= $dist->version ?>/<?= $file->path ?>">SOURCE</a></div>
 
 <div class="pod"><?= encoded_string($file->html) ?></div>
 
