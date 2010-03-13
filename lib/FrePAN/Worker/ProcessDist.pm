@@ -26,7 +26,6 @@ our $PATH;
 
 sub p { use Data::Dumper; warn Dumper(@_) }
 
-sub logger () { c->get("Logger") }
 sub debug ($) { logger->debug(@_) }
 
 sub run {
