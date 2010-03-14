@@ -15,7 +15,7 @@ FrePAN is realtime mirror site of cpan.<a href="/about">see here for more detail
         <pre class="changes"><?= $dist->diff || '' ?></pre>
     </div>
     <div class="author">
-        <a href="http://search.cpan.org/~<?= lc $dist->author ?>/">
+        <a href="/~<?= lc $dist->author ?>/">
         <img src="<?= $dist->{gravatar_url} ?>" class="gravatar" width="80" height="80" />
         <?= lc $dist->author ?>
         </a>

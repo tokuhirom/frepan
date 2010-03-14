@@ -60,5 +60,17 @@ CREATE TABLE IF NOT EXISTS meta_packages (
     ,pause_id     varchar(255) BINARY NOT NULL
     ,dist_name    varchar(255) BINARY NOT NULL
     ,dist_version varchar(255) BINARY NOT NULL
+    ,dist_version_numified varchar(255) BINARY NOT NULL
+) engine=InnoDB DEFAULT charset=UTF8;
+alter table meta_packages add index (pause_id, dist_name, dist_version);
+
+-- select pkg.dist_name, MAX(pkg.dist_version), upl.released from meta_packages as pkg left join meta_uploads as upl on (pkg.dist_name=upl.dist_name AND pkg.pause_id=upl.pause_id) where pkg.pause_id="TOKUHIROM" GROUP BY pkg.dist_name;
+CREATE TABLE IF NOT EXISTS meta_uploads (
+    pause_id      varchar(255) binary not null
+    ,dist_name    varchar(255) binary not null
+    ,dist_version varchar(255) binary not null
+    ,filename     varchar(255) binary not null
+    ,released     int unsigned        not null -- 'unix time'
+    ,PRIMARY KEY (pause_id, dist_name, dist_version)
 ) engine=InnoDB DEFAULT charset=UTF8;
 

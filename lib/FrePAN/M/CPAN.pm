@@ -21,11 +21,16 @@ sub pause_id2gravatar_url {
     my ($self, $pause_id) = @_;
     my $author = db->single( meta_author => { pause_id => $pause_id } );
     if ($author) {
-        return gravatar_url(email => $author->email);
+        return $self->email2gravatar_url($author->email);
     } else {
         warn "cannot detect";
         return;
     }
+}
+
+sub email2gravatar_url {
+    my ($self, $email) = @_;
+    return gravatar_url(email => $email);
 }
 
 sub dist2path {

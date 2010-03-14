@@ -9,6 +9,8 @@ sub dispatch {
         call('Root', 'index');
     } elsif ($path eq '/about') {
         call('Root', 'about');
+    } elsif ($path =~ m{^/~(?<author>[^/]+)/$}) {
+        call('Author', 'show', $+{author});
     } elsif ($path =~ m{^/~(?<author>[^/]+)/(?<dist_ver>[^/]+)/$}) {
         call('Dist', 'show', $+{author}, $+{dist_ver});
     } elsif ($path =~ m{^/~(?<author>[^/]+)/(?<dist_ver>[^/]+)/(?<path>.+)$}) {

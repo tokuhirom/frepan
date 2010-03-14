@@ -1,3 +1,21 @@
+2010-03-14  tokuhirom <tokuhirom atooooo gmail dototettetetete com>
+
+	* author page の生成:
+
+	>||
+	SELECT
+		dist_name, MAX(dist_version)
+	FROM
+		meta_packages AS pkg
+		LEFT JOIN meta_uploads AS upl ON (pkg.dist_name=upl.dist_name)
+	WHERE
+		pause_id='TOKUHIROM'
+	GROUP BY
+		dist_name
+	ORDER BY
+		dist_name;
+	||<
+
 2010-03-13  tokuhirom <tokuhirom atooooo gmail dototettetetete com>
 
 	* いかにしてアップロード日時をえるか:
