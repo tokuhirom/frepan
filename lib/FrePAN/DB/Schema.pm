@@ -38,4 +38,10 @@ install_table meta_packages => schema {
     columns qw/package version path/;
 };
 
+install_table meta_uploads => schema {
+    columns qw/
+        pause_id dist_name dist_version filename released
+    /;
+};
+
 1;
