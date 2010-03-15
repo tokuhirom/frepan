@@ -135,7 +135,7 @@ sub run {
             unless ($pkg) {
                 my $fh = $f->openr or return;
                 SCAN: while (my $line = <$fh>) {
-                    if ($line =~ /^package\s+([a-zA-Z0-9:]+)/) {
+                    if ($line =~ /^package\s+([a-zA-Z0-9:_]+)/) {
                         $pkg = $1;
                         last SCAN;
                     }
