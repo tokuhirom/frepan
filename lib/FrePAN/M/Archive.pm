@@ -7,6 +7,7 @@ use Archive::Zip qw( :ERROR_CODES :CONSTANTS );
 use File::Spec;
 use Try::Tiny;
 use Amon::Declare;
+use File::Path qw/remove_tree/;
 
 sub new { bless {}, shift }
 
@@ -17,6 +18,8 @@ sub extract {
     if ($path =~ /\.(?:tar|tar\.gz|tar\.bz2|tbz|tgz)$/) {
         local $Archive::Tar::CHMOD = 0;
         local $Archive::Tar::CHOWN = 0;
+
+        remove_tree($distvname); # clanup before extract
 
         my $tar = Archive::Tar->new();
         $tar->read($path);
