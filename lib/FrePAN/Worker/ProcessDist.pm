@@ -99,6 +99,7 @@ sub run {
     dir('.')->recurse(
         callback => sub {
             my $f = shift;
+            return if -d $f;
             msg("processing $f");
             # TODO: show script
             unless ($f =~ /(?:\.pm|\.pod)$/) {
@@ -233,7 +234,7 @@ sub get_old_changes {
     my $author = basename(file($path)->dir); # .../A/AU/AUTHOR/Dist-ver.tar.gz
     my $srcdir = dir(config()->{srcdir}, uc($author));
     mkpath($srcdir);
-    die "cannot mkpath '$srcdir': $!" unless $srcdir;
+    die "cannot mkpath '$srcdir': $!" unless -d $srcdir;
     chdir($srcdir);
 
     my $distnameinfo = CPAN::DistnameInfo->new($path);

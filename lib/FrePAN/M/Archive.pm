@@ -15,11 +15,11 @@ sub new { bless {}, shift }
 sub extract {
     my ($self, $distvname, $path) = @_;
 
+    remove_tree($distvname); # clanup before extract
+
     if ($path =~ /\.(?:tar|tar\.gz|tar\.bz2|tbz|tgz)$/) {
         local $Archive::Tar::CHMOD = 0;
         local $Archive::Tar::CHOWN = 0;
-
-        remove_tree($distvname); # clanup before extract
 
         my $tar = Archive::Tar->new();
         $tar->read($path);
@@ -37,7 +37,7 @@ sub extract {
             my @members = $zip->members;
             die "empty archive: $path" unless @members;
             if (index($members[0], $distvname) != 0) {
-                mkdir($distvname);
+                mkdir($distvname) unless -d $distvname;
                 chdir($distvname);
             }
         };
