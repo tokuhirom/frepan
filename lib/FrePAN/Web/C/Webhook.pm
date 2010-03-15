@@ -30,6 +30,7 @@ sub friendfeed {
         for my $entry ($feed->entries) {
             my $content = $entry->content;
             my $info = _parse_entry($content->body);
+            $info->{released} = $entry->issued->epoch;
             if ($info) {
                 c->get('Gearman::Client')->dispatch_background(
                     'frepan/add_dist' => encode_json($info),

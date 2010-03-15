@@ -31,6 +31,7 @@ sub debug ($) { logger->debug(@_) }
 
 sub run {
     my ($class, $info) = @_;
+    $info->{released} or die "missing released date";
 
     local $PATH = $info->{path};
 
@@ -78,6 +79,7 @@ sub run {
     $dist->update(
         {
             path     => $info->{path},
+            released  => $info->{released},
             requires => $requires ? encode_json($requires) : '',
             abstract => $meta->{abstract},
             repository => $meta->{resources}->{repository} || undef,
