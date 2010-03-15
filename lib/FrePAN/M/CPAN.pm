@@ -10,12 +10,8 @@ __PACKAGE__->mk_accessors(qw/minicpan/);
 
 sub new {
     my ($class, $args) = @_;
-    my $dbh = DBI->connect( $args->{dsn}, $args->{username}, $args->{password} )
-      or die "cannot connect db";
-    bless { minicpan => $args->{minicpan}, dbh => $dbh }, $class;
+    bless { minicpan => $args->{minicpan} }, $class;
 }
-
-sub dbh { $_[0]->{dbh} }
 
 sub pause_id2gravatar_url {
     my ($self, $pause_id) = @_;
