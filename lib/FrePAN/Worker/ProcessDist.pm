@@ -299,7 +299,7 @@ sub load_meta {
             +{};
         };
     } else {
-        warn "missing META file in $url:".Cwd::getcwd();
+        logger->info("missing META file in $url:".Cwd::getcwd());
         +{};
     }
 }
