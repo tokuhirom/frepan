@@ -47,7 +47,7 @@ for my $c ('A'..'Z') {
                     $data
                 );
             } catch {
-                logger->error("error $f: $@");
+                logger->error("error $f: $_");
             };
         }
     );
