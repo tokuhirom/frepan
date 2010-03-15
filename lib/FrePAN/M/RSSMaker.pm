@@ -25,7 +25,7 @@ sub generate {
     $feed->title('Yet Another CPAN Recent Changes');
     $feed->link('http://frepan.64p.org/');
     my $iter = $c->db->search_by_sql(
-        q{SELECT dist.name, dist.author, dist.version, dist.path, dist.abstract, changes.body AS diff, dist.ctime FROM dist LEFT JOIN changes ON (changes.dist_id = dist.dist_id) ORDER BY dist.dist_id DESC LIMIT 10}
+        q{SELECT dist.name, dist.author, dist.version, dist.path, dist.abstract, changes.body AS diff, dist.released FROM dist LEFT JOIN changes ON (changes.dist_id = dist.dist_id) ORDER BY dist.dist_id DESC LIMIT 10}
     );
     while (my $row = $iter->next) {
         $feed->add_entry(do {
@@ -35,7 +35,7 @@ sub generate {
                $e->link("http://frepan.64p.org/~@{[ lc($row->author) ]}/@{[ $row->name ]}-@{[ $row->version ]}/");
                $e->author($row->author);
                $e->issued(do {
-                    DateTime->from_epoch(epoch => $row->ctime)
+                    DateTime->from_epoch(epoch => $row->released)
                });
                $e->summary($row->diff);
                $e->content(make_content($row, $gravatar));

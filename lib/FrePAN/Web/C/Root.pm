@@ -7,7 +7,7 @@ sub index {
     my $rows_per_page = 20;
 
     my @entries = db->search_by_sql(
-        "SELECT dist.*, changes.body AS diff FROM dist LEFT JOIN changes ON (changes.dist_id=dist.dist_id) ORDER BY ctime DESC LIMIT @{[ $rows_per_page + 1 ]} OFFSET @{[ $rows_per_page*($page-1) ]}"
+        "SELECT dist.*, changes.body AS diff FROM dist LEFT JOIN changes ON (changes.dist_id=dist.dist_id) ORDER BY released DESC LIMIT @{[ $rows_per_page + 1 ]} OFFSET @{[ $rows_per_page*($page-1) ]}"
     );
     my $has_next =  ($rows_per_page+1 == @entries);
     if ($has_next) { pop @entries }

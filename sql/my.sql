@@ -17,17 +17,9 @@ CREATE TABLE IF NOT EXISTS dist (
     ,has_meta_yml tinyint(1) not null default 0
     ,has_meta_json tinyint(1) not null default 0
     ,requires text
-    ,ctime   int unsigned not null
+    ,released int unsigned not null
     ,UNIQUE idx_author_name_version (author, name, version)
 ) engine=InnoDB DEFAULT charset=UTF8;
-
-DELIMITER |
-CREATE TRIGGER dist_ctime BEFORE INSERT ON dist
-FOR EACH ROW BEGIN
-    SET NEW.ctime = UNIX_TIMESTAMP(NOW());
-END
-|
-DELIMITER ;
 
 CREATE TABLE IF NOT EXISTS file (
      file_id     int unsigned not null AUTO_INCREMENT PRIMARY KEY
