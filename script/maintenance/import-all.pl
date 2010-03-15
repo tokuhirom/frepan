@@ -19,11 +19,23 @@ dir($minicpan, 'authors', 'id')->recurse(
         print "- $f\n";
         (my $path = "$f") =~ s!^\Q$minicpan\E/?authors/id/!!;
         my $info = CPAN::DistnameInfo->new($path);
+        my $upload = db->single(
+            meta_uploads => {
+                pause_id     => $info->cpanid,
+                dist_name    => $info->dist,
+                dist_version => $info->version,
+            }
+        );
+        unless ($upload) {
+            logger->error("missing error");
+            next;
+        }
         my $data = {
             version => $info->version,
             url     => "http://cpan.yahoo.com/authors/id/$path",
             name    => $info->dist,
             path    => $path,
+            released => $upload->released,
         };
         FrePAN::Worker::ProcessDist->run(
             $data
