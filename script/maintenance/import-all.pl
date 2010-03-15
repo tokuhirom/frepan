@@ -6,7 +6,7 @@ use Amon::Declare;
 use CPAN::DistnameInfo;
 use Carp::Always;
 
-my $config = do 'config.pl';
+my $config = @ARGV ? (do shift(@ARGV)) : do 'config.pl';
 my $c = FrePAN->bootstrap(config => $config);
 
 $FrePAN::Worker::VERBOSE = 1;
