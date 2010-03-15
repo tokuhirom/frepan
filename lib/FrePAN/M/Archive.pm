@@ -14,7 +14,7 @@ sub new { bless {}, shift }
 sub extract {
     my ($self, $distvname, $path) = @_;
 
-    if ($path =~ /\.tar/) {
+    if ($path =~ /\.(?:tar|tar\.gz|tar\.bz2|tbz|tgz)$/) {
         local $Archive::Tar::CHMOD = 0;
         local $Archive::Tar::CHOWN = 0;
 
