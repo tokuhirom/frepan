@@ -22,7 +22,7 @@ my $data = {
     released => 1268656856,
 };
 
-my $config = do 'config.pl';
+my $config = @ARGV ? shift(@ARGV) : do 'config.pl';
 my $c = FrePAN->bootstrap(config => $config);
 
 $FrePAN::Worker::VERBOSE = 1;
