@@ -21,6 +21,7 @@ for my $c ('A'..'Z') {
             return unless -f $f;
             return if "$f" =~ /CHECKSUMS$/;
             print "- $f\n";
+            logger->info("# $f");
             (my $path = "$f") =~ s!^\Q$minicpan\E/?authors/id/!!;
             my $info = CPAN::DistnameInfo->new($path);
             my $upload = db->single(
