@@ -5,7 +5,7 @@ use parent qw/Class::Accessor::Fast/;
 use Gravatar::URL qw/gravatar_url/;
 use DBI;
 use Path::Class qw/dir file/;
-use Amon::Declare qw/db/;
+use Amon::Declare qw/db logger/;
 __PACKAGE__->mk_accessors(qw/minicpan/);
 
 sub new {
@@ -19,7 +19,7 @@ sub pause_id2gravatar_url {
     if ($author) {
         return $self->email2gravatar_url($author->email);
     } else {
-        warn "cannot detect";
+        logger->info("cannot detect author: $pause_id");
         return;
     }
 }
