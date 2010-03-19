@@ -203,11 +203,11 @@ sub run {
     $c->model('RSSMaker')->generate();
 
     unless ($DEBUG) {
-        my $result = XMLRPC::Lite->proxy('http://ping.fc2.com/')
+        my $result = XMLRPC::Lite->proxy('http://ping.feedburner.com/')
                                 ->call(
                                 'weblogUpdates.ping',
                                 "Yet Another CPAN Recent Changes",
-                                "http://cpanrecent.64p.org/index.rss"
+                                "http://frepan.64p.org/index.rss"
                     )->result;
         msg($result->{'message'});
     }
