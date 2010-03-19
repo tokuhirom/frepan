@@ -233,8 +233,8 @@ sub get_old_changes {
     }
     my $author = basename(file($path)->dir); # .../A/AU/AUTHOR/Dist-ver.tar.gz
     my $srcdir = dir(config()->{srcdir}, uc($author));
-    mkpath($srcdir);
-    die "cannot mkpath '$srcdir', '$author', '$path': $!" unless -d $srcdir;
+    make_path($srcdir, {error => \my $err});
+    die "cannot mkpath '$srcdir', '$author', '$path': $err" unless -d $srcdir;
     chdir($srcdir);
 
     my $distnameinfo = CPAN::DistnameInfo->new($path);
