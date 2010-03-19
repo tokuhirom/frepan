@@ -6,6 +6,7 @@ use FrePAN;
 use FrePAN::DB;
 use FrePAN::Worker;
 use FrePAN::Worker::ProcessDist;
+use CPAN::DistnameInfo;
 $FrePAN::Worker::ProcessDist::DEBUG=1;
 
 my $url = 'http://friendfeed-api.com/v2/feed/cpan';
@@ -14,13 +15,24 @@ my $url = 'http://friendfeed-api.com/v2/feed/cpan';
 # my $json = '{"version":"0.34","url":"http://cpan.cpantesters.org/authors/id/N/NI/NINE/Inline-Python-0.34.tar.gz","name":"Inline-Python","path":"N/NI/NINE/Inline-Python-0.34.tar.gz"}';
 # my $json = '{"version":"3.10_53","url":"http://cpan.cpantesters.org/authors/id/T/TI/TIMB/Devel-NYTProf-3.10_53.tar.gz","name":"Devel-NYTProf","path":"T/TI/TIMB/Devel-NYTProf-3.10_53.tar.gz","released":1268656856}';
 # my $json = decode_json('{"version":"3.10_53","url":"http://cpan.cpantesters.org/authors/id/T/TI/TIMB/Devel-NYTProf-3.10_53.tar.gz","name":"Devel-NYTProf","path":"T/TI/TIMB/Devel-NYTProf-3.10_53.tar.gz","released":1268656856}');
+#y $data = {
+#   version => 1.53,
+#   url => 'http://search.cpan.org/CPAN/authors/id/G/GA/GAAS/URI-1.53.tar.gz',
+#   name => 'URI',
+#   path => 'G/GA/GAAS/URI-1.53.tar.gz',
+#   released => 1268656856,
+#;
 my $data = {
-    version => 1.53,
-    url => 'http://search.cpan.org/CPAN/authors/id/G/GA/GAAS/URI-1.53.tar.gz',
-    name => 'URI',
-    path => 'G/GA/GAAS/URI-1.53.tar.gz',
+    url => 'http://search.cpan.org/CPAN/authors/id/D/DR/DROLSKY/DateTime-Format-Strptime-1.2000.tar.gz',
     released => 1268656856,
 };
+my $info = CPAN::DistnameInfo->new($data->{url});
+$data->{name} = $info->dist;
+$data->{version} = $info->version;
+$data->{path} = join( '/',
+    substr( $info->cpanid, 0, 1 ),
+    substr( $info->cpanid, 0, 2 ),
+    $info->cpanid, $info->filename );
 
 my $config = @ARGV ? (do shift(@ARGV)) : do 'config.pl';
 my $c = FrePAN->bootstrap(config => $config);
