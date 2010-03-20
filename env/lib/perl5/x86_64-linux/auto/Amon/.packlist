@@ -1,0 +1,163 @@
+/home/tokuhirom/dev/Amon relocate_as=../../../../../../../../../../home/tokuhirom/dev/Amon
+/home/tokuhirom/dev/FrePAN/env/bin/../bin/amon-setup.pl
+/home/tokuhirom/dev/FrePAN/env/bin/../lib/perl5/Amon.pm
+/home/tokuhirom/dev/FrePAN/env/bin/../lib/perl5/Amon/Container.pm
+/home/tokuhirom/dev/FrePAN/env/bin/../lib/perl5/Amon/Declare.pm
+/home/tokuhirom/dev/FrePAN/env/bin/../lib/perl5/Amon/Factory/DBI.pm
+/home/tokuhirom/dev/FrePAN/env/bin/../lib/perl5/Amon/Factory/DataModel.pm
+/home/tokuhirom/dev/FrePAN/env/bin/../lib/perl5/Amon/Logger/LogDispatch.pm
+/home/tokuhirom/dev/FrePAN/env/bin/../lib/perl5/Amon/Manual/Components.ja.pod
+/home/tokuhirom/dev/FrePAN/env/bin/../lib/perl5/Amon/Manual/FAQ.ja.pod
+/home/tokuhirom/dev/FrePAN/env/bin/../lib/perl5/Amon/Manual/HandleStaticFile.ja.pod
+/home/tokuhirom/dev/FrePAN/env/bin/../lib/perl5/Amon/Manual/Intro.ja.pod
+/home/tokuhirom/dev/FrePAN/env/bin/../lib/perl5/Amon/Manual/Mobile.ja.pod
+/home/tokuhirom/dev/FrePAN/env/bin/../lib/perl5/Amon/Manual/TODO.pod
+/home/tokuhirom/dev/FrePAN/env/bin/../lib/perl5/Amon/Manual/Tutorial.ja.pod
+/home/tokuhirom/dev/FrePAN/env/bin/../lib/perl5/Amon/Plugin/FillInForm.pm
+/home/tokuhirom/dev/FrePAN/env/bin/../lib/perl5/Amon/Plugin/HTTPSession.pm
+/home/tokuhirom/dev/FrePAN/env/bin/../lib/perl5/Amon/Plugin/MobileAgent.pm
+/home/tokuhirom/dev/FrePAN/env/bin/../lib/perl5/Amon/Plugin/MobileCharset.pm
+/home/tokuhirom/dev/FrePAN/env/bin/../lib/perl5/Amon/Sense.pm
+/home/tokuhirom/dev/FrePAN/env/bin/../lib/perl5/Amon/Trigger.pm
+/home/tokuhirom/dev/FrePAN/env/bin/../lib/perl5/Amon/Util.pm
+/home/tokuhirom/dev/FrePAN/env/bin/../lib/perl5/Amon/V/JSON.pm
+/home/tokuhirom/dev/FrePAN/env/bin/../lib/perl5/Amon/V/MT.pm
+/home/tokuhirom/dev/FrePAN/env/bin/../lib/perl5/Amon/V/MT/Context.pm
+/home/tokuhirom/dev/FrePAN/env/bin/../lib/perl5/Amon/V/TT.pm
+/home/tokuhirom/dev/FrePAN/env/bin/../lib/perl5/Amon/V/TemplateBase.pm
+/home/tokuhirom/dev/FrePAN/env/bin/../lib/perl5/Amon/Web.pm
+/home/tokuhirom/dev/FrePAN/env/bin/../lib/perl5/Amon/Web/C.pm
+/home/tokuhirom/dev/FrePAN/env/bin/../lib/perl5/Amon/Web/Declare.pm
+/home/tokuhirom/dev/FrePAN/env/bin/../lib/perl5/Amon/Web/Dispatcher.pm
+/home/tokuhirom/dev/FrePAN/env/bin/../lib/perl5/Amon/Web/Dispatcher/HTTPxDispatcher.pm
+/home/tokuhirom/dev/FrePAN/env/bin/../lib/perl5/Amon/Web/Dispatcher/Lite.pm
+/home/tokuhirom/dev/FrePAN/env/bin/../lib/perl5/Amon/Web/Dispatcher/PathAttrRouter.pm
+/home/tokuhirom/dev/FrePAN/env/bin/../lib/perl5/Amon/Web/Dispatcher/RouterSimple.pm
+/home/tokuhirom/dev/FrePAN/env/bin/../lib/perl5/Amon/Web/Request.pm
+/home/tokuhirom/dev/FrePAN/env/bin/../lib/perl5/Amon/Web/Response.pm
+/home/tokuhirom/dev/FrePAN/env/bin/../man/man1/amon-setup.pl.1
+/home/tokuhirom/dev/FrePAN/env/bin/../man/man3/Amon.3
+/home/tokuhirom/dev/FrePAN/env/bin/../man/man3/Amon::Container.3
+/home/tokuhirom/dev/FrePAN/env/bin/../man/man3/Amon::Declare.3
+/home/tokuhirom/dev/FrePAN/env/bin/../man/man3/Amon::Logger::LogDispatch.3
+/home/tokuhirom/dev/FrePAN/env/bin/../man/man3/Amon::Manual::Components.ja.3
+/home/tokuhirom/dev/FrePAN/env/bin/../man/man3/Amon::Manual::FAQ.ja.3
+/home/tokuhirom/dev/FrePAN/env/bin/../man/man3/Amon::Manual::HandleStaticFile.ja.3
+/home/tokuhirom/dev/FrePAN/env/bin/../man/man3/Amon::Manual::Intro.ja.3
+/home/tokuhirom/dev/FrePAN/env/bin/../man/man3/Amon::Manual::Mobile.ja.3
+/home/tokuhirom/dev/FrePAN/env/bin/../man/man3/Amon::Manual::TODO.3
+/home/tokuhirom/dev/FrePAN/env/bin/../man/man3/Amon::Manual::Tutorial.ja.3
+/home/tokuhirom/dev/FrePAN/env/bin/../man/man3/Amon::Plugin::FillInForm.3
+/home/tokuhirom/dev/FrePAN/env/bin/../man/man3/Amon::Plugin::HTTPSession.3
+/home/tokuhirom/dev/FrePAN/env/bin/../man/man3/Amon::Plugin::MobileAgent.3
+/home/tokuhirom/dev/FrePAN/env/bin/../man/man3/Amon::Plugin::MobileCharset.3
+/home/tokuhirom/dev/FrePAN/env/bin/../man/man3/Amon::Util.3
+/home/tokuhirom/dev/FrePAN/env/bin/../man/man3/Amon::V::MT.3
+/home/tokuhirom/dev/FrePAN/env/bin/../man/man3/Amon::V::TT.3
+/home/tokuhirom/dev/FrePAN/env/bin/../man/man3/Amon::Web::C.3
+/home/tokuhirom/dev/FrePAN/env/bin/../man/man3/Amon::Web::Declare.3
+/home/tokuhirom/dev/FrePAN/env/bin/../man/man3/Amon::Web::Dispatcher.3
+/home/tokuhirom/dev/FrePAN/env/bin/../man/man3/Amon::Web::Dispatcher::HTTPxDispatcher.3
+/home/tokuhirom/dev/FrePAN/env/bin/../man/man3/Amon::Web::Dispatcher::Lite.3
+/home/tokuhirom/dev/FrePAN/env/bin/../man/man3/Amon::Web::Dispatcher::PathAttrRouter.3
+/home/tokuhirom/dev/FrePAN/env/bin/../man/man3/Amon::Web::Dispatcher::RouterSimple.3
+/home/tokuhirom/dev/FrePAN/env/bin/../man/man3/Amon::Web::Lite.3
+/home/tokuhirom/dev/FrePAN/env/bin/../man/man3/Amon::Web::Request.3
+/usr/local/app/perl-5.10.1/bin/amon-setup.pl
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon.pm
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/Adapter/DBI.pm relocate_as=../../../Amon/Adapter/DBI.pm
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/Adapter/DataModel.pm relocate_as=../../../Amon/Adapter/DataModel.pm
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/CLI.pm relocate_as=../../../Amon/CLI.pm
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/Cmd.pm relocate_as=../../../Amon/Cmd.pm
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/Component.pm relocate_as=../../../Amon/Component.pm
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/Config.pm relocate_as=../../../Amon/Config.pm
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/Config/Loader/Perl.pm relocate_as=../../../Amon/Config/Loader/Perl.pm
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/Config/Merger/Simple.pm relocate_as=../../../Amon/Config/Merger/Simple.pm
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/Container.pm
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/Context.pm relocate_as=../../../Amon/Context.pm
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/Declare.pm
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/Factory/DBI.pm
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/Factory/DataModel.pm
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/Logger/LogDispatch.pm
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/Manual/Components.ja.pod
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/Manual/FAQ.ja.pod
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/Manual/HandleStaticFile.ja.pod
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/Manual/Intro.ja.pod
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/Manual/Mobile.ja.pod
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/Manual/Note.ja.pod relocate_as=../../../Amon/Manual/Note.ja.pod
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/Manual/TODO.pod
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/Manual/Tutorial.ja.pod
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/Mixin/Context.pm relocate_as=../../../Amon/Mixin/Context.pm
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/Plugin/FillInForm.pm
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/Plugin/HTTPSession.pm
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/Plugin/MobileAgent.pm
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/Plugin/MobileCharset.pm
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/Sense.pm
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/Trigger.pm
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/Util.pm
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/V/JSON.pm
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/V/MT.pm
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/V/MT/Context.pm
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/V/TT.pm
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/V/TemplateBase.pm
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/Web.pm
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/Web/Base.pm relocate_as=../../../Amon/Web/Base.pm
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/Web/C.pm
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/Web/Component.pm relocate_as=../../../Amon/Web/Component.pm
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/Web/Context.pm relocate_as=../../../Amon/Web/Context.pm
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/Web/Declare.pm
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/Web/Dispatcher.pm
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/Web/Dispatcher/HTTPxDispatcher.pm
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/Web/Dispatcher/Lite.pm
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/Web/Dispatcher/PathAttrRouter.pm
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/Web/Dispatcher/RouterSimple.pm
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/Web/Lite.pm
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/Web/Lite/Dispatcher.pm
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/Web/Request.pm
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/Web/Response.pm
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/Web/V/MT.pm relocate_as=../../../Amon/Web/V/MT.pm
+/usr/local/app/perl-5.10.1/lib/site_perl/5.10.1/Amon/Web/V/MT/Context.pm relocate_as=../../../Amon/Web/V/MT/Context.pm
+/usr/local/app/perl-5.10.1/man/man1/amon-setup.pl.1
+/usr/local/app/perl-5.10.1/man/man1/amon-setup.pl.1p relocate_as=../../../../../../man/man1/amon-setup.pl.1p
+/usr/local/app/perl-5.10.1/man/man3/Amon.3
+/usr/local/app/perl-5.10.1/man/man3/Amon.3pm relocate_as=../../../../../../man/man3/Amon.3pm
+/usr/local/app/perl-5.10.1/man/man3/Amon::CLI.3 relocate_as=../../../../../../man/man3/Amon::CLI.3
+/usr/local/app/perl-5.10.1/man/man3/Amon::Cmd.3pm relocate_as=../../../../../../man/man3/Amon::Cmd.3pm
+/usr/local/app/perl-5.10.1/man/man3/Amon::Component.3 relocate_as=../../../../../../man/man3/Amon::Component.3
+/usr/local/app/perl-5.10.1/man/man3/Amon::Config::Loader::Perl.3 relocate_as=../../../../../../man/man3/Amon::Config::Loader::Perl.3
+/usr/local/app/perl-5.10.1/man/man3/Amon::Container.3
+/usr/local/app/perl-5.10.1/man/man3/Amon::Declare.3
+/usr/local/app/perl-5.10.1/man/man3/Amon::Logger::LogDispatch.3
+/usr/local/app/perl-5.10.1/man/man3/Amon::M::DB.3 relocate_as=../../../../../../man/man3/Amon::M::DB.3
+/usr/local/app/perl-5.10.1/man/man3/Amon::M::DBI.3 relocate_as=../../../../../../man/man3/Amon::M::DBI.3
+/usr/local/app/perl-5.10.1/man/man3/Amon::M::DBIxSkinny.3 relocate_as=../../../../../../man/man3/Amon::M::DBIxSkinny.3
+/usr/local/app/perl-5.10.1/man/man3/Amon::Manual::Components.ja.3
+/usr/local/app/perl-5.10.1/man/man3/Amon::Manual::FAQ.ja.3
+/usr/local/app/perl-5.10.1/man/man3/Amon::Manual::HandleStaticFile.ja.3
+/usr/local/app/perl-5.10.1/man/man3/Amon::Manual::Intro.ja.3
+/usr/local/app/perl-5.10.1/man/man3/Amon::Manual::Intro.ja.3pm relocate_as=../../../../../../man/man3/Amon::Manual::Intro.ja.3pm
+/usr/local/app/perl-5.10.1/man/man3/Amon::Manual::Mobile.ja.3
+/usr/local/app/perl-5.10.1/man/man3/Amon::Manual::Note.ja.3pm relocate_as=../../../../../../man/man3/Amon::Manual::Note.ja.3pm
+/usr/local/app/perl-5.10.1/man/man3/Amon::Manual::TODO.3
+/usr/local/app/perl-5.10.1/man/man3/Amon::Manual::Tutorial.ja.3
+/usr/local/app/perl-5.10.1/man/man3/Amon::Manual::Tutorial.ja.3pm relocate_as=../../../../../../man/man3/Amon::Manual::Tutorial.ja.3pm
+/usr/local/app/perl-5.10.1/man/man3/Amon::Plugin::FillInForm.3
+/usr/local/app/perl-5.10.1/man/man3/Amon::Plugin::HTTPSession.3
+/usr/local/app/perl-5.10.1/man/man3/Amon::Plugin::MobileAgent.3
+/usr/local/app/perl-5.10.1/man/man3/Amon::Plugin::MobileCharset.3
+/usr/local/app/perl-5.10.1/man/man3/Amon::Util.3
+/usr/local/app/perl-5.10.1/man/man3/Amon::V::MT.3
+/usr/local/app/perl-5.10.1/man/man3/Amon::V::TT.3
+/usr/local/app/perl-5.10.1/man/man3/Amon::Web.3 relocate_as=../../../../../../man/man3/Amon::Web.3
+/usr/local/app/perl-5.10.1/man/man3/Amon::Web.3pm relocate_as=../../../../../../man/man3/Amon::Web.3pm
+/usr/local/app/perl-5.10.1/man/man3/Amon::Web::C.3
+/usr/local/app/perl-5.10.1/man/man3/Amon::Web::Component.3 relocate_as=../../../../../../man/man3/Amon::Web::Component.3
+/usr/local/app/perl-5.10.1/man/man3/Amon::Web::Context.3pm relocate_as=../../../../../../man/man3/Amon::Web::Context.3pm
+/usr/local/app/perl-5.10.1/man/man3/Amon::Web::Declare.3
+/usr/local/app/perl-5.10.1/man/man3/Amon::Web::Dispatcher.3
+/usr/local/app/perl-5.10.1/man/man3/Amon::Web::Dispatcher::HTTPxDispatcher.3
+/usr/local/app/perl-5.10.1/man/man3/Amon::Web::Dispatcher::Lite.3
+/usr/local/app/perl-5.10.1/man/man3/Amon::Web::Dispatcher::PathAttrRouter.3
+/usr/local/app/perl-5.10.1/man/man3/Amon::Web::Dispatcher::RouterSimple.3
+/usr/local/app/perl-5.10.1/man/man3/Amon::Web::Lite.3
+/usr/local/app/perl-5.10.1/man/man3/Amon::Web::Request.3

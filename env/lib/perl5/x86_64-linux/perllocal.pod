@@ -1,0 +1,22 @@
+=head2 Sun Mar 21 04:20:02 2010: C<Module> L<Amon|Amon>
+
+=over 4
+
+=item *
+
+C<installed into: /home/tokuhirom/dev/FrePAN/env/bin/../lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 0.19>
+
+=item *
+
+C<EXE_FILES: script/amon-setup.pl>
+
+=back
+

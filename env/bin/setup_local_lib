@@ -1,0 +1,4 @@
+export MODULEBUILDRC="/home/tokuhirom/dev/FrePAN/env/.modulebuildrc"
+export PERL_MM_OPT="INSTALL_BASE=/home/tokuhirom/dev/FrePAN/env"
+export PERL5LIB="/home/tokuhirom/dev/FrePAN/env/lib/perl5:/home/tokuhirom/dev/FrePAN/env/lib/perl5/x86_64-linux:$PERL5LIB"
+export PATH="/home/tokuhirom/dev/FrePAN/env/bin:$PATH"
