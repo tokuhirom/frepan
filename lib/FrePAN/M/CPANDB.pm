@@ -1,4 +1,4 @@
-package FrePAN::M::CPANDB::Generator;
+package FrePAN::M::CPANDB;
 use common::sense;
 use Amon::Declare;
 
@@ -24,7 +24,7 @@ sub mk_author {
     };
 
     while (<$fh>) {
-        my ($pauseid, $fullname, $email) = /^alias (\S+)\s*"([^<]+)<([^>]+)>"/
+        my ($pauseid, $fullname, $email) = /^alias (\S+)\s*"([^<]+)<([^>]+)>"/;
         die "cannot parse:$_" unless $email;
         push @rows, {pause_id => $pauseid, fullname => $fullname, email => $email};
         $insert->() if @rows > 1000;
