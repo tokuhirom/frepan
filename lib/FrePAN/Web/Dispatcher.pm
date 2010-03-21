@@ -1,25 +1,13 @@
 package FrePAN::Web::Dispatcher;
-use Amon::Web::Dispatcher;
-use 5.010;
+use Amon::Web::Dispatcher::RouterSimple -base;
+use 5.008001;
 
-sub dispatch {
-    my ($class, $c) = @_;
-    my $path = $c->request->path_info;
-    if ($path eq '/') {
-        call('Root', 'index');
-    } elsif ($path eq '/about') {
-        call('Root', 'about');
-    } elsif ($path =~ m{^/~(?<author>[^/]+)/$}) {
-        call('Author', 'show', $+{author});
-    } elsif ($path =~ m{^/~(?<author>[^/]+)/(?<dist_ver>[^/]+)/$}) {
-        call('Dist', 'show', $+{author}, $+{dist_ver});
-    } elsif ($path =~ m{^/~(?<author>[^/]+)/(?<dist_ver>[^/]+)/(?<path>.+)$}) {
-        call('Dist', 'show_file', $+{author}, $+{dist_ver}, $+{path});
-    } elsif ($path =~ m{^/webhook/friendfeed-cpan$}) {
-        call('Webhook', 'friendfeed');
-    } else {
-        res_404();
-    }
-}
+connect '/',      {controller => 'Root', action => 'index'};
+connect '/about', {controller => 'Root', action => 'about'};
+submapper('/~{author}', {}, {on_match => sub { $_[1]->{author} = uc($_[1]->{author}); 1}})
+    ->connect('/',                     {controller => 'Author', action => 'show'})
+    ->connect('/{dist_ver}/',          {controller => 'Dist', action => 'show'})
+    ->connect('/{dist_ver}/{path:.+}', {controller => 'Dist', action => 'show_file'});
+connect '/webhook/friendfeed-cpan', {controller => 'Webhook', action => 'friendfeed'};
 
 1;

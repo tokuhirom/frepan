@@ -11,7 +11,11 @@ sub _get_dist {
 }
 
 sub show {
-    my ($class, $author, $dist_ver) = @_;
+    my ($class, $c, $args) = @_;
+    my $author = $args->{author}
+        or die;
+    my $dist_ver = $args->{dist_ver}
+        or die;
 
     my $dist = _get_dist($author, $dist_ver);
     $dist->{gravatar_url} = model('CPAN')->pause_id2gravatar_url($dist->author);
@@ -32,8 +36,12 @@ sub show {
 }
 
 sub show_file {
-    my ($class, $author, $dist_ver, $path) = @_;
+    my ($class, $c, $args) = @_;
+    my $author = $args->{author};
+    my $dist_ver = $args->{dist_ver};
+    my $path = $args->{path};
     my $dist = _get_dist($author, $dist_ver);
+
     return res_404() unless $dist;
 
     my $file = db->single(

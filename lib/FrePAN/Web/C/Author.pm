@@ -2,8 +2,8 @@ package FrePAN::Web::C::Author;
 use Amon::Web::C;
 
 sub show {
-    my ($class, $pause_id) = @_;
-    $pause_id = uc($pause_id);
+    my ($class, $c, $args) = @_;
+    my $pause_id = $args->{author};
 
     my $author = db->single( meta_author => { pause_id => $pause_id } )
       or return res_404();
