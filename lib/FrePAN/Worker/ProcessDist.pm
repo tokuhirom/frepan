@@ -110,7 +110,7 @@ sub run {
                 # msg("skip $f, by $no_index");
                 return;
             }
-            if ("$f" =~ m{^(?:t/|inc/|sample/)}) {
+            if ("$f" =~ m{^(?:t/|inc/|sample/|blib/)}) {
                 # msg("skip $f, by $no_index");
                 return;
             }
