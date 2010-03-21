@@ -32,6 +32,7 @@ sub debug ($) { logger->debug(@_) }
 sub run {
     my ($class, $info) = @_;
     $info->{released} or die "missing released date";
+    logger->info("worker start");
 
     local $PATH = $info->{path};
 
