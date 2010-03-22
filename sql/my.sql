@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS dist (
     ,released int unsigned not null
     ,UNIQUE idx_author_name_version (author, name, version)
 ) engine=InnoDB DEFAULT charset=UTF8;
+create index dist_released ON dist (released);
 
 CREATE TABLE IF NOT EXISTS file (
      file_id     int unsigned not null AUTO_INCREMENT PRIMARY KEY
