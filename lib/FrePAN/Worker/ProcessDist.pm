@@ -97,6 +97,17 @@ sub run {
         }
     );
 
+    # Some dists contains symlinks.
+    # symlinks cause deep recursion, or security issue.
+    # I should remove it first.
+    # e.g. C/CM/CMORRIS/Parse-Extract-Net-MAC48-0.01.tar.gz
+    File::Find::Rule->new()
+                    ->symlink()
+                    ->exec( sub {
+                        msg("unlink symlink $_");
+                        unlink $_;
+                    } )
+                    ->in('.');
     dir('.')->recurse(
         callback => sub {
             my $f = shift;
