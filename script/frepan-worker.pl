@@ -14,6 +14,8 @@ use File::Spec;
 use lib File::Spec->catdir($FindBin::Bin, '..', 'lib');
 use FrePAN::Worker;
 use FrePAN::Worker::ProcessDist;
+use Try::Tiny;
+use Amon::Declare qw/logger/;
 
 our $VERSION = '0.01';
 warn "$0 $VERSION\n";
@@ -47,7 +49,12 @@ while ( $pm->signal_received ne 'TERM' ) {
     my $worker = $c->get('Gearman::Worker');
     $worker->register_function( 'frepan/add_dist' => sub {
         my $data = decode_json($_[0]->arg);
-        FrePAN::Worker::ProcessDist->run( $data );
+        try {
+            FrePAN::Worker::ProcessDist->run( $data );
+        } catch {
+            warn "Cannot add the dist: $data->{path}, $_";
+            logger->error($_);
+        };
     });
     $worker->work while 1;
 
