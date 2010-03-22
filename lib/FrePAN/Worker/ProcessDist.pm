@@ -181,7 +181,8 @@ sub run {
 
     # save changes
     my $path = $c->model('CPAN')->dist2path($dist->name);
-    my $old_changes = get_old_changes($path);
+    msg("extract old archive $path");
+    my ($old_changes_file, $old_changes) = get_old_changes($path);
     sub {
         unless ($old_changes) {
             msg "old changes not found";
@@ -193,12 +194,14 @@ sub run {
             msg "missing new changes file";
             return;
         }
+        $new_changes_file = Cwd::abs_path($new_changes_file);
         my $new_changes = read_file($new_changes_file);
         unless ($new_changes) {
             msg "new changes not found";
             return;
         }
         msg "new changes exists";
+        msg "diff -u $old_changes_file $new_changes_file";
         my $diff = make_diff($old_changes, $new_changes);
         my $changes = $c->db->find_or_create(
             changes => {
@@ -253,11 +256,11 @@ sub get_old_changes {
     model('Archive')->extract($distnameinfo->distvname, "$path");
     my @files = File::Find::Rule->new()
                                 ->name('Changes', 'ChangeLog')
-                                ->in($srcdir);
+                                ->in(Cwd::getcwd());
     if (@files && $files[0]) {
         my $res = read_file($files[0]);
         chdir $orig_cwd;
-        return $res;
+        return ($files[0], $res);
     } else {
         chdir $orig_cwd;
         return;

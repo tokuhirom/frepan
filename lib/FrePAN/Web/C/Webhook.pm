@@ -42,6 +42,7 @@ sub friendfeed {
         return res(200, [], ['ok']);
     }
 }
+*post_friendfeed = *friendfeed;
 
 sub _parse_entry {
     my $body = shift;
