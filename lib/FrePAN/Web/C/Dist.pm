@@ -18,7 +18,7 @@ sub show {
         or die;
 
     my $dbh = db->dbh;
-    my $sth = $dbh->prepare(
+    my $dist = $dbh->selectrow_hashref(
         q{
             SELECT
                 dist_id, author, name, version, path, abstract, repository, homepage, bugtracker, license, has_meta_yml, has_meta_json, has_manifest, has_makefile_pl, has_changes, has_change_log, has_build_pl, requires, released, DATE_FORMAT(FROM_UNIXTIME(released), '%Y-%m-%d') AS released_date, meta_author.email
@@ -27,22 +27,27 @@ sub show {
             ORDER BY dist_id DESC
             LIMIT 1
         },
-    );
-    $sth->execute($dist_ver, uc($author)) or die $dbh->errstr;
-
-    my $dist = $sth->fetchrow_hashref
-        or return res_404();
+        {},
+        $dist_ver, uc($author)
+    ) or return res_404();
     $dist->{gravatar_url} = model('CPAN')->email2gravatar_url($dist->{email});
     $dist->{download_url} = model('CPAN')->download_url($dist->{path}, $dist->{released});
-    my @files = db->search(
-        file => {
-            dist_id => $dist->{dist_id},
+
+    $dist->{files} = $dbh->selectall_arrayref(
+        q{
+            SELECT
+                path, package, description, LENGTH(html) AS has_html
+            FROM
+                file
+            WHERE
+                dist_id = ?
+            ORDER BY
+                package ASC
         },
-        {
-            order_by => [ {package => 'ASC'} ],
-        }
+        { Slice => {} },
+        $dist->{dist_id},
     );
-    $dist->{files} = \@files;
+
     render("dist/show.mt", $dist);
 }
 
@@ -52,25 +57,19 @@ sub show_file {
     my $dist_ver = $args->{dist_ver};
     my $path = $args->{path};
 
-    my $dist = do {
-        my $iter = db->search_by_sql(
-            q{select dist_id, author, name, version from dist where concat(name, '-', version) = ? AND author=?  ORDER BY dist_id DESC LIMIT 1},
-            [$dist_ver, uc($author)]
-        );
-        $iter->first;
-    };
-    return res_404() unless $dist;
+    my $dbh = db->dbh;
+    my $dist = $dbh->selectrow_hashref(
+        q{select dist_id, author, name, version from dist where concat(name, '-', version) = ? AND author=?  ORDER BY dist_id DESC LIMIT 1},
+        undef,
+        $dist_ver, uc($author)
+    ) or return res_404();
 
-    my $file = db->single(
-        file => {
-            dist_id => $dist->dist_id,
-            path    => $path,
-        },
-        {
-            order_by => [ { file_id => 'DESC' } ],
-            limit    => 1,
-        }
-    );
+    my $file = $dbh->selectrow_hashref(
+        'select * from file where dist_id=? AND path=? order by file_id DESC LIMIT 1',
+        undef,
+        $dist->{dist_id},
+        $path,
+    ) or return res_404();
 
     render("dist/show_file.mt", $dist, $file);
 }
