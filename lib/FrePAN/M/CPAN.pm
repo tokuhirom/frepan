@@ -51,4 +51,12 @@ sub dist2path {
     }
 }
 
+sub download_url {
+    my ($self, $path, $released) = @_;
+    my $base = time() - $released > 24*60*60 ?
+        'http://search.cpan.org/CPAN/authors/id/'
+        : 'http://cpan.cpantesters.org/authors/id/';
+    return $base . $path;
+}
+
 1;
