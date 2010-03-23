@@ -54,7 +54,7 @@ sub show_file {
 
     my $dist = do {
         my $iter = db->search_by_sql(
-            q{select * from dist where concat(name, '-', version) = ? AND author=?  ORDER BY dist_id DESC LIMIT 1},
+            q{select dist_id, author, name, version from dist where concat(name, '-', version) = ? AND author=?  ORDER BY dist_id DESC LIMIT 1},
             [$dist_ver, uc($author)]
         );
         $iter->first;
