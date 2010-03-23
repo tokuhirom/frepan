@@ -9,15 +9,15 @@ FrePAN is realtime mirror site of cpan.<a href="/about">see here for more detail
 <div class="modules">
 ? for my $dist (@$dists) {
 <div class="module">
-    <h3><img src="/static/img/icons/module.png" /><a href="/~<?= lc $dist->author?>/<?= $dist->name ?>-<?= $dist->version ?>/"><?= $dist->name ?> <?= $dist->version ?></a></h3>
+    <h3><img src="/static/img/icons/module.png" /><a href="/~<?= lc $dist->{author}?>/<?= $dist->{name} ?>-<?= $dist->{version} ?>/"><?= $dist->{name} ?> <?= $dist->{version} ?></a></h3>
     <div class="module-info">
-        <div class="abstract"><?= $dist->abstract || '' ?></div>
-        <pre class="changes"><?= $dist->diff || '' ?></pre>
+        <div class="abstract"><?= $dist->{abstract} || '' ?></div>
+        <pre class="changes"><?= $dist->{diff} || '' ?></pre>
     </div>
     <div class="author">
-        <a href="/~<?= lc $dist->author ?>/">
+        <a href="/~<?= lc $dist->{author} ?>/">
         <img src="<?= $dist->{gravatar_url} ?>" class="gravatar" width="80" height="80" />
-        <?= lc $dist->author ?>
+        <?= lc $dist->{author} ?>
         </a>
     </div>
     <div class="clear-both">&nbsp;</div>
