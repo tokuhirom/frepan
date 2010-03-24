@@ -54,7 +54,7 @@ sub make_content {
 <img src="$gravatar" /><br />
 <pre>@{[ escape_html($row->diff || '') ]}</pre>
 <a href="http://search.cpan.org/dist/@{[ $row->name ]}/">search.cpan.org</a><br />
-<a href="http://cpan.cpantesters.org/authors/id/@{[ escape_html(($row->path) ]}">Download</a>
+<a href="http://cpan.cpantesters.org/authors/id/@{[ escape_html($row->path) ]}">Download</a>
 ...
 }
 
