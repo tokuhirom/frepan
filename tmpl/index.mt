@@ -1,4 +1,4 @@
-? my ($dists, $page, $has_next) = @_;
+? my ($dists, $pager) = @_;
 ? extends 'base.mt';
 ? block body_id => 'RootPage';
 ? block title => 'FrePAN';
@@ -26,17 +26,18 @@ FrePAN is realtime mirror site of cpan.<a href="/about">see here for more detail
 </div>
 
 <div class="pager">
-    <? if ($page != 1) { ?>
-        <a href="<?= uri_for("/", {page => $page - 1 }) ?>" rel="prev" accesskey="4">&lt;Prev</a>
+    <? if (my $prev = $pager->previous_page()) { ?>
+        <a href="<?= uri_for("/", {page => $prev }) ?>" rel="prev" accesskey="4">&lt;Prev</a>
     <? } else { ?>
     &lt;Prev
     <? } ?>
     |
-    <? if ($has_next) { ?>
-    <a href="<?= uri_for("/", {page => $page + 1}) ?>" rel="next" accesskey="6">Next&gt;</a>
+    <? if (my $next = $pager->next_page()) { ?>
+    <a href="<?= uri_for("/", {page => $next}) ?>" rel="next" accesskey="6">Next&gt;</a>
     <? } else { ?>
     Next&gt;
     <? } ?>
+    (<?= $pager->current_page ?>/<?= $pager->last_page ?>)
 </div>
 
 <div class="clear-both"></div>
