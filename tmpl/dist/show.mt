@@ -46,12 +46,12 @@
 </tr>
 ? for my $file (@{$dist->{files}}) {
     <tr>
-? if ($file->html) {
-        <td><a href="/~<?= lc $dist->{author} ?>/<?= $dist->{name} ?>-<?= $dist->{version} ?>/<?= $file->path ?>"><?= $file->package ?></a></td>
+? if ($file->{has_html}) {
+        <td><a href="/~<?= lc $dist->{author} ?>/<?= $dist->{name} ?>-<?= $dist->{version} ?>/<?= $file->{path} ?>"><?= $file->{package} ?></a></td>
 ? } else {
-        <td><?= $file->package ?></td>
+        <td><?= $file->{package} ?></td>
 ? }
-        <td><?= $file->description ?></td>
+        <td><?= $file->{description} ?></td>
     </tr>
 ? }
 </table>

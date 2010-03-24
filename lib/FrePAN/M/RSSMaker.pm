@@ -3,6 +3,7 @@ package FrePAN::M::RSSMaker;
 use strict;use warnings;
 use XML::Feed;
 use autodie;
+use Amon::Sense;
 
 sub new {
     my ($class, $args) = @_;
@@ -51,9 +52,9 @@ sub make_content {
 
     return <<"...";
 <img src="$gravatar" /><br />
-<pre>@{[ $row->diff || '' ]}</pre>
+<pre>@{[ escape_html($row->diff || '') ]}</pre>
 <a href="http://search.cpan.org/dist/@{[ $row->name ]}/">search.cpan.org</a><br />
-<a href="http://cpan.cpantesters.org/authors/id/@{[ $row->path ]}">Download</a>
+<a href="http://cpan.cpantesters.org/authors/id/@{[ escape_html($row->path) ]}">Download</a>
 ...
 }
 

@@ -26,7 +26,7 @@ sub pause_id2gravatar_url {
 
 sub email2gravatar_url {
     my ($self, $email) = @_;
-    return gravatar_url(email => $email);
+    return gravatar_url(email => $email, default => 'http://st.pimg.net/tucs/img/who.png');
 }
 
 sub dist2path {
