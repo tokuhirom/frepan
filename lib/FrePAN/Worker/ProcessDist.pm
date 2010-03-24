@@ -31,6 +31,7 @@ sub debug ($) { logger->debug(@_) }
 
 sub run {
     my ($class, $info) = @_;
+    print "Run $info->{path}\n";
     $info->{released} or die "missing released date";
     logger->info("worker start");
 
@@ -222,7 +223,7 @@ sub run {
                                 ->call(
                                 'weblogUpdates.ping',
                                 "Yet Another CPAN Recent Changes",
-                                "http://frepan.64p.org/index.rss"
+                                "http://frepan.64p.org/"
                     )->result;
         msg($result->{'message'});
     }
