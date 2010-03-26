@@ -63,6 +63,8 @@ sub view {
 sub add_factory {
     my ($class, $target, $factory) = @_;
     if (not ref $factory) {
+        # This feature will remove.
+        Carp::carp("Factory class was deprecated. Will remove.");
         my $factory_class = Amon::Util::load_class($factory, 'Amon::Factory');
         $factory = sub { $factory_class->create(@_) };
     }
@@ -146,6 +148,17 @@ Short cut method for $c->get("DB")
 Create instance of component named "V::$name".
 
 =item __PACKAGE__->add_factory($target, $factory)
+
+    __PACKAGE__->add_factory(
+        'DB' => 'DBI',
+    );
+    __PACKAGE__->add_factory(
+        'MyComponent' => sub {
+            my ($self, $name, $config, @args) = @_;
+            ...
+        },
+    );
+
 
 register factory class to container.
 

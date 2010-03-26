@@ -124,7 +124,7 @@
 .\" ========================================================================
 .\"
 .IX Title "Amon::Container 3"
-.TH Amon::Container 3 "2010-03-13" "perl v5.10.1" "User Contributed Perl Documentation"
+.TH Amon::Container 3 "2010-03-27" "perl v5.10.1" "User Contributed Perl Documentation"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -175,6 +175,18 @@ Create instance of component named \*(L"V::$name\*(R".
 .ie n .IP "_\|_PACKAGE_\|_\->add_factory($target, $factory)" 4
 .el .IP "_\|_PACKAGE_\|_\->add_factory($target, \f(CW$factory\fR)" 4
 .IX Item "__PACKAGE__->add_factory($target, $factory)"
+.Vb 9
+\&    _\|_PACKAGE_\|_\->add_factory(
+\&        \*(AqDB\*(Aq => \*(AqDBI\*(Aq,
+\&    );
+\&    _\|_PACKAGE_\|_\->add_factory(
+\&        \*(AqMyComponent\*(Aq => sub {
+\&            my ($self, $name, $config, @args) = @_;
+\&            ...
+\&        },
+\&    );
+.Ve
+.Sp
 register factory class to container.
 .Sp
 After this, \f(CW$c\fR\->get($target) return the return value of \f(CW$factory\fR\->create($target, \f(CW$c\fR\->config\->{$name}).
