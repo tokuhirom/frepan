@@ -7,7 +7,7 @@ sub index {
     my $rows_per_page = 20;
 
     my $entries = db->dbh->selectall_arrayref(
-        "SELECT dist.name, dist.author, dist.version, dist.abstract, changes.body AS diff, meta_author.email AS email FROM dist LEFT JOIN changes ON (changes.dist_id=dist.dist_id) LEFT JOIN meta_author ON ( meta_author.pause_id=dist.author) ORDER BY released DESC LIMIT @{[ $rows_per_page + 1 ]} OFFSET @{[ $rows_per_page*($page-1) ]}",
+        "SELECT SQL_CACHE dist.name, dist.author, dist.version, dist.abstract, changes.body AS diff, meta_author.email AS email FROM dist LEFT JOIN changes ON (changes.dist_id=dist.dist_id) LEFT JOIN meta_author ON ( meta_author.pause_id=dist.author) ORDER BY released DESC LIMIT @{[ $rows_per_page + 1 ]} OFFSET @{[ $rows_per_page*($page-1) ]}",
         { Slice => {} }
     );
     my $has_next =  ($rows_per_page+1 == @$entries);
