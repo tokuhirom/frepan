@@ -19,7 +19,7 @@
         </div>
         <div class="clear-both"></div>
         <div id="FooterContainer"><div id="Footer">
-            Powered by <a href="http://amon.64p.org/">Amon</a>
+            Powered by <a href="http://amon.64p.org/">Amon <?= $Amon::VERSION ?></a>
         </div></div>
     </div>
 </body>

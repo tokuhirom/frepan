@@ -21,7 +21,6 @@ requires 'TheSchwartz';
 requires 'TheSchwartz::Simple';
 requires 'Class::Accessor::Fast';
 requires 'CPAN::DistnameInfo';
-requires 'Data::Page';
 recursive_author_tests('xt');
 
 WriteAll;
