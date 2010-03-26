@@ -3,3 +3,5 @@ Makefile
 inc/
 MYMETA.yml
 tmp/
+config/development.pl
+config/production.pl

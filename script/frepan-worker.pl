@@ -1,7 +1,6 @@
 use strict;
 use warnings;
 use FrePAN;
-use Gearman::Worker;
 use LWP::UserAgent;
 use Parallel::Prefork;
 use JSON::XS;
@@ -16,6 +15,7 @@ use FrePAN::Worker;
 use FrePAN::Worker::ProcessDist;
 use Try::Tiny;
 use Amon::Declare qw/logger/;
+use FrePAN::ConfigLoader;
 
 our $VERSION = '0.01';
 warn "$0 $VERSION\n";
@@ -27,9 +27,7 @@ $FrePAN::Worker::VERBOSE=1 if $verbose;
 
 my ($c);
 
-my $config_file = shift @ARGV or pod2usage();
-warn "loading config file $config_file\n";
-my $config = do $config_file or die;
+my $config = FrePAN::ConfigLoader->load();
 
 my $pm = Parallel::Prefork->new(
     {
@@ -46,17 +44,11 @@ while ( $pm->signal_received ne 'TERM' ) {
 
     $c = FrePAN->bootstrap(config => $config);
     print "ready for run $$\n";
-    my $worker = $c->get('Gearman::Worker');
-    $worker->register_function( 'frepan/add_dist' => sub {
-        my $data = decode_json($_[0]->arg);
-        try {
-            FrePAN::Worker::ProcessDist->run( $data );
-        } catch {
-            warn "Cannot add the dist: $data->{path}, $_";
-            logger->error($_);
-        };
-    });
-    $worker->work while 1;
+    my $worker = $c->get('TheSchwartz');
+    $worker->can_do( 'FrePAN::Worker::ProcessDist');
+    for (0..100) {
+        sleep 1 unless $worker->work_once();
+    }
 
     $pm->finish;
 }
@@ -68,5 +60,5 @@ __END__
 
 =head1 SYNOPSIS
 
-    % frepan-worker.pl config.pl
+    % frepan-worker.pl
 

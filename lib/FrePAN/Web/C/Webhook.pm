@@ -7,6 +7,7 @@ use File::Slurp;
 my $VALID_TOKEN = 'c5cedc136feeb7674f96b3d7dcde6361';
 
 sub friendfeed {
+    my ($class, $c) = @_;
     my $mode = param('hub.mode') || '';
     if ($mode eq 'subscribe') {
         # TODO: should verify :P
@@ -23,18 +24,15 @@ sub friendfeed {
         }
     } else {
         my $xml = req()->content();
-        open my $fh, '>', '/tmp/push.atom' or die $!;
-        print $fh $xml;
-        close $fh;
         my $feed = XML::Feed->parse(\$xml) or die XML::Feed->errstr;
         for my $entry ($feed->entries) {
             my $content = $entry->content;
             my $info = _parse_entry($content->body);
             $info->{released} = $entry->issued->epoch;
             if ($info) {
-                c->get('Gearman::Client')->dispatch_background(
-                    'frepan/add_dist' => encode_json($info),
-                ) or die "cannot register job";
+                $c->get('TheSchwartz::Simple')->insert(
+                    'add_dist' => encode_json($info),
+                ) or die "cannot register job: $@";
             } else {
                 warn "cannot parse body: @{[ $content->body ]}";
             }

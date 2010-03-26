@@ -1,5 +1,6 @@
 package FrePAN::Worker::ProcessDist;
 use FrePAN::Worker;
+use parent 'TheSchwartz::Worker';
 use File::Basename;
 use URI;
 use Guard;
@@ -29,11 +30,12 @@ sub p { use Data::Dumper; warn Dumper(@_) }
 
 sub debug ($) { logger->debug(@_) }
 
-sub run {
-    my ($class, $info) = @_;
+sub work {
+    my ($class, $job) = @_;
+    my $info = decode_json($job->arg);
     print "Run $info->{path}\n";
     $info->{released} or die "missing released date";
-    logger->info("worker start");
+    logger->info("worker start: @{[ $job->jobid ]}");
 
     local $PATH = $info->{path};
 
@@ -71,6 +73,7 @@ sub run {
 
     my $txn = $c->db->txn_scope;
 
+    debug 'creating database entry';
     my $dist = $c->db->find_or_create(
         dist => {
             name    => $info->{name},
@@ -102,6 +105,7 @@ sub run {
     # symlinks cause deep recursion, or security issue.
     # I should remove it first.
     # e.g. C/CM/CMORRIS/Parse-Extract-Net-MAC48-0.01.tar.gz
+    debug 'removing symlinks';
     File::Find::Rule->new()
                     ->symlink()
                     ->exec( sub {
@@ -109,6 +113,7 @@ sub run {
                         unlink $_;
                     } )
                     ->in('.');
+    debug 'rendering pod';
     dir('.')->recurse(
         callback => sub {
             my $f = shift;
@@ -181,6 +186,7 @@ sub run {
     );
 
     # save changes
+    debug 'make diff';
     my $path = $c->model('CPAN')->dist2path($dist->name);
     msg("extract old archive $path");
     my ($old_changes_file, $old_changes) = get_old_changes($path);
@@ -216,9 +222,11 @@ sub run {
     }->();
 
     # regen rss
+    debug 'regenerate rss';
     $c->model('RSSMaker')->generate();
 
     unless ($DEBUG) {
+        debug 'sending ping';
         my $result = XMLRPC::Lite->proxy('http://ping.feedburner.com/')
                                 ->call(
                                 'weblogUpdates.ping',
@@ -228,10 +236,13 @@ sub run {
         msg($result->{'message'});
     }
 
-
+    debug 'commit';
     $txn->commit;
 
     chdir $orig_cwd;
+
+    debug "finished job";
+    $job->completed;
 }
 
 sub get_old_changes {

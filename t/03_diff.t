@@ -2,6 +2,7 @@ use strict;
 use warnings;
 use Test::More;
 use FrePAN::Worker::ProcessDist;
+use t::Util;
 
 my $new = <<'...';
 foo

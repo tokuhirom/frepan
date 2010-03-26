@@ -4,6 +4,7 @@ use Plack::Test;
 use Plack::Util;
 use Test::More;
 use Test::Requires 'Test::WWW::Mechanize::PSGI';
+use t::Util;
 
 my $app = Plack::Util::load_psgi 'FrePAN.psgi';
 
