@@ -17,6 +17,8 @@ use Try::Tiny;
 use Amon::Declare qw/logger/;
 use FrePAN::ConfigLoader;
 
+select STDOUT;$|++;
+
 our $VERSION = '0.01';
 warn "$0 $VERSION\n";
 
@@ -28,6 +30,7 @@ $FrePAN::Worker::VERBOSE=1 if $verbose;
 my ($c);
 
 my $config = FrePAN::ConfigLoader->load();
+print "loaded configuration\n";
 
 my $pm = Parallel::Prefork->new(
     {
@@ -45,10 +48,19 @@ while ( $pm->signal_received ne 'TERM' ) {
     $c = FrePAN->bootstrap(config => $config);
     print "ready for run $$\n";
     my $worker = $c->get('TheSchwartz');
-    $worker->can_do( 'FrePAN::Worker::ProcessDist');
-    for (0..100) {
-        sleep 1 unless $worker->work_once();
+    use Data::Dumper; warn Dumper($worker);
+    $worker->can_do('FrePAN::Worker::ProcessDist');
+    my $worked  = 0;
+    while ($worked < 1000) {
+        if ($worker->work_once()) {
+            print "worked!\n";
+            $worked++;
+        } else {
+            print "sleep\n";
+            sleep 1;
+        }
     }
+    print "restart $$\n";
 
     $pm->finish;
 }
