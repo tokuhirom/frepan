@@ -31,7 +31,7 @@ sub friendfeed {
             $info->{released} = $entry->issued->epoch;
             if ($info) {
                 $c->get('TheSchwartz::Simple')->insert(
-                    'add_dist' => encode_json($info),
+                    'FrePAN::Worker::ProcessDist' => encode_json($info),
                 ) or die "cannot register job: $@";
             } else {
                 warn "cannot parse body: @{[ $content->body ]}";
