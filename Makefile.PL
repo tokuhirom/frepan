@@ -3,7 +3,6 @@ all_from "lib/FrePAN.pm";
 
 tests 't/*.t t/*/*.t t/*/*/*.t';
 requires 'Amon' => 0.22;
-requires 'Perl6::Say';
 requires 'JSON::XS';
 requires 'URI';
 requires 'LWP::UserAgent';
