@@ -51,6 +51,10 @@ body {
     border-radius: 8px;
     -moz-border-radius: 8px;
     -webkit-border-radius: 8px;
+
+    -webkit-box-shadow: #feeeee 5px 5px 10px;
+    -moz-box-shadow: #feeeee 10px 10px 10px;
+    box-shadow: #feeeee 10px 10px 10px;
 }
 #Content a {
     text-decoration: none;
@@ -91,6 +95,11 @@ body {
     border-radius: 8px;
     -moz-border-radius: 8px;
     -webkit-border-radius: 8px;
+
+    -webkit-box-shadow: #feeeee 5px 5px 10px;
+    -moz-box-shadow: #feeeee 10px 10px 10px;
+    box-shadow: #feeeee 10px 10px 10px;
+
     width: 600px;
     margin-left: 10px;
 }
