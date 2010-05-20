@@ -16,6 +16,7 @@ use FrePAN::Worker::ProcessDist;
 use Try::Tiny;
 use Amon::Declare qw/logger/;
 use FrePAN::ConfigLoader;
+use FrePAN::M::Archive;
 
 select STDOUT;$|++;
 

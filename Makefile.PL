@@ -20,6 +20,7 @@ requires 'TheSchwartz';
 requires 'TheSchwartz::Simple';
 requires 'Class::Accessor::Fast';
 requires 'CPAN::DistnameInfo';
+requires 'Archive::Zip';
 recursive_author_tests('xt');
 
 WriteAll;
