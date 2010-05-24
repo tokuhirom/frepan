@@ -16,8 +16,8 @@ sub init {
         my $self = shift;
         $self->pnotes->{session} ||= do {
             HTTP::Session->new(
-                state   => $state_code->(),
-                store   => $store_code->(),
+                state   => $state_code->($self),
+                store   => $store_code->($self),
                 request => $self->request,
             );
         };
@@ -62,10 +62,21 @@ Amon::Plugin::HTTPSession - Plugin system for Amon
 
     package MyApp::Web;
     use Amon::Web -base;
-    __PACKAGE__->load_plugins(qw/HTTPSession/);
+    use HTTP::Session::Store::Memcached;
+    __PACKAGE__->load_plugins(qw/HTTPSession/ => {
+        state => 'URI',
+        store => sub {
+            my ($c) = @_;
+            HTTP::Session::Store::Memcached->new(
+                memd => $c->get('Cache::Memcached::Fast')
+            );
+        },
+    });
 
     package MyApp::C::Root;
-    use Amon::Web::C;
+    use strict;
+    use warnings;
+    use Amon::Web::Declare;
     sub index {
         my $foo = c->session->get('foo');
         if ($foo) {

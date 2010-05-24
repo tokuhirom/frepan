@@ -1,8 +1,8 @@
 package Amon::Web;
 use strict;
 use warnings;
-use Module::Pluggable::Object;
 use Amon::Util;
+use Amon::Util::Loader;
 use Amon::Trigger;
 use Amon::Container;
 
@@ -15,10 +15,8 @@ sub import {
         strict->import;
         warnings->import;
 
-        # load classes
-        Module::Pluggable::Object->new(
-            'require' => 1, search_path => "${caller}::C"
-        )->plugins;
+        # load controller classes
+        Amon::Util::Loader::load_all("${caller}::C");
 
         my $dispatcher_class = $args{dispatcher_class} || "${caller}::Dispatcher";
         load_class($dispatcher_class);
@@ -41,7 +39,7 @@ sub import {
         add_method($caller, 'response_class', sub { $response_class });
 
         my $default_view_class = $args{default_view_class} or die "missing configuration: default_view_class";
-        load_class($default_view_class, "${base_name}::V");
+        Amon::Util::load_class($default_view_class, "${base_name}::V");
         add_method($caller, 'default_view_class', sub { $default_view_class });
 
         no strict 'refs';
@@ -80,7 +78,7 @@ sub to_app {
     my ($class, %args) = @_;
 
     my $self = $class->new(
-        config   => $args{config},
+         ($args{config} ? (config   => $args{config}) : ()),
     );
     return sub { $self->run(shift) };
 }
@@ -120,5 +118,42 @@ sub uri_for {
     $root . $path . (scalar @q ? '?' . join('&', @q) : '');
 }
 
+sub render {
+    return shift->view()->make_response(@_);
+}
+
+sub render_partial {
+    return shift->view()->render(@_);
+}
+
+sub view {
+    my $self = shift;
+    my $name = @_ == 1 ? $_[0] : $self->default_view_class;
+       $name = "V::$name";
+    my $klass = "@{[ $self->base_name ]}::$name";
+    $self->{components}->{$klass} ||= do {
+        Amon::Util::load_class($klass);
+        my $config = $self->config()->{$name} || +{};
+        $klass->new($self, $config);
+    };
+}
+
+
+# -------------------------------------------------------------------------
+# pluggable things
+
+sub load_plugins {
+    my ($class, @args) = @_;
+    for (my $i=0; $i<@args; $i+=2) {
+        my ($module, $conf) = ($args[$i], $args[$i+1]);
+        $class->load_plugin($module, $conf);
+    }
+}
+
+sub load_plugin {
+    my ($class, $module, $conf) = @_;
+    $module = Amon::Util::load_class($module, 'Amon::Plugin');
+    $module->init($class, $conf);
+}
 
 1;

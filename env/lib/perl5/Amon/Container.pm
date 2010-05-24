@@ -1,62 +1,31 @@
 package Amon::Container;
+# This class should not contain any Amon specific feature.
 use strict;
 use warnings;
+use parent 'Class::Data::Inheritable';
 use Amon::Util ();
+
+__PACKAGE__->mk_classdata('_factory_map' => +{});
 
 sub new {
     my $class = shift;
-    my %args = @_ == 1 ? %{$_[0]} : @_;
-    bless {%args}, $class;
+    my %args = @_ == 1 ? %{ $_[0] } : @_;
+    bless { config => +{}, %args }, $class;
 }
 
-# for CLI
-sub bootstrap {
-    my $class = shift;
-    my $self = $class->new(@_);
-    Amon->set_context($self);
-    return $self;
-}
-
-sub config { $_[0]->{config} || +{} }
+sub config { $_[0]->{config} }
 
 sub get {
     my ($self, $name, @args) = @_;
     $self->{components}->{$name} ||= do {
         my $config = $self->config()->{$name} || +{};
-        if (my $factory = $self->get_factory($name)) {
+        if (my $factory = $self->_factory_map->{$name}) {
             $factory->($self, $name, $config, @args);
         } else {
             my $klass = "@{[ $self->base_name ]}::$name";
             Amon::Util::load_class($klass);
             $klass->new($config);
         }
-    };
-}
-
-sub model {
-    my ($self, $name) = @_;
-    $self->get("M::$name");
-}
-
-sub logger {
-    my ($self) = @_;
-    $self->get("Logger");
-}
-
-sub db {
-    my $self = shift;
-    $self->get(join('::', "DB", @_));
-}
-
-sub view {
-    my $self = shift;
-    my $name = @_ == 1 ? $_[0] : $self->default_view_class;
-       $name = "V::$name";
-    my $klass = "@{[ $self->base_name ]}::$name";
-    $self->{components}->{$klass} ||= do {
-        Amon::Util::load_class($klass);
-        my $config = $self->config()->{$name} || +{};
-        $klass->new($self, $config);
     };
 }
 
@@ -69,32 +38,6 @@ sub add_factory {
         $factory = sub { $factory_class->create(@_) };
     }
     $class->_factory_map->{$target} = $factory;
-}
-sub get_factory {
-    my ($class, $target) = @_;
-    $class = ref $class if ref $class;
-    $class->_factory_map->{$target};
-}
-
-# -------------------------------------------------------------------------
-
-sub add_method {
-    my ($class, $name, $code) = @_;
-    Amon::Util::add_method($class, $name, $code);
-}
-
-sub load_plugins {
-    my ($class, @args) = @_;
-    for (my $i=0; $i<@args; $i+=2) {
-        my ($module, $conf) = ($args[$i], $args[$i+1]);
-        $class->load_plugin($module, $conf);
-    }
-}
-
-sub load_plugin {
-    my ($class, $module, $conf) = @_;
-    $module = Amon::Util::load_class($module, 'Amon::Plugin');
-    $module->init($class, $conf);
 }
 
 1;

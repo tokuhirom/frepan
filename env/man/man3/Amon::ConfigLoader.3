@@ -123,66 +123,14 @@
 .rm #[ #] #H #V #F C
 .\" ========================================================================
 .\"
-.IX Title "Amon::V::MT 3"
-.TH Amon::V::MT 3 "2010-05-02" "perl v5.12.1" "User Contributed Perl Documentation"
+.IX Title "Amon::ConfigLoader 3"
+.TH Amon::ConfigLoader 3 "2010-05-17" "perl v5.12.1" "User Contributed Perl Documentation"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
 .nh
 .SH "NAME"
-Amon::V::MT \- Amon Text::MicroTemplate View Class
-.SH "SYNOPSIS"
-.IX Header "SYNOPSIS"
-.Vb 3
-\&    package MyApp::V::MT;
-\&    use Amon::V::MT \-base;
-\&    1;
-.Ve
+Amon::ConfigLoader \- configuration file loader for Amon
 .SH "DESCRIPTION"
 .IX Header "DESCRIPTION"
-This is Text::MicroTemplate wrapper for Amon.
-.PP
-This module contains memory cache/file cache feature.
-.SH "CONFIGURATION"
-.IX Header "CONFIGURATION"
-.IP "include_path" 4
-.IX Item "include_path"
-Set the include path by arrayref.
-.IP "cache_mode" 4
-.IX Item "cache_mode"
-This module supports multiple cache strategy.You can set the option in configuration.
-.Sp
-.Vb 10
-\&    use Amon::V::MT;
-\&    MyApp\->bootstrap(
-\&        {
-\&            config => {
-\&                \*(AqV::MT\*(Aq => {
-\&                    cache_mode => Amon::V::MT::CACHE_FILE(),
-\&                }
-\&            }
-\&        }
-\&    );
-.Ve
-.Sp
-You can use following bitmask.
-.RS 4
-.IP "\s-1CACHE_FILE\s0" 4
-.IX Item "CACHE_FILE"
-cache the compiled template in file.
-.IP "\s-1CACHE_MEMORY\s0" 4
-.IX Item "CACHE_MEMORY"
-cache the compiled template on memory.
-.IP "\s-1CACHE_NO_CHECK\s0" 4
-.IX Item "CACHE_NO_CHECK"
-Do not check the file modification time for each request.
-If you want to use this bit, you should clear cache manually.
-.RE
-.RS 4
-.RE
-.IP "cache_dir" 4
-.IX Item "cache_dir"
-Specify the cache directory for \s-1CACHE_FILE\s0 option.
-.SH "SEE ALSO"
-.IX Header "SEE ALSO"
-Text::MicroTemplate, Amon
+This is configuration file loader for Amon.
