@@ -9,14 +9,14 @@ FrePAN is realtime mirror site of cpan.<a href="/about">see here for more detail
 <div class="modules">
 ? for my $dist (@$dists) {
 <div class="module">
-    <h3><img src="/static/img/icons/module.png" /><a href="/~<?= lc $dist->{author}?>/<?= $dist->{name} ?>-<?= $dist->{version} ?>/"><?= $dist->{name} ?> <?= $dist->{version} ?></a></h3>
+    <h3><img src="/static/img/icons/module.png" alt="." /><a href="/~<?= lc $dist->{author}?>/<?= $dist->{name} ?>-<?= $dist->{version} ?>/"><?= $dist->{name} ?> <?= $dist->{version} ?></a></h3>
     <div class="module-info">
         <div class="abstract"><?= $dist->{abstract} || '' ?></div>
         <pre class="changes"><?= $dist->{diff} || '' ?></pre>
     </div>
     <div class="author">
         <a href="/~<?= lc $dist->{author} ?>/">
-        <img src="<?= $dist->{gravatar_url} ?>" class="gravatar" width="80" height="80" />
+        <img src="<?= $dist->{gravatar_url} ?>" class="gravatar" width="80" height="80" alt="<?= $dist->{author} ?>" />
         <?= lc $dist->{author} ?>
         </a>
     </div>
@@ -42,7 +42,7 @@ FrePAN is realtime mirror site of cpan.<a href="/about">see here for more detail
 <div class="clear-both"></div>
 
 <a href="http://feeds.feedburner.com/YetAnotherCpanRecentChanges">
-<img src="/static/img/icons/feed.png" width="28" height="28" />
+<img src="/static/img/icons/feed.png" width="28" height="28" alt="feed" />
 </a>
 <br />
 
