@@ -21,6 +21,7 @@ requires 'TheSchwartz::Simple';
 requires 'Class::Accessor::Fast';
 requires 'CPAN::DistnameInfo';
 requires 'Archive::Zip';
+requires 'Cache::Memcached::Fast' => 0.19;
 recursive_author_tests('xt');
 
 WriteAll;

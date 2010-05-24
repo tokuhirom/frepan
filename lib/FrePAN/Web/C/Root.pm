@@ -1,27 +1,59 @@
 package FrePAN::Web::C::Root;
-use Amon::Web::C;
+use strict;
+use warnings;
+use SQL::Interp qw/sql_interp/;
 
 sub index {
-    my $page = param('page') || 1;
+    my ($class, $c) = @_;
+
+    my $page = $c->req->param('page') || 1;
     $page =~ /^[0-9]+$/ or die "bad page number: $page";
     my $rows_per_page = 20;
 
-    my $entries = db->dbh->selectall_arrayref(
-        "SELECT SQL_CACHE dist.name, dist.author, dist.version, dist.abstract, changes.body AS diff, meta_author.email AS email FROM dist LEFT JOIN changes ON (changes.dist_id=dist.dist_id) LEFT JOIN meta_author ON ( meta_author.pause_id=dist.author) ORDER BY released DESC LIMIT @{[ $rows_per_page + 1 ]} OFFSET @{[ $rows_per_page*($page-1) ]}",
+    my $dbh = $c->db->dbh;
+    my $entries = $dbh->selectall_arrayref(
+        "SELECT SQL_CACHE dist.dist_id, dist.name, dist.author, dist.version, dist.abstract FROM dist ORDER BY released DESC LIMIT @{[ $rows_per_page + 1 ]} OFFSET @{[ $rows_per_page*($page-1) ]}",
         { Slice => {} }
     );
+
+    # fill email address
+    my $pause_id2email = $c->memcached->get_or_set_cb(
+        "pause_id2email:2" => 24 * 60 * 60 => sub {
+            +{ map { $_->[0] => $_->[1] } @{
+                $dbh->selectall_arrayref(
+                    q{SELECT pause_id, email FROM meta_author})
+              } };
+        }
+    );
+    for my $entry (@$entries) {
+        $entry->{email} = $pause_id2email->{$entry->{author}};
+    }
+
+    # fill changes
+    if (@$entries) {
+        my @dist_ids = map { $_->{dist_id} } @$entries;
+        my ($sql, @bind) = sql_interp q{SELECT dist_id, body FROM changes WHERE dist_id IN }, \@dist_ids;
+        my %rows =
+          ( map { $_->[0] => $_->[1] }
+              @{ $dbh->selectall_arrayref( $sql, {}, @bind ) } );
+        for my $entry (@$entries) {
+            $entry->{diff} = $rows{$entry->{dist_id}};
+        }
+    }
+
     my $has_next =  ($rows_per_page+1 == @$entries);
     if ($has_next) { pop @$entries }
 
-    my $cpan = model('CPAN');
+    my $cpan = $c->get('M::CPAN');
     for (@$entries) {
         $_->{gravatar_url} = $cpan->email2gravatar_url($_->{email});
     }
-    render("index.mt", $entries, $page, $has_next);
+    return $c->render("index.mt", $entries, $page, $has_next);
 }
 
 sub about {
-    render('about.mt')
+    my ($class, $c) = @_;
+    $c->render('about.mt');
 }
 
 1;
