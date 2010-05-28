@@ -16,8 +16,7 @@
 ? for my $dist (@$packages) {
 <tr>
     <td><?= $dist->{dist_name} ?>-<?= $dist->{dist_version} ?></td>
-    <!-- <td><?= $dist->{abstract}  ?></td> -->
-    <td><?= $dist->{released} ?></td>
+    <td><?= $dist->{released} // '' ?></td>
 </tr>
 ? }
 </table>
