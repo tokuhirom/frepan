@@ -1,4 +1,4 @@
-? my ($author, $iter) = @_;
+? my ($author, $packages) = @_;
 ? extends 'base.mt';
 ? block body_id => 'RootPage';
 ? block title => 'FrePAN';
@@ -13,11 +13,11 @@
     <!-- <th>Abstract</th> -->
     <th>Released</th>
 </tr>
-? while (my $dist = $iter->next) {
+? for my $dist (@$packages) {
 <tr>
-    <td><?= $dist->dist_name ?>-<?= $dist->dist_version ?></td>
-    <!-- <td><?= $dist->abstract  ?></td> -->
-    <td><?= $dist->released  ?></td>
+    <td><?= $dist->{dist_name} ?>-<?= $dist->{dist_version} ?></td>
+    <!-- <td><?= $dist->{abstract}  ?></td> -->
+    <td><?= $dist->{released} ?></td>
 </tr>
 ? }
 </table>
