@@ -16,7 +16,7 @@ sub show {
 
     # fill release date
     my ( $sql, @bind ) = sql_interp(
-        q{SELECT dist_name, DATE_FORMAT(FROM_UNIXTIME(MAX(released)), '%Y-%m-%d') AS released FROM meta_uploads WHERE dist_name IN },
+        q{SELECT dist_name, DATE_FORMAT(FROM_UNIXTIME(MAX(released)), '%Y-%m-%d') AS released FROM meta_uploads WHERE pause_id=}, \$pause_id, q{ AND dist_name IN },
         [ map { $_->{dist_name} } @$packages ],
         q{ GROUP BY dist_version}
     );
