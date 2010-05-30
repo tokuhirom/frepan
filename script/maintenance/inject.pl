@@ -15,7 +15,7 @@ print "injecting: $json\n";
 my $config = FrePAN::ConfigLoader->load();
 my $c = FrePAN->bootstrap(config => $config);
 my $sch = $c->get('TheSchwartz::Simple');
-use Data::Dumper; warn Dumper($config);
+# use Data::Dumper; warn Dumper($config);
 $sch->insert("FrePAN::Worker::ProcessDist", $json) or die $@;
 exit;
 
