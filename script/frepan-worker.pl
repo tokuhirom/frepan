@@ -57,7 +57,7 @@ while ( $pm->signal_received ne 'TERM' ) {
             print "worked!\n";
             $worked++;
         } else {
-            print "sleep\n";
+            # print "sleep\n";
             sleep 1;
         }
     }
