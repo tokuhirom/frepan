@@ -48,7 +48,8 @@ sub _parse_entry {
     # version number:
     #   1.6.3a
     #   v1.0.3
-    if ($body =~ m!([\w\-]+) (v?[0-9\._]*[a-z]?) by (.+?) - <a.*href="(http:.*?/authors/id/(.*?\.tar\.gz))"!) {
+    #   PNI-Node-Tk 0.02-withoutworldwriteables by Casati Gianluca <-- yes. it's invalid. but, parser should show tolerance.
+    if ($body =~ m!([\w\-]+) (v?[0-9\._-]*[a-z]*) by (.+?) - <a.*href="(http:.*?/authors/id/(.*?\.tar\.gz))"!) {
         return {
             name        => $1,
             version     => $2,
