@@ -33,7 +33,7 @@ sub debug ($) { logger->debug(@_) }
 sub work {
     my ($class, $job) = @_;
     my $info = decode_json($job->arg);
-    print "Run $info->{path}\n";
+    print "Run $info->{path} @{[ $job->jobid ]}\n";
     $info->{released} or die "missing released date";
     logger->info("worker start: @{[ $job->jobid ]}");
 
