@@ -107,20 +107,18 @@ sub mk_uploads {
 sub _swap {
     my ($self, $table, $cb) = @_;
 
+    logger->debug("creating $table");
+
     my $txn = db->txn_scope();
     my $dbh = db->dbh;
-    $dbh->do(qq(DROP TABLE IF EXISTS meta_${table}_old));
-    $dbh->do(qq(DROP TABLE IF EXISTS meta_${table}_tmp));
-    $dbh->do(qq(CREATE TABLE meta_${table}_tmp LIKE meta_${table}));
+    $dbh->do(qq(DELETE FROM meta_${table}));
 
-    my $rows = FrePAN::M::CPANDB::Generator::Inserter->new("meta_${table}_tmp");
+    my $rows = FrePAN::M::CPANDB::Generator::Inserter->new("meta_${table}");
 
     $cb->($rows);
     $rows->insert();
 
     logger->debug('renaming');
-    $dbh->do(qq(RENAME TABLE meta_${table} TO meta_${table}_old, meta_${table}_tmp TO meta_${table};));
-    $dbh->do(qq(DROP TABLE meta_${table}_old));
 
     $txn->commit();
 }
