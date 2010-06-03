@@ -22,6 +22,7 @@ use Carp ();
 use Try::Tiny;
 use Amon::Declare;
 use CPAN::DistnameInfo;
+use Data::Dumper;
 
 our $DEBUG;
 our $PATH;
@@ -33,7 +34,7 @@ sub debug ($) { logger->debug(@_) }
 sub work {
     my ($class, $job) = @_;
     my $info = decode_json($job->arg);
-    print "Run $info->{path} @{[ $job->jobid ]}\n";
+    print "Run $info->{path} @{[ $job->jobid ]}, @{[ $job->arg ]}\n";
     $info->{released} or die "missing released date";
     logger->info("worker start: @{[ $job->jobid ]}");
 
@@ -43,7 +44,7 @@ sub work {
 
     my ($author) = ($info->{path} =~ m{^./../([^/]+)/});
     $info->{author} = $author;
-    die "cannot detect author: '$info->{path}'" unless $author;
+    die "cannot detect author: @{[ $job->jobid ]}, @{[ $job->arg ]}" unless $author;
 
     # fetch archive
     my $archivepath = file($c->model('CPAN')->minicpan, 'authors', 'id', $info->{path})->absolute;
@@ -67,7 +68,13 @@ sub work {
 
     # render and register files.
     my $meta = load_meta($info->{url});
-    my $no_index = join '|', map { quotemeta $_ } @{$meta->{no_index}->{directory} || []};
+    my $no_index = join '|', map { quotemeta $_ } @{
+        do {
+            my $x = $meta->{no_index}->{directory} || [];
+            $x = [$x] unless ref $x; # http://cpansearch.perl.org/src/CFAERBER/Net-IDN-Nameprep-1.100/META.yml
+            $x;
+          }
+      };
        $no_index = qr/^(?:$no_index)/ if $no_index;
     my $requires = $meta->{requires};
 
