@@ -1,5 +1,8 @@
 package FrePAN::Web::C::Dist;
+use strict;
+use warnings;
 use Amon::Web::C;
+use String::CamelCase qw/decamelize/;
 
 sub _get_dist {
     my ($author, $dist_ver) = @_;
@@ -17,7 +20,7 @@ sub show {
     my $dist_ver = $args->{dist_ver}
         or die;
 
-    my $dbh = db->dbh;
+    my $dbh = $c->db->dbh;
     my $dist = $dbh->selectrow_hashref(
         q{
             SELECT
@@ -48,7 +51,16 @@ sub show {
         $dist->{dist_id},
     );
 
-    render("dist/show.mt", $dist);
+    # detect special files
+    my @special_files;
+    for my $fname ('MANIFEST', 'Makefile.PL', 'Build.PL', 'Changes', 'ChangeLog', 'META.yml', 'META.json') {
+        (my $key = 'has_' . decamelize($fname)) =~ s/[.]/_/g;
+        if ($dist->{$key}) {
+            push @special_files, $fname;
+        }
+    }
+
+    return $c->render("dist/show.tx", {dist => $dist, special_files => \@special_files});
 }
 
 sub show_file {
@@ -60,18 +72,18 @@ sub show_file {
     my $dbh = db->dbh;
     my $dist = $dbh->selectrow_hashref(
         q{select dist_id, author, name, version from dist where concat(name, '-', version) = ? AND author=?  ORDER BY dist_id DESC LIMIT 1},
-        undef,
+        {},
         $dist_ver, uc($author)
     ) or return res_404();
 
     my $file = $dbh->selectrow_hashref(
         'select * from file where dist_id=? AND path=? order by file_id DESC LIMIT 1',
-        undef,
+        {},
         $dist->{dist_id},
         $path,
     ) or return res_404();
 
-    render("dist/show_file.mt", $dist, $file);
+    $c->render("dist/show_file.tx", {dist => $dist, file => $file});
 }
 
 1;

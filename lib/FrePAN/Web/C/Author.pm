@@ -42,7 +42,7 @@ sub show {
 #           pkg.dist_name
 #   }, [$pause_id]);
 
-    $c->render('author/show.mt', $author, $packages);
+    $c->render('author/show.tx', {author => $author, packages => $packages});
 }
 
 1;

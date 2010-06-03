@@ -1,0 +1,8 @@
+        </div>
+        <div class="clear-both"></div>
+        <div id="FooterContainer"><div id="Footer">
+            Powered by <a href="http://amon.64p.org/">Amon [% amon_version() %]</a>
+        </div></div>
+    </div>
+</body>
+</html>

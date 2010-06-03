@@ -1,0 +1,20 @@
+[% INCLUDE 'include/header.tx' WITH bodyID="RootPage" %]
+
+<h1>[% author.fullname %]</h1>
+<img src="[% email2gravatar_url(author.email) %]" alt="[% author.fullname %]" />
+
+<table>
+<tr>
+    <th>Distribution</th>
+    <!-- <th>Abstract</th> -->
+    <th>Released</th>
+</tr>
+[% FOR dist IN packages %]
+<tr>
+    <td>[% dist.dist_name %]-[% dist.dist_version %]</td>
+    <td>[% dist.released // '' %]</td>
+</tr>
+[% END %]
+</table>
+
+[% INCLUDE 'include/footer.tx' %]

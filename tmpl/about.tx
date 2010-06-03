@@ -1,8 +1,4 @@
-? my ($dists, $page, $has_next) = @_;
-? extends 'base.mt';
-? block body_id => 'RootPage';
-? block title => 'About FrePAN';
-? block content => sub {
+[% INCLUDE 'include/header.tx' %]
 
 <h2>about FrePAN</h2>
 
@@ -30,4 +26,4 @@ If you want to get the non-fresh cpan modules, please use <a href="http://search
     This bot gets information from cpantesters fresh mirror.
 </p>
 
-? };
+[% INCLUDE 'include/footer.tx' %]

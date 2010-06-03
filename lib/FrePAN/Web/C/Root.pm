@@ -48,12 +48,13 @@ sub index {
     for (@$entries) {
         $_->{gravatar_url} = $cpan->email2gravatar_url($_->{email});
     }
-    return $c->render("index.mt", $entries, $page, $has_next);
+    return $c->render( "index.tx",
+        { dists => $entries, page => $page, has_next => $has_next } );
 }
 
 sub about {
     my ($class, $c) = @_;
-    $c->render('about.mt');
+    $c->render('about.tx');
 }
 
 1;
