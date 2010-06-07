@@ -118,8 +118,6 @@ sub _swap {
     $cb->($rows);
     $rows->insert();
 
-    logger->debug('renaming');
-
     $txn->commit();
 }
 
