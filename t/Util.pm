@@ -1,24 +1,26 @@
-package t::Util;
-use common::sense;
-use DBI;
-use Amon::Sense;
+use 5.013002;
 
-$ENV{PLACK_ENV} = 'test';
+package t::Util {
+    use DBI;
 
-# initialize database
+    sub slurp { open my $fh, '<', $_[0] or die "cannot open file $_[0]"; do { local $/; <$fh> } }
 
-my $dbh = DBI->connect('dbi:mysql:mysql_read_default_file=/etc/my.cnf;mysql_multi_statements=1', 'root', '');
+    $ENV{PLACK_ENV} = 'test';
 
-my $app_schema = slurp 'sql/my.sql';
-$dbh->do(q{DROP DATABASE IF EXISTS test_FrePAN;});
-$dbh->do(q{CREATE DATABASE test_FrePAN;});
-$dbh->do(q{USE test_FrePAN;});
-$dbh->do($app_schema);
+    # initialize database
 
-my $sch_schema = slurp 'sql/schwartz.sql';
-$dbh->do(q{DROP DATABASE IF EXISTS test_FrePAN_sch;});
-$dbh->do(q{CREATE DATABASE test_FrePAN_sch;});
-$dbh->do(q{USE test_FrePAN_sch;});
-$dbh->do($sch_schema);
+    my $dbh = DBI->connect('dbi:mysql:mysql_read_default_file=/etc/my.cnf;mysql_multi_statements=1', 'root', '');
 
-1;
+    my $app_schema = slurp 'sql/my.sql';
+    $dbh->do(q{DROP DATABASE IF EXISTS test_FrePAN;});
+    $dbh->do(q{CREATE DATABASE test_FrePAN;});
+    $dbh->do(q{USE test_FrePAN;});
+    $dbh->do($app_schema);
+
+    my $sch_schema = slurp 'sql/schwartz.sql';
+    $dbh->do(q{DROP DATABASE IF EXISTS test_FrePAN_sch;});
+    $dbh->do(q{CREATE DATABASE test_FrePAN_sch;});
+    $dbh->do(q{USE test_FrePAN_sch;});
+    $dbh->do($sch_schema);
+
+}
