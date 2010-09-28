@@ -16,7 +16,8 @@ use Cwd;
 use DateTime;
 use File::Find::Rule;
 use Algorithm::Diff;
-use XMLRPC::Lite;
+use RPC::XML;
+use RPC::XML::Client;
 use File::Path qw/rmtree make_path mkpath/;
 use Carp ();
 use Try::Tiny;
@@ -234,13 +235,8 @@ sub work {
 
     unless ($DEBUG) {
         debug 'sending ping';
-        my $result = XMLRPC::Lite->proxy('http://ping.feedburner.com/')
-                                ->call(
-                                'weblogUpdates.ping',
-                                "Yet Another CPAN Recent Changes",
-                                "http://frepan.64p.org/"
-                    )->result;
-        msg($result->{'message'});
+        my $result = $class->send_ping();
+        msg($result ? $result->value : "Error: $result");
     }
 
     debug 'commit';
@@ -250,6 +246,15 @@ sub work {
 
     debug "finished job";
     $job->completed;
+}
+
+sub send_ping {
+    my $result =
+        RPC::XML::Client->new('http://ping.feedburner.com/')
+        ->send_request( 'weblogUpdates.ping',
+        "Yet Another CPAN Recent Changes",
+        "http://frepan.64p.org/" );
+    return $result;
 }
 
 sub get_old_changes {
