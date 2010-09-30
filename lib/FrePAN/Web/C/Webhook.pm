@@ -1,5 +1,6 @@
 package FrePAN::Web::C::Webhook;
-use Amon::Web::C;
+use strict;
+use warnings;
 use XML::Feed;
 use JSON::XS;
 use File::Slurp;
@@ -8,14 +9,14 @@ my $VALID_TOKEN = 'c5cedc136feeb7674f96b3d7dcde6361';
 
 sub friendfeed {
     my ($class, $c) = @_;
-    my $mode = param('hub.mode') || '';
+    my $mode = $c->req->param('hub.mode') || '';
     if ($mode eq 'subscribe') {
         # TODO: should verify :P
-        my $topic = param('hub.topic');
-        my $token = param('hub.verify_token');
+        my $topic = $c->req->param('hub.topic');
+        my $token = $c->req->param('hub.verify_token');
         if ($token eq $VALID_TOKEN) {
         # if ($topic =~ m{^http://friendfeed\.com/} && $token eq $VALID_TOKEN) {
-            my $challenge = param('hub.challenge');
+            my $challenge = $c->req->param('hub.challenge');
             warn "OK: $challenge";
             return res(200, [], $challenge);
         } else {
@@ -23,21 +24,21 @@ sub friendfeed {
             return res(500, [], 'invalid feed');
         }
     } else {
-        my $xml = req()->content();
+        my $xml = $c->req->content();
         my $feed = XML::Feed->parse(\$xml) or die XML::Feed->errstr;
         for my $entry ($feed->entries) {
             my $content = $entry->content;
             my $info = _parse_entry($content->body);
             $info->{released} = $entry->issued->epoch;
             if ($info) {
-                $c->get('TheSchwartz::Simple')->insert(
+                $c->create_schwartz_simple->insert(
                     'FrePAN::Worker::ProcessDist' => encode_json($info),
                 ) or die "cannot register job: $@";
             } else {
                 warn "cannot parse body: @{[ $content->body ]}";
             }
         }
-        return res(200, [], ['ok']);
+        return $c->create_response(200, [], ['ok']);
     }
 }
 *post_friendfeed = *friendfeed;

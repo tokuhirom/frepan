@@ -1,13 +1,13 @@
 package FrePAN::Web::Dispatcher;
-use Amon::Web::Dispatcher::RouterSimple -base;
+use Amon2::Web::Dispatcher::RouterSimple;
 use 5.008001;
 
-connect '/',      {controller => 'Root', action => 'index'};
-connect '/about', {controller => 'Root', action => 'about'};
+connect '/',      'Root#index';
+connect '/about', 'Root#about';
 submapper('/~{author}', {}, {on_match => sub { $_[1]->{author} = uc($_[1]->{author}); 1}})
     ->connect('/',                     {controller => 'Author', action => 'show'})
     ->connect('/{dist_ver}/',          {controller => 'Dist', action => 'show'})
     ->connect('/{dist_ver}/{path:.+}', {controller => 'Dist', action => 'show_file'});
-connect '/webhook/friendfeed-cpan', {controller => 'Webhook', action => 'friendfeed'};
+connect '/webhook/friendfeed-cpan', 'Webhook#friendfeed';
 
 1;

@@ -2,6 +2,7 @@ package FrePAN::Web::C::Root;
 use strict;
 use warnings;
 use SQL::Interp qw/sql_interp/;
+use FrePAN::M::CPAN;
 
 sub index {
     my ($class, $c) = @_;
@@ -44,9 +45,8 @@ sub index {
     my $has_next =  ($rows_per_page+1 == @$entries);
     if ($has_next) { pop @$entries }
 
-    my $cpan = $c->get('M::CPAN');
     for (@$entries) {
-        $_->{gravatar_url} = $cpan->email2gravatar_url($_->{email});
+        $_->{gravatar_url} = FrePAN::M::CPAN->email2gravatar_url($_->{email});
     }
     return $c->render( "index.tx",
         { dists => $entries, page => $page, has_next => $has_next } );

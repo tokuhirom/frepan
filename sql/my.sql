@@ -5,10 +5,7 @@ CREATE TABLE IF NOT EXISTS dist (
     ,version  varchar(255) not null
     ,path     varchar(255)
     ,abstract varchar(255)
-    ,license  varchar(255)
-    ,repository text
-    ,homepage   text
-    ,bugtracker text
+    ,resources_json text
     ,has_manifest tinyint(1) not null default 0
     ,has_makefile_pl tinyint(1) not null default 0
     ,has_build_pl tinyint(1) not null default 0

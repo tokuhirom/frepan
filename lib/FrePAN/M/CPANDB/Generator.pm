@@ -1,6 +1,7 @@
 package FrePAN::M::CPANDB::Generator;
-use common::sense;
-use Amon::Declare;
+use strict;
+use warnings;
+use Amon2::Declare;
 use IO::Zlib;
 use CPAN::DistnameInfo;
 use LWP::UserAgent;
@@ -9,14 +10,14 @@ use version ();
 use Try::Tiny;
 
 sub new {
-    my ($class, $args) = @_;
-    bless {%$args}, $class;
+    my ($class, ) = @_;
+    bless {}, $class;
 }
 
 {
     my $mc;
     sub minicpan () {
-        $mc ||= model('CPAN')->minicpan
+        $mc ||= c->config->{'M::CPAN'}->{minicpan};
     }
 }
 
@@ -72,7 +73,7 @@ sub mk_packages {
 sub mk_uploads {
     my ($self) = @_;
 
-    logger->debug("start uploads");
+    c->log->debug("start uploads");
     my $url = 'http://devel.cpantesters.org/uploads/uploads.db.bz2';
     my $ua = LWP::UserAgent->new();
     my $bz2 = catfile(minicpan, 'modules/uploads.db.bz2');
@@ -107,7 +108,7 @@ sub mk_uploads {
 sub _swap {
     my ($self, $table, $cb) = @_;
 
-    logger->debug("creating $table");
+    c->log->debug("creating $table");
 
     my $txn = db->txn_scope();
     my $dbh = db->dbh;
@@ -123,7 +124,7 @@ sub _swap {
 
 {
     package FrePAN::M::CPANDB::Generator::Inserter;
-    use Amon::Declare;
+    use Amon2::Declare;
     sub new {
         my ($class, $table) = @_;
         bless {rows => [], table => $table}, $class;
@@ -135,7 +136,7 @@ sub _swap {
     sub count { scalar @{$_[0]->{rows}} }
     sub insert {
         my ($self, ) = @_;
-        logger->debug('insert');
+        c->log->debug('insert');
         db->bulk_insert(
             $self->{table} => $self->{rows},
         );

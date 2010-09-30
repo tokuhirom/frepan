@@ -2,7 +2,7 @@
 use FrePAN;
 use FrePAN::Worker::ProcessDist;
 use Amon::Sense;
-use Amon::Declare;
+use Amon2::Declare;
 use CPAN::DistnameInfo;
 use Carp::Always;
 

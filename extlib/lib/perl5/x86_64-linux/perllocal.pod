@@ -1,0 +1,44 @@
+=head2 Tue Sep 28 20:32:24 2010: C<Module> L<Amon2|Amon2>
+
+=over 4
+
+=item *
+
+C<installed into: /home/tokuhirom/dev/FrePAN/extlib/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 0.44>
+
+=item *
+
+C<EXE_FILES: script/amon-setup.pl>
+
+=back
+
+=head2 Thu Sep 30 13:24:13 2010: C<Module> L<Amon2|Amon2>
+
+=over 4
+
+=item *
+
+C<installed into: /home/tokuhirom/dev/FrePAN/extlib/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 0.44>
+
+=item *
+
+C<EXE_FILES: script/amon-setup.pl>
+
+=back
+

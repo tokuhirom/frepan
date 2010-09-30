@@ -1,47 +1,39 @@
 package FrePAN::DB::Schema;
-use strict;
-use warnings;
 use DBIx::Skinny::Schema;
 
-install_table 'dist' => schema {
-    pk 'dist_id';
-    columns qw/
-      dist_id path author released name version requires abstract
-      license repository has_manifest has_makefile_pl has_build_pl
-      has_changes has_change_log has_meta_yml
-      homepage bugtracker has_meta_json
-    /;
-};
-
-install_table 'file' => schema {
-    pk 'file_id';
-    columns qw/file_id dist_id package path description html/;
-};
-
 install_table changes => schema {
-    pk 'changes_id';
-    columns qw/dist_id changes_id version body/;
+    pk qw/changes_id/;
+    columns qw/changes_id dist_id version body/;
 };
 
-# -------------------------------------------------------------------------
-# cpan db
+install_table dist => schema {
+    pk qw/dist_id/;
+    columns qw/dist_id author name version path abstract resources_json has_manifest has_makefile_pl has_build_pl has_changes has_change_log has_meta_yml has_meta_json requires released/;
+};
 
-# from 01mailrc.txt
+install_table file => schema {
+    pk qw/file_id/;
+    columns qw/file_id path dist_id package description html/;
+};
+
+install_table kvs => schema {
+    pk qw/k/;
+    columns qw/k v/;
+};
+
 install_table meta_author => schema {
-    pk 'pause_id';
+    pk qw/pause_id/;
     columns qw/pause_id fullname email/;
 };
 
-# from 02packages.details.txt.gz
 install_table meta_packages => schema {
-    pk 'package';
-    columns qw/package version path/;
+    pk qw/package/;
+    columns qw/package version path pause_id dist_name dist_version dist_version_numified/;
 };
 
 install_table meta_uploads => schema {
-    columns qw/
-        pause_id dist_name dist_version filename released
-    /;
+    pk qw/dist_name pause_id dist_version/;
+    columns qw/pause_id dist_name dist_version filename released/;
 };
 
 1;

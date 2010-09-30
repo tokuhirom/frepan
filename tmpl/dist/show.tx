@@ -5,21 +5,21 @@
 <table class="modulemeta">
 <tr><th>This Release</th><td><span class="dist-name">[% dist.name %]</span>-<span class="dist-version">[% dist.version %]</span>
     [<a href="[% dist.download_url %]">Download</a>]
-    [<a href="/src/[% uc(dist.author) %]/[% dist.name %]-[% dist.version %]/">Browse</a>]
+    [<a href="/src/[% upper(dist.author) %]/[% dist.name %]-[% dist.version %]/">Browse</a>]
 </td>
-<tr><th>Author</th><td><a href="http://search.cpan.org/~[% lc(dist.author) %]/">[% dist.author  %]</a></td></tr>
-<tr><th>Links</th><td>[<a href="http://rt.cpan.org/NoAuth/Bugs.html?Dist=[% dist.name %]">View/Report Bugs</a>] [ <a href="http://deps.cpantesters.org/?module=[% dist.name %];perl=latest">Dependencies</a> ] [ <a href="http://search.cpan.org/~[% lc(dist.author) %]/[% dist.name %]-[% dist.version %]">search.cpan.org</a> ]</td></tr>
+<tr><th>Author</th><td><a href="http://search.cpan.org/~[% lower(dist.author) %]/">[% dist.author  %]</a></td></tr>
+<tr><th>Links</th><td>[<a href="http://rt.cpan.org/NoAuth/Bugs.html?Dist=[% dist.name %]">View/Report Bugs</a>] [ <a href="http://deps.cpantesters.org/?module=[% dist.name %];perl=latest">Dependencies</a> ] [ <a href="http://search.cpan.org/~[% lower(dist.author) %]/[% dist.name %]-[% dist.version %]">search.cpan.org</a> ]</td></tr>
 [% FOR meth IN ['repository', 'homepage', 'bugtrack'] %]
-    [% IF has_item(dist, meth) %]
-<tr><th>[% meth %]</th><td>[% dist[meth] %]</td></tr>
+    [% IF dist.resources.exists(meth) %]
+<tr><th>[% meth %]</th><td>[% dist.resources[meth] %]</td></tr>
     [% END %]
 [% END %]
-[% IF dist.license %]
-<tr><th>License</th><td><a href="[% dist.license %]">[% IF dist.license=="http://dev.perl.org/licenses/" %]Perl[% ELSE %][% dist.license %][% END %]</a></td></tr>
+[% IF dist.resources.license %]
+<tr><th>License</th><td><a href="[% dist.resources.license %]">[% IF dist.resources.license=="http://dev.perl.org/licenses/" %]Perl[% ELSE %][% dist.resources.license %][% END %]</a></td></tr>
 [% END %]
 <tr><th>Special Files</th><td>
 [% FOR fname IN special_files %]
-    <a href="/src/[% uc(dist.author) %]/[% dist.name %]-[% dist.version %]/[% fname %]">[% fname %]</a>
+    <a href="/src/[% upper(dist.author) %]/[% dist.name %]-[% dist.version %]/[% fname %]">[% fname %]</a>
 [% END %]
 </td></tr>
 <tr><th>Released</th><td>
@@ -39,7 +39,7 @@
 [% FOR file IN dist.files %]
     <tr>
     [% IF file.has_html %]
-        <td><a href="/~[% lc(dist.author) %]/[% dist.name %]-[% dist.version %]/[% file.path %]">[% file.package %]</a></td>
+        <td><a href="/~[% lower(dist.author) %]/[% dist.name %]-[% dist.version %]/[% file.path %]">[% file.package %]</a></td>
     [% ELSE %]
         <td>[% file.package %]</td>
     [% END %]

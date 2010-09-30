@@ -14,7 +14,8 @@ my $xml = do {
 
 # send
 {
-    my $url = 'http://frepan.64p.org/webhook/friendfeed-cpan';
+    my $url = 'http://localhost:5000/webhook/friendfeed-cpan';
+    # my $url = 'http://frepan.64p.org/webhook/friendfeed-cpan';
     my $req = HTTP::Request->new(POST => $url, [], $xml);
     my $res = $ua->request($req);
     $res->is_success or die $res->status_line;

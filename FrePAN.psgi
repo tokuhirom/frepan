@@ -1,25 +1,21 @@
+use File::Spec;
+use File::Basename;
+use local::lib File::Spec->catdir(dirname(__FILE__), 'extlib');
+use lib File::Spec->catdir(dirname(__FILE__), 'lib');
 use FrePAN::Web;
 use Plack::Builder;
 use Plack::App::Directory;
 use Plack::App::URLMap;
 use Plack::MIME;
-use FrePAN::ConfigLoader;
 
 delete $Plack::MIME::MIME_TYPES->{$_} for qw/.pl .pm .yml .json/;
-
-my $config = FrePAN::ConfigLoader->load();
 
 builder {
     enable 'Plack::Middleware::Static',
         path => qr{^/static/},
         root => './htdocs/';
 
-    my $map = Plack::App::URLMap->new();
-    $map->map('/' => do {
-        FrePAN::Web->to_app(config => $config);
-    });
-    $map->map( '/src/' => do {
-        Plack::App::Directory->new( root => './tmp/src/', )->to_app
-    });
-    $map->to_app;
+    mount '/' => FrePAN::Web->to_app();
+    mount '/src/' =>
+      Plack::App::Directory->new( root => './tmp/src/', )->to_app;
 };

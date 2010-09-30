@@ -6,14 +6,12 @@ use Archive::Tar;
 use Archive::Zip qw( :ERROR_CODES :CONSTANTS );
 use File::Spec;
 use Try::Tiny;
-use Amon::Declare;
+use Amon2::Declare;
 use File::Path qw/remove_tree/;
-
-sub new { bless {}, shift }
 
 # $distvname should be "$dist-$ver"
 sub extract {
-    my ($self, $distvname, $path) = @_;
+    my ($class, $distvname, $path) = @_;
 
     remove_tree($distvname); # clanup before extract
 

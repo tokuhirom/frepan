@@ -1,6 +1,6 @@
 package FrePAN::M::CPANDB;
 use common::sense;
-use Amon::Declare;
+use Amon2::Declare;
 
 sub new {
     my ($class, $args) = @_;

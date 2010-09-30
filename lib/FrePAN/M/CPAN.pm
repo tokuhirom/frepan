@@ -1,21 +1,14 @@
 package FrePAN::M::CPAN;
 use strict;
 use warnings;
-use parent qw/Class::Accessor::Fast/;
 use Gravatar::URL qw/gravatar_url/;
 use DBI;
 use Path::Class qw/dir file/;
-use Amon::Declare qw/db logger/;
-__PACKAGE__->mk_accessors(qw/minicpan/);
-
-sub new {
-    my ($class, $args) = @_;
-    bless { minicpan => $args->{minicpan} }, $class;
-}
+use Amon2::Declare;
 
 sub pause_id2gravatar_url {
     my ($self, $pause_id) = @_;
-    my $author = db->single( meta_author => { pause_id => $pause_id } );
+    my $author = c->db->single( meta_author => { pause_id => $pause_id } );
     if ($author) {
         return $self->email2gravatar_url($author->email);
     } else {
@@ -29,17 +22,22 @@ sub email2gravatar_url {
     return gravatar_url(email => $email, default => 'http://st.pimg.net/tucs/img/who.png');
 }
 
+sub minicpan_path {
+    c->config->{'M::CPAN'}->{minicpan} // die;
+}
+
 sub dist2path {
-    my ($self, $distname) = @_;
-    my $row = db->single(
+    my ($class, $distname) = @_;
+    my $row = c->db->single(
         meta_packages => {
             dist_name => $distname,
         }
     );
     if ($row) {
         my ($cpanid, $distfile) = split m{/}, $row->path;
+        my $minicpan = $class->minicpan_path();
         return File::Spec->catfile(
-            $self->{minicpan},
+            $minicpan,
             'authors', 'id',
             substr($cpanid, 0, 1),
             substr($cpanid, 0, 2),

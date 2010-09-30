@@ -11,15 +11,13 @@ GetOptions(
 );
 @meth = qw/packages author uploads/ unless @meth;
 
-my $conf = shift;
-$conf = do $conf;
-my $c = FrePAN->bootstrap(config => $conf);
+my $c = FrePAN->bootstrap();
 
 print "running $0\n";
 
 for my $meth (map { "mk_$_" } @meth) {
     print "running $meth\n";
-    $c->model('CPANDB::Generator')->$meth;
+    FrePAN::M::CPANDB::Generator->$meth;
 }
 
 print "finished\n";

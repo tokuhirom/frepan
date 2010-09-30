@@ -3,12 +3,9 @@ package FrePAN::M::RSSMaker;
 use strict;use warnings;
 use XML::Feed;
 use autodie;
-use Amon::Sense;
-
-sub new {
-    my ($class, $args) = @_;
-    bless {%$args}, $class;
-}
+use Amon2::Declare;
+use FrePAN::M::CPAN;
+use Text::Xslate::Util qw/html_escape/;
 
 sub write_file {
     my ($fname, $content) = @_;
@@ -20,7 +17,7 @@ sub write_file {
 sub generate {
     my $self = shift;
 
-    my $c = Amon->context;
+    my $c = c;
 
     my $feed = XML::Feed->new('RSS', version => 2.0);
     $feed->title('Yet Another CPAN Recent Changes');
@@ -30,7 +27,7 @@ sub generate {
     );
     while (my $row = $iter->next) {
         $feed->add_entry(do {
-            my $gravatar = $c->model('CPAN')->pause_id2gravatar_url($row->author);
+            my $gravatar = FrePAN::M::CPAN->pause_id2gravatar_url($row->author);
             my $e = XML::Feed::Entry->new('RSS');
                $e->title(join(' ', $row->name, $row->version));
                $e->link("http://frepan.64p.org/~@{[ lc($row->author) ]}/@{[ $row->name ]}-@{[ $row->version ]}/");
@@ -43,7 +40,8 @@ sub generate {
                $e;
         });
     }
-    write_file($self->{path}, $feed->as_xml());
+    my $path = c->config->{'M::RSSMaker'}->{path} // die;
+    write_file($path, $feed->as_xml());
     return $feed->as_xml;
 }
 
@@ -52,9 +50,9 @@ sub make_content {
 
     return <<"...";
 <img src="$gravatar" /><br />
-<pre>@{[ escape_html($row->diff || '') ]}</pre>
+<pre>@{[ html_escape($row->diff || '') ]}</pre>
 <a href="http://search.cpan.org/dist/@{[ $row->name ]}/">search.cpan.org</a><br />
-<a href="http://cpan.cpantesters.org/authors/id/@{[ escape_html($row->path) ]}">Download</a>
+<a href="http://cpan.cpantesters.org/authors/id/@{[ html_escape($row->path) ]}">Download</a>
 ...
 }
 

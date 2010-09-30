@@ -1,54 +1,75 @@
 package FrePAN::Worker::ProcessDist;
-use FrePAN::Worker;
+use strict;
+use warnings;
 use parent 'TheSchwartz::Worker';
-use File::Basename;
-use URI;
-use Guard;
-use Path::Class;
 use autodie;
+
+use Algorithm::Diff;
+use CPAN::DistnameInfo;
+use Carp ();
+use Cwd;
+use Data::Dumper;
+use DateTime;
+use File::Basename;
+use File::Find::Rule;
+use File::Path qw/rmtree make_path mkpath/;
+use Guard;
+use JSON::XS;
+use LWP::UserAgent;
+use Path::Class;
 use Pod::POM;
+use RPC::XML::Client;
+use RPC::XML;
+use Try::Tiny;
+use URI;
+use YAML::Tiny;
+
+use Amon2::Declare;
+
+use FrePAN::M::CPAN;
+use FrePAN::M::Archive;
+use FrePAN::M::RSSMaker;
 use FrePAN::Pod::POM::View::HTML;
 use FrePAN::Pod::POM::View::Text;
-use YAML::Tiny;
-use LWP::UserAgent;
-use JSON::XS;
-use Cwd;
-use DateTime;
-use File::Find::Rule;
-use Algorithm::Diff;
-use RPC::XML;
-use RPC::XML::Client;
-use File::Path qw/rmtree make_path mkpath/;
-use Carp ();
-use Try::Tiny;
-use Amon::Declare;
-use CPAN::DistnameInfo;
-use Data::Dumper;
 
 our $DEBUG;
 our $PATH;
 
 sub p { use Data::Dumper; warn Dumper(@_) }
 
-sub debug ($) { logger->debug(@_) }
+sub debug ($) { c->log->debug(@_) }
+sub msg { c->log->info(@_) }
 
 sub work {
+    my ($class, $job) = @_;
+    try {
+        $class->_work($job);
+        msg "completed!";
+        $job->completed();
+    } catch {
+        c->log->error("Error in $class: $_");
+        sleep 1000;
+        die $_; # rethrow
+    }
+}
+
+sub _work {
     my ($class, $job) = @_;
     my $info = decode_json($job->arg);
     print "Run $info->{path} @{[ $job->jobid ]}, @{[ $job->arg ]}\n";
     $info->{released} or die "missing released date";
-    logger->info("worker start: @{[ $job->jobid ]}");
+    c->log->info("worker start: @{[ $job->jobid ]}");
 
     local $PATH = $info->{path};
 
-    my $c = Amon->context;
+    my $c = c();
 
     my ($author) = ($info->{path} =~ m{^./../([^/]+)/});
     $info->{author} = $author;
     die "cannot detect author: @{[ $job->jobid ]}, @{[ $job->arg ]}" unless $author;
 
     # fetch archive
-    my $archivepath = file($c->model('CPAN')->minicpan, 'authors', 'id', $info->{path})->absolute;
+    my $archivepath = file(FrePAN::M::CPAN->minicpan_path(), 'authors', 'id', $info->{path})->absolute;
     debug "$archivepath, $info->{path}";
     unless ( -f $archivepath ) {
         $class->mirror($info->{url}, $archivepath);
@@ -59,13 +80,13 @@ sub work {
     guard { chdir $orig_cwd };
 
     # extract and chdir
-    my $srcdir = dir(config()->{srcdir}, uc($author));
+    my $srcdir = dir(c->config()->{srcdir}, uc($author));
     debug "extracting $archivepath to $srcdir";
     $srcdir->mkpath;
     die "cannot mkpath '$srcdir': $!" unless -d $srcdir;
     chdir($srcdir);
     my $distnameinfo = CPAN::DistnameInfo->new($info->{path});
-    model('Archive')->extract($distnameinfo->distvname, "$archivepath");
+    FrePAN::M::Archive->extract($distnameinfo->distvname, "$archivepath");
 
     # render and register files.
     my $meta = load_meta($info->{url});
@@ -92,13 +113,10 @@ sub work {
     $dist->update(
         {
             path     => $info->{path},
-            released  => $info->{released},
-            requires => $requires ? encode_json($requires) : '',
+            released => $info->{released},
+            requires => scalar($requires ? encode_json($requires) : ''),
             abstract => $meta->{abstract},
-            repository => $meta->{resources}->{repository} || undef,
-            license    => $meta->{resources}->{license}    || undef,
-            homepage   => $meta->{resources}->{homepage}   || undef,
-            bugtracker => $meta->{resources}->{bugtracker} || undef,
+            resources_json  => $meta->{resources} ? encode_json($meta->{resources}) : undef,
             has_meta_yml    => ( -f 'META.yml'    ? 1 : 0 ),
             has_meta_json   => ( -f 'META.json'   ? 1 : 0 ),
             has_manifest    => ( -f 'MANIFEST'    ? 1 : 0 ),
@@ -195,8 +213,8 @@ sub work {
 
     # save changes
     debug 'make diff';
-    my $path = $c->model('CPAN')->dist2path($dist->name);
-    msg("extract old archive $path");
+    my $path = FrePAN::M::CPAN->dist2path($dist->name);
+    msg("extract old archive to @{[ $path || 'missing meta' ]}(@{[ $dist->name ]})");
     my ($old_changes_file, $old_changes) = get_old_changes($path);
     sub {
         unless ($old_changes) {
@@ -231,7 +249,7 @@ sub work {
 
     # regen rss
     debug 'regenerate rss';
-    $c->model('RSSMaker')->generate();
+    FrePAN::M::RSSMaker->generate();
 
     unless ($DEBUG) {
         debug 'sending ping';
@@ -245,7 +263,6 @@ sub work {
     chdir $orig_cwd;
 
     debug "finished job";
-    $job->completed;
 }
 
 sub send_ping {
@@ -271,13 +288,13 @@ sub get_old_changes {
         return;
     }
     my $author = basename(file($path)->dir); # .../A/AU/AUTHOR/Dist-ver.tar.gz
-    my $srcdir = dir(config()->{srcdir}, uc($author));
+    my $srcdir = dir(c->config()->{srcdir}, uc($author));
     make_path($srcdir, {error => \my $err});
     die "cannot mkpath '$srcdir', '$author', '$path': $err" unless -d $srcdir;
     chdir($srcdir);
 
     my $distnameinfo = CPAN::DistnameInfo->new($path);
-    model('Archive')->extract($distnameinfo->distvname, "$path");
+    FrePAN::M::Archive->extract($distnameinfo->distvname, "$path");
     my @files = File::Find::Rule->new()
                                 ->name('Changes', 'ChangeLog')
                                 ->in(Cwd::getcwd());
@@ -339,7 +356,7 @@ sub load_meta {
             +{};
         };
     } else {
-        logger->info("missing META file in $url:".Cwd::getcwd());
+        c->log->info("missing META file in $url:".Cwd::getcwd());
         +{};
     }
 }
