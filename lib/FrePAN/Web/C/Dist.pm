@@ -34,7 +34,6 @@ sub show {
         $dist_ver, uc($author)
     ) or return res_404();
     $dist->{resources} = decode_json($dist->{resources_json}) if $dist->{resources_json};
-    use Data::Dumper; warn Dumper($dist->{resources});
     $dist->{gravatar_url} = FrePAN::M::CPAN->email2gravatar_url($dist->{email});
     $dist->{download_url} = FrePAN::M::CPAN->download_url($dist->{path}, $dist->{released});
 
