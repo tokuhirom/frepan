@@ -2,6 +2,7 @@ use strict;
 use warnings;
 use FrePAN;
 use Getopt::Long;
+use FrePAN::M::CPANDB::Generator;
 
 my @meth;
 GetOptions(
