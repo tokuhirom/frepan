@@ -110,8 +110,8 @@ sub _swap {
 
     c->log->debug("creating $table");
 
-    my $txn = db->txn_scope();
-    my $dbh = db->dbh;
+    my $txn = c->db->txn_scope();
+    my $dbh = c->db->dbh;
     $dbh->do(qq(DELETE FROM meta_${table}));
 
     my $rows = FrePAN::M::CPANDB::Generator::Inserter->new("meta_${table}");
@@ -137,7 +137,7 @@ sub _swap {
     sub insert {
         my ($self, ) = @_;
         c->log->debug('insert');
-        db->bulk_insert(
+        c->db->bulk_insert(
             $self->{table} => $self->{rows},
         );
         @{$self->{rows}}= ();
