@@ -254,7 +254,7 @@ sub _work {
     unless ($DEBUG) {
         debug 'sending ping';
         my $result = $class->send_ping();
-        msg($result ? $result->value : "Error: $result");
+        c->log->error(ref($result) ? $result->value : "Error: $result");
     }
 
     debug 'commit';
