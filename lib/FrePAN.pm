@@ -5,7 +5,10 @@ use parent qw/Amon2/;
 use DBI;
 use Cache::Memcached::Fast;
 
-__PACKAGE__->load_plugins(qw/ConfigLoader LogDispatch/);
+__PACKAGE__->load_plugins(qw/LogDispatch/);
+
+use Amon2::Config::Simple;
+sub load_config { Amon2::Config::Simple->load(shift) }
 
 our $VERSION = '0.01';
 

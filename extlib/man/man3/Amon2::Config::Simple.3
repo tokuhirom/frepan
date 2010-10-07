@@ -123,50 +123,20 @@
 .rm #[ #] #H #V #F C
 .\" ========================================================================
 .\"
-.IX Title "Amon2::Web::Dispatcher::PathAttrRouter 3"
-.TH Amon2::Web::Dispatcher::PathAttrRouter 3 "2010-10-05" "perl v5.12.1" "User Contributed Perl Documentation"
+.IX Title "Amon2::Config::Simple 3"
+.TH Amon2::Config::Simple 3 "2010-10-07" "perl v5.12.1" "User Contributed Perl Documentation"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
 .nh
-.SH "NAME"
-Amon2::Web::Dispatcher::PathAttrRouter \- Path::AttrRouter binding for Amon2
 .SH "SYNOPSIS"
 .IX Header "SYNOPSIS"
-.Vb 6
-\&    package MyApp::Web::C;
-\&    use base qw/Path::AttrRouter::Controller/;
-\&    sub index :Path {
-\&        my ($self, $c) = @_;
-\&        res(200, [], \*(Aqindex\*(Aq);
-\&    }
+.Vb 3
+\&    # do "config/$ENV{PLACK_ENV}.pl"
+\&    use Amon2::Config::Simple;
+\&    sub load_config { Amon2::Config::Simple\->load(shift) }
 \&
-\&    sub index2 :Path :Args(2) {
-\&        my ($self, $c, $x, $y) = @_;
-\&        res(200, [], "index2: $x, $y");
-\&    }
-\&
-\&    package MyApp::Web::C::Regex;
-\&    use base qw/Path::AttrRouter::Controller/;
-\&
-\&    sub index :Regex(\*(Aq^regex/(\ed+)/(.+)\*(Aq) {
-\&        my ($self, $c, $y, $m) = @_;
-\&        res(200, [], "regexp: $y, $m");
-\&    }
-\&
-\&    package MyApp::Web::Dispatcher;
-\&    use Amon2::Web::Dispatcher::PathAttrRouter (
-\&        search_path => \*(AqMyApp::Web::C\*(Aq,
-\&    );
+\&    # do "config/$ENV{RUN_MODE}.pl"
+\&    use Amon2::Config::Simple;
+\&    sub load_config { Amon2::Config::Simple\->load(shift, +{ environment => $ENV{RUN_MODE} } ) }
 .Ve
-.SH "DESCRIPTION"
-.IX Header "DESCRIPTION"
-Path::Router binding for Amon2.Path::Router provides Catalyst like attribute router.
-.PP
-This is optional, and not maintained. Just experimental.
-.SH "AUTHOR"
-.IX Header "AUTHOR"
-Tokuhiro Matsuno
-.SH "SEE ALSO"
-.IX Header "SEE ALSO"
-Path::AttrRouter, http://github.com/typester/Path\-AttrRouter <http://github.com/typester/Path-AttrRouter>

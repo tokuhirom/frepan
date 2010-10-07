@@ -1,5 +1,6 @@
 /home/tokuhirom/dev/FrePAN/extlib/bin/amon-setup.pl
 /home/tokuhirom/dev/FrePAN/extlib/lib/perl5/Amon2.pm
+/home/tokuhirom/dev/FrePAN/extlib/lib/perl5/Amon2/Config/Simple.pm
 /home/tokuhirom/dev/FrePAN/extlib/lib/perl5/Amon2/Declare.pm
 /home/tokuhirom/dev/FrePAN/extlib/lib/perl5/Amon2/Manual/Components.ja.pod
 /home/tokuhirom/dev/FrePAN/extlib/lib/perl5/Amon2/Manual/FAQ.ja.pod
@@ -29,6 +30,7 @@
 /home/tokuhirom/dev/FrePAN/extlib/lib/perl5/hoge.pl
 /home/tokuhirom/dev/FrePAN/extlib/man/man1/amon-setup.pl.1
 /home/tokuhirom/dev/FrePAN/extlib/man/man3/Amon2.3
+/home/tokuhirom/dev/FrePAN/extlib/man/man3/Amon2::Config::Simple.3
 /home/tokuhirom/dev/FrePAN/extlib/man/man3/Amon2::Declare.3
 /home/tokuhirom/dev/FrePAN/extlib/man/man3/Amon2::Manual::Components.ja.3
 /home/tokuhirom/dev/FrePAN/extlib/man/man3/Amon2::Manual::FAQ.ja.3
