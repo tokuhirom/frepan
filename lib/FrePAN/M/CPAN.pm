@@ -12,7 +12,7 @@ sub pause_id2gravatar_url {
     if ($author) {
         return $self->email2gravatar_url($author->email);
     } else {
-        logger->info("cannot detect author: $pause_id");
+        c->log->info("cannot detect author: $pause_id");
         return;
     }
 }
