@@ -1,7 +1,6 @@
 package FrePAN::Worker::ProcessDist;
 use strict;
 use warnings;
-use parent 'TheSchwartz::Worker';
 use autodie;
 
 use Algorithm::Diff;
@@ -40,25 +39,10 @@ sub p { use Data::Dumper; warn Dumper(@_) }
 sub debug ($) { c->log->debug(@_) }
 sub msg { c->log->info(@_) }
 
-sub work {
-    my ($class, $job) = @_;
-    try {
-        $class->_work($job);
-        msg "completed!";
-        $job->completed();
-    } catch {
-        c->log->error("Error in $class: $_");
-        sleep 1000;
-        die $_; # rethrow
-    }
-}
-
-sub _work {
-    my ($class, $job) = @_;
-    my $info = decode_json($job->arg);
-    print "Run $info->{path} @{[ $job->jobid ]}, @{[ $job->arg ]}\n";
+sub _work2 {
+    my ($class, $info) = @_;
+    print "Run $info->{path} \n";
     $info->{released} or die "missing released date";
-    c->log->info("worker start: @{[ $job->jobid ]}");
 
     local $PATH = $info->{path};
 
@@ -66,7 +50,7 @@ sub _work {
 
     my ($author) = ($info->{path} =~ m{^./../([^/]+)/});
     $info->{author} = $author;
-    die "cannot detect author: @{[ $job->jobid ]}, @{[ $job->arg ]}" unless $author;
+    die "cannot detect author" unless $author;
 
     # fetch archive
     my $archivepath = file(FrePAN::M::CPAN->minicpan_path(), 'authors', 'id', $info->{path})->absolute;

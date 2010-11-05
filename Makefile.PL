@@ -14,6 +14,7 @@ requires 'Pod::POM';
 requires 'parent';
 requires 'Gravatar::URL';
 requires 'XML::Feed';
+requires 'XML::Feed::Deduper';
 requires 'Algorithm::Diff';
 requires 'Log::Dispatch::Screen::Color' => 0.03;
 requires 'TheSchwartz';

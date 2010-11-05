@@ -32,7 +32,7 @@ sub show {
         },
         {},
         $dist_ver, uc($author)
-    ) or return res_404();
+    ) or return $c->res_404();
     $dist->{resources} = decode_json($dist->{resources_json}) if $dist->{resources_json};
     $dist->{gravatar_url} = FrePAN::M::CPAN->email2gravatar_url($dist->{email});
     $dist->{download_url} = FrePAN::M::CPAN->download_url($dist->{path}, $dist->{released});
@@ -75,14 +75,14 @@ sub show_file {
         q{select dist_id, author, name, version from dist where concat(name, '-', version) = ? AND author=?  ORDER BY dist_id DESC LIMIT 1},
         {},
         $dist_ver, uc($author)
-    ) or return res_404();
+    ) or return $c->res_404();
 
     my $file = $dbh->selectrow_hashref(
         'select * from file where dist_id=? AND path=? order by file_id DESC LIMIT 1',
         {},
         $dist->{dist_id},
         $path,
-    ) or return res_404();
+    ) or return $c->res_404();
 
     $c->render("dist/show_file.tx", {dist => $dist, file => $file});
 }
