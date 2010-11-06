@@ -6,7 +6,7 @@ use JSON::XS;
 use XML::Feed;
 use XML::Feed::Deduper;
 use FrePAN;
-use FrePAN::Worker::ProcessDist;
+use FrePAN::M::Injector;
 
 my $c = FrePAN->bootstrap();
 my $url = 'http://friendfeed.com/cpan?format=atom';
@@ -18,10 +18,15 @@ sub main {
         or die XML::Feed->errstr;
     for my $entry ($c->feed_deduper->dedup($feed->entries)) {
         my $content = $entry->content;
-        my $info = _parse_entry($content->body);
-        if ($info) {
-            $info->{released} = $entry->issued->epoch;
-            FrePAN::Worker::ProcessDist->_work2($info);
+        my ($name, $version, $url, $path) = _parse_entry($content->body);
+        if ($name) {
+            FrePAN::M::Injector->inject(
+                path     => $path,
+                url      => $url,
+                name     => $name,
+                version  => $version,
+                released => $entry->issued->epoch,
+            );
         } else {
             warn "cannot parse body: @{[ $content->body ]}";
         }
@@ -37,12 +42,8 @@ sub _parse_entry {
     #   PNI-Node-Tk 0.02-withoutworldwriteables by Casati Gianluca <-- yes. it's invalid. but, parser should show tolerance.
     #   FusionInventory-Agent 2.1_rc1 by FusionInventory Project
     if ($body =~ m!([\w\-]+) (v?[0-9\._-]*[a-zA-Z0-9]*) by (.+?) - <a.*href="(http:.*?/authors/id/(.*?\.tar\.gz))"!) {
-        return {
-            name        => $1,
-            version     => $2,
-            url         => $4,
-            path        => $5,
-        };
+         # name, version, url, path
+        return ($1, $2, $4, $5);
     }
 
     warn "cannot match!: $body";

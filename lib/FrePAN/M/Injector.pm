@@ -1,4 +1,4 @@
-package FrePAN::Worker::ProcessDist;
+package FrePAN::M::Injector;
 use strict;
 use warnings;
 use autodie;
@@ -22,6 +22,7 @@ use RPC::XML;
 use Try::Tiny;
 use URI;
 use YAML::Tiny;
+use Smart::Args;
 
 use Amon2::Declare;
 
@@ -39,24 +40,28 @@ sub p { use Data::Dumper; warn Dumper(@_) }
 sub debug ($) { c->log->debug(@_) }
 sub msg { c->log->info(@_) }
 
-sub _work2 {
-    my ($class, $info) = @_;
-    print "Run $info->{path} \n";
-    $info->{released} or die "missing released date";
+sub inject {
+    args my $class,
+         my $path,
+         my $released => {isa => 'Int'},  # in epoch time
+         my $url,
+         my $name,
+         my $version,
+         ;
+    print "Run $path \n";
 
-    local $PATH = $info->{path};
+    local $PATH = $path;
 
     my $c = c();
 
-    my ($author) = ($info->{path} =~ m{^./../([^/]+)/});
-    $info->{author} = $author;
+    my ($author) = ($path =~ m{^./../([^/]+)/});
     die "cannot detect author" unless $author;
 
     # fetch archive
-    my $archivepath = file(FrePAN::M::CPAN->minicpan_path(), 'authors', 'id', $info->{path})->absolute;
-    debug "$archivepath, $info->{path}";
+    my $archivepath = file(FrePAN::M::CPAN->minicpan_path(), 'authors', 'id', $path)->absolute;
+    debug "$archivepath, $path";
     unless ( -f $archivepath ) {
-        $class->mirror($info->{url}, $archivepath);
+        $class->mirror($url, $archivepath);
     }
 
     # guard.
@@ -69,11 +74,11 @@ sub _work2 {
     $srcdir->mkpath;
     die "cannot mkpath '$srcdir': $!" unless -d $srcdir;
     chdir($srcdir);
-    my $distnameinfo = CPAN::DistnameInfo->new($info->{path});
+    my $distnameinfo = CPAN::DistnameInfo->new($path);
     FrePAN::M::Archive->extract($distnameinfo->distvname, "$archivepath");
 
     # render and register files.
-    my $meta = load_meta($info->{url});
+    my $meta = load_meta($url);
     my $no_index = join '|', map { quotemeta $_ } @{
         do {
             my $x = $meta->{no_index}->{directory} || [];
@@ -89,15 +94,15 @@ sub _work2 {
     debug 'creating database entry';
     my $dist = $c->db->find_or_create(
         dist => {
-            name    => $info->{name},
-            version => $info->{version},
-            author  => $info->{author},
+            name    => $name,
+            version => $version,
+            author  => $author,
         }
     );
     $dist->update(
         {
-            path     => $info->{path},
-            released => $info->{released},
+            path     => $path,
+            released => $released,
             requires => scalar($requires ? encode_json($requires) : ''),
             abstract => $meta->{abstract},
             resources_json  => $meta->{resources} ? encode_json($meta->{resources}) : undef,
@@ -197,9 +202,9 @@ sub _work2 {
 
     # save changes
     debug 'make diff';
-    my $path = FrePAN::M::CPAN->dist2path($dist->name);
-    msg("extract old archive to @{[ $path || 'missing meta' ]}(@{[ $dist->name ]})");
-    my ($old_changes_file, $old_changes) = get_old_changes($path);
+    my $local_path = FrePAN::M::CPAN->dist2path($dist->name);
+    msg("extract old archive to @{[ $local_path || 'missing meta' ]}(@{[ $dist->name ]})");
+    my ($old_changes_file, $old_changes) = get_old_changes($local_path);
     sub {
         unless ($old_changes) {
             msg "old changes not found";
