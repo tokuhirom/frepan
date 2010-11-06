@@ -20,7 +20,7 @@ requires 'Log::Dispatch::Screen::Color' => 0.03;
 requires 'TheSchwartz';
 requires 'TheSchwartz::Simple';
 requires 'Class::Accessor::Fast';
-requires 'CPAN::DistnameInfo';
+requires 'CPAN::DistnameInfo'; # parse path name
 requires 'Archive::Zip';
 requires 'Cache::Memcached::Fast' => 0.19;
 requires 'RPC::XML';

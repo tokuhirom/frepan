@@ -44,9 +44,9 @@ sub inject {
     args my $class,
          my $path,
          my $released => {isa => 'Int'},  # in epoch time
-         my $url,
          my $name,
          my $version,
+         my $author,
          ;
     print "Run $path \n";
 
@@ -54,13 +54,11 @@ sub inject {
 
     my $c = c();
 
-    my ($author) = ($path =~ m{^./../([^/]+)/});
-    die "cannot detect author" unless $author;
-
     # fetch archive
     my $archivepath = file(FrePAN::M::CPAN->minicpan_path(), 'authors', 'id', $path)->absolute;
     debug "$archivepath, $path";
     unless ( -f $archivepath ) {
+        my $url = 'http://cpan.cpantesters.org/authors/id/' . $path;
         $class->mirror($url, $archivepath);
     }
 
@@ -78,7 +76,7 @@ sub inject {
     FrePAN::M::Archive->extract($distnameinfo->distvname, "$archivepath");
 
     # render and register files.
-    my $meta = load_meta($url);
+    my $meta = load_meta($path);
     my $no_index = join '|', map { quotemeta $_ } @{
         do {
             my $x = $meta->{no_index}->{directory} || [];
@@ -327,7 +325,7 @@ sub read_file {
 }
 
 sub load_meta {
-    my $url = shift;
+    my $path = shift;
     if (-f 'META.json') {
         try {
             open my $fh, '<', 'META.json';
@@ -341,29 +339,29 @@ sub load_meta {
         try {
             YAML::Tiny::LoadFile('META.yml');
         } catch {
-            warn "Cannot parse META.yml($url): $_";
+            warn "Cannot parse META.yml($path): $_";
             +{};
         };
     } else {
-        c->log->info("missing META file in $url:".Cwd::getcwd());
+        c->log->info("missing META file in $path".Cwd::getcwd());
         +{};
     }
 }
 
 sub mirror {
-    my ($self, $url, $path) = @_;
+    my ($self, $url, $dstpath) = @_;
 
-    msg "mirror '$url' to '$path'";
+    msg "mirror '$url' to '$dstpath'";
     my $ua = LWP::UserAgent->new(agent => "FrePAN/$FrePAN::VERSION");
-    make_path($path->dir->stringify, {error => \my $err});
+    make_path($dstpath->dir->stringify, {error => \my $err});
     if (@$err) {
         for my $diag (@$err) {
             my ( $file, $message ) = %$diag;
             print "mkpath: error: '@{[ $file || '' ]}', $message\n";
         }
     }
-    my $res = $ua->get($url, ':content_file' => "$path");
-    $res->code =~ /^(?:304|200)$/ or die "fetch failed: $url, $path, " . $res->status_line;
+    my $res = $ua->get($url, ':content_file' => "$dstpath");
+    $res->code =~ /^(?:304|200)$/ or die "fetch failed: $url, $dstpath, " . $res->status_line;
 }
 
 1;
