@@ -1,4 +1,4 @@
-[% INCLUDE 'include/header.tx' WITH bodyID="DistPage" %]
+[% INCLUDE 'include/header.tx' WITH bodyID="DistPage" subtitle=dist.name %]
 
 <h2>[% dist.name %]</h2>
 

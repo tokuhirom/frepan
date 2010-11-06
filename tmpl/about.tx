@@ -26,4 +26,10 @@ If you want to get the non-fresh cpan modules, please use <a href="http://search
     This bot gets information from cpantesters fresh mirror.
 </p>
 
+<h3>REQUESTS</h3>
+<p>
+    If you have any requests for this site, you can send pull-req from <a href="https://github.com/tokuhirom/frepan/">github</a>.
+    And, you can create a ticket on <a href="https://github.com/tokuhirom/frepan/issues">Issue Tracking System</a>.
+</p>
+
 [% INCLUDE 'include/footer.tx' %]

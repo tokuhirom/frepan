@@ -1,4 +1,4 @@
-[% INCLUDE 'include/header.tx' WITH bodyID="PodPage" %]
+[% INCLUDE 'include/header.tx' WITH bodyID="PodPage" subtitle=dist.name _ "-" _ dist.version _ " by " _ lower(dist.author) %]
 
 
 <div class="blead-list">
