@@ -20,7 +20,7 @@ my $nntp_url = 'http://www.nntp.perl.org/group/perl.cpan.uploads/';
 &main; exit 0;
 
 sub main {
-    process_nntp();
+    # process_nntp();
     process_ff();
 }
 
