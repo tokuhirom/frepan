@@ -20,6 +20,7 @@ __PACKAGE__->add_config(
             email2gravatar_url => sub { FrePAN::M::CPAN->email2gravatar_url(@_) },
             'lc' => sub { scalar(lc($_[0])) },
             has_item => sub { defined $_[0]->{$_[1]} },
+            'ref' => sub { ref($_[0]) },
         },
     }
 );
