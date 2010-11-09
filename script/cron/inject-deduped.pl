@@ -10,6 +10,8 @@ use FrePAN::M::Injector;
 use Web::Scraper;
 use Time::Piece;
 use CPAN::DistnameInfo;
+use Carp ();
+use Log::Minimal;
 
 my $c = FrePAN->bootstrap();
 my $ff_url = 'http://friendfeed.com/cpan?format=atom';
@@ -23,6 +25,8 @@ sub main {
 }
 
 sub process_nntp {
+    debugf("run process_nntp");
+
     my $time_prefix = do {
         my $time = Time::Piece::gmtime();
         $time -= $time->hour*60*60 + $time->minute*60 + $time->second;
@@ -62,27 +66,29 @@ sub process_nntp {
 }
 
 sub process_ff {
+    debugf("run process_ff");
     my $feed = XML::Feed->parse(URI->new($ff_url))
         or die XML::Feed->errstr;
     LOOP: for my $entry ($c->feed_deduper->dedup($feed->entries)) {
         my $content = $entry->content;
-        my ($name, $version, $url, $path) = _parse_entry($content->body);
+        my ($name, $version, $path) = _parse_entry($content->body);
         if ($name) {
             my $author = _path2author($path);
-            my $entry = $c->db->single(
+            my $e = $c->db->single(
                 dist => {
                     name    => $name,
                     version => $version,
                     author  => $author,
                 }
             );
-            next LOOP if $entry;
+            next LOOP if $e;
 
             FrePAN::M::Injector->inject(
                 path     => $path,
                 name     => $name,
                 version  => $version,
                 released => $entry->issued->epoch,
+                author   => $author,
             );
         } else {
             warn "cannot parse body: @{[ $content->body ]}";
@@ -90,15 +96,11 @@ sub process_ff {
     }
 }
 
-sub _parse_path {
-    my $path = shift;
-    my ($author) = ($path =~ m{^./../([^/]+)/});
-}
-
 sub _path2author {
     my $path = shift;
+    Carp::croak "missing mandatory parameter 'path'" unless $path;
     my ($author) = ($path =~ m{^./../([^/]+)/});
-    die "cannot detect author" unless $author;
+    die "cannot detect author: $path" unless $author;
     return $author;
 }
 
@@ -110,9 +112,9 @@ sub _parse_entry {
     #   v1.0.3
     #   PNI-Node-Tk 0.02-withoutworldwriteables by Casati Gianluca <-- yes. it's invalid. but, parser should show tolerance.
     #   FusionInventory-Agent 2.1_rc1 by FusionInventory Project
-    if ($body =~ m!([\w\-]+) (v?[0-9\._-]*[a-zA-Z0-9]*) by (.+?) - <a.*href="(http:.*?/authors/id/(.*?\.tar\.gz))"!) {
+    if ($body =~ m!(?<name>[\w\-]+) (?<version>v?[0-9\._-]*[a-zA-Z0-9]*) by (.+?) - <a.*href="http:.*?/authors/id/(?<path>.*?\.tar\.gz)"!) {
          # name, version, path
-        return ($1, $2, $5);
+        return ($+{name}, $+{version}, $+{path});
     }
 
     warn "cannot match!: $body";

@@ -23,6 +23,7 @@ use Try::Tiny;
 use URI;
 use YAML::Tiny;
 use Smart::Args;
+use Log::Minimal;
 
 use Amon2::Declare;
 
@@ -37,8 +38,8 @@ our $PATH;
 
 sub p { use Data::Dumper; warn Dumper(@_) }
 
-sub debug ($) { c->log->debug(@_) }
-sub msg { c->log->info(@_) }
+sub debug ($) { debugf(@_) }
+sub msg { infof(@_) }
 
 sub inject {
     args my $class,

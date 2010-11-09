@@ -24,6 +24,7 @@ requires 'CPAN::DistnameInfo'; # parse path name
 requires 'Archive::Zip';
 requires 'Cache::Memcached::Fast' => 0.19;
 requires 'RPC::XML';
+requires 'Log::Minimal';
 recursive_author_tests('xt');
 
 WriteAll;
