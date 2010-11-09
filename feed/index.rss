@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<rdf:RDF
+ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+ xmlns="http://purl.org/rss/1.0/"
+ xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+ xmlns:content="http://purl.org/rss/1.0/modules/content/"
+ xmlns:dcterms="http://purl.org/dc/terms/"
+ xmlns:syn="http://purl.org/rss/1.0/modules/syndication/"
+ xmlns:dc="http://purl.org/dc/elements/1.1/"
+ xmlns:taxo="http://purl.org/rss/1.0/modules/taxonomy/"
+ xmlns:admin="http://webns.net/mvcb/"
+ xmlns:atom="http://www.w3.org/2005/Atom"
+>
+
+<channel rdf:about="http://frepan.64p.org/">
+<title>Yet Another CPAN Recent Changes</title>
+<link>http://frepan.64p.org/</link>
+<description></description>
+<items>
+ <rdf:Seq>
+  <rdf:li rdf:resource="http://frepan.64p.org/~rjbs/App-Cmd-0.308/" />
+  <rdf:li rdf:resource="http://frepan.64p.org/~jdhedden/Object-InsideOut-3.74/" />
+  <rdf:li rdf:resource="http://frepan.64p.org/~genehack/App-GitGot-0.4/" />
+  <rdf:li rdf:resource="http://frepan.64p.org/~genehack/App-MiseEnPlace-0.12/" />
+  <rdf:li rdf:resource="http://frepan.64p.org/~hinrik/Hailo-0.60/" />
+  <rdf:li rdf:resource="http://frepan.64p.org/~cebjyre/Task-BeLike-Cebjyre-0.1.0/" />
+  <rdf:li rdf:resource="http://frepan.64p.org/~saper/Acme-CPANAuthors-French-0.09/" />
+  <rdf:li rdf:resource="http://frepan.64p.org/~rjbs/MooseX-ComposedBehavior-0.002/" />
+  <rdf:li rdf:resource="http://frepan.64p.org/~bigpresh/Dancer-Plugin-DebugDump-0.02/" />
+  <rdf:li rdf:resource="http://frepan.64p.org/~kazuho/HTTP-Parser-XS-0.12/" />
+ </rdf:Seq>
+</items>
+</channel>
+<item rdf:about="http://frepan.64p.org/~rjbs/App-Cmd-0.308/">
+<title>App-Cmd 0.308</title>
+<link>http://frepan.64p.org/~rjbs/App-Cmd-0.308/</link>
+<description>0.308     2010-11-08
+
+          When App::Cmd::Setup tries to load MyApp::Command, and it exists but
+          will not compile, the exception will now propagate.  Previously, it
+          failed silently and App::Cmd::Command was used instead.  (bug found
+          and fixed and tested for by Kent Fredric; thanks!)
+
+</description>
+<dc:creator>RJBS</dc:creator>
+<dc:date>2010-11-09T18:48:00Z</dc:date>
+<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/cec6b9b88295ead26c65f8747a76561b?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
+&#x3C;pre&#x3E;0.308     2010-11-08
+
+          When App::Cmd::Setup tries to load MyApp::Command, and it exists but
+          will not compile, the exception will now propagate.  Previously, it
+          failed silently and App::Cmd::Command was used instead.  (bug found
+          and fixed and tested for by Kent Fredric; thanks!)
+
+&#x3C;/pre&#x3E;
+&#x3C;a href=&#x22;http://search.cpan.org/dist/App-Cmd/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
+&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/R/RJ/RJBS/App-Cmd-0.308.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
+</content:encoded>
+</item>
+<item rdf:about="http://frepan.64p.org/~jdhedden/Object-InsideOut-3.74/">
+<title>Object-InsideOut 3.74</title>
+<link>http://frepan.64p.org/~jdhedden/Object-InsideOut-3.74/</link>
+<description>3.74 Tue Nov  9 02:16:45 2010
+	- threads::shared version number in test
+
+3.73 Mon Nov  8 18:53:00 2010
+	- Fix obj ID handling for shared objects in threaded app
+
+</description>
+<dc:creator>JDHEDDEN</dc:creator>
+<dc:date>2010-11-09T18:22:00Z</dc:date>
+<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/519cfaec05219fb43b17e223a117b812?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
+&#x3C;pre&#x3E;3.74 Tue Nov  9 02:16:45 2010
+	- threads::shared version number in test
+
+3.73 Mon Nov  8 18:53:00 2010
+	- Fix obj ID handling for shared objects in threaded app
+
+&#x3C;/pre&#x3E;
+&#x3C;a href=&#x22;http://search.cpan.org/dist/Object-InsideOut/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
+&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/J/JD/JDHEDDEN/Object-InsideOut-3.74.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
+</content:encoded>
+</item>
+<item rdf:about="http://frepan.64p.org/~genehack/App-GitGot-0.4/">
+<title>App-GitGot 0.4</title>
+<link>http://frepan.64p.org/~genehack/App-GitGot-0.4/</link>
+<dc:creator>GENEHACK</dc:creator>
+<dc:date>2010-11-09T18:04:00Z</dc:date>
+<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/d07c1f81d10a1d147d6b5cb80fa1c654?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
+&#x3C;pre&#x3E;&#x3C;/pre&#x3E;
+&#x3C;a href=&#x22;http://search.cpan.org/dist/App-GitGot/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
+&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/G/GE/GENEHACK/App-GitGot-0.4.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
+</content:encoded>
+</item>
+<item rdf:about="http://frepan.64p.org/~genehack/App-MiseEnPlace-0.12/">
+<title>App-MiseEnPlace 0.12</title>
+<link>http://frepan.64p.org/~genehack/App-MiseEnPlace-0.12/</link>
+<dc:creator>GENEHACK</dc:creator>
+<dc:date>2010-11-09T17:56:00Z</dc:date>
+<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/d07c1f81d10a1d147d6b5cb80fa1c654?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
+&#x3C;pre&#x3E;&#x3C;/pre&#x3E;
+&#x3C;a href=&#x22;http://search.cpan.org/dist/App-MiseEnPlace/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
+&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/G/GE/GENEHACK/App-MiseEnPlace-0.12.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
+</content:encoded>
+</item>
+<item rdf:about="http://frepan.64p.org/~hinrik/Hailo-0.60/">
+<title>Hailo 0.60</title>
+<link>http://frepan.64p.org/~hinrik/Hailo-0.60/</link>
+<description>0.60 2010-11-09 01:35:49
+
+    - Match email addresses and don&#x27;t capitalize them
+
+    - Don&#x27;t insert additional spaces in some parsing edge-cases
+
+</description>
+<dc:creator>HINRIK</dc:creator>
+<dc:date>2010-11-09T17:36:00Z</dc:date>
+<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/42d807114ef02417d17a1bd1aa1f9096?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
+&#x3C;pre&#x3E;0.60 2010-11-09 01:35:49
+
+    - Match email addresses and don&#x26;apos;t capitalize them
+
+    - Don&#x26;apos;t insert additional spaces in some parsing edge-cases
+
+&#x3C;/pre&#x3E;
+&#x3C;a href=&#x22;http://search.cpan.org/dist/Hailo/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
+&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/H/HI/HINRIK/Hailo-0.60.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
+</content:encoded>
+</item>
+<item rdf:about="http://frepan.64p.org/~cebjyre/Task-BeLike-Cebjyre-0.1.0/">
+<title>Task-BeLike-Cebjyre 0.1.0</title>
+<link>http://frepan.64p.org/~cebjyre/Task-BeLike-Cebjyre-0.1.0/</link>
+<description>0.1.0     2010-11-09 11:56:49 Australia/Sydney
+    Added JSON
+
+</description>
+<dc:creator>CEBJYRE</dc:creator>
+<dc:date>2010-11-09T16:58:00Z</dc:date>
+<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/5660261bf7fc03555e8d0f27b09dc6e5?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
+&#x3C;pre&#x3E;0.1.0     2010-11-09 11:56:49 Australia/Sydney
+    Added JSON
+
+&#x3C;/pre&#x3E;
+&#x3C;a href=&#x22;http://search.cpan.org/dist/Task-BeLike-Cebjyre/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
+&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/C/CE/CEBJYRE/Task-BeLike-Cebjyre-0.1.0.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
+</content:encoded>
+</item>
+<item rdf:about="http://frepan.64p.org/~saper/Acme-CPANAuthors-French-0.09/">
+<title>Acme-CPANAuthors-French 0.09</title>
+<link>http://frepan.64p.org/~saper/Acme-CPANAuthors-French-0.09/</link>
+<description>0.09    2010.11.09  (SAPER)
+        [AUTHORS] Added BCO, HOBBESTIG.
+
+</description>
+<dc:creator>SAPER</dc:creator>
+<dc:date>2010-11-09T16:36:00Z</dc:date>
+<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/1c627c4c6ca5f21dab39cd5b35faa751?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
+&#x3C;pre&#x3E;0.09    2010.11.09  (SAPER)
+        [AUTHORS] Added BCO, HOBBESTIG.
+
+&#x3C;/pre&#x3E;
+&#x3C;a href=&#x22;http://search.cpan.org/dist/Acme-CPANAuthors-French/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
+&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/S/SA/SAPER/Acme-CPANAuthors-French-0.09.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
+</content:encoded>
+</item>
+<item rdf:about="http://frepan.64p.org/~rjbs/MooseX-ComposedBehavior-0.002/">
+<title>MooseX-ComposedBehavior 0.002</title>
+<link>http://frepan.64p.org/~rjbs/MooseX-ComposedBehavior-0.002/</link>
+<description>0.002     2010-11-08 19:04:13 America/New_York
+          behavior blocks now called mostly most-to-least derived now
+
+          &#x22;method_order&#x22; block allows this to be reversed
+
+</description>
+<dc:creator>RJBS</dc:creator>
+<dc:date>2010-11-09T16:05:00Z</dc:date>
+<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/cec6b9b88295ead26c65f8747a76561b?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
+&#x3C;pre&#x3E;0.002     2010-11-08 19:04:13 America/New_York
+          behavior blocks now called mostly most-to-least derived now
+
+          &#x26;quot;method_order&#x26;quot; block allows this to be reversed
+
+&#x3C;/pre&#x3E;
+&#x3C;a href=&#x22;http://search.cpan.org/dist/MooseX-ComposedBehavior/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
+&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/R/RJ/RJBS/MooseX-ComposedBehavior-0.002.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
+</content:encoded>
+</item>
+<item rdf:about="http://frepan.64p.org/~bigpresh/Dancer-Plugin-DebugDump-0.02/">
+<title>Dancer-Plugin-DebugDump 0.02</title>
+<link>http://frepan.64p.org/~bigpresh/Dancer-Plugin-DebugDump-0.02/</link>
+<description>0.02    2010-11-08
+        Just a typo fix.
+
+</description>
+<dc:creator>BIGPRESH</dc:creator>
+<dc:date>2010-11-09T15:16:00Z</dc:date>
+<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/e77a97b7bec8a0dc42fee8ecb640cb25?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
+&#x3C;pre&#x3E;0.02    2010-11-08
+        Just a typo fix.
+
+&#x3C;/pre&#x3E;
+&#x3C;a href=&#x22;http://search.cpan.org/dist/Dancer-Plugin-DebugDump/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
+&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/B/BI/BIGPRESH/Dancer-Plugin-DebugDump-0.02.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
+</content:encoded>
+</item>
+<item rdf:about="http://frepan.64p.org/~kazuho/HTTP-Parser-XS-0.12/">
+<title>HTTP-Parser-XS 0.12</title>
+<link>http://frepan.64p.org/~kazuho/HTTP-Parser-XS-0.12/</link>
+<description>0.12
+	- fix undeclared dependency on URI::Escape (RC #62716 thanks to ANDK for reporting)
+	- fix parsing of protocol version in the pure perl impl to exactly match that of XS
+
+</description>
+<dc:creator>KAZUHO</dc:creator>
+<dc:date>2010-11-09T05:11:02Z</dc:date>
+<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/a1f8ed12fefd7759ef8838e62ee409a6?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
+&#x3C;pre&#x3E;0.12
+	- fix undeclared dependency on URI::Escape (RC #62716 thanks to ANDK for reporting)
+	- fix parsing of protocol version in the pure perl impl to exactly match that of XS
+
+&#x3C;/pre&#x3E;
+&#x3C;a href=&#x22;http://search.cpan.org/dist/HTTP-Parser-XS/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
+&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/K/KA/KAZUHO/HTTP-Parser-XS-0.12.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
+</content:encoded>
+</item>
+</rdf:RDF>

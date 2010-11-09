@@ -16,11 +16,4 @@ package t::Util {
     $dbh->do(q{CREATE DATABASE test_FrePAN;});
     $dbh->do(q{USE test_FrePAN;});
     $dbh->do($app_schema);
-
-    my $sch_schema = slurp 'sql/schwartz.sql';
-    $dbh->do(q{DROP DATABASE IF EXISTS test_FrePAN_sch;});
-    $dbh->do(q{CREATE DATABASE test_FrePAN_sch;});
-    $dbh->do(q{USE test_FrePAN_sch;});
-    $dbh->do($sch_schema);
-
 }

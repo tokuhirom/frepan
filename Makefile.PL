@@ -17,8 +17,6 @@ requires 'XML::Feed';
 requires 'XML::Feed::Deduper';
 requires 'Algorithm::Diff';
 requires 'Log::Dispatch::Screen::Color' => 0.03;
-requires 'TheSchwartz';
-requires 'TheSchwartz::Simple';
 requires 'Class::Accessor::Fast';
 requires 'CPAN::DistnameInfo'; # parse path name
 requires 'Archive::Zip';

@@ -9,13 +9,4 @@ use Cwd 'abs_path';
             'mysql_read_default_file' => '/etc/mysql/my.cnf',
         },
     },
-    'TheSchwartz' => {
-        databases => [
-            {
-                dsn  => 'dbi:mysql:database=test_FrePAN_sch;mysql_read_default_file=/etc/mysql/my.cnf',
-                user => 'test',
-                pass => '',
-            }
-        ]
-    },
 };

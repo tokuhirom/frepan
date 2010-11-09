@@ -21,24 +21,6 @@ sub db {
     };
 }
 
-sub create_schwartz_simple {
-    my $c = shift;
-
-    require TheSchwartz::Simple;
-    my @dbhs = map {
-        DBI->connect( $_->{dsn}, $_->{user}, $_->{pass}, )
-            or die $DBI::errstr;
-    } @{ $c->config->{'TheSchwartz'}->{databases} };
-    return TheSchwartz::Simple->new(\@dbhs);
-}
-
-sub create_schwartz {
-    my ($c) = @_;
-    require TheSchwartz;
-    my $conf = $c->config->{'TheSchwartz'} // die;
-    return TheSchwartz->new(%$conf);
-}
-
 sub memcached {
     my ($c) = @_;
     my $conf = $c->config->{'Cache::Memcached::Fast'} // die;
