@@ -12,7 +12,7 @@ delete $Plack::MIME::MIME_TYPES->{$_} for qw/.pl .pm .yml .json/;
 
 builder {
     enable 'Plack::Middleware::Static',
-        path => qr{^/static/},
+        path => qr{^(?:/static/|/favicon\.ico)},
         root => './htdocs/';
 
     mount '/' => FrePAN::Web->to_app();
