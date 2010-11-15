@@ -38,9 +38,6 @@ our $PATH;
 
 sub p { use Data::Dumper; warn Dumper(@_) }
 
-sub debug ($) { debugf(@_) }
-sub msg { infof(@_) }
-
 sub inject {
     args my $class,
          my $path,
@@ -49,7 +46,7 @@ sub inject {
          my $version,
          my $author,
          ;
-    print "Run $path \n";
+    infof("Run $path \n");
 
     local $PATH = $path;
 
@@ -57,7 +54,7 @@ sub inject {
 
     # fetch archive
     my $archivepath = file(FrePAN::M::CPAN->minicpan_path(), 'authors', 'id', $path)->absolute;
-    debug "$archivepath, $path";
+    debugf "$archivepath, $path";
     unless ( -f $archivepath ) {
         my $url = 'http://cpan.cpantesters.org/authors/id/' . $path;
         $class->mirror($url, $archivepath);
@@ -69,7 +66,7 @@ sub inject {
 
     # extract and chdir
     my $srcdir = dir(c->config()->{srcdir}, uc($author));
-    debug "extracting $archivepath to $srcdir";
+    debugf "extracting $archivepath to $srcdir";
     $srcdir->mkpath;
     die "cannot mkpath '$srcdir': $!" unless -d $srcdir;
     chdir($srcdir);
@@ -90,7 +87,7 @@ sub inject {
 
     my $txn = $c->db->txn_scope;
 
-    debug 'creating database entry';
+    debugf 'creating database entry';
     my $dist = $c->db->find_or_create(
         dist => {
             name    => $name,
@@ -119,34 +116,31 @@ sub inject {
     # symlinks cause deep recursion, or security issue.
     # I should remove it first.
     # e.g. C/CM/CMORRIS/Parse-Extract-Net-MAC48-0.01.tar.gz
-    debug 'removing symlinks';
+    debugf 'removing symlinks';
     File::Find::Rule->new()
                     ->symlink()
                     ->exec( sub {
-                        msg("unlink symlink $_");
+                        debugf("unlink symlink $_");
                         unlink $_;
                     } )
                     ->in('.');
-    debug 'rendering pod';
+    debugf 'rendering pod';
     dir('.')->recurse(
         callback => sub {
             my $f = shift;
             return if -d $f;
-            msg("processing $f");
+            debugf("processing $f");
             # TODO: show script
             unless ($f =~ /(?:\.pm|\.pod)$/) {
-                # msg("skip $f");
                 return;
             }
             if ($no_index && "$f" =~ $no_index) {
-                # msg("skip $f, by $no_index");
                 return;
             }
             if ("$f" =~ m{^(?:t/|inc/|sample/|blib/)}) {
-                # msg("skip $f, by $no_index");
                 return;
             }
-            msg("do processing $f");
+            debugf("do processing $f");
             my $parser = Pod::POM->new();
             my $pom = $parser->parse_file("$f") or do {
                 print $parser->error,"\n";
@@ -157,13 +151,12 @@ sub inject {
             if ($name_section) {
                 $name_section = FrePAN::Pod::POM::View::Text->print($name_section);
                 $name_section =~ s/\n//g;
-                msg "name: $name_section";
+                debugf "name: $name_section";
                 ($pkg, $desc) = ($name_section =~ /^(\S+)\s+-\s*(.+)$/);
                 if ($pkg) {
                     # workaround for Graph::Centrality::Pagerank
                     $pkg =~ s/[CB]<(.+)>/$1/;
                 }
-                # msg "desc: $pkg, $desc";
             }
             unless ($pkg) {
                 my $fh = $f->openr or return;
@@ -181,7 +174,6 @@ sub inject {
                 $pkg =~ s{/}{::}g;
             }
             my $html = FrePAN::Pod::POM::View::HTML->print($pom);
-            # msg "insert $pkg, $f, $desc";
             {
                 my $path = $f->relative->stringify;
                 my $file_row = $c->db->find_or_create(
@@ -200,29 +192,29 @@ sub inject {
     );
 
     # save changes
-    debug 'make diff';
+    debugf 'make diff';
     my $local_path = FrePAN::M::CPAN->dist2path($dist->name);
-    msg("extract old archive to @{[ $local_path || 'missing meta' ]}(@{[ $dist->name ]})");
+    debugf("extract old archive to @{[ $local_path || 'missing meta' ]}(@{[ $dist->name ]})");
     my ($old_changes_file, $old_changes) = get_old_changes($local_path);
     sub {
         unless ($old_changes) {
-            msg "old changes not found";
+            debugf "old changes not found";
             return;
         }
-        msg "old changes exists";
+        debugf "old changes exists";
         my ($new_changes_file) = grep { -f $_ } qw/Changes ChangeLog/;
         unless ($new_changes_file) {
-            msg "missing new changes file";
+            debugf "missing new changes file";
             return;
         }
         $new_changes_file = Cwd::abs_path($new_changes_file);
         my $new_changes = read_file($new_changes_file);
         unless ($new_changes) {
-            msg "new changes not found";
+            debugf "new changes not found";
             return;
         }
-        msg "new changes exists";
-        msg "diff -u $old_changes_file $new_changes_file";
+        debugf "new changes exists";
+        debugf "diff -u $old_changes_file $new_changes_file";
         my $diff = make_diff($old_changes, $new_changes);
         my $changes = $c->db->find_or_create(
             changes => {
@@ -236,21 +228,21 @@ sub inject {
     }->();
 
     # regen rss
-    debug 'regenerate rss';
+    debugf 'regenerate rss';
     FrePAN::M::RSSMaker->generate();
 
     unless ($DEBUG) {
-        debug 'sending ping';
+        debugf 'sending ping';
         my $result = $class->send_ping();
         c->log->error(ref($result) ? $result->value : "Error: $result");
     }
 
-    debug 'commit';
+    debugf 'commit';
     $txn->commit;
 
     chdir $orig_cwd;
 
-    debug "finished job";
+    debugf "finished job";
 }
 
 sub send_ping {
@@ -268,11 +260,11 @@ sub get_old_changes {
     guard { chdir $orig_cwd };
 
     unless ($path) {
-        msg("cannot get path");
+        infof("cannot get path");
         return;
     }
     unless ( -f $path ) {
-        msg("[warn]file not found: $path");
+        warnf("[warn]file not found: $path");
         return;
     }
     my $author = basename(file($path)->dir); # .../A/AU/AUTHOR/Dist-ver.tar.gz
@@ -352,7 +344,7 @@ sub load_meta {
 sub mirror {
     my ($self, $url, $dstpath) = @_;
 
-    msg "mirror '$url' to '$dstpath'";
+    debugf "mirror '$url' to '$dstpath'";
     my $ua = LWP::UserAgent->new(agent => "FrePAN/$FrePAN::VERSION");
     make_path($dstpath->dir->stringify, {error => \my $err});
     if (@$err) {
