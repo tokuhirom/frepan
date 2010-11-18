@@ -202,7 +202,7 @@ sub inject {
             return;
         }
         debugf "old changes exists";
-        my ($new_changes_file) = grep { -f $_ } qw/Changes ChangeLog/;
+        my ($new_changes_file) = grep { -f $_ } qw/CHANGES Changes ChangeLog/;
         unless ($new_changes_file) {
             debugf "missing new changes file";
             return;
@@ -260,7 +260,7 @@ sub get_old_changes {
     guard { chdir $orig_cwd };
 
     unless ($path) {
-        infof("cannot get path");
+        infof("cannot get path for old Changes file");
         return;
     }
     unless ( -f $path ) {
