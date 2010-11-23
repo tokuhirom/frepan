@@ -19,144 +19,188 @@
 <description></description>
 <items>
  <rdf:Seq>
-  <rdf:li rdf:resource="http://frepan.64p.org/~davidrw/Pod-Advent-0.20/" />
-  <rdf:li rdf:resource="http://frepan.64p.org/~kthakore/SDL-2.524_1/" />
-  <rdf:li rdf:resource="http://frepan.64p.org/~esselens/Net-LDAP-Filter-SQL-0.01/" />
-  <rdf:li rdf:resource="http://frepan.64p.org/~bingos/POE-Component-Server-SimpleSMTP-1.46/" />
-  <rdf:li rdf:resource="http://frepan.64p.org/~asg/Test-Magic-0.21/" />
-  <rdf:li rdf:resource="http://frepan.64p.org/~awwaiid/Continuity-1.2.0/" />
-  <rdf:li rdf:resource="http://frepan.64p.org/~apla/Web-App-Lib-EntityRecord-0.02/" />
-  <rdf:li rdf:resource="http://frepan.64p.org/~pro/Net-DirectConnect-TigerHash-0.03/" />
-  <rdf:li rdf:resource="http://frepan.64p.org/~bingos/Acme-Daily-Fail-1.06/" />
-  <rdf:li rdf:resource="http://frepan.64p.org/~bingos/Dist-Zilla-PluginBundle-BINGOS-0.04/" />
+  <rdf:li rdf:resource="http://frepan.64p.org/~imalpass/WebService-Etsy-0.7/" />
+  <rdf:li rdf:resource="http://frepan.64p.org/~jonasbn/Module-Build-Bundle-0.04/" />
+  <rdf:li rdf:resource="http://frepan.64p.org/~kazeburo/JavaScript-Value-Escape-0.04/" />
+  <rdf:li rdf:resource="http://frepan.64p.org/~gfuji/Text-Xslate-0.3000/" />
+  <rdf:li rdf:resource="http://frepan.64p.org/~mbaas/Math-PercentChange-0.05/" />
+  <rdf:li rdf:resource="http://frepan.64p.org/~apla/Web-App-Lib-EntityRecord-0.03/" />
+  <rdf:li rdf:resource="http://frepan.64p.org/~awwaiid/Continuity-1.3/" />
+  <rdf:li rdf:resource="http://frepan.64p.org/~awwaiid/WWW-HtmlUnit-0.11/" />
+  <rdf:li rdf:resource="http://frepan.64p.org/~awwaiid/WWW-HtmlUnit-0.10/" />
+  <rdf:li rdf:resource="http://frepan.64p.org/~adamk/List-MoreUtils-0.26/" />
  </rdf:Seq>
 </items>
 </channel>
-<item rdf:about="http://frepan.64p.org/~davidrw/Pod-Advent-0.20/">
-<title>Pod-Advent 0.20</title>
-<link>http://frepan.64p.org/~davidrw/Pod-Advent-0.20/</link>
-<description>0.20	2010-11-22
-	* Updated for year 2010.
+<item rdf:about="http://frepan.64p.org/~imalpass/WebService-Etsy-0.7/">
+<title>WebService-Etsy 0.7</title>
+<link>http://frepan.64p.org/~imalpass/WebService-Etsy-0.7/</link>
+<description>
+0.7 2010-11-23
 
-0.19	2009-12-02 (unreleased)
-	* added a TOOD test for &#x22;=for advent_author foo D&#x3C;bar&#x3E; stuff&#x22; case (bill)
-	* added -npro flag to perltidy to ignore ~/.perltidyrc (steve)
-
+    - Interim release to provide basic functionality with the v2 API.
+    - Not all new resources supported.
 </description>
-<dc:creator>DAVIDRW</dc:creator>
-<dc:date>2010-11-23T01:59:05Z</dc:date>
-<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/3cc1f33aa6b6e688e30a3cae158455c5?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
-&#x3C;pre&#x3E;0.20	2010-11-22
-	* Updated for year 2010.
+<dc:creator>IMALPASS</dc:creator>
+<dc:date>2010-11-23T07:12:48Z</dc:date>
+<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/9ee48b47c66f7abf216b03d51d566580?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
+&#x3C;pre&#x3E;
+0.7 2010-11-23
 
-0.19	2009-12-02 (unreleased)
-	* added a TOOD test for &#x26;quot;=for advent_author foo D&#x26;lt;bar&#x26;gt; stuff&#x26;quot; case (bill)
-	* added -npro flag to perltidy to ignore ~/.perltidyrc (steve)
-
+    - Interim release to provide basic functionality with the v2 API.
+    - Not all new resources supported.
 &#x3C;/pre&#x3E;
-&#x3C;a href=&#x22;http://search.cpan.org/dist/Pod-Advent/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
-&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/D/DA/DAVIDRW/Pod-Advent-0.20.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
+&#x3C;a href=&#x22;http://search.cpan.org/dist/WebService-Etsy/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
+&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/I/IM/IMALPASS/WebService-Etsy-0.7.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
 </content:encoded>
 </item>
-<item rdf:about="http://frepan.64p.org/~kthakore/SDL-2.524_1/">
-<title>SDL 2.524_1</title>
-<link>http://frepan.64p.org/~kthakore/SDL-2.524_1/</link>
-<dc:creator>KTHAKORE</dc:creator>
-<dc:date>2010-11-23T01:57:35Z</dc:date>
-<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/b99df744ae026af916fc9786a5455f13?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
+<item rdf:about="http://frepan.64p.org/~jonasbn/Module-Build-Bundle-0.04/">
+<title>Module-Build-Bundle 0.04</title>
+<link>http://frepan.64p.org/~jonasbn/Module-Build-Bundle-0.04/</link>
+<description>$Id: Changes 7358 2010-11-23 06:53:12Z jonasbn $
+
+Release 0.04, 23.11.2010, bug fix release, update recommended
+
+- Addressed failing tests [MBB-18] missing listing of required file
+  http://logiclab.jira.com/browse/MBB-18
+
+</description>
+<dc:creator>JONASBN</dc:creator>
+<dc:date>2010-11-23T06:56:16Z</dc:date>
+<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/1b053b414cecd279ef44423c75b3d227?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
+&#x3C;pre&#x3E;$Id: Changes 7358 2010-11-23 06:53:12Z jonasbn $
+
+Release 0.04, 23.11.2010, bug fix release, update recommended
+
+- Addressed failing tests [MBB-18] missing listing of required file
+  http://logiclab.jira.com/browse/MBB-18
+
+&#x3C;/pre&#x3E;
+&#x3C;a href=&#x22;http://search.cpan.org/dist/Module-Build-Bundle/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
+&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/J/JO/JONASBN/Module-Build-Bundle-0.04.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
+</content:encoded>
+</item>
+<item rdf:about="http://frepan.64p.org/~kazeburo/JavaScript-Value-Escape-0.04/">
+<title>JavaScript-Value-Escape 0.04</title>
+<link>http://frepan.64p.org/~kazeburo/JavaScript-Value-Escape-0.04/</link>
+<description>0.04    Tue Nov 23 15:41:27 2010
+        - Improve docs (gfx)
+        - Add js() (alias to javascript_value_escape()) to @EXPORT_OK (gfx)
+
+0.03    Tue Nov 23 00:02:29 2010
+        - added &#x27;+&#x27; for escape
+
+0.02    Sat Nov 20 00:35:37 2010
+        - incopatible change.
+        - arguments must be flagged UTF8 string
+
+</description>
+<dc:creator>KAZEBURO</dc:creator>
+<dc:date>2010-11-23T06:49:47Z</dc:date>
+<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/700669515ee872152d8b9403c2a0cf8c?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
+&#x3C;pre&#x3E;0.04    Tue Nov 23 15:41:27 2010
+        - Improve docs (gfx)
+        - Add js() (alias to javascript_value_escape()) to @EXPORT_OK (gfx)
+
+0.03    Tue Nov 23 00:02:29 2010
+        - added &#x26;apos;+&#x26;apos; for escape
+
+0.02    Sat Nov 20 00:35:37 2010
+        - incopatible change.
+        - arguments must be flagged UTF8 string
+
+&#x3C;/pre&#x3E;
+&#x3C;a href=&#x22;http://search.cpan.org/dist/JavaScript-Value-Escape/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
+&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/K/KA/KAZEBURO/JavaScript-Value-Escape-0.04.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
+</content:encoded>
+</item>
+<item rdf:about="http://frepan.64p.org/~gfuji/Text-Xslate-0.3000/">
+<title>Text-Xslate 0.3000</title>
+<link>http://frepan.64p.org/~gfuji/Text-Xslate-0.3000/</link>
+<description>0.3000 2010-11-23 15:19:04
+    [CHANGES]
+    * `option =&#x3E; undef` passes the option as is, which allows
+      Text::Xslate-&#x3E;new( line_start =&#x3E; undef ) (issue/21, reported by @tomita).
+      Note that this is an IMCOMPATIBLE CHANGE.
+
+    [DOCUMENTS]
+    * Update Cookbook and FAQ
+
+</description>
+<dc:creator>GFUJI</dc:creator>
+<dc:date>2010-11-23T06:25:17Z</dc:date>
+<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/9278c3a06b8d8752fb913dea93f959c1?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
+&#x3C;pre&#x3E;0.3000 2010-11-23 15:19:04
+    [CHANGES]
+    * `option =&#x26;gt; undef` passes the option as is, which allows
+      Text::Xslate-&#x26;gt;new( line_start =&#x26;gt; undef ) (issue/21, reported by @tomita).
+      Note that this is an IMCOMPATIBLE CHANGE.
+
+    [DOCUMENTS]
+    * Update Cookbook and FAQ
+
+&#x3C;/pre&#x3E;
+&#x3C;a href=&#x22;http://search.cpan.org/dist/Text-Xslate/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
+&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/G/GF/GFUJI/Text-Xslate-0.3000.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
+</content:encoded>
+</item>
+<item rdf:about="http://frepan.64p.org/~mbaas/Math-PercentChange-0.05/">
+<title>Math-PercentChange 0.05</title>
+<link>http://frepan.64p.org/~mbaas/Math-PercentChange-0.05/</link>
+<dc:creator>MBAAS</dc:creator>
+<dc:date>2010-11-23T05:46:45Z</dc:date>
+<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/cee725476c76bffc2e95cca1013b0bd1?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
 &#x3C;pre&#x3E;&#x3C;/pre&#x3E;
-&#x3C;a href=&#x22;http://search.cpan.org/dist/SDL/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
-&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/K/KT/KTHAKORE/SDL-2.524_1.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
+&#x3C;a href=&#x22;http://search.cpan.org/dist/Math-PercentChange/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
+&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/M/MB/MBAAS/Math-PercentChange-0.05.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
 </content:encoded>
 </item>
-<item rdf:about="http://frepan.64p.org/~esselens/Net-LDAP-Filter-SQL-0.01/">
-<title>Net-LDAP-Filter-SQL 0.01</title>
-<link>http://frepan.64p.org/~esselens/Net-LDAP-Filter-SQL-0.01/</link>
-<dc:creator>ESSELENS</dc:creator>
-<dc:date>2010-11-23T01:31:04Z</dc:date>
-<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/5660261bf7fc03555e8d0f27b09dc6e5?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
-&#x3C;pre&#x3E;&#x3C;/pre&#x3E;
-&#x3C;a href=&#x22;http://search.cpan.org/dist/Net-LDAP-Filter-SQL/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
-&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/E/ES/ESSELENS/Net-LDAP-Filter-SQL-0.01.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
-</content:encoded>
-</item>
-<item rdf:about="http://frepan.64p.org/~bingos/POE-Component-Server-SimpleSMTP-1.46/">
-<title>POE-Component-Server-SimpleSMTP 1.46</title>
-<link>http://frepan.64p.org/~bingos/POE-Component-Server-SimpleSMTP-1.46/</link>
-<description>2010-11-23 01:23:37 +0000 1.46
-==============================
+<item rdf:about="http://frepan.64p.org/~apla/Web-App-Lib-EntityRecord-0.03/">
+<title>Web-App-Lib-EntityRecord 0.03</title>
+<link>http://frepan.64p.org/~apla/Web-App-Lib-EntityRecord-0.03/</link>
+<description>2010-11-23	Ivan Baktsheev &#x3C;dot.and.thing@gmail.com&#x3E;
 
-  commit 5d02e8a6a2efe9e908be316e2dd725e83ec6b168
-  Author: Chris &#x27;BinGOs&#x27; Williams &#x3C;chris@bingosnet.co.uk&#x3E;
-  Date:   Tue Nov 23 01:23:37 2010 +0000
-  
-    Add enqueue() method for adding arbitary email to the queue.
+	Release 0.02
 
-  commit 5092eb9e1c03dba3cf01689207fb124ab435450c
-  Author: Chris &#x27;BinGOs&#x27; Williams &#x3C;chris@bingosnet.co.uk&#x3E;
-  Date:   Mon Nov 22 21:50:13 2010 +0000
-  
-    Convert dist to dzil 
+	minor fix
+	pager size and current page report
+	
+2010-11-23	Ivan Baktsheev &#x3C;dot.and.thing@gmail.com&#x3E;
 
-==============================
-====================================
-End of changes in the last 1825 days
-====================================
+	Release 0.02
+
+	record embedding
+	
 </description>
-<dc:creator>BINGOS</dc:creator>
-<dc:date>2010-11-23T01:27:35Z</dc:date>
-<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/6f39929efe35c3e2272d2c7e1306565f?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
-&#x3C;pre&#x3E;2010-11-23 01:23:37 +0000 1.46
-==============================
+<dc:creator>APLA</dc:creator>
+<dc:date>2010-11-23T05:33:44Z</dc:date>
+<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/e27193a6f4eb76c3109546beeabac8c5?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
+&#x3C;pre&#x3E;2010-11-23	Ivan Baktsheev &#x26;lt;dot.and.thing@gmail.com&#x26;gt;
 
-  commit 5d02e8a6a2efe9e908be316e2dd725e83ec6b168
-  Author: Chris &#x26;apos;BinGOs&#x26;apos; Williams &#x26;lt;chris@bingosnet.co.uk&#x26;gt;
-  Date:   Tue Nov 23 01:23:37 2010 +0000
-  
-    Add enqueue() method for adding arbitary email to the queue.
+	Release 0.02
 
-  commit 5092eb9e1c03dba3cf01689207fb124ab435450c
-  Author: Chris &#x26;apos;BinGOs&#x26;apos; Williams &#x26;lt;chris@bingosnet.co.uk&#x26;gt;
-  Date:   Mon Nov 22 21:50:13 2010 +0000
-  
-    Convert dist to dzil 
+	minor fix
+	pager size and current page report
+	
+2010-11-23	Ivan Baktsheev &#x26;lt;dot.and.thing@gmail.com&#x26;gt;
 
-==============================
-====================================
-End of changes in the last 1825 days
-====================================
+	Release 0.02
+
+	record embedding
+	
 &#x3C;/pre&#x3E;
-&#x3C;a href=&#x22;http://search.cpan.org/dist/POE-Component-Server-SimpleSMTP/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
-&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/B/BI/BINGOS/POE-Component-Server-SimpleSMTP-1.46.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
+&#x3C;a href=&#x22;http://search.cpan.org/dist/Web-App-Lib-EntityRecord/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
+&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/A/AP/APLA/Web-App-Lib-EntityRecord-0.03.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
 </content:encoded>
 </item>
-<item rdf:about="http://frepan.64p.org/~asg/Test-Magic-0.21/">
-<title>Test-Magic 0.21</title>
-<link>http://frepan.64p.org/~asg/Test-Magic-0.21/</link>
-<description>revision history for Test-Magic
-        first version, bringing more magic to your tests.
-
-0.21    2010.11.22
-        fix bleedperl regex stringify
-</description>
-<dc:creator>ASG</dc:creator>
-<dc:date>2010-11-23T01:27:33Z</dc:date>
-<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/37d8e0ce7024584f0c4d2eddfcfacd2f?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
-&#x3C;pre&#x3E;revision history for Test-Magic
-        first version, bringing more magic to your tests.
-
-0.21    2010.11.22
-        fix bleedperl regex stringify
-&#x3C;/pre&#x3E;
-&#x3C;a href=&#x22;http://search.cpan.org/dist/Test-Magic/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
-&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/A/AS/ASG/Test-Magic-0.21.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
-</content:encoded>
-</item>
-<item rdf:about="http://frepan.64p.org/~awwaiid/Continuity-1.2.0/">
-<title>Continuity 1.2.0</title>
-<link>http://frepan.64p.org/~awwaiid/Continuity-1.2.0/</link>
+<item rdf:about="http://frepan.64p.org/~awwaiid/Continuity-1.3/">
+<title>Continuity 1.3</title>
+<link>http://frepan.64p.org/~awwaiid/Continuity-1.3/</link>
 <description>Revision history for Continuity. See the main repository for a detailed list of
 internal changes.
+
+Version 1.3 (released 2010.11.22)
+  * Stupid version number issue
 
 Version 1.2.0 (released 2010.11.22)
   * Refactor PSGI adaptor (scrottie)
@@ -169,10 +213,13 @@ Version 1.1.1 (released 2010.02.05)
   * Misc cleanups
 </description>
 <dc:creator>AWWAIID</dc:creator>
-<dc:date>2010-11-23T01:24:36Z</dc:date>
+<dc:date>2010-11-23T03:40:09Z</dc:date>
 <content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/1dc66046def93740605f5e63a6aacd71?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
 &#x3C;pre&#x3E;Revision history for Continuity. See the main repository for a detailed list of
 internal changes.
+
+Version 1.3 (released 2010.11.22)
+  * Stupid version number issue
 
 Version 1.2.0 (released 2010.11.22)
   * Refactor PSGI adaptor (scrottie)
@@ -185,91 +232,85 @@ Version 1.1.1 (released 2010.02.05)
   * Misc cleanups
 &#x3C;/pre&#x3E;
 &#x3C;a href=&#x22;http://search.cpan.org/dist/Continuity/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
-&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/A/AW/AWWAIID/Continuity-1.2.0.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
+&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/A/AW/AWWAIID/Continuity-1.3.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
 </content:encoded>
 </item>
-<item rdf:about="http://frepan.64p.org/~apla/Web-App-Lib-EntityRecord-0.02/">
-<title>Web-App-Lib-EntityRecord 0.02</title>
-<link>http://frepan.64p.org/~apla/Web-App-Lib-EntityRecord-0.02/</link>
-<description>2010-11-23	Ivan Baktsheev &#x3C;dot.and.thing@gmail.com&#x3E;
+<item rdf:about="http://frepan.64p.org/~awwaiid/WWW-HtmlUnit-0.11/">
+<title>WWW-HtmlUnit 0.11</title>
+<link>http://frepan.64p.org/~awwaiid/WWW-HtmlUnit-0.11/</link>
+<description>0.11 2010.11.22
+  - Oops, forgot to update MANIFEST
 
-	Release 0.02
+0.10 2010.11.22
+  - Add WWW::HtmlUnit::Sweet
+  - Add &#x27;study&#x27; like &#x27;jars&#x27; import param (Fred Castellano)
+  - Add some more documentation
+  - Note that HtmlUnit is now up to 2.8
 
-	record embedding
-	
 </description>
-<dc:creator>APLA</dc:creator>
-<dc:date>2010-11-23T00:46:03Z</dc:date>
-<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/e27193a6f4eb76c3109546beeabac8c5?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
-&#x3C;pre&#x3E;2010-11-23	Ivan Baktsheev &#x26;lt;dot.and.thing@gmail.com&#x26;gt;
+<dc:creator>AWWAIID</dc:creator>
+<dc:date>2010-11-23T03:35:37Z</dc:date>
+<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/1dc66046def93740605f5e63a6aacd71?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
+&#x3C;pre&#x3E;0.11 2010.11.22
+  - Oops, forgot to update MANIFEST
 
-	Release 0.02
+0.10 2010.11.22
+  - Add WWW::HtmlUnit::Sweet
+  - Add &#x26;apos;study&#x26;apos; like &#x26;apos;jars&#x26;apos; import param (Fred Castellano)
+  - Add some more documentation
+  - Note that HtmlUnit is now up to 2.8
 
-	record embedding
-	
 &#x3C;/pre&#x3E;
-&#x3C;a href=&#x22;http://search.cpan.org/dist/Web-App-Lib-EntityRecord/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
-&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/A/AP/APLA/Web-App-Lib-EntityRecord-0.02.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
+&#x3C;a href=&#x22;http://search.cpan.org/dist/WWW-HtmlUnit/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
+&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/A/AW/AWWAIID/WWW-HtmlUnit-0.11.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
 </content:encoded>
 </item>
-<item rdf:about="http://frepan.64p.org/~pro/Net-DirectConnect-TigerHash-0.03/">
-<title>Net-DirectConnect-TigerHash 0.03</title>
-<link>http://frepan.64p.org/~pro/Net-DirectConnect-TigerHash-0.03/</link>
-<dc:creator>PRO</dc:creator>
-<dc:date>2010-11-23T00:44:27Z</dc:date>
-<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/769b23d6a1edc2d9f61c07ee8d2068b1?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
-&#x3C;pre&#x3E;&#x3C;/pre&#x3E;
-&#x3C;a href=&#x22;http://search.cpan.org/dist/Net-DirectConnect-TigerHash/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
-&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/P/PR/PRO/Net-DirectConnect-TigerHash-0.03.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
-</content:encoded>
-</item>
-<item rdf:about="http://frepan.64p.org/~bingos/Acme-Daily-Fail-1.06/">
-<title>Acme-Daily-Fail 1.06</title>
-<link>http://frepan.64p.org/~bingos/Acme-Daily-Fail-1.06/</link>
-<dc:creator>BINGOS</dc:creator>
-<dc:date>2010-11-23T00:33:08Z</dc:date>
-<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/6f39929efe35c3e2272d2c7e1306565f?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
-&#x3C;pre&#x3E;&#x3C;/pre&#x3E;
-&#x3C;a href=&#x22;http://search.cpan.org/dist/Acme-Daily-Fail/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
-&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/B/BI/BINGOS/Acme-Daily-Fail-1.06.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
-</content:encoded>
-</item>
-<item rdf:about="http://frepan.64p.org/~bingos/Dist-Zilla-PluginBundle-BINGOS-0.04/">
-<title>Dist-Zilla-PluginBundle-BINGOS 0.04</title>
-<link>http://frepan.64p.org/~bingos/Dist-Zilla-PluginBundle-BINGOS-0.04/</link>
-<description>==============================
-2010-11-23 00:14:58 +0000 0.04
-==============================
+<item rdf:about="http://frepan.64p.org/~awwaiid/WWW-HtmlUnit-0.10/">
+<title>WWW-HtmlUnit 0.10</title>
+<link>http://frepan.64p.org/~awwaiid/WWW-HtmlUnit-0.10/</link>
+<description>0.10 2010.11.22
+  - Add WWW::HtmlUnit::Sweet
+  - Add &#x27;study&#x27; like &#x27;jars&#x27; import param (Fred Castellano)
+  - Add some more documentation
+  - Note that HtmlUnit is now up to 2.8
 
-  commit 4e1e013e9cc91c555365f05db5158ecab0380f61
-  Author: Chris &#x27;BinGOs&#x27; Williams &#x3C;chris@bingosnet.co.uk&#x3E;
-  Date:   Tue Nov 23 00:14:58 2010 +0000
-  
-    Bump max_age for ChangesFromGit to 1825 ( 5 years ) 
-
-====================================
-End of changes in the last 1825 days
-====================================
 </description>
-<dc:creator>BINGOS</dc:creator>
-<dc:date>2010-11-23T00:17:32Z</dc:date>
-<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/6f39929efe35c3e2272d2c7e1306565f?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
-&#x3C;pre&#x3E;==============================
-2010-11-23 00:14:58 +0000 0.04
-==============================
+<dc:creator>AWWAIID</dc:creator>
+<dc:date>2010-11-23T03:26:39Z</dc:date>
+<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/1dc66046def93740605f5e63a6aacd71?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
+&#x3C;pre&#x3E;0.10 2010.11.22
+  - Add WWW::HtmlUnit::Sweet
+  - Add &#x26;apos;study&#x26;apos; like &#x26;apos;jars&#x26;apos; import param (Fred Castellano)
+  - Add some more documentation
+  - Note that HtmlUnit is now up to 2.8
 
-  commit 4e1e013e9cc91c555365f05db5158ecab0380f61
-  Author: Chris &#x26;apos;BinGOs&#x26;apos; Williams &#x26;lt;chris@bingosnet.co.uk&#x26;gt;
-  Date:   Tue Nov 23 00:14:58 2010 +0000
-  
-    Bump max_age for ChangesFromGit to 1825 ( 5 years ) 
-
-====================================
-End of changes in the last 1825 days
-====================================
 &#x3C;/pre&#x3E;
-&#x3C;a href=&#x22;http://search.cpan.org/dist/Dist-Zilla-PluginBundle-BINGOS/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
-&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/B/BI/BINGOS/Dist-Zilla-PluginBundle-BINGOS-0.04.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
+&#x3C;a href=&#x22;http://search.cpan.org/dist/WWW-HtmlUnit/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
+&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/A/AW/AWWAIID/WWW-HtmlUnit-0.10.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
+</content:encoded>
+</item>
+<item rdf:about="http://frepan.64p.org/~adamk/List-MoreUtils-0.26/">
+<title>List-MoreUtils 0.26</title>
+<link>http://frepan.64p.org/~adamk/List-MoreUtils-0.26/</link>
+<description>0.26 Tue 23 Nov 2010
+	- No changes
+	- Some parts of the CPAN cloud were confusing my 0.24
+	  release with the older deleted 0.24. Bumping version
+	  past Tassilo&#x27;s to clarify things.
+
+</description>
+<dc:creator>ADAMK</dc:creator>
+<dc:date>2010-11-23T03:01:15Z</dc:date>
+<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/884124d0169f41668fb3f948b2ba8b0a?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
+&#x3C;pre&#x3E;0.26 Tue 23 Nov 2010
+	- No changes
+	- Some parts of the CPAN cloud were confusing my 0.24
+	  release with the older deleted 0.24. Bumping version
+	  past Tassilo&#x26;apos;s to clarify things.
+
+&#x3C;/pre&#x3E;
+&#x3C;a href=&#x22;http://search.cpan.org/dist/List-MoreUtils/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
+&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/A/AD/ADAMK/List-MoreUtils-0.26.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
 </content:encoded>
 </item>
 </rdf:RDF>

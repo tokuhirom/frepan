@@ -36,15 +36,15 @@ use FrePAN::Pod::POM::View::Text;
 our $DEBUG;
 our $PATH;
 
-sub p { use Data::Dumper; warn Dumper(@_) }
+sub p { warn "DEPRECATED" }
 
 sub inject {
     args my $class,
-         my $path,
+         my $path => 'Str',
          my $released => {isa => 'Int'},  # in epoch time
-         my $name,
-         my $version,
-         my $author,
+         my $name => 'Str',
+         my $version => 'Str',
+         my $author => 'Str',
          ;
     infof("Run $path \n");
 
