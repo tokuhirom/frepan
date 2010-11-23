@@ -5,3 +5,4 @@ MYMETA.yml
 tmp/
 config/development.pl
 config/production.pl
+feed/index.rss
