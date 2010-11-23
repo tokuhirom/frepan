@@ -52,6 +52,24 @@ sub inject {
 
     my $c = c();
 
+    # transaction
+    my $txn = $c->db->txn_scope;
+
+    {
+        my $dist = $c->db->single(
+            dist => {
+                name    => $name,
+                version => $version,
+                author  => $author,
+            },
+        );
+        if ($dist) {
+            infof("already processed: $name, $version, $author");
+            $txn->rollback();
+            return;
+        }
+    }
+
     # fetch archive
     my $archivepath = file(FrePAN::M::CPAN->minicpan_path(), 'authors', 'id', $path)->absolute;
     debugf "$archivepath, $path";
@@ -85,7 +103,6 @@ sub inject {
        $no_index = qr/^(?:$no_index)/ if $no_index;
     my $requires = $meta->{requires};
 
-    my $txn = $c->db->txn_scope;
 
     debugf 'creating database entry';
     my $dist = $c->db->find_or_create(
