@@ -1,3 +1,5 @@
+=encoding utf-8
+
 =head1 NAME
 
 Amon2::Manual::TODO - What is next step?
@@ -11,8 +13,6 @@ Amon2::Manual::TODO - What is next step?
 like HTML::DoCoMoCSS
 
 =item Plack::Middleware::PageCache
-
-=item build_per_request for container class
 
 =back
 

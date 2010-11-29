@@ -1,0 +1,22 @@
+=head2 Mon Nov 29 20:52:41 2010: C<Module> L<Amon2|Amon2>
+
+=over 4
+
+=item *
+
+C<installed into: /Users/tokuhirom/dev/tokuhirom/frepan/extlib/lib/perl5>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 2.04>
+
+=item *
+
+C<EXE_FILES: script/amon2-setup.pl>
+
+=back
+
