@@ -1,8 +1,10 @@
 use inc::Module::Install;
 all_from "lib/FrePAN.pm";
 
+use lib 'extlib/lib/perl5/';
+
 tests 't/*.t t/*/*.t t/*/*/*.t';
-requires 'Amon' => 0.22;
+requires 'Amon2' => 2.04;
 requires 'JSON::XS';
 requires 'URI';
 requires 'LWP::UserAgent';
@@ -16,7 +18,6 @@ requires 'Gravatar::URL';
 requires 'XML::Feed';
 requires 'XML::Feed::Deduper';
 requires 'Algorithm::Diff';
-requires 'Log::Dispatch::Screen::Color' => 0.03;
 requires 'Class::Accessor::Fast';
 requires 'CPAN::DistnameInfo'; # parse path name
 requires 'Archive::Zip';
