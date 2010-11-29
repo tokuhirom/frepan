@@ -1,8 +1,10 @@
 use inc::Module::Install;
 all_from "lib/FrePAN.pm";
 
+use lib 'extlib/lib/perl5/';
+
 tests 't/*.t t/*/*.t t/*/*/*.t';
-requires 'Amon' => 0.22;
+requires 'Amon2' => 2.04;
 requires 'JSON::XS';
 requires 'URI';
 requires 'LWP::UserAgent';
