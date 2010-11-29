@@ -19,290 +19,219 @@
 <description></description>
 <items>
  <rdf:Seq>
-  <rdf:li rdf:resource="http://frepan.64p.org/~kni/IPC-MPS-0.09/" />
-  <rdf:li rdf:resource="http://frepan.64p.org/~danjou/Plack-Middleware-ReverseProxy-0.08/" />
-  <rdf:li rdf:resource="http://frepan.64p.org/~imalpass/WebService-Etsy-0.7/" />
-  <rdf:li rdf:resource="http://frepan.64p.org/~jonasbn/Module-Build-Bundle-0.04/" />
-  <rdf:li rdf:resource="http://frepan.64p.org/~kazeburo/JavaScript-Value-Escape-0.04/" />
-  <rdf:li rdf:resource="http://frepan.64p.org/~gfuji/Text-Xslate-0.3000/" />
-  <rdf:li rdf:resource="http://frepan.64p.org/~mbaas/Math-PercentChange-0.05/" />
-  <rdf:li rdf:resource="http://frepan.64p.org/~apla/Web-App-Lib-EntityRecord-0.03/" />
-  <rdf:li rdf:resource="http://frepan.64p.org/~awwaiid/Continuity-1.3/" />
-  <rdf:li rdf:resource="http://frepan.64p.org/~awwaiid/WWW-HtmlUnit-0.11/" />
+  <rdf:li rdf:resource="http://frepan.64p.org/~merixzon/WWW-Google-Contacts-0.20/" />
+  <rdf:li rdf:resource="http://frepan.64p.org/~gray/Digest-GOST-0.03/" />
+  <rdf:li rdf:resource="http://frepan.64p.org/~motif/Bio-LITE-Taxonomy-NCBI-0.04/" />
+  <rdf:li rdf:resource="http://frepan.64p.org/~gray/Digest-BLAKE-0.04/" />
+  <rdf:li rdf:resource="http://frepan.64p.org/~gray/Digest-SIMD-0.04/" />
+  <rdf:li rdf:resource="http://frepan.64p.org/~gray/Digest-SHAvite3-0.02/" />
+  <rdf:li rdf:resource="http://frepan.64p.org/~gray/Digest-Shabal-0.04/" />
+  <rdf:li rdf:resource="http://frepan.64p.org/~gray/Digest-Keccak-0.04/" />
+  <rdf:li rdf:resource="http://frepan.64p.org/~gray/Digest-JH-0.04/" />
+  <rdf:li rdf:resource="http://frepan.64p.org/~gray/Digest-Luffa-0.04/" />
  </rdf:Seq>
 </items>
 </channel>
-<item rdf:about="http://frepan.64p.org/~kni/IPC-MPS-0.09/">
-<title>IPC-MPS 0.09</title>
-<link>http://frepan.64p.org/~kni/IPC-MPS-0.09/</link>
-<description>0.09  2010-10-19
-	- Laziness in message processing supported
-	- IPC::MPS::EV: using EV &#x22;default event loop&#x22;
-	- Event and EV based side modules support (directly or thru AnyEvent)
-
+<item rdf:about="http://frepan.64p.org/~merixzon/WWW-Google-Contacts-0.20/">
+<title>WWW-Google-Contacts 0.20</title>
+<link>http://frepan.64p.org/~merixzon/WWW-Google-Contacts-0.20/</link>
+<description>0.20    2010.11.29
+	Bug fixes around contact events. Thanks to Oliver Enzmann for bug report
+	
 </description>
-<dc:creator>KNI</dc:creator>
-<dc:date>2010-11-23T09:24:56Z</dc:date>
-<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/a549419b4b1bd96fe2df449c6bf1ccf6?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
-&#x3C;pre&#x3E;0.09  2010-10-19
-	- Laziness in message processing supported
-	- IPC::MPS::EV: using EV &#x26;quot;default event loop&#x26;quot;
-	- Event and EV based side modules support (directly or thru AnyEvent)
-
+<dc:creator>MERIXZON</dc:creator>
+<dc:date>2010-11-29T14:31:04Z</dc:date>
+<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/dae4b94a62618bdc44f41ba2ca85495e?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
+&#x3C;pre&#x3E;0.20    2010.11.29
+	Bug fixes around contact events. Thanks to Oliver Enzmann for bug report
+	
 &#x3C;/pre&#x3E;
-&#x3C;a href=&#x22;http://search.cpan.org/dist/IPC-MPS/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
-&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/K/KN/KNI/IPC-MPS-0.09.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
+&#x3C;a href=&#x22;http://search.cpan.org/dist/WWW-Google-Contacts/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
+&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/M/ME/MERIXZON/WWW-Google-Contacts-0.20.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
 </content:encoded>
 </item>
-<item rdf:about="http://frepan.64p.org/~danjou/Plack-Middleware-ReverseProxy-0.08/">
-<title>Plack-Middleware-ReverseProxy 0.08</title>
-<link>http://frepan.64p.org/~danjou/Plack-Middleware-ReverseProxy-0.08/</link>
-<description>0.08    Tue Nov 23 18:20:00 2010
-        - Compatibility with Apache 1.x frontend
+<item rdf:about="http://frepan.64p.org/~gray/Digest-GOST-0.03/">
+<title>Digest-GOST 0.03</title>
+<link>http://frepan.64p.org/~gray/Digest-GOST-0.03/</link>
+<description>0.03  Mon Nov 29 11:50:42 UTC 2010
+    - Asm fix for BSDs. (Aleksey Kravchenko)
+
+0.02  Mon Nov 29 11:04:26 UTC 2010
+    - Converted hex and base64 encoders to C.
+    - Added implicit reset upon call to digest method.
 
 </description>
-<dc:creator>DANJOU</dc:creator>
-<dc:date>2010-11-23T09:21:54Z</dc:date>
-<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/e69f383f5a13b8353ce959927cf24793?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
-&#x3C;pre&#x3E;0.08    Tue Nov 23 18:20:00 2010
-        - Compatibility with Apache 1.x frontend
+<dc:creator>GRAY</dc:creator>
+<dc:date>2010-11-29T12:04:21Z</dc:date>
+<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/4a96d57b423d813993a6baadebccf409?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
+&#x3C;pre&#x3E;0.03  Mon Nov 29 11:50:42 UTC 2010
+    - Asm fix for BSDs. (Aleksey Kravchenko)
+
+0.02  Mon Nov 29 11:04:26 UTC 2010
+    - Converted hex and base64 encoders to C.
+    - Added implicit reset upon call to digest method.
 
 &#x3C;/pre&#x3E;
-&#x3C;a href=&#x22;http://search.cpan.org/dist/Plack-Middleware-ReverseProxy/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
-&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/D/DA/DANJOU/Plack-Middleware-ReverseProxy-0.08.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
+&#x3C;a href=&#x22;http://search.cpan.org/dist/Digest-GOST/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
+&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/G/GR/GRAY/Digest-GOST-0.03.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
 </content:encoded>
 </item>
-<item rdf:about="http://frepan.64p.org/~imalpass/WebService-Etsy-0.7/">
-<title>WebService-Etsy 0.7</title>
-<link>http://frepan.64p.org/~imalpass/WebService-Etsy-0.7/</link>
+<item rdf:about="http://frepan.64p.org/~motif/Bio-LITE-Taxonomy-NCBI-0.04/">
+<title>Bio-LITE-Taxonomy-NCBI 0.04</title>
+<link>http://frepan.64p.org/~motif/Bio-LITE-Taxonomy-NCBI-0.04/</link>
 <description>
-0.7 2010-11-23
-
-    - Interim release to provide basic functionality with the v2 API.
-    - Not all new resources supported.
+0.04	Mon Nov 29 12:41:12 2010
+	Fixed more small bugs with Gi2taxid
 </description>
-<dc:creator>IMALPASS</dc:creator>
-<dc:date>2010-11-23T07:12:48Z</dc:date>
-<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/9ee48b47c66f7abf216b03d51d566580?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
+<dc:creator>MOTIF</dc:creator>
+<dc:date>2010-11-29T11:52:57Z</dc:date>
+<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/5660261bf7fc03555e8d0f27b09dc6e5?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
 &#x3C;pre&#x3E;
-0.7 2010-11-23
-
-    - Interim release to provide basic functionality with the v2 API.
-    - Not all new resources supported.
+0.04	Mon Nov 29 12:41:12 2010
+	Fixed more small bugs with Gi2taxid
 &#x3C;/pre&#x3E;
-&#x3C;a href=&#x22;http://search.cpan.org/dist/WebService-Etsy/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
-&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/I/IM/IMALPASS/WebService-Etsy-0.7.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
+&#x3C;a href=&#x22;http://search.cpan.org/dist/Bio-LITE-Taxonomy-NCBI/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
+&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/M/MO/MOTIF/Bio-LITE-Taxonomy-NCBI-0.04.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
 </content:encoded>
 </item>
-<item rdf:about="http://frepan.64p.org/~jonasbn/Module-Build-Bundle-0.04/">
-<title>Module-Build-Bundle 0.04</title>
-<link>http://frepan.64p.org/~jonasbn/Module-Build-Bundle-0.04/</link>
-<description>$Id: Changes 7358 2010-11-23 06:53:12Z jonasbn $
-
-Release 0.04, 23.11.2010, bug fix release, update recommended
-
-- Addressed failing tests [MBB-18] missing listing of required file
-  http://logiclab.jira.com/browse/MBB-18
+<item rdf:about="http://frepan.64p.org/~gray/Digest-BLAKE-0.04/">
+<title>Digest-BLAKE 0.04</title>
+<link>http://frepan.64p.org/~gray/Digest-BLAKE-0.04/</link>
+<description>0.04  Mon Nov 29 11:04:26 UTC 2010
+    - Converted hex and base64 encoders to C.
+    - Added implicit reset upon call to digest method.
 
 </description>
-<dc:creator>JONASBN</dc:creator>
-<dc:date>2010-11-23T06:56:16Z</dc:date>
-<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/1b053b414cecd279ef44423c75b3d227?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
-&#x3C;pre&#x3E;$Id: Changes 7358 2010-11-23 06:53:12Z jonasbn $
-
-Release 0.04, 23.11.2010, bug fix release, update recommended
-
-- Addressed failing tests [MBB-18] missing listing of required file
-  http://logiclab.jira.com/browse/MBB-18
+<dc:creator>GRAY</dc:creator>
+<dc:date>2010-11-29T11:49:48Z</dc:date>
+<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/4a96d57b423d813993a6baadebccf409?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
+&#x3C;pre&#x3E;0.04  Mon Nov 29 11:04:26 UTC 2010
+    - Converted hex and base64 encoders to C.
+    - Added implicit reset upon call to digest method.
 
 &#x3C;/pre&#x3E;
-&#x3C;a href=&#x22;http://search.cpan.org/dist/Module-Build-Bundle/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
-&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/J/JO/JONASBN/Module-Build-Bundle-0.04.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
+&#x3C;a href=&#x22;http://search.cpan.org/dist/Digest-BLAKE/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
+&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/G/GR/GRAY/Digest-BLAKE-0.04.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
 </content:encoded>
 </item>
-<item rdf:about="http://frepan.64p.org/~kazeburo/JavaScript-Value-Escape-0.04/">
-<title>JavaScript-Value-Escape 0.04</title>
-<link>http://frepan.64p.org/~kazeburo/JavaScript-Value-Escape-0.04/</link>
-<description>0.04    Tue Nov 23 15:41:27 2010
-        - Improve docs (gfx)
-        - Add js() (alias to javascript_value_escape()) to @EXPORT_OK (gfx)
-
-0.03    Tue Nov 23 00:02:29 2010
-        - added &#x27;+&#x27; for escape
-
-0.02    Sat Nov 20 00:35:37 2010
-        - incopatible change.
-        - arguments must be flagged UTF8 string
+<item rdf:about="http://frepan.64p.org/~gray/Digest-SIMD-0.04/">
+<title>Digest-SIMD 0.04</title>
+<link>http://frepan.64p.org/~gray/Digest-SIMD-0.04/</link>
+<description>0.04  Mon Nov 29 11:04:26 UTC 2010
+    - Converted hex and base64 encoders to C.
+    - Added implicit reset upon call to digest method.
 
 </description>
-<dc:creator>KAZEBURO</dc:creator>
-<dc:date>2010-11-23T06:49:47Z</dc:date>
-<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/700669515ee872152d8b9403c2a0cf8c?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
-&#x3C;pre&#x3E;0.04    Tue Nov 23 15:41:27 2010
-        - Improve docs (gfx)
-        - Add js() (alias to javascript_value_escape()) to @EXPORT_OK (gfx)
-
-0.03    Tue Nov 23 00:02:29 2010
-        - added &#x26;apos;+&#x26;apos; for escape
-
-0.02    Sat Nov 20 00:35:37 2010
-        - incopatible change.
-        - arguments must be flagged UTF8 string
+<dc:creator>GRAY</dc:creator>
+<dc:date>2010-11-29T11:36:21Z</dc:date>
+<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/4a96d57b423d813993a6baadebccf409?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
+&#x3C;pre&#x3E;0.04  Mon Nov 29 11:04:26 UTC 2010
+    - Converted hex and base64 encoders to C.
+    - Added implicit reset upon call to digest method.
 
 &#x3C;/pre&#x3E;
-&#x3C;a href=&#x22;http://search.cpan.org/dist/JavaScript-Value-Escape/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
-&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/K/KA/KAZEBURO/JavaScript-Value-Escape-0.04.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
+&#x3C;a href=&#x22;http://search.cpan.org/dist/Digest-SIMD/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
+&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/G/GR/GRAY/Digest-SIMD-0.04.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
 </content:encoded>
 </item>
-<item rdf:about="http://frepan.64p.org/~gfuji/Text-Xslate-0.3000/">
-<title>Text-Xslate 0.3000</title>
-<link>http://frepan.64p.org/~gfuji/Text-Xslate-0.3000/</link>
-<description>0.3000 2010-11-23 15:19:04
-    [CHANGES]
-    * `option =&#x3E; undef` passes the option as is, which allows
-      Text::Xslate-&#x3E;new( line_start =&#x3E; undef ) (issue/21, reported by @tomita).
-      Note that this is an IMCOMPATIBLE CHANGE.
-
-    [DOCUMENTS]
-    * Update Cookbook and FAQ
+<item rdf:about="http://frepan.64p.org/~gray/Digest-SHAvite3-0.02/">
+<title>Digest-SHAvite3 0.02</title>
+<link>http://frepan.64p.org/~gray/Digest-SHAvite3-0.02/</link>
+<description>0.02  Mon Nov 29 11:04:26 UTC 2010
+    - Converted hex and base64 encoders to C.
+    - Added implicit reset upon call to digest method.
 
 </description>
-<dc:creator>GFUJI</dc:creator>
-<dc:date>2010-11-23T06:25:17Z</dc:date>
-<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/9278c3a06b8d8752fb913dea93f959c1?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
-&#x3C;pre&#x3E;0.3000 2010-11-23 15:19:04
-    [CHANGES]
-    * `option =&#x26;gt; undef` passes the option as is, which allows
-      Text::Xslate-&#x26;gt;new( line_start =&#x26;gt; undef ) (issue/21, reported by @tomita).
-      Note that this is an IMCOMPATIBLE CHANGE.
-
-    [DOCUMENTS]
-    * Update Cookbook and FAQ
+<dc:creator>GRAY</dc:creator>
+<dc:date>2010-11-29T11:36:19Z</dc:date>
+<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/4a96d57b423d813993a6baadebccf409?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
+&#x3C;pre&#x3E;0.02  Mon Nov 29 11:04:26 UTC 2010
+    - Converted hex and base64 encoders to C.
+    - Added implicit reset upon call to digest method.
 
 &#x3C;/pre&#x3E;
-&#x3C;a href=&#x22;http://search.cpan.org/dist/Text-Xslate/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
-&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/G/GF/GFUJI/Text-Xslate-0.3000.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
+&#x3C;a href=&#x22;http://search.cpan.org/dist/Digest-SHAvite3/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
+&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/G/GR/GRAY/Digest-SHAvite3-0.02.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
 </content:encoded>
 </item>
-<item rdf:about="http://frepan.64p.org/~mbaas/Math-PercentChange-0.05/">
-<title>Math-PercentChange 0.05</title>
-<link>http://frepan.64p.org/~mbaas/Math-PercentChange-0.05/</link>
-<dc:creator>MBAAS</dc:creator>
-<dc:date>2010-11-23T05:46:45Z</dc:date>
-<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/cee725476c76bffc2e95cca1013b0bd1?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
-&#x3C;pre&#x3E;&#x3C;/pre&#x3E;
-&#x3C;a href=&#x22;http://search.cpan.org/dist/Math-PercentChange/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
-&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/M/MB/MBAAS/Math-PercentChange-0.05.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
-</content:encoded>
-</item>
-<item rdf:about="http://frepan.64p.org/~apla/Web-App-Lib-EntityRecord-0.03/">
-<title>Web-App-Lib-EntityRecord 0.03</title>
-<link>http://frepan.64p.org/~apla/Web-App-Lib-EntityRecord-0.03/</link>
-<description>2010-11-23	Ivan Baktsheev &#x3C;dot.and.thing@gmail.com&#x3E;
-
-	Release 0.02
-
-	minor fix
-	pager size and current page report
-	
-2010-11-23	Ivan Baktsheev &#x3C;dot.and.thing@gmail.com&#x3E;
-
-	Release 0.02
-
-	record embedding
-	
-</description>
-<dc:creator>APLA</dc:creator>
-<dc:date>2010-11-23T05:33:44Z</dc:date>
-<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/e27193a6f4eb76c3109546beeabac8c5?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
-&#x3C;pre&#x3E;2010-11-23	Ivan Baktsheev &#x26;lt;dot.and.thing@gmail.com&#x26;gt;
-
-	Release 0.02
-
-	minor fix
-	pager size and current page report
-	
-2010-11-23	Ivan Baktsheev &#x26;lt;dot.and.thing@gmail.com&#x26;gt;
-
-	Release 0.02
-
-	record embedding
-	
-&#x3C;/pre&#x3E;
-&#x3C;a href=&#x22;http://search.cpan.org/dist/Web-App-Lib-EntityRecord/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
-&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/A/AP/APLA/Web-App-Lib-EntityRecord-0.03.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
-</content:encoded>
-</item>
-<item rdf:about="http://frepan.64p.org/~awwaiid/Continuity-1.3/">
-<title>Continuity 1.3</title>
-<link>http://frepan.64p.org/~awwaiid/Continuity-1.3/</link>
-<description>Revision history for Continuity. See the main repository for a detailed list of
-internal changes.
-
-Version 1.3 (released 2010.11.22)
-  * Stupid version number issue
-
-Version 1.2.0 (released 2010.11.22)
-  * Refactor PSGI adaptor (scrottie)
-  * Random documentation updates
-
-Version 1.1.1 (released 2010.02.05)
-  * Add PSGI Adapter! Try &#x22;plackup -s Coro guess.pl&#x22;
-  * Remove experimental Plack adapter
-  * PSGI adapter uses AnyEvent, the rest of Continuity will too soon
-  * Misc cleanups
-</description>
-<dc:creator>AWWAIID</dc:creator>
-<dc:date>2010-11-23T03:40:09Z</dc:date>
-<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/1dc66046def93740605f5e63a6aacd71?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
-&#x3C;pre&#x3E;Revision history for Continuity. See the main repository for a detailed list of
-internal changes.
-
-Version 1.3 (released 2010.11.22)
-  * Stupid version number issue
-
-Version 1.2.0 (released 2010.11.22)
-  * Refactor PSGI adaptor (scrottie)
-  * Random documentation updates
-
-Version 1.1.1 (released 2010.02.05)
-  * Add PSGI Adapter! Try &#x26;quot;plackup -s Coro guess.pl&#x26;quot;
-  * Remove experimental Plack adapter
-  * PSGI adapter uses AnyEvent, the rest of Continuity will too soon
-  * Misc cleanups
-&#x3C;/pre&#x3E;
-&#x3C;a href=&#x22;http://search.cpan.org/dist/Continuity/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
-&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/A/AW/AWWAIID/Continuity-1.3.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
-</content:encoded>
-</item>
-<item rdf:about="http://frepan.64p.org/~awwaiid/WWW-HtmlUnit-0.11/">
-<title>WWW-HtmlUnit 0.11</title>
-<link>http://frepan.64p.org/~awwaiid/WWW-HtmlUnit-0.11/</link>
-<description>0.11 2010.11.22
-  - Oops, forgot to update MANIFEST
-
-0.10 2010.11.22
-  - Add WWW::HtmlUnit::Sweet
-  - Add &#x27;study&#x27; like &#x27;jars&#x27; import param (Fred Castellano)
-  - Add some more documentation
-  - Note that HtmlUnit is now up to 2.8
+<item rdf:about="http://frepan.64p.org/~gray/Digest-Shabal-0.04/">
+<title>Digest-Shabal 0.04</title>
+<link>http://frepan.64p.org/~gray/Digest-Shabal-0.04/</link>
+<description>0.04  Mon Nov 29 11:04:26 UTC 2010
+    - Converted hex and base64 encoders to C.
+    - Added implicit reset upon call to digest method.
 
 </description>
-<dc:creator>AWWAIID</dc:creator>
-<dc:date>2010-11-23T03:35:37Z</dc:date>
-<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/1dc66046def93740605f5e63a6aacd71?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
-&#x3C;pre&#x3E;0.11 2010.11.22
-  - Oops, forgot to update MANIFEST
-
-0.10 2010.11.22
-  - Add WWW::HtmlUnit::Sweet
-  - Add &#x26;apos;study&#x26;apos; like &#x26;apos;jars&#x26;apos; import param (Fred Castellano)
-  - Add some more documentation
-  - Note that HtmlUnit is now up to 2.8
+<dc:creator>GRAY</dc:creator>
+<dc:date>2010-11-29T11:36:17Z</dc:date>
+<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/4a96d57b423d813993a6baadebccf409?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
+&#x3C;pre&#x3E;0.04  Mon Nov 29 11:04:26 UTC 2010
+    - Converted hex and base64 encoders to C.
+    - Added implicit reset upon call to digest method.
 
 &#x3C;/pre&#x3E;
-&#x3C;a href=&#x22;http://search.cpan.org/dist/WWW-HtmlUnit/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
-&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/A/AW/AWWAIID/WWW-HtmlUnit-0.11.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
+&#x3C;a href=&#x22;http://search.cpan.org/dist/Digest-Shabal/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
+&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/G/GR/GRAY/Digest-Shabal-0.04.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
+</content:encoded>
+</item>
+<item rdf:about="http://frepan.64p.org/~gray/Digest-Keccak-0.04/">
+<title>Digest-Keccak 0.04</title>
+<link>http://frepan.64p.org/~gray/Digest-Keccak-0.04/</link>
+<description>0.04  Mon Nov 29 11:04:26 UTC 2010
+    - Converted hex and base64 encoders to C.
+    - Added implicit reset upon call to digest method.
+
+</description>
+<dc:creator>GRAY</dc:creator>
+<dc:date>2010-11-29T11:35:51Z</dc:date>
+<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/4a96d57b423d813993a6baadebccf409?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
+&#x3C;pre&#x3E;0.04  Mon Nov 29 11:04:26 UTC 2010
+    - Converted hex and base64 encoders to C.
+    - Added implicit reset upon call to digest method.
+
+&#x3C;/pre&#x3E;
+&#x3C;a href=&#x22;http://search.cpan.org/dist/Digest-Keccak/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
+&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/G/GR/GRAY/Digest-Keccak-0.04.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
+</content:encoded>
+</item>
+<item rdf:about="http://frepan.64p.org/~gray/Digest-JH-0.04/">
+<title>Digest-JH 0.04</title>
+<link>http://frepan.64p.org/~gray/Digest-JH-0.04/</link>
+<description>0.04  Mon Nov 29 11:04:26 UTC 2010
+    - Converted hex and base64 encoders to C.
+    - Added implicit reset upon call to digest method.
+
+</description>
+<dc:creator>GRAY</dc:creator>
+<dc:date>2010-11-29T11:35:49Z</dc:date>
+<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/4a96d57b423d813993a6baadebccf409?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
+&#x3C;pre&#x3E;0.04  Mon Nov 29 11:04:26 UTC 2010
+    - Converted hex and base64 encoders to C.
+    - Added implicit reset upon call to digest method.
+
+&#x3C;/pre&#x3E;
+&#x3C;a href=&#x22;http://search.cpan.org/dist/Digest-JH/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
+&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/G/GR/GRAY/Digest-JH-0.04.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
+</content:encoded>
+</item>
+<item rdf:about="http://frepan.64p.org/~gray/Digest-Luffa-0.04/">
+<title>Digest-Luffa 0.04</title>
+<link>http://frepan.64p.org/~gray/Digest-Luffa-0.04/</link>
+<description>0.04  Mon Nov 29 11:04:26 UTC 2010
+    - Converted hex and base64 encoders to C.
+    - Added implicit reset upon call to digest method.
+
+</description>
+<dc:creator>GRAY</dc:creator>
+<dc:date>2010-11-29T11:35:47Z</dc:date>
+<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/4a96d57b423d813993a6baadebccf409?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
+&#x3C;pre&#x3E;0.04  Mon Nov 29 11:04:26 UTC 2010
+    - Converted hex and base64 encoders to C.
+    - Added implicit reset upon call to digest method.
+
+&#x3C;/pre&#x3E;
+&#x3C;a href=&#x22;http://search.cpan.org/dist/Digest-Luffa/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
+&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/G/GR/GRAY/Digest-Luffa-0.04.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
 </content:encoded>
 </item>
 </rdf:RDF>

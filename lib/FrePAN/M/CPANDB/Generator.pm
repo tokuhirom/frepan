@@ -8,6 +8,7 @@ use LWP::UserAgent;
 use File::Spec::Functions qw/catfile/;
 use version ();
 use Try::Tiny;
+use Log::Minimal;
 
 sub new {
     my ($class, ) = @_;
@@ -73,7 +74,7 @@ sub mk_packages {
 sub mk_uploads {
     my ($self) = @_;
 
-    c->log->debug("start uploads");
+    debugf("start uploads");
     my $url = 'http://devel.cpantesters.org/uploads/uploads.db.bz2';
     my $ua = LWP::UserAgent->new();
     my $bz2 = catfile(minicpan, 'modules/uploads.db.bz2');

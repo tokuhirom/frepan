@@ -5,6 +5,7 @@ use Gravatar::URL qw/gravatar_url/;
 use DBI;
 use Path::Class qw/dir file/;
 use Amon2::Declare;
+use Log::Minimal;
 
 sub pause_id2gravatar_url {
     my ($self, $pause_id) = @_;
@@ -12,7 +13,7 @@ sub pause_id2gravatar_url {
     if ($author) {
         return $self->email2gravatar_url($author->email);
     } else {
-        c->log->info("cannot detect author: $pause_id");
+        infof("cannot detect author: $pause_id");
         return;
     }
 }

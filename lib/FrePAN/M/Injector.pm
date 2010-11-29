@@ -251,7 +251,7 @@ sub inject {
     unless ($DEBUG) {
         debugf 'sending ping';
         my $result = $class->send_ping();
-        c->log->error(ref($result) ? $result->value : "Error: $result");
+        critf(ref($result) ? $result->value : "Error: $result");
     }
 
     debugf 'commit';
@@ -353,7 +353,7 @@ sub load_meta {
             +{};
         };
     } else {
-        c->log->info("missing META file in $path".Cwd::getcwd());
+        infof("missing META file in $path".Cwd::getcwd());
         +{};
     }
 }
