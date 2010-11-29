@@ -24,6 +24,7 @@ requires 'Archive::Zip';
 requires 'Cache::Memcached::Fast' => 0.19;
 requires 'RPC::XML';
 requires 'Log::Minimal';
+requires 'Smart::Args';
 recursive_author_tests('xt');
 
 WriteAll;
