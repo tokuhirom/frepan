@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 use Test::More;
-use FrePAN::Worker::ProcessDist;
+use FrePAN::M::Injector;
 use t::Util;
 
 my $new = <<'...';
@@ -15,7 +15,7 @@ bar
 baz
 ...
 
-my $diff = FrePAN::Worker::ProcessDist::make_diff(
+my $diff = FrePAN::M::Injector::make_diff(
     $old, $new
 );
 

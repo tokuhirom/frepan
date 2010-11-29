@@ -12,7 +12,7 @@ requires 'Archive::Extract';
 requires 'Guard';
 requires 'Path::Class';
 requires 'autodie';
-requires 'Pod::POM';
+requires 'Pod::POM' => 0.27;
 requires 'parent';
 requires 'Gravatar::URL';
 requires 'XML::Feed';
@@ -24,6 +24,7 @@ requires 'Archive::Zip';
 requires 'Cache::Memcached::Fast' => 0.19;
 requires 'RPC::XML';
 requires 'Log::Minimal';
+requires 'Smart::Args';
 recursive_author_tests('xt');
 
 WriteAll;
