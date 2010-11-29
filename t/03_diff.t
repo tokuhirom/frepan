@@ -1,8 +1,8 @@
 use strict;
 use warnings;
 use Test::More;
-use FrePAN::M::Injector;
 use t::Util;
+use FrePAN::M::Injector;
 
 my $new = <<'...';
 foo

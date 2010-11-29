@@ -1,19 +1,25 @@
-use 5.013002;
+use strict;
+use warnings;
+use lib 'extlib/lib/perl5/';
 
-package t::Util {
-    use DBI;
+package t::Util;
+use DBI;
+use parent qw/Exporter/;
 
-    sub slurp { open my $fh, '<', $_[0] or die "cannot open file $_[0]"; do { local $/; <$fh> } }
+our @EXPORT=qw/slurp/;
 
-    $ENV{PLACK_ENV} = 'test';
+sub slurp { open my $fh, '<', $_[0] or die "cannot open file $_[0]"; do { local $/; <$fh> } }
 
-    # initialize database
+$ENV{PLACK_ENV} = 'test';
 
-    my $dbh = DBI->connect('dbi:mysql:mysql_read_default_file=/etc/my.cnf;mysql_multi_statements=1', 'root', '');
+# initialize database
 
-    my $app_schema = slurp 'sql/my.sql';
-    $dbh->do(q{DROP DATABASE IF EXISTS test_FrePAN;});
-    $dbh->do(q{CREATE DATABASE test_FrePAN;});
-    $dbh->do(q{USE test_FrePAN;});
-    $dbh->do($app_schema);
-}
+my $dbh = DBI->connect('dbi:mysql:mysql_read_default_file=/etc/my.cnf;mysql_multi_statements=1', 'root', '');
+
+my $app_schema = slurp 'sql/my.sql';
+$dbh->do(q{DROP DATABASE IF EXISTS test_FrePAN;});
+$dbh->do(q{CREATE DATABASE test_FrePAN;});
+$dbh->do(q{USE test_FrePAN;});
+$dbh->do($app_schema);
+
+1;

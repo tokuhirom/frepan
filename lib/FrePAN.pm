@@ -5,8 +5,6 @@ use parent qw/Amon2/;
 use DBI;
 use Cache::Memcached::Fast;
 
-__PACKAGE__->load_plugins(qw/LogDispatch/);
-
 use Amon2::Config::Simple;
 sub load_config { Amon2::Config::Simple->load(shift) }
 
@@ -23,7 +21,7 @@ sub db {
 
 sub memcached {
     my ($c) = @_;
-    my $conf = $c->config->{'Cache::Memcached::Fast'} // die;
+    my $conf = $c->config->{'Cache::Memcached::Fast'} // die "missing configuration for Cache::Memcached::Fast";
     Cache::Memcached::Fast->new($conf);
 }
 

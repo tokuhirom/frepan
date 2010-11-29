@@ -1,6 +1,8 @@
+use strict;
+use warnings;
+
 package FrePAN::Web::Dispatcher;
 use Amon2::Web::Dispatcher::RouterSimple;
-use 5.008001;
 
 connect '/',      'Root#index';
 connect '/about', 'Root#about';
