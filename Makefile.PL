@@ -12,7 +12,7 @@ requires 'Archive::Extract';
 requires 'Guard';
 requires 'Path::Class';
 requires 'autodie';
-requires 'Pod::POM';
+requires 'Pod::POM' => 2.07;
 requires 'parent';
 requires 'Gravatar::URL';
 requires 'XML::Feed';
