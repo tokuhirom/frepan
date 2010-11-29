@@ -123,35 +123,17 @@
 .rm #[ #] #H #V #F C
 .\" ========================================================================
 .\"
-.IX Title "Amon2::Plugin::Web::FillInForm 3"
-.TH Amon2::Plugin::Web::FillInForm 3 "2010-11-26" "perl v5.12.2" "User Contributed Perl Documentation"
+.IX Title "AMON2-SETUP 1"
+.TH AMON2-SETUP 1 "2010-11-29" "perl v5.12.2" "User Contributed Perl Documentation"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
 .nh
-.SH "NAME"
-Amon2::Plugin::Web::FillInForm \- HTML::FillInForm
 .SH "SYNOPSIS"
 .IX Header "SYNOPSIS"
-.Vb 4
-\&  package MyApp::Web;
-\&  use parent qw/MyApp Amon2::Web/;
-\&  _\|_PACKAGE_\|_\->load_plugins(qw/Web::FillInForm/);
-\&  1;
-\&
-\&  package MyApp::Web::C::Root;
-\&
-\&  sub post_edit {
-\&    my $c = shift;
-\&    $c\->fillin_form($c\->req());
-\&    $c\->render(\*(Aqedit.html\*(Aq);
-\&  }
-\&
-\&  1;
+.Vb 1
+\&    % amon\-setup.pl MyApp
 .Ve
-.SH "DESCRIPTION"
-.IX Header "DESCRIPTION"
-HTML::FillInForm integration for Amon2.
-.SH "SEE ALSO"
-.IX Header "SEE ALSO"
-HTML::FillInForm, Amon2
+.SH "AUTHOR"
+.IX Header "AUTHOR"
+Tokuhiro Matsuno

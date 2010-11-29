@@ -5,14 +5,13 @@ use 5.008001;
 use Amon2::Util ();
 use Plack::Util ();
 use Data::OptList ();
-use parent qw/Class::Data::Inheritable/;
 use Carp ();
 
-our $VERSION = '0.44';
+our $VERSION = '2.04';
 {
-    our $_context;
-    sub context { $_context }
-    sub set_context { $_context = $_[1] }
+    our $CONTEXT; # You can localize this variable in your application.
+    sub context { $CONTEXT }
+    sub set_context { $CONTEXT = $_[1] }
 }
 
 sub new {
@@ -29,6 +28,7 @@ sub bootstrap {
     return $self;
 }
 
+# class method.
 sub base_dir {
     my $proto = ref $_[0] || $_[0];
     my $base_dir = Amon2::Util::base_dir($proto);
@@ -36,7 +36,7 @@ sub base_dir {
     $base_dir;
 }
 
-sub load_config { die "Abstract base method" }
+sub load_config { die "Abstract base method: load_config" }
 sub config {
     my $class = shift;
        $class = ref $class || $class;
@@ -49,6 +49,7 @@ sub config {
 
 sub add_config {
     my ($class, $key, $hash) = @_; $hash or Carp::croak("missing args: \$hash");
+    # This method will be deprecate.
     $class->config->{$key} = +{
         %{$class->config->{$key} || +{}},
         %{$hash},
@@ -82,7 +83,7 @@ Amon2 - lightweight web application framework
 
 =head1 SYNOPSIS
 
-    $ amon-setup.pl MyApp
+    $ amon2-setup.pl MyApp
 
 =head1 Point
 

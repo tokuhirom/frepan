@@ -1,45 +1,73 @@
+=encoding utf-8
+
 =head1 NAME
 
 Amon2::Manual::Tutorial.ja - Amon2 日本語チュートリアル
 
 =head1 チュートリアル
 
+示板をつくってみましょう。
+
 =head2 インストール
 
-以下のコマンドを入力することによりインストールできます。
+cpanm にて、Amon2 のサイトからダウンロードしてください。
 
-  git clone git://github.com/tokuhirom/Amon2.git
-  cd Amon2
-  perl Makefile.PL
-  make installdeps
-  make install
+    % cpanm --mirror http://orepan.64p.org/ Amon2
 
 =head2 ハローワールド
 
-まずは、アプリケーションの雛形を作成します。
+まずは、アプリケーションの雛形を作成します。今回は、ORM に L<DBIx::Skinny> をつかうので、B<--skinny> オプションをつけておきます。
 
-  $ amon-setup.pl Hello
+  $ amon2-setup.pl --skinny Hello
   $ cd Hello
 
 雛形のディレクトリ構造は以下のようになっています。非常にシンプルでわかりやすい構造です。
 
-    Hello
-    |-- Hello.psgi
-    |-- Makefile.PL
-    |-- lib
-    |   |-- Hello
-    |   |   |-- M
-    |   |   |-- Web
-    |   |   |   |-- C
-    |   |   |   |   `-- Root.pm
-    |   |   |   `-- Dispatcher.pm
-    |   |   `-- Web.pm
-    |   `-- Hello.pm
-    |-- t
-    |   `-- 01_root.t
-    `-- tmpl
-        |-- base.mt
-        `-- index.mt
+    .
+    ├── Hello.psgi
+    ├── Makefile.PL
+    ├── config
+    │   └── development.pl
+    ├── extlib
+    ├── htdocs
+    │   └── static
+    │       ├── css
+    │       │   └── main.css
+    │       ├── img
+    │       └── js
+    ├── lib
+    │   ├── Hello
+    │   │   ├── ConfigLoader.pm
+    │   │   ├── DB.pm
+    │   │   ├── M
+    │   │   ├── Web
+    │   │   │   ├── C
+    │   │   │   │   └── Root.pm
+    │   │   │   ├── Dispatcher.pm
+    │   │   │   ├── Request.pm
+    │   │   │   └── Response.pm
+    │   │   └── Web.pm
+    │   └── Hello.pm
+    ├── script
+    │   ├── cron
+    │   ├── maintenance
+    │   ├── make_schema.pl
+    │   └── tmp
+    ├── sql
+    │   └── my.sql
+    ├── t
+    │   ├── 01_root.t
+    │   └── 02_mech.t
+    ├── tmpl
+    │   ├── include
+    │   │   ├── footer.tt
+    │   │   └── header.tt
+    │   └── index.tt
+    └── xt
+        ├── 01_podspell.t
+        ├── 02_perlcritic.t
+        ├── 03_pod.t
+        └── perlcriticrc
 
 Amon2 のアプリケーションを起動させるには L<plackup> コマンドを利用します。
 
@@ -55,235 +83,104 @@ Amon2 のアプリケーションを起動させるには L<plackup> コマン�
 今回は RDBMS として、セットアップ不要なスタンドアロン型の SQLite をつかいましょう。
 というわけで、まずは SQLite の Perl binding である L<DBD::SQLite> をインストールしましょう。
 
-    % sudo -H cpan -i DBD::SQLite
-
-SQL は sql/sqlite.sql 以下におきましょう。
-
-    % mkdir sql
+    % cpanm DBD::SQLite
 
 sql/sqlite.sql には、とりあえず以下のような内容のスキーマを書きましょう。
 
-    create table user (
-        user_id int not null primary key,
-        email varchar(255) not null,
-        nick varchar(255) not null,
-        password varchar(255) not null
+    DROP TABLE entry;
+    CREATE TABLE `entry` (
+        `entry_id` integer NOT NULL primary key,
+        `body`     text
     );
-    create index email on user (email);
 
 これができたら、SQLite のデータベースにスキーマをながしこみましょう。
 
     % sqlite3 hello.db < sql/sqlite.sql
 
-次に、O/R Mapper をインストールしましょう。今回は L<DBIx::Skinny> をつかいましょう。なお今回はつかいませんが、Amon2 では L<Data::Model> にも対応しています。
+DB の設定を config/development.sql に書きます。
 
-    % sudo -H cpan -i DBIx::Skinny
-    % sudo -H cpan -i DBIx::Skinny::Schema::Loader
+    +{
+        'DBIx::Skinny' => {
+            dsn => 'dbi:SQLite:dbname=hello.db',
+            username => '',
+            password => '',
+        },
+        ...
+    };
 
 次に、DB から ORM スキーマを構築します。
 
-    % mkdir lib/Hello/DB
-    % perl -MDBIx::Skinny::Schema::Loader=make_schema_at -e 'print make_schema_at("Hello::DB::Schema",{},["dbi:SQLite:hello.db"])' > lib/Hello/DB/Schema.pm
+    % perl script/make_schema.pl
 
+=head2 ルーターをかく
 
-そして、Hello::DB を書きます。これは単にネームスペース確保用なので、アッサリと。
-
-    package Hello::DB;
-    use DBIx::Skinny;
-    1;
-
-=head2 会員登録
-
-なんのサイトかもよくわかりませんが、とりあえず会員登録フォームをつくりましょう。まずは、以下のように、ディスパッチャを拡張しましょう。
+なんのサイトかもよくわかりませんが、以下のように、ディスパッチャを設定しましょう。
 
     package Hello::Web::Dispatcher;
-    use Amon2::Web::Dispatcher::HTTPxDispatcher;
+    use Amon2::Web::Dispatcher::RouterSimple;
 
-    connect '/' => {controller => 'Root', action => 'index'};
-    connect '/signup' => {controller => 'Root', action => 'signup' };
-    connect '/signup_thanks' => {controller => 'Root', action => 'signup_thanks' };
-    connect '/login' => {controller => 'Root', action => 'login' };
-    connect '/post' => {controller => 'Root', action => 'post' };
+    connect '/'              => 'Root#index';
+    connect '/post'          => 'Root#post';
 
     1;
 
-そして、HTML にフォームをおきましょう。今回はフォームの生成ライブラリである L<HTML::Shakan> をつかってみましょう。まずは CPAN からインストールしましょう。
+=head2 コントローラをかく
 
-    % sudo -H cpan HTML::Shakan
-
-次に、フォームを lib/Hello/Form.pm に定義しましょう。
-
-    package Hello::Form;
-    use HTML::Shakan::Declare;
-
-    form 'user_add' => (
-        EmailField(
-            name     => 'email',
-            required => 1,
-        ),
-        TextField(
-            name     => 'nick',
-            required => 1,
-        ),
-        PasswordField(
-            name     => 'password',
-            required => 1,
-        ),
-    );
-
-    form 'login' => (
-        EmailField(
-            name     => 'email',
-            required => 1,
-        ),
-        PasswordField(
-            name     => 'password',
-            required => 1,
-        ),
-    );
-
-    1;
-
-フォームのレンダラも定義します。
-
-    package Hello::Form::Renderer;
-    use Any::Moose;
-    use HTML::Shakan::Utils;
-
-    has 'id_tmpl' => (
-        is => 'ro',
-        isa => 'Str',
-        default => 'id_%s',
-    );
-
-    sub render {
-        my ($self, $form) = @_;
-
-        my @res;
-        for my $field ($form->fields) {
-            unless ($field->id) {
-                $field->id(sprintf($self->id_tmpl(), $field->{name}));
-            }
-            push @res, '<p>';
-            if ($field->label) {
-                push @res, sprintf( q{<label for="%s">%s</label>},
-                    $field->{id}, encode_entities( $field->{label} ) );
-            }
-            push @res, '<span class="inputbox">'.$form->widgets->render( $form, $field )."</span></p>\n";
-        }
-        join '', @res;
-    }
-
-    no Any::Moose;
-    __PACKAGE__->meta->make_immutable;
-
-次にこのフォームを Hello::Web にバインドします。lib/Hello/Web.pm に以下のように form メソッドを定義しましょう。こうすることにより、c->form($form_name); という具合にいつでもフォームオブジェクトをとりだせます。
-
-    package Hello::Web;
-    sub form {
-        my ( $c, $form_name ) = @_;
-        my $form = Hello::Form->get(
-            $form_name => (
-                request => $c->request,
-                model   => HTML::Shakan::Model::DBIxSkinny->new()
-            )
-        );
-        $form->load_function_message('en');
-        return $form;
-    }
-
-したらば、これをつかって、コントローラを定義しましょう。サインアップ画面をまずはつっくりましょう。
-おや、簡単ね。
+コントローラを定義しましょう。みればわかるとおりですね。
 
     package Hello::Web::C::Root;
-    sub signup {
-        my $form = c->form('user_add');
-        if ($form->submitted_and_valid) {
-            $form->model->create(db() => 'user');
-            return redirect('/signup_thanks');
-        }
-        return render("signup.mt", $form);
-    }
 
-    sub signup_thanks { render('signup_thanks.mt') }
-
-簡単ですね。んで、テンプレートも定義しましょう。tmpl/signup.mt をおきます。本文部分は以下のようにしてください。
-
-    <? if ($form->submitted && $form->has_error) { ?>
-    <ul class="error">
-    ?  for my $err ($form->get_error_messages()) {
-    <li><?= $err ?></li>
-    ? }
-    </ul>
-    <? } ?>
-    <h2 class="ttlLv2">Signup</h2>
-    <form method="post" action="/signup">
-    <?= encoded_string $form->render() ?>
-    <input type="submit" value="register" />
-    </form>
-
-tmpl/signup_thanks.mt は以下のように、感謝の意を表しておきましょう。thx と書くとチェーンソーもった人がやってくるので注意な。Web 2.0 仕様なので、メールにかいてある URL をクリックするまで仮登録状態、とかそういうのはありません。
-
-    thanks!
-
-=head2 ログインしましょう
-
-会員登録したのに、ログインできないとなると、ちょっと意味がわかりません。しょうがないので、ログイン機能をつけましょう。
-
-ログインするには、セッションが必要なので、セッションプラグインをよみこみましょう。今回は、状態のひきつぎに Cookie をつかい、サーバー側のストレージにはファイルをつかいましょう。
-
-    __PACKAGE__->load_plugins(
-        'HTTPSession'   => { state => 'Cookie', store => 'File' },
-    );
-
-
-とりあえずログインフォームを設置しましょう。フォームは前回同様、lib/Hello/Form.pm に書きましょう。
-
-    package Hello::Form;
-    form 'login' => (
-        EmailField(
-            name     => 'email',
-            required => 1,
-        ),
-        PasswordField(
-            name     => 'password',
-            required => 1,
-        ),
-    );
-
-そしたら、コントローラを拡張します。まずはトップページにログインフォームを設置しましょう。
-
-    package Hello::Web::C::Root;
     sub index {
-        my $login_form = c->form('login');
-        render("index.mt", $login_form);
-    }
-
-次に、ログイン用のアクションを定義しましょう。
-
-    package Hello::Web::C::Root;
-    sub login {
-        my $form = c->form('login');
-        if ($form->submitted_and_valid) {
-            my $user = db->single(
-                user => {
-                    email    => $form->param('email'),
-                    password => $form->param('password'),
-                }
-            );
-            if ($user) {
-                c->session->set('login_user_id' => $user->user_id);
-                return redirect('/');
+        my ($class, $c) = @_;
+        my @entries = $c->db->search(
+            entry => {}, {limit => 10, offset => 0, order_by => {'entry_id' => 'DESC'}}
+        );
+        return $c->render(
+            "index.tt" => {
+                entries => \@entries,
             }
+        );
+    }
+
+    sub post {
+        my ($class, $c) = @_;
+        if (my $body = $c->req->param('body')) {
+            $c->db->insert(
+                entry => {
+                    body => $body,
+                },
+            );
         }
-        redirect('/?login_failed');
+        return $c->redirect('/');
     }
 
-ログアウトもできないといけませんね。こんなかんじで。
+=head2 テンプレート
 
-    sub logout {
-        c->session->expire();
-        redirect('/');
-    }
+Amon2 では現在、L<Text::Xslate> の TTerse をデフォルトのテンプレートエンジンとして採用しています。
+
+tmpl/index.tt という名前でファイルを配置してください。
+
+    [% INCLUDE 'include/header.tt' %]
+
+    <form method="post" action="[% uri_for('/post') %]">
+        <input type="text" name="body" />
+        <input type="submit" value="送信" />
+    </form>
+    <ul>
+    [% FOR entry IN entries %]
+        <li>[% entry.entry_id %]. [% entry.body %]</li>
+    [% END %]
+    </ul>
+
+    [% INCLUDE 'include/footer.tt' %]
+
+=head1 まとめ
+
+このチュートリアルでは、Amon2 の基本的なつかいかたをみました。簡単だったでしょ!
+
+=head1 SEE ALSO
+
+L<DBIx::Skinny>, L<Text::Xslate>
 
 =cut
+
