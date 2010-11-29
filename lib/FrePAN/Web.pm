@@ -7,8 +7,10 @@ use Module::Find qw/useall/;
 useall 'FrePAN::Web::C';
 use FrePAN::M::CPAN;
 
-__PACKAGE__->add_config(
-    'Text::Xslate' => {
+use Tiffany::Text::Xslate;
+{
+    my $conf = __PACKAGE__->config->{'Text::Xslate'} || +{};
+    my $view = Tiffany::Text::Xslate->new(+{
         'syntax'   => 'TTerse',
         'module'   => [ 'Text::Xslate::Bridge::TT2Like' ],
         'function' => {
@@ -18,16 +20,13 @@ __PACKAGE__->add_config(
             version => sub { @_ == 1 ? $_[0]->VERSION : FrePAN->VERSION }, 
             amon_version => sub { $Amon2::VERSION }, 
             email2gravatar_url => sub { FrePAN::M::CPAN->email2gravatar_url(@_) },
-            'lc' => sub { scalar(lc($_[0])) },
-            has_item => sub { defined $_[0]->{$_[1]} },
             'ref' => sub { ref($_[0]) },
         },
-    }
-);
-
-use Tiffany::Text::Xslate;
-my $view = Tiffany::Text::Xslate->new(__PACKAGE__->config->{'Text::Xslate'});
-sub create_view { $view }
+        path => [File::Spec->catdir(__PACKAGE__->base_dir, 'tmpl')],
+        %$conf,
+    });
+    sub create_view { $view }
+}
 
 use FrePAN::Web::Dispatcher;
 sub dispatch { FrePAN::Web::Dispatcher->dispatch(@_) }

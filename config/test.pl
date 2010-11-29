@@ -9,4 +9,6 @@ use Cwd 'abs_path';
             'mysql_read_default_file' => '/etc/mysql/my.cnf',
         },
     },
+    'Cache::Memcached::Fast' => {
+    },
 };
