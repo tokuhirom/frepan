@@ -19,219 +19,206 @@
 <description></description>
 <items>
  <rdf:Seq>
-  <rdf:li rdf:resource="http://frepan.64p.org/~merixzon/WWW-Google-Contacts-0.20/" />
-  <rdf:li rdf:resource="http://frepan.64p.org/~gray/Digest-GOST-0.03/" />
-  <rdf:li rdf:resource="http://frepan.64p.org/~motif/Bio-LITE-Taxonomy-NCBI-0.04/" />
-  <rdf:li rdf:resource="http://frepan.64p.org/~gray/Digest-BLAKE-0.04/" />
-  <rdf:li rdf:resource="http://frepan.64p.org/~gray/Digest-SIMD-0.04/" />
-  <rdf:li rdf:resource="http://frepan.64p.org/~gray/Digest-SHAvite3-0.02/" />
-  <rdf:li rdf:resource="http://frepan.64p.org/~gray/Digest-Shabal-0.04/" />
-  <rdf:li rdf:resource="http://frepan.64p.org/~gray/Digest-Keccak-0.04/" />
-  <rdf:li rdf:resource="http://frepan.64p.org/~gray/Digest-JH-0.04/" />
-  <rdf:li rdf:resource="http://frepan.64p.org/~gray/Digest-Luffa-0.04/" />
+  <rdf:li rdf:resource="http://frepan.64p.org/~gwadej/Net-DAV-Server-1.302/" />
+  <rdf:li rdf:resource="http://frepan.64p.org/~tokuhirom/Net-POP3-SSLWrapper-0.06/" />
+  <rdf:li rdf:resource="http://frepan.64p.org/~nekokak/Jonk-0.05/" />
+  <rdf:li rdf:resource="http://frepan.64p.org/~rokr/DBIx-NoSQL-0.0012/" />
+  <rdf:li rdf:resource="http://frepan.64p.org/~karman/Search-OpenSearch-Engine-KSx-0.07/" />
+  <rdf:li rdf:resource="http://frepan.64p.org/~karman/Search-OpenSearch-0.10/" />
+  <rdf:li rdf:resource="http://frepan.64p.org/~mob/Sys-CpuAffinity-0.99/" />
+  <rdf:li rdf:resource="http://frepan.64p.org/~drolsky/Silki-0.26/" />
+  <rdf:li rdf:resource="http://frepan.64p.org/~drolsky/Pg-DatabaseManager-0.04/" />
+  <rdf:li rdf:resource="http://frepan.64p.org/~yobert/App-AutoBuild-0.02/" />
  </rdf:Seq>
 </items>
 </channel>
-<item rdf:about="http://frepan.64p.org/~merixzon/WWW-Google-Contacts-0.20/">
-<title>WWW-Google-Contacts 0.20</title>
-<link>http://frepan.64p.org/~merixzon/WWW-Google-Contacts-0.20/</link>
-<description>0.20    2010.11.29
-	Bug fixes around contact events. Thanks to Oliver Enzmann for bug report
-	
-</description>
-<dc:creator>MERIXZON</dc:creator>
-<dc:date>2010-11-29T14:31:04Z</dc:date>
-<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/dae4b94a62618bdc44f41ba2ca85495e?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
-&#x3C;pre&#x3E;0.20    2010.11.29
-	Bug fixes around contact events. Thanks to Oliver Enzmann for bug report
-	
-&#x3C;/pre&#x3E;
-&#x3C;a href=&#x22;http://search.cpan.org/dist/WWW-Google-Contacts/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
-&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/M/ME/MERIXZON/WWW-Google-Contacts-0.20.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
+<item rdf:about="http://frepan.64p.org/~gwadej/Net-DAV-Server-1.302/">
+<title>Net-DAV-Server 1.302</title>
+<link>http://frepan.64p.org/~gwadej/Net-DAV-Server-1.302/</link>
+<dc:creator>GWADEJ</dc:creator>
+<dc:date>2010-12-01T05:43:18Z</dc:date>
+<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/79a474d280ec5523e1729159c5bbec36?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
+&#x3C;pre&#x3E;&#x3C;/pre&#x3E;
+&#x3C;a href=&#x22;http://search.cpan.org/dist/Net-DAV-Server/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
+&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/G/GW/GWADEJ/Net-DAV-Server-1.302.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
 </content:encoded>
 </item>
-<item rdf:about="http://frepan.64p.org/~gray/Digest-GOST-0.03/">
-<title>Digest-GOST 0.03</title>
-<link>http://frepan.64p.org/~gray/Digest-GOST-0.03/</link>
-<description>0.03  Mon Nov 29 11:50:42 UTC 2010
-    - Asm fix for BSDs. (Aleksey Kravchenko)
+<item rdf:about="http://frepan.64p.org/~tokuhirom/Net-POP3-SSLWrapper-0.06/">
+<title>Net-POP3-SSLWrapper 0.06</title>
+<link>http://frepan.64p.org/~tokuhirom/Net-POP3-SSLWrapper-0.06/</link>
+<description>0.06
 
-0.02  Mon Nov 29 11:04:26 UTC 2010
-    - Converted hex and base64 encoders to C.
-    - Added implicit reset upon call to digest method.
+    - specify the versions for deps
+    - use parent instead of base.pm for better error message.
 
 </description>
-<dc:creator>GRAY</dc:creator>
-<dc:date>2010-11-29T12:04:21Z</dc:date>
-<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/4a96d57b423d813993a6baadebccf409?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
-&#x3C;pre&#x3E;0.03  Mon Nov 29 11:50:42 UTC 2010
-    - Asm fix for BSDs. (Aleksey Kravchenko)
+<dc:creator>TOKUHIROM</dc:creator>
+<dc:date>2010-12-01T05:30:17Z</dc:date>
+<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/e766b4961b8ebdd7ef86244e74cead9e?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
+&#x3C;pre&#x3E;0.06
 
-0.02  Mon Nov 29 11:04:26 UTC 2010
-    - Converted hex and base64 encoders to C.
-    - Added implicit reset upon call to digest method.
+    - specify the versions for deps
+    - use parent instead of base.pm for better error message.
 
 &#x3C;/pre&#x3E;
-&#x3C;a href=&#x22;http://search.cpan.org/dist/Digest-GOST/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
-&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/G/GR/GRAY/Digest-GOST-0.03.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
+&#x3C;a href=&#x22;http://search.cpan.org/dist/Net-POP3-SSLWrapper/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
+&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/T/TO/TOKUHIROM/Net-POP3-SSLWrapper-0.06.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
 </content:encoded>
 </item>
-<item rdf:about="http://frepan.64p.org/~motif/Bio-LITE-Taxonomy-NCBI-0.04/">
-<title>Bio-LITE-Taxonomy-NCBI 0.04</title>
-<link>http://frepan.64p.org/~motif/Bio-LITE-Taxonomy-NCBI-0.04/</link>
+<item rdf:about="http://frepan.64p.org/~nekokak/Jonk-0.05/">
+<title>Jonk 0.05</title>
+<link>http://frepan.64p.org/~nekokak/Jonk-0.05/</link>
+<dc:creator>NEKOKAK</dc:creator>
+<dc:date>2010-12-01T05:23:07Z</dc:date>
+<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/a9932ed86fc5822e91de91364727fe6f?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
+&#x3C;pre&#x3E;&#x3C;/pre&#x3E;
+&#x3C;a href=&#x22;http://search.cpan.org/dist/Jonk/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
+&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/N/NE/NEKOKAK/Jonk-0.05.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
+</content:encoded>
+</item>
+<item rdf:about="http://frepan.64p.org/~rokr/DBIx-NoSQL-0.0012/">
+<title>DBIx-NoSQL 0.0012</title>
+<link>http://frepan.64p.org/~rokr/DBIx-NoSQL-0.0012/</link>
+<dc:creator>ROKR</dc:creator>
+<dc:date>2010-12-01T05:17:37Z</dc:date>
+<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/6e182bf9dbee75e7b3b125d9222a061b?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
+&#x3C;pre&#x3E;&#x3C;/pre&#x3E;
+&#x3C;a href=&#x22;http://search.cpan.org/dist/DBIx-NoSQL/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
+&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/R/RO/ROKR/DBIx-NoSQL-0.0012.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
+</content:encoded>
+</item>
+<item rdf:about="http://frepan.64p.org/~karman/Search-OpenSearch-Engine-KSx-0.07/">
+<title>Search-OpenSearch-Engine-KSx 0.07</title>
+<link>http://frepan.64p.org/~karman/Search-OpenSearch-Engine-KSx-0.07/</link>
 <description>
-0.04	Mon Nov 29 12:41:12 2010
-	Fixed more small bugs with Gi2taxid
+0.07    30 Nov 2010
+    * facet fetching fixes related to KS 0.31 API changes
 </description>
-<dc:creator>MOTIF</dc:creator>
-<dc:date>2010-11-29T11:52:57Z</dc:date>
-<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/5660261bf7fc03555e8d0f27b09dc6e5?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
+<dc:creator>KARMAN</dc:creator>
+<dc:date>2010-12-01T04:54:06Z</dc:date>
+<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/03b1f97ccc872db8209cf94717d9a7ff?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
 &#x3C;pre&#x3E;
-0.04	Mon Nov 29 12:41:12 2010
-	Fixed more small bugs with Gi2taxid
+0.07    30 Nov 2010
+    * facet fetching fixes related to KS 0.31 API changes
 &#x3C;/pre&#x3E;
-&#x3C;a href=&#x22;http://search.cpan.org/dist/Bio-LITE-Taxonomy-NCBI/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
-&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/M/MO/MOTIF/Bio-LITE-Taxonomy-NCBI-0.04.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
+&#x3C;a href=&#x22;http://search.cpan.org/dist/Search-OpenSearch-Engine-KSx/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
+&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/K/KA/KARMAN/Search-OpenSearch-Engine-KSx-0.07.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
 </content:encoded>
 </item>
-<item rdf:about="http://frepan.64p.org/~gray/Digest-BLAKE-0.04/">
-<title>Digest-BLAKE 0.04</title>
-<link>http://frepan.64p.org/~gray/Digest-BLAKE-0.04/</link>
-<description>0.04  Mon Nov 29 11:04:26 UTC 2010
-    - Converted hex and base64 encoders to C.
-    - Added implicit reset upon call to digest method.
-
+<item rdf:about="http://frepan.64p.org/~karman/Search-OpenSearch-0.10/">
+<title>Search-OpenSearch 0.10</title>
+<link>http://frepan.64p.org/~karman/Search-OpenSearch-0.10/</link>
+<description>
+0.10    30 Nov 2010
+        * pass original args to Engine-&#x3E;search() through to build_results() and build_facets().
+          This (in theory) should make it easier for subclasses to extend the functionality
+          of search() without needing to override it.
 </description>
-<dc:creator>GRAY</dc:creator>
-<dc:date>2010-11-29T11:49:48Z</dc:date>
-<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/4a96d57b423d813993a6baadebccf409?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
-&#x3C;pre&#x3E;0.04  Mon Nov 29 11:04:26 UTC 2010
-    - Converted hex and base64 encoders to C.
-    - Added implicit reset upon call to digest method.
-
+<dc:creator>KARMAN</dc:creator>
+<dc:date>2010-12-01T04:53:06Z</dc:date>
+<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/03b1f97ccc872db8209cf94717d9a7ff?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
+&#x3C;pre&#x3E;
+0.10    30 Nov 2010
+        * pass original args to Engine-&#x26;gt;search() through to build_results() and build_facets().
+          This (in theory) should make it easier for subclasses to extend the functionality
+          of search() without needing to override it.
 &#x3C;/pre&#x3E;
-&#x3C;a href=&#x22;http://search.cpan.org/dist/Digest-BLAKE/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
-&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/G/GR/GRAY/Digest-BLAKE-0.04.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
+&#x3C;a href=&#x22;http://search.cpan.org/dist/Search-OpenSearch/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
+&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/K/KA/KARMAN/Search-OpenSearch-0.10.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
 </content:encoded>
 </item>
-<item rdf:about="http://frepan.64p.org/~gray/Digest-SIMD-0.04/">
-<title>Digest-SIMD 0.04</title>
-<link>http://frepan.64p.org/~gray/Digest-SIMD-0.04/</link>
-<description>0.04  Mon Nov 29 11:04:26 UTC 2010
-    - Converted hex and base64 encoders to C.
-    - Added implicit reset upon call to digest method.
+<item rdf:about="http://frepan.64p.org/~mob/Sys-CpuAffinity-0.99/">
+<title>Sys-CpuAffinity 0.99</title>
+<link>http://frepan.64p.org/~mob/Sys-CpuAffinity-0.99/</link>
+<description>0.99	2010-11-29
+        Cygwin fix.
+	Can now get num cpus on OpenBSD (thanks, devio.us!)
 
+0.98	2010-10-17
 </description>
-<dc:creator>GRAY</dc:creator>
-<dc:date>2010-11-29T11:36:21Z</dc:date>
-<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/4a96d57b423d813993a6baadebccf409?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
-&#x3C;pre&#x3E;0.04  Mon Nov 29 11:04:26 UTC 2010
-    - Converted hex and base64 encoders to C.
-    - Added implicit reset upon call to digest method.
+<dc:creator>MOB</dc:creator>
+<dc:date>2010-12-01T04:44:39Z</dc:date>
+<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/46b032a55fdf8a39e6971f12887f0ac8?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
+&#x3C;pre&#x3E;0.99	2010-11-29
+        Cygwin fix.
+	Can now get num cpus on OpenBSD (thanks, devio.us!)
 
+0.98	2010-10-17
 &#x3C;/pre&#x3E;
-&#x3C;a href=&#x22;http://search.cpan.org/dist/Digest-SIMD/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
-&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/G/GR/GRAY/Digest-SIMD-0.04.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
+&#x3C;a href=&#x22;http://search.cpan.org/dist/Sys-CpuAffinity/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
+&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/M/MO/MOB/Sys-CpuAffinity-0.99.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
 </content:encoded>
 </item>
-<item rdf:about="http://frepan.64p.org/~gray/Digest-SHAvite3-0.02/">
-<title>Digest-SHAvite3 0.02</title>
-<link>http://frepan.64p.org/~gray/Digest-SHAvite3-0.02/</link>
-<description>0.02  Mon Nov 29 11:04:26 UTC 2010
-    - Converted hex and base64 encoders to C.
-    - Added implicit reset upon call to digest method.
+<item rdf:about="http://frepan.64p.org/~drolsky/Silki-0.26/">
+<title>Silki 0.26</title>
+<link>http://frepan.64p.org/~drolsky/Silki-0.26/</link>
+<description>0.26  2010-11-30
 
+- Removed a bogus prereq on Apache2::ServerUtil.
+
+
+0.25  2010-11-30
+
+- Added a purge user feature. This will remove a user as well as everything
+  they&#x27;ve ever contributed to the wiki, including pages, page revisions, and
+  files. This is intended to make it trivially easy to remove &#x22;contributions&#x22;
+  from spammers.
+
+- Deleting all of a page&#x27;s revisions now deletes the page.
+
+- The Build.PL now accepts a --db-ssl flag to require an SSL connection when
+  creating/migrating the database.
+
+
+0.24  2010-10-31
 </description>
-<dc:creator>GRAY</dc:creator>
-<dc:date>2010-11-29T11:36:19Z</dc:date>
-<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/4a96d57b423d813993a6baadebccf409?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
-&#x3C;pre&#x3E;0.02  Mon Nov 29 11:04:26 UTC 2010
-    - Converted hex and base64 encoders to C.
-    - Added implicit reset upon call to digest method.
+<dc:creator>DROLSKY</dc:creator>
+<dc:date>2010-12-01T04:39:09Z</dc:date>
+<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/ac0051ccbf2115f581f5da62fb56c219?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
+&#x3C;pre&#x3E;0.26  2010-11-30
 
+- Removed a bogus prereq on Apache2::ServerUtil.
+
+
+0.25  2010-11-30
+
+- Added a purge user feature. This will remove a user as well as everything
+  they&#x26;apos;ve ever contributed to the wiki, including pages, page revisions, and
+  files. This is intended to make it trivially easy to remove &#x26;quot;contributions&#x26;quot;
+  from spammers.
+
+- Deleting all of a page&#x26;apos;s revisions now deletes the page.
+
+- The Build.PL now accepts a --db-ssl flag to require an SSL connection when
+  creating/migrating the database.
+
+
+0.24  2010-10-31
 &#x3C;/pre&#x3E;
-&#x3C;a href=&#x22;http://search.cpan.org/dist/Digest-SHAvite3/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
-&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/G/GR/GRAY/Digest-SHAvite3-0.02.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
+&#x3C;a href=&#x22;http://search.cpan.org/dist/Silki/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
+&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/D/DR/DROLSKY/Silki-0.26.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
 </content:encoded>
 </item>
-<item rdf:about="http://frepan.64p.org/~gray/Digest-Shabal-0.04/">
-<title>Digest-Shabal 0.04</title>
-<link>http://frepan.64p.org/~gray/Digest-Shabal-0.04/</link>
-<description>0.04  Mon Nov 29 11:04:26 UTC 2010
-    - Converted hex and base64 encoders to C.
-    - Added implicit reset upon call to digest method.
-
-</description>
-<dc:creator>GRAY</dc:creator>
-<dc:date>2010-11-29T11:36:17Z</dc:date>
-<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/4a96d57b423d813993a6baadebccf409?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
-&#x3C;pre&#x3E;0.04  Mon Nov 29 11:04:26 UTC 2010
-    - Converted hex and base64 encoders to C.
-    - Added implicit reset upon call to digest method.
-
-&#x3C;/pre&#x3E;
-&#x3C;a href=&#x22;http://search.cpan.org/dist/Digest-Shabal/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
-&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/G/GR/GRAY/Digest-Shabal-0.04.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
+<item rdf:about="http://frepan.64p.org/~drolsky/Pg-DatabaseManager-0.04/">
+<title>Pg-DatabaseManager 0.04</title>
+<link>http://frepan.64p.org/~drolsky/Pg-DatabaseManager-0.04/</link>
+<dc:creator>DROLSKY</dc:creator>
+<dc:date>2010-12-01T04:34:37Z</dc:date>
+<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/ac0051ccbf2115f581f5da62fb56c219?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
+&#x3C;pre&#x3E;&#x3C;/pre&#x3E;
+&#x3C;a href=&#x22;http://search.cpan.org/dist/Pg-DatabaseManager/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
+&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/D/DR/DROLSKY/Pg-DatabaseManager-0.04.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
 </content:encoded>
 </item>
-<item rdf:about="http://frepan.64p.org/~gray/Digest-Keccak-0.04/">
-<title>Digest-Keccak 0.04</title>
-<link>http://frepan.64p.org/~gray/Digest-Keccak-0.04/</link>
-<description>0.04  Mon Nov 29 11:04:26 UTC 2010
-    - Converted hex and base64 encoders to C.
-    - Added implicit reset upon call to digest method.
-
-</description>
-<dc:creator>GRAY</dc:creator>
-<dc:date>2010-11-29T11:35:51Z</dc:date>
-<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/4a96d57b423d813993a6baadebccf409?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
-&#x3C;pre&#x3E;0.04  Mon Nov 29 11:04:26 UTC 2010
-    - Converted hex and base64 encoders to C.
-    - Added implicit reset upon call to digest method.
-
-&#x3C;/pre&#x3E;
-&#x3C;a href=&#x22;http://search.cpan.org/dist/Digest-Keccak/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
-&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/G/GR/GRAY/Digest-Keccak-0.04.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
-</content:encoded>
-</item>
-<item rdf:about="http://frepan.64p.org/~gray/Digest-JH-0.04/">
-<title>Digest-JH 0.04</title>
-<link>http://frepan.64p.org/~gray/Digest-JH-0.04/</link>
-<description>0.04  Mon Nov 29 11:04:26 UTC 2010
-    - Converted hex and base64 encoders to C.
-    - Added implicit reset upon call to digest method.
-
-</description>
-<dc:creator>GRAY</dc:creator>
-<dc:date>2010-11-29T11:35:49Z</dc:date>
-<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/4a96d57b423d813993a6baadebccf409?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
-&#x3C;pre&#x3E;0.04  Mon Nov 29 11:04:26 UTC 2010
-    - Converted hex and base64 encoders to C.
-    - Added implicit reset upon call to digest method.
-
-&#x3C;/pre&#x3E;
-&#x3C;a href=&#x22;http://search.cpan.org/dist/Digest-JH/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
-&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/G/GR/GRAY/Digest-JH-0.04.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
-</content:encoded>
-</item>
-<item rdf:about="http://frepan.64p.org/~gray/Digest-Luffa-0.04/">
-<title>Digest-Luffa 0.04</title>
-<link>http://frepan.64p.org/~gray/Digest-Luffa-0.04/</link>
-<description>0.04  Mon Nov 29 11:04:26 UTC 2010
-    - Converted hex and base64 encoders to C.
-    - Added implicit reset upon call to digest method.
-
-</description>
-<dc:creator>GRAY</dc:creator>
-<dc:date>2010-11-29T11:35:47Z</dc:date>
-<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/4a96d57b423d813993a6baadebccf409?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
-&#x3C;pre&#x3E;0.04  Mon Nov 29 11:04:26 UTC 2010
-    - Converted hex and base64 encoders to C.
-    - Added implicit reset upon call to digest method.
-
-&#x3C;/pre&#x3E;
-&#x3C;a href=&#x22;http://search.cpan.org/dist/Digest-Luffa/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
-&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/G/GR/GRAY/Digest-Luffa-0.04.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
+<item rdf:about="http://frepan.64p.org/~yobert/App-AutoBuild-0.02/">
+<title>App-AutoBuild 0.02</title>
+<link>http://frepan.64p.org/~yobert/App-AutoBuild-0.02/</link>
+<dc:creator>YOBERT</dc:creator>
+<dc:date>2010-12-01T02:58:03Z</dc:date>
+<content:encoded>&#x3C;img src=&#x22;http://www.gravatar.com/avatar/5660261bf7fc03555e8d0f27b09dc6e5?d=http%3A%2F%2Fst.pimg.net%2Ftucs%2Fimg%2Fwho.png&#x22; /&#x3E;&#x3C;br /&#x3E;
+&#x3C;pre&#x3E;&#x3C;/pre&#x3E;
+&#x3C;a href=&#x22;http://search.cpan.org/dist/App-AutoBuild/&#x22;&#x3E;search.cpan.org&#x3C;/a&#x3E;&#x3C;br /&#x3E;
+&#x3C;a href=&#x22;http://cpan.cpantesters.org/authors/id/Y/YO/YOBERT/App-AutoBuild-0.02.tar.gz&#x22;&#x3E;Download&#x3C;/a&#x3E;
 </content:encoded>
 </item>
 </rdf:RDF>

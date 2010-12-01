@@ -25,6 +25,7 @@ requires 'Cache::Memcached::Fast' => 0.19;
 requires 'RPC::XML';
 requires 'Log::Minimal';
 requires 'Smart::Args';
+requires 'Time::Duration';
 recursive_author_tests('xt');
 
 WriteAll;

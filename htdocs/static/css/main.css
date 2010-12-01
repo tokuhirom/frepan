@@ -103,6 +103,12 @@ body {
     width: 600px;
     margin-left: 10px;
 }
+#RootPage #Content .modules .timestamp {
+    margin-left: 10px;
+    color: #cccccc;
+    text-align: right;
+    margin-top: 7px;
+}
 #RootPage #Content .author {
     float: right;
 }

@@ -109,7 +109,7 @@ sub mk_uploads {
 sub _swap {
     my ($self, $table, $cb) = @_;
 
-    c->log->debug("creating $table");
+    debugf("creating $table");
 
     my $txn = c->db->txn_scope();
     my $dbh = c->db->dbh;
@@ -125,7 +125,9 @@ sub _swap {
 
 {
     package FrePAN::M::CPANDB::Generator::Inserter;
+    use Log::Minimal;
     use Amon2::Declare;
+
     sub new {
         my ($class, $table) = @_;
         bless {rows => [], table => $table}, $class;
@@ -137,7 +139,7 @@ sub _swap {
     sub count { scalar @{$_[0]->{rows}} }
     sub insert {
         my ($self, ) = @_;
-        c->log->debug('insert');
+        debugf('insert');
         c->db->bulk_insert(
             $self->{table} => $self->{rows},
         );

@@ -3,6 +3,7 @@ use strict;
 use warnings;
 use SQL::Interp qw/sql_interp/;
 use FrePAN::M::CPAN;
+use Time::Duration;
 
 sub index {
     my ($class, $c) = @_;
@@ -13,7 +14,7 @@ sub index {
 
     my $dbh = $c->db->dbh;
     my $entries = $dbh->selectall_arrayref(
-        "SELECT SQL_CACHE dist.dist_id, dist.name, dist.author, dist.version, dist.abstract FROM dist ORDER BY released DESC LIMIT @{[ $rows_per_page + 1 ]} OFFSET @{[ $rows_per_page*($page-1) ]}",
+        "SELECT SQL_CACHE dist.dist_id, dist.name, dist.author, dist.version, dist.abstract, dist.released FROM dist ORDER BY released DESC LIMIT @{[ $rows_per_page + 1 ]} OFFSET @{[ $rows_per_page*($page-1) ]}",
         { Slice => {} }
     );
 
@@ -45,8 +46,10 @@ sub index {
     my $has_next =  ($rows_per_page+1 == @$entries);
     if ($has_next) { pop @$entries }
 
+    my $now = time();
     for (@$entries) {
         $_->{gravatar_url} = FrePAN::M::CPAN->email2gravatar_url($_->{email});
+        $_->{timestamp}    = Time::Duration::ago($now - $_->{released}, 1);
     }
     return $c->render( "index.tx",
         { dists => $entries, page => $page, has_next => $has_next } );
