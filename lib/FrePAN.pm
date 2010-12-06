@@ -25,15 +25,6 @@ sub memcached {
     Cache::Memcached::Fast->new($conf);
 }
 
-sub feed_deduper {
-    my $c = shift;
-    $c->{feed_deduper} //= do {
-        require XML::Feed::Deduper;
-        my $conf = $c->config->{'XML::Feed::Deduper'} // die "missing configuration for XML::Feed::Deduper";
-        XML::Feed::Deduper->new(%$conf);
-    };
-}
-
 sub Cache::Memcached::Fast::get_or_set_cb {
     my ($self, $key, $expire, $cb) = @_;
     my $data = $self->get($key);

@@ -16,7 +16,6 @@ requires 'Pod::POM' => 0.27;
 requires 'parent';
 requires 'Gravatar::URL';
 requires 'XML::Feed';
-requires 'XML::Feed::Deduper';
 requires 'Algorithm::Diff';
 requires 'Class::Accessor::Fast';
 requires 'CPAN::DistnameInfo'; # parse path name
