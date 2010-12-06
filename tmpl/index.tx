@@ -13,7 +13,7 @@ FrePAN is realtime mirror site of cpan.<a href="/about">see here for more detail
     </div>
     <div class="author">
         <a href="/~[% lower(dist.author) %]/">
-        <img src="[% dist.gravatar_url %]" class="gravatar" width="80" height="80" alt="[% dist.author %]" />
+        <div class="gravatar_container" email="[% dist.email %]">now loading</div>
         [% lower(dist.author) %]
         </a>
     </div>

@@ -19,6 +19,8 @@ sub index {
         LIMIT @{[ $rows_per_page + 1 ]} OFFSET @{[ $rows_per_page*($page-1) ]}",
         { Slice => {} }
     );
+    my $has_next =  ($rows_per_page+1 == @$entries);
+    if ($has_next) { pop @$entries }
 
     # fill email address
     my $pause_id2email = $c->memcached->get_or_set_cb(
@@ -45,12 +47,8 @@ sub index {
         }
     }
 
-    my $has_next =  ($rows_per_page+1 == @$entries);
-    if ($has_next) { pop @$entries }
-
     my $now = time();
     for (@$entries) {
-        $_->{gravatar_url} = FrePAN::M::CPAN->email2gravatar_url($_->{email});
         $_->{timestamp}    = Time::Duration::ago($now - $_->{released}, 1);
     }
     return $c->render( "index.tx",
