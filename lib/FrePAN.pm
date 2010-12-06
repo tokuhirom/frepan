@@ -11,11 +11,19 @@ sub load_config { Amon2::Config::Simple->load(shift) }
 our $VERSION = '0.01';
 
 use FrePAN::DB;
+sub dbh {
+    my ($c) = @_;
+    $c->{dbh} //= do {
+        my $conf = $c->config->{'DB'} // die;
+        DBI->connect(@$conf) or die $DBI::errstr;
+    };
+}
+
 sub db {
     my ($c, ) = @_;
     $c->{db} //= do {
-        my $conf = $c->config->{'DB'} // die;
-        FrePAN::DB->new($conf);
+        my $dbh = $c->dbh;;
+        FrePAN::DB->new({dbh => $dbh});
     };
 }
 
