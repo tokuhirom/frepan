@@ -162,7 +162,7 @@ body {
 }
 #PodPage .pod ul li {
     padding: 4px 10px 4px 28px;
-    background-image: url(/static/img/icons/flag.png);
+    /* background-image: url(/static/img/icons/flag.png); */
     background-repeat: no-repeat;
     background-position: left center;
     list-style-type: none;
