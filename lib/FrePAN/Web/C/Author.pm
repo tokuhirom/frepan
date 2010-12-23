@@ -10,7 +10,7 @@ sub show {
     my $author = $c->db->single( meta_author => { pause_id => $pause_id } )
       or return $c->res_404();
 
-    my $packages = $c->db->dbh->selectall_arrayref(q{
+    my $packages = $c->dbh->selectall_arrayref(q{
         select dist_name, MAX(dist_version) AS dist_version from meta_packages where pause_id=? GROUP BY dist_name;
     }, {Slice => {}}, $pause_id);
 
@@ -20,7 +20,7 @@ sub show {
         [ map { $_->{dist_name} } @$packages ],
         q{ GROUP BY dist_version}
     );
-    my %released_for = map { $_->[0] => $_->[1] } @{$c->db->dbh->selectall_arrayref($sql, {}, @bind)};
+    my %released_for = map { $_->[0] => $_->[1] } @{$c->dbh->selectall_arrayref($sql, {}, @bind)};
     for my $pkg (@$packages) {
         $pkg->{released} = $released_for{$pkg->{dist_name}};
     }
