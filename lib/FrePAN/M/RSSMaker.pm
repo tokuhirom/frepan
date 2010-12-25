@@ -48,12 +48,18 @@ sub generate {
 sub make_content {
     my ($row, $gravatar) = @_;
 
-    return <<"...";
-<img src="$gravatar" /><br />
+    my $html;
+    if (defined $gravatar) {
+        $html .= qq{<img src="$gravatar" /><br />};
+    }
+
+    $html .= <<"...";
 <pre>@{[ html_escape($row->diff || '') ]}</pre>
 <a href="http://search.cpan.org/dist/@{[ $row->name ]}/">search.cpan.org</a><br />
 <a href="http://cpan.cpantesters.org/authors/id/@{[ html_escape($row->path) ]}">Download</a>
 ...
+
+    return $html;
 }
 
 1;
