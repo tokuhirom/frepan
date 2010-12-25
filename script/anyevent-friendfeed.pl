@@ -2,8 +2,9 @@
 use strict;
 use warnings;
 use utf8;
-use lib 'lib';
-use local::lib 'extlib/';
+use FindBin;
+use lib "$FindBin::Bin/../lib";
+use local::lib "$FindBin::Bin/../extlib/";
 use FrePAN;
 use FrePAN::Script::FriendFeed;
 
