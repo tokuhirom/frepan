@@ -42,7 +42,7 @@ sub batch_run {
     my $furl = Furl->new();
     my $url = 'http://friendfeed-api.com/v2/feed/cpan?format=json';
     my $res = $furl->get($url);
-    die $res->status_line unless $res->is_success;
+    die "cannot fetch from friendfeed: ($url): " . $res->status_line . ':' . $res->content unless $res->is_success;
 
     my $data = JSON::decode_json($res->content);
     for my $entry (@{$data->{entries}}) {
