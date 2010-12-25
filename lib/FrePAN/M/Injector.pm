@@ -45,6 +45,7 @@ sub inject {
          my $name => 'Str',
          my $version => 'Str',
          my $author => 'Str',
+         my $force => {default => 0, isa => 'Bool'},
          ;
     infof("Run $path \n");
 
@@ -63,7 +64,7 @@ sub inject {
                 author  => $author,
             },
         );
-        if ($dist) {
+        if ($dist && !$force) {
             infof("already processed: $name, $version, $author");
             $txn->rollback();
             return;
@@ -147,9 +148,13 @@ sub inject {
             my $f = shift;
             return if -d $f;
             debugf("processing $f");
-            # TODO: show script
+
             unless ($f =~ /(?:\.pm|\.pod)$/) {
-                return;
+                my $fh = $f->openr or return;
+                read $fh, my $buf, 1024;
+                if ($buf !~ /#!.+perl/) { # script contains shebang
+                    return;
+                }
             }
             if ($no_index && "$f" =~ $no_index) {
                 return;
@@ -186,9 +191,11 @@ sub inject {
             }
             unless ($pkg) {
                 $pkg = "$f";
-                $pkg =~ s{^lib/}{};
-                $pkg =~ s/\.pm$//;
-                $pkg =~ s{/}{::}g;
+                if ($pkg =~ /(\.pm|\.pod)$/) {
+                    $pkg =~ s{^lib/}{};
+                    $pkg =~ s/\.pm$//;
+                    $pkg =~ s{/}{::}g;
+                }
             }
             my $html = FrePAN::Pod::POM::View::HTML->print($pom);
             {
