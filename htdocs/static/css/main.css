@@ -172,6 +172,7 @@ body {
     background-color: #fceeee;
     padding: 4px;
     border-radius: 8px;
+    font-size: 80%;
     -moz-border-radius: 8px;
     -webkit-border-radius: 8px;
 }
