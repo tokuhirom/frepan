@@ -3,6 +3,7 @@ use strict;
 use warnings;
 use parent qw( Pod::POM::View );
 use Text::Wrap;
+use URI::Escape ();
 
 my $HTML_PROTECT = 0;
 my @OVER;
@@ -260,27 +261,9 @@ sub view_seq_link {
     return make_href( $url, $linktext );
 }
 
-# should be sub-classed if extra transformations are needed
-#
-# for example a sub-class may search for the given page and return a
-# relative path to it.
-#
-# META: where this functionality should be documented? This module
-# doesn't have docs section
-#
 sub view_seq_link_transform_path {
     my ( $self, $page ) = @_;
-
-    # right now the default transform doesn't check whether the link
-    # is not dead (i.e. whether there is a corresponding file.
-    # therefore we don't link L<>'s other than L<http://>
-    # subclass to change the default (and of course add validation)
-
-    # this is the minimal transformation that will be required if enabled
-    # $page = "$page.html";
-    # $page =~ s|::|/|g;
-    #print "page $page\n";
-    return undef;
+    return "http://search.cpan.org/perldoc?" . URI::Escape::uri_escape($page);
 }
 
 sub make_href {
