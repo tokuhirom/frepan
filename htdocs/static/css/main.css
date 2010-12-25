@@ -152,23 +152,27 @@ body {
     font-weight: bold;
     margin-top: 20px;
     margin-bottom: 10px;
+    color: #681818;
 }
 #PodPage .pod h2 {
     font-size: 100%;
     font-weight: bold;
     margin-top: 20px;
     margin-bottom: 10px;
+    color: #681818;
 }
 #PodPage .pod h3 {
     font-size: 90%;
     font-weight: bold;
     margin-top: 20px;
     margin-bottom: 10px;
+    color: #681818;
 }
 #PodPage .pod pre {
     background-color: #fceeee;
     padding: 4px;
     border-radius: 8px;
+    font-size: 80%;
     -moz-border-radius: 8px;
     -webkit-border-radius: 8px;
 }
