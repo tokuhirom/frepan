@@ -4,6 +4,7 @@ use warnings;
 use String::CamelCase qw/decamelize/;
 use JSON::XS qw/decode_json/;
 
+# show distribution meta data
 sub show {
     my ($class, $c, $args) = @_;
     my $author = $args->{author}
@@ -54,6 +55,7 @@ sub show {
     return $c->render("dist/show.tx", {dist => $dist, special_files => \@special_files});
 }
 
+# show pod
 sub show_file {
     my ($class, $c, $args) = @_;
     my $author = $args->{author};
