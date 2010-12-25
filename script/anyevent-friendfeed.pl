@@ -2,6 +2,8 @@
 use strict;
 use warnings;
 use utf8;
+use lib 'lib';
+use local::lib 'extlib/';
 use FrePAN;
 use FrePAN::Script::FriendFeed;
 
