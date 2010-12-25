@@ -144,8 +144,23 @@ body {
     margin-right: 10px;
     margin-top: 20px;
 }
+#PodPage .pod pre {
+    margin-left: 30px;
+}
 #PodPage .pod h1 {
     font-size: 120%;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+#PodPage .pod h2 {
+    font-size: 100%;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+#PodPage .pod h3 {
+    font-size: 90%;
     font-weight: bold;
     margin-top: 20px;
     margin-bottom: 10px;
