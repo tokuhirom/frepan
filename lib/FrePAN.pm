@@ -33,6 +33,15 @@ sub memcached {
     Cache::Memcached::Fast->new($conf);
 }
 
+sub fts {
+    my ($c) = @_;
+    $c->{fts} //= do {
+        require FrePAN::FTS;
+        my $fts = $c->config->{FTS} // die "missing configuration for FTS";
+        FrePAN::FTS->new($fts);
+    };
+}
+
 sub Cache::Memcached::Fast::get_or_set_cb {
     my ($self, $key, $expire, $cb) = @_;
     my $data = $self->get($key);

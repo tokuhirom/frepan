@@ -13,3 +13,4 @@ ALTER TABLE dist ADD has_meta_json tinyint(1) not null default 0 AFTER has_meta_
 ALTER TABLE dist CHANGE ctime released  int unsigned not null;
 DROP TRIGGER dist_ctime;
 
+ALTER TABLE dist ADD INDEX name (name);

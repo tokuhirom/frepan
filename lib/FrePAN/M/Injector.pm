@@ -215,6 +215,9 @@ sub inject {
         }
     );
 
+    # register to groonga
+    $dist->insert_to_fts();
+
     # save changes
     debugf 'make diff';
     my $local_path = FrePAN::M::CPAN->dist2path($dist->name);
