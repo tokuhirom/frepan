@@ -1,0 +1,39 @@
+[% INCLUDE 'include/header.tx' WITH bodyID="DistPage" subtitle=dist.name %]
+
+<style>
+    .SearchResult {
+        margin-bottom: 10px;
+    }
+    .description {
+        font-size: small;
+        margin-left: 10px;
+    }
+    .dist {
+    }
+    .author {
+    }
+    .search-footer {
+        margin-left: 10px;
+        font-size: small;
+    }
+    .search-score {
+        color: #cccccc;
+    }
+</style>
+
+<form method="get" action="/search">
+    <input type="text" name="q" style="font-size: xx-large" />
+    <input type="submit" value="search" />
+</form>
+
+<h1>search result for : [% query %]</h1>
+
+[% FOR file IN files %]
+<div class="SearchResult">
+<a href="/~[% lower(file.get_column('author')) %]/[% file.get_column('dist_name') %]-[% file.get_column('dist_version') %]/[% file.path %]">[% file.package %]</a><br />
+<div class="description">[% file.description %]</div>
+<div class="search-footer"><a class="dist" href="/~[% file.get_column('author') | lower %]/[% file.get_column('dist_name') %]-[% file.get_column('dist_version') %]/">[% file.get_column('dist_name') %]-[% file.get_column('dist_version') %]</a> at [% file.get_column('timestamp') %] by <a href="/~[% file.get_column('author') | lower %]/" class="author">[% file.get_column('fullname') %]</a><span class="search-score">([% file.get_column('score') %])</span></div>
+</div>
+[% END %]
+
+[% INCLUDE 'include/footer.tx' %]

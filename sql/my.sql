@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS dist (
     ,requires text
     ,released int unsigned not null
     ,UNIQUE idx_author_name_version (author, name, version)
+    ,INDEX  name (name) -- search by name for removing fts index
 ) engine=InnoDB DEFAULT charset=UTF8;
 create index dist_released ON dist (released);
 
