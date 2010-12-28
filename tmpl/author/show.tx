@@ -1,4 +1,4 @@
-[% INCLUDE 'include/header.tx' WITH bodyID="RootPage" subtitle=author.fullname %]
+[% INCLUDE 'include/header.tx' WITH bodyID="AuthorPage" subtitle=author.fullname %]
 
 <h1>[% author.fullname %]</h1>
 <img src="[% email2gravatar_url(author.email) %]" alt="[% author.fullname %]" />
@@ -11,7 +11,7 @@
 </tr>
 [% FOR dist IN packages %]
 <tr>
-    <td>[% dist.dist_name %]-[% dist.dist_version %]</td>
+    <td><a href="/~[% author.pause_id | lower %]/[% dist.name %]-[% dist.version %]/">[% dist.name %]-[% dist.version %]</a></td>
     <td>[% dist.released // '' %]</td>
 </tr>
 [% END %]
