@@ -54,4 +54,6 @@
 [% END %]
 </table>
 
+[% INCLUDE 'include/disqus.tx' %]
+
 [% INCLUDE 'include/footer.tx' %]
