@@ -187,4 +187,6 @@ body {
     list-style-type: none;
 }
 
-
+#AuthorPage th {
+    font-weight: bold;
+}
