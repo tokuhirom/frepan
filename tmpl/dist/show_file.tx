@@ -2,7 +2,7 @@
 
 
 <div class="blead-list">
-<a href="http://search.cpan.org/~[% lower(dist.author) %]">[% dist.author %]</a> &gt;
+<a href="/~[% lower(dist.author) %]">[% dist.author %]</a> &gt;
 <a href="/~[% lower(dist.author) %]/[% dist.name %]-[% dist.version %]/">[% dist.name %]-[% dist.version %]</a> &gt;
 [% file.path %]
 </div>
