@@ -211,6 +211,10 @@ body {
 .SearchResultElement .search-score {
     color: #cccccc;
 }
+.search-header {
+    text-align: right;
+    font-size: small;
+}
 
 .highlight { background-color: yellow }
 

@@ -106,7 +106,7 @@ sub search {
     debugf("search result: %s, %s", $uri, $res->content);
     my $data = decode_json($res->content);
     my $file_ids = $data->[1]->[0]; # return value is array of file_ids
-    my $total_entries = shift @$file_ids; # matched count
+    my $total_entries = (shift @$file_ids)->[0]; # matched count
     debugf("Keys: %s", ddf(shift @$file_ids)); # keys
     my @rows = map { +{file_id => $_->[0], score => $_->[1]}  } @$file_ids;
 
