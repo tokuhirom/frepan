@@ -17,22 +17,8 @@
     }
 </style>
 
-<form method="get" action="/search">
-    <input id="search_query" type="text" name="q" style="font-size: xx-large" value="[% query %]" />
-    <input type="submit" value="search" />
-</form>
-
 <div id="SearchResult">
 [% INCLUDE 'include/table/search.tx' %]
 </div>
-
-<script type="text/javascript">
-    $('#search_query').keyup(function () {
-        var query = $(this).val();
-        $.get("/search?ajax=1&q=" + encodeURIComponent(query), function (html) {
-            $("#SearchResult").html(html);
-        });
-    });
-</script>
 
 [% INCLUDE 'include/footer.tx' %]

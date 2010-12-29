@@ -17,6 +17,10 @@ body {
     background-color: #fccccc;
 }
 
+#SearchBox {
+    display: inline;
+}
+
 #Container {
     width: 780px;
     margin-left: auto;
@@ -190,3 +194,21 @@ body {
 #AuthorPage th {
     font-weight: bold;
 }
+
+/** search result */
+
+.SearchResultElement {
+    margin-bottom: 10px;
+}
+.SearchResultElement .description {
+    font-size: small;
+    margin-left: 10px;
+}
+.SearchResultElement .search-footer {
+    margin-left: 10px;
+    font-size: small;
+}
+.SearchResultElement .search-score {
+    color: #cccccc;
+}
+
