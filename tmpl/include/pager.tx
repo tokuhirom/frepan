@@ -1,6 +1,6 @@
 <div class="pager">
     [% IF pager.previous_page %]
-        <a href="[% uri_with({page => pager.previous_page}) %]">&lt;&lt; back</a>
+        <a rel="prev" href="[% uri_with({page => pager.previous_page}) %]">&lt;&lt; back</a>
     [% ELSE %]
         &lt;&lt; back
     [% END %]
