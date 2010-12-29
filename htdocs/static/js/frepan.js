@@ -12,7 +12,7 @@ $(function () {
             );
         });
 
-        $('#search_query').keyup(function () {
+        $('#search_query').focus().keyup(function () {
             var query = $(this).val();
             if (query && query.length > 2) {
                 $.ajax({
