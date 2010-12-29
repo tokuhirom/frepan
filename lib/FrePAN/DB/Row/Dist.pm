@@ -10,6 +10,11 @@ sub files {
     c->db->search(file => {dist_id => $self->dist_id});
 }
 
+sub delete_files {
+    my ($self) = @_;
+    c->dbh->do(q{DELETE FROM file WHERE dist_id=?}, {}, $self->dist_id);
+}
+
 sub remove_from_fts {
     my ($self) = @_;
     for my $file ($self->files()) {
@@ -33,5 +38,6 @@ sub insert_to_fts {
         $file->insert_to_fts() if $file->html();
     }
 }
+
 
 1;

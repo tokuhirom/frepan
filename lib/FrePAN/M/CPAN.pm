@@ -6,6 +6,8 @@ use DBI;
 use Path::Class qw/dir file/;
 use Amon2::Declare;
 use Log::Minimal;
+use Smart::Args;
+use CPAN::DistnameInfo;
 
 sub pause_id2gravatar_url {
     my ($self, $pause_id) = @_;
@@ -56,6 +58,20 @@ sub download_url {
         'http://search.cpan.org/CPAN/authors/id/'
         : 'http://cpan.cpantesters.org/authors/id/';
     return $base . $path;
+}
+
+# @return instance of FrePAN::DB::Row::Dist
+sub dist_from_path {
+    args_pos my $self, my $path;
+
+    my $info = CPAN::DistnameInfo->new($path);
+    c->db->single(
+        dist => {
+            author  => $info->cpanid,
+            name    => $info->dist,
+            version => $info->version,
+        },
+    );
 }
 
 1;

@@ -10,4 +10,5 @@ remove removed data from cpan
 FTS scoring
  * 古いデータの score をさげたい
  * package カラムが前方一致する場合にスコアをあげたい
+ * distribution で一個しか hit しないようにしたい
 
