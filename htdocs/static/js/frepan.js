@@ -15,10 +15,18 @@ $(function () {
         $('#search_query').keyup(function () {
             var query = $(this).val();
             if (query && query.length > 2) {
-                $.get("/search?ajax=1&q=" + encodeURIComponent(query), function (html) {
-                    require(["/static/js/jquery.highlight-3.js"], function () {
-                        $("#Content").html(html).highlight(query);
-                    });
+                $.ajax({
+                    url: "/search",
+                    data: {ajax: 1, q: query},
+                    cache: false,
+                    success: function (html) {
+                        require(["/static/js/jquery.highlight-3.js"], function () {
+                            $("#Content").html(html).highlight(query);
+                        });
+                    },
+                    error: function () {
+                        alert("error occurred");
+                    }
                 });
             }
         });
