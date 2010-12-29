@@ -36,17 +36,17 @@ $fts->insert(
     text        => "てけてけ。"
 );
 {
-    my $result = $fts->search('てけてけ');
-    is_deeply($result, [2]);
+    my $result = $fts->search(query => 'てけてけ', rows => 100, page =>1);
+    is_deeply([map { $_->{file_id} } @{$result->rows}], [2]);
 }
 {
-    my $result = $fts->search('せかい');
-    is_deeply($result, [1]);
+    my $result = $fts->search(query => 'せかい', rows => 100, page =>1);
+    is_deeply([map { $_->{file_id} } @{$result->rows}], [1]);
 }
 $fts->delete(1);
 {
-    my @result = $fts->search('せかい');
-    is scalar(@result), 0;
+    my $result = $fts->search(query => 'せかい', rows => 100, page =>1);
+    is scalar($result->pager->total_entries), 0;
 }
 
 done_testing;
