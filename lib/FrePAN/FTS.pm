@@ -16,6 +16,7 @@ use JSON qw/encode_json decode_json/;
 use URI;
 use Log::Minimal;
 use Smart::Args;
+use Data::Page;
 
 sub schema {
     split /\n/, <<'...';
