@@ -1,3 +1,5 @@
+<div class="search-header"><span class="total_entries">[% pager.total_entries %] hits.</span></div>
+
 [% FOR file IN files %]
 <div class="SearchResultElement">
 <a href="/~[% lower(file.get_column('author')) %]/[% file.get_column('dist_name') %]-[% file.get_column('dist_version') %]/[% file.path %]">[% file.package %]</a><br />
