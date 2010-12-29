@@ -1,0 +1,11 @@
+<!doctype html>
+<html>
+</html>
+<body>
+
+    <div id="SearchResult">
+    [% INCLUDE 'include/table/search.tx' %]
+    </div>
+
+</body>
+</html>
