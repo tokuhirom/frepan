@@ -11,6 +11,15 @@ $(function () {
                     .attr('alt', $(elem).attr('email'))
             );
         });
+
+        $('#search_query').keyup(function () {
+            var query = $(this).val();
+            if (query && query.length > 2) {
+                $.get("/search?ajax=1&q=" + encodeURIComponent(query), function (html) {
+                    $("#Content").html(html);
+                });
+            }
+        });
     })();
 
     // dist page

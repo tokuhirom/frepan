@@ -18,7 +18,12 @@
 <body id="[% IF bodyID %][% bodyID %][% ELSE %]Default[% END %]">
     <div id="Container">
         <div id="Header">
-            <a href="/"><img src="/static/img/frepan-logo.png" alt="FrePAN" /></a>
+            <a href="/"><img src="/static/img/frepan-logo.png" width="164" height="58" alt="FrePAN" /></a>
+
+            <form method="get" action="/search" id="SearchBox">
+                <input id="search_query" type="text" name="q" style="font-size: xx-large" value="[% query %]" />
+                <input type="submit" value="search" />
+            </form>
         </div>
         <div id="Content">
 
