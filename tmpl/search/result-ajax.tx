@@ -7,5 +7,7 @@
     [% INCLUDE 'include/table/search.tx' %]
     </div>
 
+    [% INCLUDE 'include/pager.tx' %]
+
 </body>
 </html>
