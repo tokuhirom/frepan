@@ -76,6 +76,22 @@ sub delete {
     $res->is_success or die "Cannot delete: " . $res->code .':' . $res->content;
 }
 
+sub make_query {
+    args_pos my $self, my $query;
+
+    my $ret = '';
+    for my $part (split /\s+/, $query) {
+        if ($part =~ s/^-//) {
+            $ret .= qq{ - "$part"} if $ret;
+        } else {
+            $ret .= qq{ + } if $ret;
+            $ret .= qq{"$part"};
+        }
+    }
+    debugf("QUERY IS: $ret");
+    return $ret;
+}
+
 sub search {
     args my $self,
          my $query,
@@ -89,11 +105,10 @@ sub search {
     # select --table Users --match_columns text --query 東京 --output_columns file_id
     # retval: [[return code, star at, elapsed time], [search result, drilledown result]]
     my $uri = URI->new("http://$self->{host}:$self->{port}/d/select");
-    $query = join " + ", map { qq{"$_"} } split /\s+/, $query;
     $uri->query_form(
         table          => 'File',
         match_columns  => 'package * 10000000 || description * 5 || text * 1',
-        query          => $query,
+        query          => $self->make_query($query),
         output_columns => '_key,_score',
         sortby         => '-_score',
         limit          => $limit,
