@@ -16,7 +16,9 @@ $(function () {
             var query = $(this).val();
             if (query && query.length > 2) {
                 $.get("/search?ajax=1&q=" + encodeURIComponent(query), function (html) {
-                    $("#Content").html(html);
+                    require(["/static/js/jquery.highlight-3.js"], function () {
+                        $("#Content").html(html).highlight(query);
+                    });
                 });
             }
         });
