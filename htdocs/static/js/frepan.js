@@ -21,7 +21,14 @@ $(function () {
                     cache: false,
                     success: function (html) {
                         require(["/static/js/jquery.highlight-3.js"], function () {
-                            $("#Content").html(html).highlight(query);
+                            var elem = $("#Content").html(html);
+                            var ary = query.split(/\s+/);
+                            for (var i=0; i<ary.length; i++) {
+                                var term = ary[i];
+                                if (term.match(/\S/)) { // work around for fucking highlight library issue
+                                    $('#Content').highlight(term);
+                                }
+                            }
                         });
                     },
                     error: function () {
