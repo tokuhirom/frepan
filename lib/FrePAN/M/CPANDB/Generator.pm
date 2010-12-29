@@ -84,15 +84,16 @@ sub mk_uploads {
     unlink($db) if -f $db;
     system('bunzip2', $bz2)==0 or die "cannot bunzip2: $bz2";
     my $dbh = DBI->connect("dbi:SQLite:dbname=$db", '', '') or die "cannot open database";
-    my $sth = $dbh->prepare('SELECT author, dist, version, filename, released FROM uploads');
+    my $sth = $dbh->prepare('SELECT type, author, dist, version, filename, released FROM uploads');
     $sth->execute();
 
     $self->_swap(
         'uploads' => sub {
             my $rows = shift;
-            while (my ($author, $dist, $version, $filename, $released) = $sth->fetchrow_array()) {
+            while (my ($type, $author, $dist, $version, $filename, $released) = $sth->fetchrow_array()) {
                 $rows->push(
                     {
+                        type         => $type,
                         pause_id     => uc($author),
                         dist_name    => $dist,
                         dist_version => $version,
