@@ -113,7 +113,7 @@ body {
     text-align: right;
     margin-top: 7px;
 }
-#RootPage #Content .author {
+#RootPage #Content .modules .author {
     float: right;
 }
 #RootPage #Content .author img {
