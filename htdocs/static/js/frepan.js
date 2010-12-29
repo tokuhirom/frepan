@@ -32,7 +32,7 @@ $(function () {
                         });
                     },
                     error: function () {
-                        alert("error occurred");
+                        $("#Content").text("sorry. error occurred at searching...");
                     }
                 });
             }
