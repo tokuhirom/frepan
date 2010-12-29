@@ -1,0 +1,7 @@
+[% FOR file IN files %]
+<div class="SearchResultElement">
+<a href="/~[% lower(file.get_column('author')) %]/[% file.get_column('dist_name') %]-[% file.get_column('dist_version') %]/[% file.path %]">[% file.package %]</a><br />
+<div class="description">[% file.description %]</div>
+<div class="search-footer"><a class="dist" href="/~[% file.get_column('author') | lower %]/[% file.get_column('dist_name') %]-[% file.get_column('dist_version') %]/">[% file.get_column('dist_name') %]-[% file.get_column('dist_version') %]</a> at [% file.get_column('timestamp') %] by <a href="/~[% file.get_column('author') | lower %]/" class="author">[% file.get_column('fullname') %]</a><span class="search-score">([% file.get_column('score') %])</span></div>
+</div>
+[% END %]

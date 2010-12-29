@@ -30,7 +30,11 @@ sub result {
         $_->set_column(timestamp => Time::Duration::ago($now - $_->get_column('dist_released'), 1));
     }
     debugf("FILES IDS: %s", ddf([map { $_->file_id } @files]));
-    return $c->render('search/result.tx', {files => \@files, query => $query, pager => $search_result->pager});
+    if ($c->req->param('ajax')) {
+        return $c->render('search/result-ajax.tx', {files => \@files, pager => $search_result->pager});
+    } else {
+        return $c->render('search/result.tx', {files => \@files, query => $query, pager => $search_result->pager});
+    }
 }
 
 1;
