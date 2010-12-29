@@ -1,7 +1,11 @@
 [% INCLUDE 'include/header.tx' WITH bodyID="DistPage" subtitle=dist.name %]
 
+
 <div id="SearchResult">
+<div class="search-header"><span class="total_entries">[% pager.total_entries %]</span>
 [% INCLUDE 'include/table/search.tx' %]
 </div>
+
+[% INCLUDE 'include/pager.tx' %]
 
 [% INCLUDE 'include/footer.tx' %]

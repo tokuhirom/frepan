@@ -1,0 +1,13 @@
+<div class="pager">
+    [% IF pager.previous_page %]
+        <a href="[% uri_with({page => pager.previous_page}) %]">&lt;&lt; back</a>
+    [% ELSE %]
+        &lt;&lt; back
+    [% END %]
+    |
+    [% IF pager.next_page %]
+        <a rel="next" href="[% uri_with({page => pager.next_page}) %]">next &gt;&gt;</a>
+    [% ELSE %]
+        next &gt;&gt;
+    [% END %]
+</div>
