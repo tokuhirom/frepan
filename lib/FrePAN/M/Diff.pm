@@ -110,7 +110,7 @@ sub diff {
         for my $old_file (@old_files) {
             next if $new{$old_file};
 
-            push @added, $old_file;
+            push @removed, $old_file;
         }
     }
 
