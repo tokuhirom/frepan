@@ -28,6 +28,11 @@ sub remove_from_fts {
 sub insert_to_fts {
     my ($self) = @_;
 
+    if ($self->version =~ /_/) {
+        infof("This is a developer release(%s). Do not register to groonga", $self->version);
+        return;
+    }
+
     # remove old entries
     {
         my @old_dists = c->db->search(dist => {name => $self->name});
