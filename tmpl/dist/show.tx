@@ -7,6 +7,16 @@
     [<a href="[% dist.download_url %]">Download</a>]
     [<a href="/src/[% upper(dist.author) %]/[% dist.name %]-[% dist.version %]/">Browse</a>]
 </td>
+<tr><th>Other Releases</th><td>
+    <form method="get" action="/other_version">
+        <select name="dist_id">
+        [% FOR v IN other_releases %]
+            <option value="[% v.dist_id %]">[% v.version _ " -- " _ v.released_date %]</option>
+        [% END %]
+        </select>
+        <input type="submit" value="Goto" />
+    </form>
+</td>
 <tr><th>Author</th><td><a href="/~[% lower(dist.author) %]/">[% dist.author  %]</a></td></tr>
 <tr><th>Links</th><td>[<a href="http://rt.cpan.org/NoAuth/Bugs.html?Dist=[% dist.name %]">View/Report Bugs</a>] [ <a href="http://deps.cpantesters.org/?module=[% dist.name %];perl=latest">Dependencies</a> ] [ <a href="http://search.cpan.org/~[% lower(dist.author) %]/[% dist.name %]-[% dist.version %]">search.cpan.org</a> ]</td></tr>
 [% FOR meth IN ['repository', 'homepage', 'bugtrack'] %]

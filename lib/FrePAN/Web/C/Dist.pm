@@ -3,6 +3,7 @@ use strict;
 use warnings;
 use String::CamelCase qw/decamelize/;
 use JSON::XS qw/decode_json/;
+use Smart::Args;
 
 # show distribution meta data
 sub show {
@@ -52,7 +53,13 @@ sub show {
         }
     }
 
-    return $c->render("dist/show.tx", {dist => $dist, special_files => \@special_files});
+    my $other_releases = $c->db->dbh->selectall_arrayref(
+        q{SELECT dist_id, dist.author, dist.name, dist.version, DATE_FORMAT(FROM_UNIXTIME(released), '%Y-%m-%d') AS released_date FROM dist WHERE dist_id != ? AND name=? ORDER BY released DESC},
+        {Slice => {}},
+        $dist->{dist_id}, $dist->{name}
+    );
+
+    return $c->render("dist/show.tx", {dist => $dist, special_files => \@special_files, other_releases => $other_releases});
 }
 
 # show pod
@@ -76,6 +83,15 @@ sub show_file {
     ) or return $c->res_404();
 
     $c->render("dist/show_file.tx", {dist => $dist, file => $file});
+}
+
+# other version
+sub other_version {
+    my ($class, $c) = @_;
+
+    my $dist_id = $c->req->param('dist_id') // die "missing mandatory parameter: dist_id";
+    my $dist = $c->db->single(dist => {dist_id => $dist_id}) // return $c->res_404();
+    return $c->redirect($dist->relative_url());
 }
 
 1;

@@ -97,4 +97,10 @@ sub get_changes {
     return undef;
 }
 
+sub relative_url {
+    args_pos my $self;
+
+    sprintf('/~%s/%s-%s/', lc($self->author), $self->name, $self->version);
+}
+
 1;
