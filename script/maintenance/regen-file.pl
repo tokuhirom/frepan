@@ -8,7 +8,7 @@ use Log::Minimal;
 
 my $c = FrePAN->bootstrap();
 
-my $iter = $c->db->search('dist' => {}, {order_by => {dist_id => 'ASC'}});
+my $iter = $c->db->search('dist' => { old => 0 }, {order_by => {dist_id => 'ASC'}});
 while (my $dist = $iter->next) {
     my $dir = $dist->extracted_dir();
     unless (-d $dir) {
