@@ -1,13 +1,5 @@
-Purging old data
- * use rsync mirror for removing removed files
- * use http://cpan.cpantesters.org/authors/RECENT-1W.yaml for cleanup
-
-Bad path name like: http://frepan.64p.org/~bigpresh/Dancer-Plugin-SimpleCRUD-0.01/
-regenerate all pod files
-
 FTS scoring
  * 古いデータの score をさげたい
  * package カラムが前方一致する場合にスコアをあげたい
  * package カラムが完全一致する場合にスコアをあげたい
- * distribution で一個しか hit しないようにしたい
 
