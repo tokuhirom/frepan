@@ -421,7 +421,7 @@ sub insert_files {
                 my $html = FrePAN::Pod::POM::View::HTML->print($pom);
 
                 my $path = $f->relative->stringify;
-                my $file = $c->db->insert(
+                $c->db->insert(
                     file => {
                         dist_id     => $dist->dist_id,
                         path        => $path,
@@ -429,7 +429,7 @@ sub insert_files {
                         description => $desc || '',
                         html        => $html,
                     }
-                )->refetch;
+                );
             }
         }
     );
