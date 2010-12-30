@@ -131,7 +131,7 @@ sub inject {
     );
 
     debugf 'removing symlinks';
-    $class->remove_symlinks('.');
+    $class->remove_symlinks(dir => '.');
 
     debugf 'generating file table';
     $class->insert_files(
