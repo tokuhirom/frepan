@@ -9,6 +9,7 @@ use Smart::Args;
 use File::Spec;
 use FrePAN::CwdSaver;
 use Text::Xslate qw/mark_raw/;
+use Amon2::Declare;
 
 {
     # a lot of code taken from Text::Diff::HTML.
@@ -82,6 +83,18 @@ use Text::Xslate qw/mark_raw/;
 }
 
 sub diff {
+    args_pos my $class, my $new_dist => { isa => 'FrePAN::DB::Row::Dist'}, my $old_dist => { isa => 'FrePAN::DB::Row::Dist'};
+
+    my $ret = c()->memcached->get_or_set_cb(
+        "diff2:@{[ $new_dist->dist_id ]}:@{[ $old_dist->dist_id ]}" => 24*60*60,
+        sub {
+            [$class->_diff($new_dist, $old_dist)];
+        }
+    );
+    return wantarray ? @$ret : $ret;
+}
+
+sub _diff {
     args_pos my $class, my $new_dist => { isa => 'FrePAN::DB::Row::Dist'}, my $old_dist => { isa => 'FrePAN::DB::Row::Dist'};
 
     my $new_dir = $new_dist->extracted_dir();
