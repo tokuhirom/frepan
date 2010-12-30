@@ -3,7 +3,9 @@ use strict;
 use warnings;
 use FindBin::libs;
 use FrePAN;
+use FrePAN::M::RSSMaker;
 
-my $c=FrePAN->bootstrap(config=>do"config.pl");
-print $c->model("RSSMaker")->generate(), $/;
+my $c = FrePAN->bootstrap();
+
+FrePAN::M::RSSMaker->generate();
 
