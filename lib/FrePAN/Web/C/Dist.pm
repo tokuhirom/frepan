@@ -3,6 +3,7 @@ use strict;
 use warnings;
 use String::CamelCase qw/decamelize/;
 use JSON::XS qw/decode_json/;
+use Log::Mimimal;
 
 # show distribution meta data
 sub show {
@@ -27,6 +28,7 @@ sub show {
     $dist->{resources}    = decode_json($dist->{resources_json}) if $dist->{resources_json};
     $dist->{gravatar_url} = FrePAN::M::CPAN->email2gravatar_url($dist->{email});
     $dist->{download_url} = FrePAN::M::CPAN->download_url($dist->{path}, $dist->{released});
+    debugf("dist_id: $dist->{dist_id}");
 
     $dist->{files} = $c->dbh->selectall_arrayref(
         q{
