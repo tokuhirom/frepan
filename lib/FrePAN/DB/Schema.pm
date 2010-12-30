@@ -47,6 +47,12 @@ install_table 'meta_uploads' => sub {
 };
 
 
+install_table 'user' => sub {
+    pk      qw(user_id);
+    columns qw(name login user_id github_response);
+};
+
+
 
 use Module::Find ();
 Module::Find::useall('FrePAN::DB');

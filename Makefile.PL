@@ -26,6 +26,7 @@ requires 'Log::Minimal';
 requires 'Smart::Args';
 requires 'Time::Duration';
 requires 'Text::Diff';
+requires 'OAuth::Lite2';
 recursive_author_tests('xt');
 
 WriteAll;

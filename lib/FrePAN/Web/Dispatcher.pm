@@ -14,5 +14,8 @@ connect '/search'        => 'Search#result';
 connect '/perldoc'       => 'Perldoc#redirect';
 connect '/other_version' => 'Dist#other_version';
 connect '/diff'          => 'Diff#show';
+connect '/login'         => 'User#login';
+connect '/oauth_callback'         => 'User#oauth_callback';
+connect '/logout'         => 'User#logout';
 
 1;

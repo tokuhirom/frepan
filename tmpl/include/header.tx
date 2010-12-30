@@ -8,7 +8,7 @@
     <link rel="alternate" type="application/rss+xml" title="RSS" href="http://feeds.feedburner.com/YetAnotherCpanRecentChanges" />
     <link href="/static/css/screen.css" rel="stylesheet" type="text/css" media="screen" />
     <link href="/static/css/typography.css" rel="stylesheet" type="text/css" media="screen" />
-    <link href="/static/css/main.css?v=9" rel="stylesheet" type="text/css" media="screen" />
+    <link href="/static/css/main.css?v=10" rel="stylesheet" type="text/css" media="screen" />
     <link href="/static/prettify/prettify.css" rel="stylesheet" type="text/css" media="screen" />
     <script src="/static/js/require.js" type="text/javascript"></script>
     <script src="/static/js/jquery-1.4.4.min.js" type="text/javascript"></script>
@@ -21,10 +21,20 @@
         <div id="Header">
             <a href="/"><img src="/static/img/frepan-logo.png" width="164" height="58" alt="FrePAN" /></a>
 
-            <form method="get" action="/search" id="SearchBox">
+            <form method="get" action="/search" id="SearchBox" style="display:inline">
                 <input id="search_query" type="text" name="q" style="font-size: xx-large" value="[% query %]" />
                 <input type="submit" value="search" />
             </form>
+            <div class="UserInfo" style="display:inline">
+                [% IF c().session_user() %]
+                    Hi, <a href="https://github.com/[% c().session_user().login() %]">[% c().session_user().login() %]</a>!
+                    <form method="post" action="/logout" style="display:inline">
+                        <input type="submit" value="logout" />
+                    </form>
+                [% ELSE %]
+                    <a href="/login">login</a>
+                [% END %]
+            </div>
         </div>
         <div id="Content">
 

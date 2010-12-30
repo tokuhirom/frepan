@@ -1,3 +1,12 @@
+CREATE TABLE user (
+    user_id int unsigned not null auto_increment primary key
+    ,login varchar(255) not null
+    ,name varchar(255) default null
+    ,github_response text
+    ,unique (login)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 CREATE TABLE IF NOT EXISTS dist (
      dist_id int unsigned not null AUTO_INCREMENT PRIMARY KEY
     ,author   varchar(255) not null
