@@ -13,7 +13,7 @@ install_table 'changes' => sub {
 
 install_table 'dist' => sub {
     pk      qw(dist_id);
-    columns qw(latest has_makefile_pl bugtracker author has_manifest has_meta_json requires has_change_log has_build_pl repository version has_meta_yml name released path dist_id license homepage resources_json abstract has_changes);
+    columns qw(latest has_makefile_pl bugtracker author has_manifest has_meta_json requires has_change_log has_build_pl repository version has_meta_yml name released path dist_id license old homepage resources_json abstract has_changes);
 };
 
 

@@ -99,6 +99,7 @@ sub inject {
     my $meta = $class->load_meta(dir => $srcdir);
     my $requires = $meta->{requires};
 
+    $c->db->do(q{UPDATE dist SET old=1 WHERE name=?}, {}, $name);
 
     debugf 'creating database entry';
     my $dist = $c->db->find_or_create(
@@ -122,6 +123,7 @@ sub inject {
             has_changes     => ( -f 'Changes'     ? 1 : 0 ),
             has_change_log  => ( -f 'ChangeLog'   ? 1 : 0 ),
             has_build_pl    => ( -f 'Build.PL'    ? 1 : 0 ),
+            old             => 0,
         }
     );
 
