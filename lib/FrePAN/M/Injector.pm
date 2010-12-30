@@ -410,6 +410,11 @@ sub insert_files {
             }
             unless ($pkg) {
                 $pkg = "$f";
+                if ($pkg =~ /\.pm$/) {
+                    $pkg =~ s!/!::!g;
+                    $pkg =~ s!^lib/!!g;
+                    $pkg =~ s!\.pm$!!g;
+                }
             }
 
             {
