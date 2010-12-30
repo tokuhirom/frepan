@@ -7,16 +7,22 @@ use Archive::Zip qw( :ERROR_CODES :CONSTANTS );
 use File::Spec;
 use Try::Tiny;
 use Amon2::Declare;
-use File::Path qw/remove_tree/;
+use File::Path qw/remove_tree mkpath/;
 use Smart::Args;
+use FrePAN::CwdSaver;
 
 # $distvname should be "$dist-$ver"
 sub extract {
     args my $class,
          my $distvname,
          my $archive_path,
+         my $author_dir,
          ;
 
+    mkpath($author_dir);
+    die "cannot create directory" unless -d $author_dir;
+
+    my $guard = FrePAN::CwdSaver->new($author_dir);
     remove_tree($distvname); # clanup before extract
 
     if ($archive_path =~ /\.(?:tar|tar\.gz|tar\.bz2|tbz|tgz)$/) {
@@ -47,7 +53,7 @@ sub extract {
     } else {
         die "unknown archive type: $archive_path";
     }
-    chdir($distvname) if -d $distvname;
+    chdir($distvname);
     return Cwd::getcwd();
 }
 

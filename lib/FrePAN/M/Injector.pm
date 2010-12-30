@@ -27,6 +27,7 @@ use YAML::Tiny;
 use Smart::Args;
 use Log::Minimal;
 use FrePAN::DB::Row::File;
+use FrePAN::CwdSaver;
 
 use Amon2::Declare;
 
@@ -82,21 +83,15 @@ sub inject {
         $class->mirror($url, $archivepath);
     }
 
-    # guard.
-    my $orig_cwd = Cwd::getcwd();
-    guard { chdir $orig_cwd };
-
     # extract and chdir
     my $extracted_dir = do {
         my $srcdir = dir(c->config()->{srcdir}, uc($author));
-        debugf "extracting $archivepath to $srcdir";
-        $srcdir->mkpath;
-        die "cannot mkpath '$srcdir': $!" unless -d $srcdir;
-        chdir($srcdir);
         my $distnameinfo = CPAN::DistnameInfo->new($path);
-        FrePAN::M::Archive->extract(distvname => $distnameinfo->distvname, archive_path => "$archivepath");
+        FrePAN::M::Archive->extract(distvname => $distnameinfo->distvname, archive_path => "$archivepath", author_dir => $srcdir);
     };
     infof("extracted directory is: $extracted_dir");
+
+    my $guard = FrePAN::CwdSaver->new($extracted_dir);
 
     # render and register files.
     my $meta = $class->load_meta(dir => $extracted_dir);
@@ -131,12 +126,12 @@ sub inject {
     );
 
     debugf 'removing symlinks';
-    $class->remove_symlinks(dir => '.');
+    $class->remove_symlinks(dir => $extracted_dir);
 
     debugf 'generating file table';
     $class->insert_files(
         meta     => $meta,
-        dir      => '.',
+        dir      => $extracted_dir,
         c        => $c,
         dist     => $dist,
     );
@@ -161,8 +156,6 @@ sub inject {
 
     debugf 'commit';
     $txn->commit;
-
-    chdir $orig_cwd;
 
     debugf "finished job";
 }
@@ -238,7 +231,7 @@ sub load_meta {
          my $dir,
     ;
 
-    my $guard = CwdSaver->new($dir);
+    my $guard = FrePAN::CwdSaver->new($dir);
 
     if (-f 'META.json') {
         try {
@@ -278,23 +271,6 @@ sub mirror {
     $res->code =~ /^(?:304|200)$/ or die "fetch failed: $url, $dstpath, " . $res->status_line;
 }
 
-{
-    package CwdSaver;
-    use autodie;
-    use Cwd;
-
-    sub new {
-        my ($class, $dir) = @_;
-        my $orig_dir = Cwd::getcwd();
-        chdir $dir;
-        bless \$orig_dir, $dir;
-    }
-    sub DESTROY {
-        my $self = shift;
-        chdir $$self;
-    }
-}
-
 # insert to 'file' table.
 sub insert_files {
     args my $class,
@@ -318,7 +294,7 @@ sub insert_files {
     # remove old things
     $c->db->dbh->do(q{DELETE FROM file WHERE dist_id=?}, {}, $dist->dist_id) or die;
 
-    my $guard = CwdSaver->new($dir);
+    my $guard = FrePAN::CwdSaver->new($dir);
 
     dir('.')->recurse(
         callback => sub {
