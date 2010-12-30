@@ -380,7 +380,7 @@ sub insert_files {
             if ($no_index && "$f" =~ $no_index) {
                 return;
             }
-            if ("$f" =~ m{^(?:t/|inc/|sample/|blib/)}) {
+            if ("$f" =~ m{^(?:t/|inc/|sample/|blib/)} || "$f" eq './Build.PL') {
                 return;
             }
             debugf("do processing $f");
