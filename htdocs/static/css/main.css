@@ -107,11 +107,19 @@ body {
     width: 600px;
     margin-left: 10px;
 }
+#RootPage #Content .modules .diff {
+    margin-left: 10px;
+    text-align: right;
+    margin-top: 7px;
+}
+#RootPage #Content .modules .diff a {
+    color: #999999;
+}
 #RootPage #Content .modules .timestamp {
     margin-left: 10px;
     color: #cccccc;
     text-align: right;
-    margin-top: 7px;
+    margin-top: 3px;
 }
 #RootPage #Content .modules .author {
     float: right;
