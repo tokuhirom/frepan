@@ -12,14 +12,17 @@ $(function () {
             );
         });
 
+        var ajaxManager = $.manageAjax.create('search', {
+            queue: 'clear', 
+            cacheResponse: false,
+            abortOld: true
+        });
+        
         $('#search_query').focus().keyup(function () {
             var query = $(this).val();
             if (query && query.length > 2) {
-                $.ajax({
-                    url: "/search",
-                    data: {ajax: 1, q: query},
-                    cache: false,
-                    success: function (html) {
+                ajaxManager.add({
+                    success: function(html) {
                         require(["/static/js/jquery.highlight-3.js"], function () {
                             var elem = $("#Content").html(html);
                             var ary = query.split(/\s+/);
@@ -31,6 +34,8 @@ $(function () {
                             }
                         });
                     },
+                    url: '/search',
+                    data: {ajax: 1, q: query},
                     error: function () {
                         $("#Content").text("sorry. error occurred at searching...");
                     }
