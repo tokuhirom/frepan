@@ -20,7 +20,7 @@ sub result {
     for my $row (@$file_infos) {
         my $fid = $row->{file_id};
         unless ($files{$fid}) {
-            warnf("not matched: $fid");
+            # warnf("not matched: $fid");
             next;
         }
         $files{$fid}->set_column('score' => $row->{score});
