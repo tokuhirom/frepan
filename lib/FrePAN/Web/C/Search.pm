@@ -13,8 +13,9 @@ sub result {
     my $search_result = $c->fts->search(query => $query, page => $page, rows => 50);
     my $file_infos = $search_result->rows;
     debugf("FILES IDS: %s", ddf($file_infos));
-    my ($sql, @binds) = sql_interp(q{SELECT file.*, dist.author, dist.name AS dist_name, dist.version AS dist_version, dist.released AS dist_released, meta_author.fullname AS fullname FROM file INNER JOIN dist ON (dist.dist_id=file.dist_id) LEFT JOIN meta_author ON (meta_author.pause_id=dist.author) WHERE file_id IN }, [map { $_->{file_id} } @$file_infos]);
-    my %files = map { $_->file_id => $_ } $c->db->search_by_sql($sql, \@binds, 'file');
+    my ($sql, @binds) = sql_interp(q{SELECT file.*, dist.dist_id, dist.author, dist.name AS dist_name, dist.version AS dist_version, dist.released AS dist_released, meta_author.fullname AS fullname FROM file INNER JOIN dist ON (dist.dist_id=file.dist_id) LEFT JOIN meta_author ON (meta_author.pause_id=dist.author) WHERE file_id IN }, [map { $_->{file_id} } @$file_infos]);
+    my %seen;
+    my %files = map { $_->file_id => $_ } grep { !$seen{$_->get_column('dist_id')}++ } $c->db->search_by_sql($sql, \@binds, 'file');
     my @files;
     for my $row (@$file_infos) {
         my $fid = $row->{file_id};
