@@ -1,7 +1,7 @@
         </div>
         <div class="clear-both"></div>
         <div id="FooterContainer"><div id="Footer">
-            Powered by <a href="http://amon.64p.org/">Amon [% amon_version() %]</a>
+            Powered by <a href="http://amon.64p.org/">Amon [% amon_version() %]</a>, <a href="http://groonga.org/">groonga</a>
         </div></div>
     </div>
 </body>
