@@ -44,6 +44,7 @@ sub extract {
         die "unknown archive type: $path";
     }
     try { chdir($distvname); }
+    return Cwd::getcwd();
 }
 
 1;
