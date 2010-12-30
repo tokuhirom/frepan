@@ -12,6 +12,7 @@ use FrePAN::M::Injector;
 use FrePAN::M::FriendFeed;
 use Time::HiRes qw/gettimeofday tv_interval/;
 use Time::Piece;
+use Try::Tiny;
 
 sub new {
     my $class = shift;
@@ -61,7 +62,14 @@ sub realtime_run {
             critf("error occured: %s", ddf($err));
             $cv->send();
         },
-        on_entry => sub { $self->on_entry($_[0]) },
+        on_entry => sub {
+            my $entry = shift;
+            try {
+                $self->on_entry($entry)
+            } catch {
+                critf("Cannot process the package: $_: %s", ddf($entry));
+            };
+        },
     );
     infof("ready to run");
     $cv->recv();
@@ -82,6 +90,7 @@ sub on_entry {
 
     my $released = Time::Piece->strptime($date, '%Y-%m-%dT%H:%M:%SZ')->epoch;
     my ($name, $version, $path) = FrePAN::M::FriendFeed->parse_entry($body);
+    die "Cannot parse entry: $body" unless $path;
     my $author = FrePAN::M::FriendFeed->path2author($path);
     unless ($name) {
         critf("cannot parse body: %s", $body);
