@@ -16,7 +16,7 @@ sub write_file {
 }
 
 sub generate {
-    my $self = shift;
+    my $class = shift;
 
     my $c = c;
 
