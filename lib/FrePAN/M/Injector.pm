@@ -96,15 +96,7 @@ sub inject {
     FrePAN::M::Archive->extract($distnameinfo->distvname, "$archivepath");
 
     # render and register files.
-    my $meta = load_meta($path);
-    my $no_index = join '|', map { quotemeta $_ } @{
-        do {
-            my $x = $meta->{no_index}->{directory} || [];
-            $x = [$x] unless ref $x; # http://cpansearch.perl.org/src/CFAERBER/Net-IDN-Nameprep-1.100/META.yml
-            $x;
-          }
-      };
-       $no_index = qr/^(?:$no_index)/ if $no_index;
+    my $meta = $class->load_meta(dir => $srcdir);
     my $requires = $meta->{requires};
 
 
@@ -148,11 +140,14 @@ sub inject {
 
     debugf 'generating file table';
     $class->insert_files(
-        no_index => $no_index,
+        meta     => $meta,
         dir      => '.',
         c        => $c,
         dist     => $dist,
     );
+
+    debugf("register to groonga");
+    $dist->insert_to_fts();
 
     # save changes
     debugf 'make diff';
@@ -281,7 +276,12 @@ sub read_file {
 }
 
 sub load_meta {
-    my $path = shift;
+    args my $class,
+         my $dir,
+    ;
+
+    my $guard = CwdSaver->new($dir);
+
     if (-f 'META.json') {
         try {
             open my $fh, '<', 'META.json';
@@ -295,11 +295,11 @@ sub load_meta {
         try {
             YAML::Tiny::LoadFile('META.yml');
         } catch {
-            warn "Cannot parse META.yml($path): $_";
+            warn "Cannot parse META.yml($dir): $_";
             +{};
         };
     } else {
-        infof("missing META file in $path".Cwd::getcwd());
+        infof("missing META file in $dir");
         +{};
     }
 }
@@ -340,11 +340,22 @@ sub mirror {
 # insert to 'file' table.
 sub insert_files {
     args my $class,
-         my $no_index,
+         my $meta,
          my $dir,
          my $c,
          my $dist => {isa => 'FrePAN::DB::Row::Dist'},
          ;
+
+    my $txn = $c->db->txn_scope();
+
+    my $no_index = join '|', map { quotemeta $_ } @{
+        do {
+            my $x = $meta->{no_index}->{directory} || [];
+            $x = [$x] unless ref $x; # http://cpansearch.perl.org/src/CFAERBER/Net-IDN-Nameprep-1.100/META.yml
+            $x;
+          }
+      };
+       $no_index = qr/^(?:$no_index)/ if $no_index;
 
     # remove old things
     $c->db->dbh->do(q{DELETE FROM file WHERE dist_id=?}, {}, $dist->dist_id) or die;
@@ -403,7 +414,6 @@ sub insert_files {
 
             {
                 my $html = FrePAN::Pod::POM::View::HTML->print($pom);
-                my $text = Pod::POM::View::Text->print($pom);
 
                 my $path = $f->relative->stringify;
                 my $file = $c->db->insert(
@@ -415,12 +425,13 @@ sub insert_files {
                         html        => $html,
                     }
                 )->refetch;
-
-                # register to groonga
-                $file->insert_to_fts($text);
             }
         }
     );
+
+    $txn->commit;
+
+    return;
 }
 
 1;
