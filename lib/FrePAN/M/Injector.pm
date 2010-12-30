@@ -130,18 +130,8 @@ sub inject {
         }
     );
 
-    # Some dists contains symlinks.
-    # symlinks cause deep recursion, or security issue.
-    # I should remove it first.
-    # e.g. C/CM/CMORRIS/Parse-Extract-Net-MAC48-0.01.tar.gz
     debugf 'removing symlinks';
-    File::Find::Rule->new()
-                    ->symlink()
-                    ->exec( sub {
-                        debugf("unlink symlink $_");
-                        unlink $_;
-                    } )
-                    ->in('.');
+    $class->remove_symlinks('.');
 
     debugf 'generating file table';
     $class->insert_files(
@@ -405,6 +395,25 @@ sub insert_files {
     $txn->commit;
 
     return;
+}
+
+sub remove_symlinks {
+    args my $class,
+         my $dir,
+         ;
+
+    # Some dists contains symlinks.
+    # symlinks cause deep recursion, or security issue.
+    # I should remove it first.
+    # e.g. C/CM/CMORRIS/Parse-Extract-Net-MAC48-0.01.tar.gz
+    debugf 'removing symlinks';
+    File::Find::Rule->new()
+                    ->symlink()
+                    ->exec( sub {
+                        debugf("unlink symlink $_");
+                        unlink $_;
+                    } )
+                    ->in($dir);
 }
 
 1;

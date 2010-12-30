@@ -21,6 +21,7 @@ while (my $dist = $iter->next) {
     my $meta = FrePAN::M::Injector->load_meta(
         dir => $dir
     );
+    FrePAN::M::Injector->remove_symlinks(dir => $dir);
     FrePAN::M::Injector->insert_files(
         meta => $meta,
         dist => $dist,
