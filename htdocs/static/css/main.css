@@ -216,6 +216,23 @@ body {
     font-size: small;
 }
 
+/* diff */
+
+#DiffPage h2 {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#DiffPage .file {
+    margin-left: 20px;
+}
+#DiffPage .file ins {
+    background-color: #CAFFCA;
+}
+#DiffPage .file del {
+    background-color: #FFCACA;
+}
+
 .highlight { background-color: yellow }
 
 .pager { text-align: center; }

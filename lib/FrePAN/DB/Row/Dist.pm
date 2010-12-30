@@ -79,6 +79,13 @@ sub extracted_dir {
     return File::Spec->catdir($srcdir, $self->author, $self->name . '-' . $self->version);
 }
 
+sub author_dir {
+    args_pos my $self;
+
+    my $srcdir = c->config()->{srcdir} // die "missing counfiguration for srcdir";
+    return File::Spec->catdir($srcdir, $self->author);
+}
+
 sub last_release {
     args_pos my $self;
 

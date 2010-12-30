@@ -9,8 +9,9 @@ sub new {
     my ($class, $dir) = @_;
     my $orig_dir = Cwd::getcwd();
     chdir $dir;
-    bless \$orig_dir, $dir;
+    bless \$orig_dir, $class;
 }
+
 sub DESTROY {
     my $self = shift;
     chdir $$self;

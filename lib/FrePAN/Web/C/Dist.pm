@@ -91,7 +91,11 @@ sub other_version {
 
     my $dist_id = $c->req->param('dist_id') // die "missing mandatory parameter: dist_id";
     my $dist = $c->db->single(dist => {dist_id => $dist_id}) // return $c->res_404();
-    return $c->redirect($dist->relative_url());
+    if ($c->req->param('diff')) {
+        return $c->redirect('/diff?' . $c->req->env->{QUERY_STRING});
+    } else {
+        return $c->redirect($dist->relative_url());
+    }
 }
 
 1;

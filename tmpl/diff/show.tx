@@ -1,0 +1,28 @@
+[% INCLUDE 'include/header.tx' WITH bodyID="DiffPage" subtitle=author.fullname %]
+
+<h1>diff -u [% old_dist.name %]-[% old_dist.version %] [% new_dist.name %]-[% new_dist.version %]</h1>
+
+[% IF added.size() > 0 %]
+    <h2>File added</h2>
+    <ul>
+    [% FOR v IN added %]
+        <li>[% v %]</li>
+    [% END %]
+    </ul>
+[% END %]
+
+[% IF removed.size() > 0 %]
+    <h2>File removed</h2>
+    <ul>
+    [% FOR v IN removed %]
+        <li>[% v %]</li>
+    [% END %]
+    </ul>
+[% END %]
+
+<h2>diffs</h2>
+[% FOR v IN diffs %]
+    [% v.html %]
+[% END %]
+
+[% INCLUDE 'include/footer.tx' %]

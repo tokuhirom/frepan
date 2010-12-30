@@ -9,12 +9,14 @@
 </td>
 <tr><th>Other Releases</th><td>
     <form method="get" action="/other_version">
+        <input type="hidden" name="orig_dist_id" value="[% dist.dist_id %]" />
         <select name="dist_id">
         [% FOR v IN other_releases %]
             <option value="[% v.dist_id %]">[% v.version _ " -- " _ v.released_date %]</option>
         [% END %]
         </select>
         <input type="submit" value="Goto" />
+        <input type="submit" value="Diff" name="diff" />
     </form>
 </td>
 <tr><th>Author</th><td><a href="/~[% lower(dist.author) %]/">[% dist.author  %]</a></td></tr>
