@@ -16,7 +16,7 @@ sub show {
         if (my $orig_dist_id = $c->req->param('orig_dist_id')) {
             $c->db->single(dist => {dist_id => $orig_dist_id}) // die;
         } else {
-            $dist->last_release() // return $c->res_404();
+            $new_dist->last_release() // return $c->res_404();
         }
     };
 
