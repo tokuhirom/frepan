@@ -6,6 +6,7 @@ use autodie;
 use Amon2::Declare;
 use FrePAN::M::CPAN;
 use Text::Xslate::Util qw/html_escape/;
+use Log::Minimal;
 
 sub write_file {
     my ($fname, $content) = @_;
@@ -23,7 +24,7 @@ sub generate {
     $feed->title('Yet Another CPAN Recent Changes');
     $feed->link('http://frepan.64p.org/');
     my $iter = $c->db->search_by_sql(
-        q{SELECT dist.name, dist.author, dist.version, dist.path, dist.abstract, changes.body AS diff, dist.released FROM dist LEFT JOIN changes ON (changes.dist_id = dist.dist_id) ORDER BY dist.released DESC LIMIT 10}
+        q{SELECT dist.dist_id, dist.name, dist.author, dist.version, dist.path, dist.abstract, changes.body AS diff, dist.released FROM dist LEFT JOIN changes ON (changes.dist_id = dist.dist_id) ORDER BY dist.released DESC LIMIT 10}
     );
     while (my $row = $iter->next) {
         $feed->add_entry(do {
@@ -41,6 +42,7 @@ sub generate {
         });
     }
     my $path = c->config->{'M::RSSMaker'}->{path} // die;
+    infof("save rss to $path");
     write_file($path, $feed->as_xml());
     return $feed->as_xml;
 }
@@ -55,6 +57,7 @@ sub make_content {
 
     $html .= <<"...";
 <pre>@{[ html_escape($row->diff || '') ]}</pre>
+<a href="http://frepan.64p.org/diff?dist_id=@{[ $row->dist_id ]}">Diff</a>
 <a href="http://search.cpan.org/dist/@{[ $row->name ]}/">search.cpan.org</a><br />
 <a href="http://cpan.cpantesters.org/authors/id/@{[ html_escape($row->path) ]}">Download</a>
 ...
