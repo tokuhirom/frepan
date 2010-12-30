@@ -3,6 +3,7 @@ use strict;
 use warnings;
 use autodie;
 
+use FrePAN::FTS;
 use Algorithm::Diff;
 use CPAN::DistnameInfo;
 use Carp ();
@@ -17,6 +18,7 @@ use JSON::XS;
 use LWP::UserAgent;
 use Path::Class;
 use Pod::POM;
+use Pod::POM::View::Text;
 use RPC::XML::Client;
 use RPC::XML;
 use Try::Tiny;
@@ -24,6 +26,7 @@ use URI;
 use YAML::Tiny;
 use Smart::Args;
 use Log::Minimal;
+use FrePAN::DB::Row::File;
 
 use Amon2::Declare;
 
@@ -142,81 +145,14 @@ sub inject {
                         unlink $_;
                     } )
                     ->in('.');
-    debugf 'rendering pod';
-    dir('.')->recurse(
-        callback => sub {
-            my $f = shift;
-            return if -d $f;
-            debugf("processing $f");
 
-            unless ($f =~ /(?:\.pm|\.pod)$/) {
-                my $fh = $f->openr or return;
-                read $fh, my $buf, 1024;
-                if ($buf !~ /#!.+perl/) { # script contains shebang
-                    return;
-                }
-            }
-            if ($no_index && "$f" =~ $no_index) {
-                return;
-            }
-            if ("$f" =~ m{^(?:t/|inc/|sample/|blib/)}) {
-                return;
-            }
-            debugf("do processing $f");
-            my $parser = Pod::POM->new();
-            my $pom = $parser->parse_file("$f") or do {
-                print $parser->error,"\n";
-                return;
-            };
-            my ($pkg, $desc);
-            my ($name_section) = map { $_->content } grep { $_->title eq 'NAME' } $pom->head1();
-            if ($name_section) {
-                $name_section = FrePAN::Pod::POM::View::Text->print($name_section);
-                $name_section =~ s/\n//g;
-                debugf "name: $name_section";
-                ($pkg, $desc) = ($name_section =~ /^(\S+)\s+-\s*(.+)$/);
-                if ($pkg) {
-                    # workaround for Graph::Centrality::Pagerank
-                    $pkg =~ s/[CB]<(.+)>/$1/;
-                }
-            }
-            unless ($pkg) {
-                my $fh = $f->openr or return;
-                SCAN: while (my $line = <$fh>) {
-                    if ($line =~ /^package\s+([a-zA-Z0-9:_]+)/) {
-                        $pkg = $1;
-                        last SCAN;
-                    }
-                }
-            }
-            unless ($pkg) {
-                $pkg = "$f";
-                if ($pkg =~ /(\.pm|\.pod)$/) {
-                    $pkg =~ s{^lib/}{};
-                    $pkg =~ s/\.pm$//;
-                    $pkg =~ s{/}{::}g;
-                }
-            }
-            my $html = FrePAN::Pod::POM::View::HTML->print($pom);
-            {
-                my $path = $f->relative->stringify;
-                my $file_row = $c->db->find_or_create(
-                    file => {
-                        dist_id     => $dist->dist_id,
-                        path        => $path,
-                    }
-                );
-                $file_row->update({
-                    'package'   => $pkg,
-                    description => $desc || '',
-                    html        => $html,
-                });
-            }
-        }
+    debugf 'generating file table';
+    $class->insert_files(
+        no_index => $no_index,
+        dir      => '.',
+        c        => $c,
+        dist     => $dist,
     );
-
-    # register to groonga
-    $dist->insert_to_fts();
 
     # save changes
     debugf 'make diff';
@@ -382,6 +318,109 @@ sub mirror {
     }
     my $res = $ua->get($url, ':content_file' => "$dstpath");
     $res->code =~ /^(?:304|200)$/ or die "fetch failed: $url, $dstpath, " . $res->status_line;
+}
+
+{
+    package CwdSaver;
+    use autodie;
+    use Cwd;
+
+    sub new {
+        my ($class, $dir) = @_;
+        my $orig_dir = Cwd::getcwd();
+        chdir $dir;
+        bless \$orig_dir, $dir;
+    }
+    sub DESTROY {
+        my $self = shift;
+        chdir $$self;
+    }
+}
+
+# insert to 'file' table.
+sub insert_files {
+    args my $class,
+         my $no_index,
+         my $dir,
+         my $c,
+         my $dist => {isa => 'FrePAN::DB::Row::Dist'},
+         ;
+
+    # remove old things
+    $c->db->dbh->do(q{DELETE FROM file WHERE dist_id=?}, {}, $dist->dist_id) or die;
+
+    my $guard = CwdSaver->new($dir);
+
+    dir('.')->recurse(
+        callback => sub {
+            my $f = shift;
+            return if -d $f;
+            debugf("processing $f");
+
+            unless ($f =~ /(?:\.pm|\.pod)$/) {
+                my $fh = $f->openr or return;
+                read $fh, my $buf, 1024;
+                if ($buf !~ /#!.+perl/) { # script contains shebang
+                    return;
+                }
+            }
+            if ($no_index && "$f" =~ $no_index) {
+                return;
+            }
+            if ("$f" =~ m{^(?:t/|inc/|sample/|blib/)}) {
+                return;
+            }
+            debugf("do processing $f");
+            my $parser = Pod::POM->new();
+            my $pom = $parser->parse_file("$f") or do {
+                print $parser->error,"\n";
+                return;
+            };
+            my ($pkg, $desc);
+            my ($name_section) = map { $_->content } grep { $_->title eq 'NAME' } $pom->head1();
+            if ($name_section) {
+                $name_section = FrePAN::Pod::POM::View::Text->print($name_section);
+                $name_section =~ s/\n//g;
+                debugf "name: $name_section";
+                ($pkg, $desc) = ($name_section =~ /^(\S+)\s+-\s*(.+)$/);
+                if ($pkg) {
+                    # workaround for Graph::Centrality::Pagerank
+                    $pkg =~ s/[CB]<(.+)>/$1/;
+                }
+            }
+            unless ($pkg) {
+                my $fh = $f->openr or return;
+                SCAN: while (my $line = <$fh>) {
+                    if ($line =~ /^package\s+([a-zA-Z0-9:_]+)/) {
+                        $pkg = $1;
+                        last SCAN;
+                    }
+                }
+            }
+            unless ($pkg) {
+                $pkg = "$f";
+            }
+
+            {
+                my $html = FrePAN::Pod::POM::View::HTML->print($pom);
+                my $text = Pod::POM::View::Text->print($pom);
+
+                my $path = $f->relative->stringify;
+                my $file = $c->db->insert(
+                    file => {
+                        dist_id     => $dist->dist_id,
+                        path        => $path,
+                        'package'   => $pkg,
+                        description => $desc || '',
+                        html        => $html,
+                    }
+                )->refetch;
+
+                # register to groonga
+                $file->insert_to_fts($text);
+            }
+        }
+    );
 }
 
 1;

@@ -6,6 +6,7 @@ use Amon2::Declare;
 use Log::Minimal;
 use Smart::Args;
 use autodie;
+use File::Spec;
 
 sub files {
     my ($self) = @_;
@@ -64,6 +65,13 @@ sub delete {
     $self->delete_files();
 
     $self->SUPER::delete();
+}
+
+sub extracted_dir {
+    args_pos my $self;
+
+    my $srcdir = c->config()->{srcdir} // die "missing counfiguration for srcdir";
+    return File::Spec->catdir($srcdir, $self->author, $self->name . '-' . $self->version);
 }
 
 1;
