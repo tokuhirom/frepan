@@ -8,7 +8,7 @@ use FrePAN::M::Injector;
 use FrePAN::M::FriendFeed;
 use CPAN::DistnameInfo;
 
-my $url = 'http://search.cpan.org/CPAN/authors/id/T/TO/TOKUHIROM/App-cpanoutdated-0.13.tar.gz';
+my $url = shift || 'http://search.cpan.org/CPAN/authors/id/C/CO/CORNELIUS/I18N-Handle-0.051.tar.gz';
 my $info = CPAN::DistnameInfo->new($url);
 my $released = time;
 my $name = $info->dist;

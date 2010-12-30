@@ -50,7 +50,7 @@ sub inject {
          my $author => 'Str',
          my $force => {default => 0, isa => 'Bool'},
          ;
-    infof("Run $path \n");
+    infof("Run $path");
 
     local $PATH = $path;
 
@@ -87,16 +87,19 @@ sub inject {
     guard { chdir $orig_cwd };
 
     # extract and chdir
-    my $srcdir = dir(c->config()->{srcdir}, uc($author));
-    debugf "extracting $archivepath to $srcdir";
-    $srcdir->mkpath;
-    die "cannot mkpath '$srcdir': $!" unless -d $srcdir;
-    chdir($srcdir);
-    my $distnameinfo = CPAN::DistnameInfo->new($path);
-    FrePAN::M::Archive->extract($distnameinfo->distvname, "$archivepath");
+    my $extracted_dir = do {
+        my $srcdir = dir(c->config()->{srcdir}, uc($author));
+        debugf "extracting $archivepath to $srcdir";
+        $srcdir->mkpath;
+        die "cannot mkpath '$srcdir': $!" unless -d $srcdir;
+        chdir($srcdir);
+        my $distnameinfo = CPAN::DistnameInfo->new($path);
+        FrePAN::M::Archive->extract(distvname => $distnameinfo->distvname, archive_path => "$archivepath");
+    };
+    infof("extracted directory is: $extracted_dir");
 
     # render and register files.
-    my $meta = $class->load_meta(dir => $srcdir);
+    my $meta = $class->load_meta(dir => $extracted_dir);
     my $requires = $meta->{requires};
 
     $c->db->do(q{UPDATE dist SET old=1 WHERE name=?}, {}, $name);
@@ -153,39 +156,8 @@ sub inject {
 
     # save changes
     debugf 'make diff';
-    my $local_path = FrePAN::M::CPAN->dist2path($dist->name);
-    debugf("extract old archive to @{[ $local_path || 'missing meta' ]}(@{[ $dist->name ]})");
-    my ($old_changes_file, $old_changes) = get_old_changes($local_path);
-    sub {
-        unless ($old_changes) {
-            debugf "old changes not found";
-            return;
-        }
-        debugf "old changes exists";
-        my ($new_changes_file) = grep { -f $_ } qw/CHANGES Changes ChangeLog/;
-        unless ($new_changes_file) {
-            debugf "missing new changes file";
-            return;
-        }
-        $new_changes_file = Cwd::abs_path($new_changes_file);
-        my $new_changes = read_file($new_changes_file);
-        unless ($new_changes) {
-            debugf "new changes not found";
-            return;
-        }
-        debugf "new changes exists";
-        debugf "diff -u $old_changes_file $new_changes_file";
-        my $diff = make_diff($old_changes, $new_changes);
-        my $changes = $c->db->find_or_create(
-            changes => {
-                dist_id => $dist->dist_id,
-                version => $dist->version,
-            }
-        );
-        $changes->update({
-            body => $diff
-        });
-    }->();
+    $class->make_changes_diff(c => $c, dist => $dist);
+
 
     # regen rss
     debugf 'regenerate rss';
@@ -205,6 +177,41 @@ sub inject {
     debugf "finished job";
 }
 
+sub make_changes_diff {
+    args my $class,
+        my $dist,
+        my $c,
+        ;
+
+    my $old = $dist->last_release();
+    unless ($old) {
+        infof("cannot retrieve last_release info");
+        return;
+    }
+
+    my $old_changes = $old->get_changes();
+    my $new_changes = $dist->get_changes();
+
+    my $diff = do {
+        if ($old_changes && $new_changes) {
+            infof("make diff");
+            make_diff($old_changes, $new_changes);
+        } elsif ($old_changes) {
+            infof("old changes file is available");
+            $old_changes
+        } elsif ($new_changes) {
+            infof("missing old changes");
+            $new_changes;
+        } else {
+            infof("no changes file is available");
+            "no changes file";
+        }
+    };
+    infof("diff is : %s", ddf($diff));
+    $c->db->do(q{INSERT INTO changes (dist_id, version, body) VALUES (?,?,?)
+                    ON DUPLICATE KEY UPDATE body=?}, {}, $dist->dist_id, $dist->version, $diff, $diff);
+}
+
 sub send_ping {
     my $result =
         RPC::XML::Client->new('http://ping.feedburner.com/')
@@ -212,40 +219,6 @@ sub send_ping {
         "Yet Another CPAN Recent Changes",
         "http://frepan.64p.org/" );
     return $result;
-}
-
-sub get_old_changes {
-    my ($path) = @_;
-    my $orig_cwd = Cwd::getcwd();
-    guard { chdir $orig_cwd };
-
-    unless ($path) {
-        infof("cannot get path for old Changes file");
-        return;
-    }
-    unless ( -f $path ) {
-        warnf("[warn]file not found: $path");
-        return;
-    }
-    my $author = basename(file($path)->dir); # .../A/AU/AUTHOR/Dist-ver.tar.gz
-    my $srcdir = dir(c->config()->{srcdir}, uc($author));
-    make_path($srcdir, {error => \my $err});
-    die "cannot mkpath '$srcdir', '$author', '$path': $err" unless -d $srcdir;
-    chdir($srcdir);
-
-    my $distnameinfo = CPAN::DistnameInfo->new($path);
-    FrePAN::M::Archive->extract($distnameinfo->distvname, "$path");
-    my @files = File::Find::Rule->new()
-                                ->name('Changes', 'ChangeLog')
-                                ->in(Cwd::getcwd());
-    if (@files && $files[0]) {
-        my $res = read_file($files[0]);
-        chdir $orig_cwd;
-        return ($files[0], $res);
-    } else {
-        chdir $orig_cwd;
-        return;
-    }
 }
 
 sub make_diff {
@@ -268,13 +241,6 @@ sub write_file {
     open my $fh, '>', $fname;
     print {$fh} $content;
     close $fh;
-}
-
-sub read_file {
-    my ($fname) = @_;
-    Carp::croak("missing args for read_file($PATH)") unless $fname;
-    open my $fh, '<', $fname;
-    do { local $/; <$fh> };
 }
 
 sub load_meta {

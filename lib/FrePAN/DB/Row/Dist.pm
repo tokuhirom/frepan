@@ -74,4 +74,27 @@ sub extracted_dir {
     return File::Spec->catdir($srcdir, $self->author, $self->name . '-' . $self->version);
 }
 
+sub last_release {
+    args_pos my $self;
+
+    c->db->single(dist => {
+        released => { '<', $self->released },
+        name     => $self->name,
+    }, {order_by => {released => 'DESC'}, limit => 1});
+}
+
+sub get_changes {
+    args_pos my $self;
+
+    my $base = $self->extracted_dir();
+    for my $name (qw/CHANGES Changes ChangeLog/) {
+        my $fname = File::Spec->catfile($base, $name);
+        next unless -f $fname;
+
+        open my $fh, '<', $fname or die "cannot open file: $fname, $!";
+        return do { local $/; <$fh> };
+    }
+    return undef;
+}
+
 1;
