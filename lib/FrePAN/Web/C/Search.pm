@@ -9,7 +9,7 @@ use Data::Page;
 sub result {
     my ($class, $c) = @_;
     my $page = $c->req->param('page') // 1;
-    my $query = $c->req->param('q') // return $c->redirect('/');
+    my $query = $c->req->param('q') || return $c->redirect('/');
     my $search_result = $c->fts->search(query => $query, page => $page, rows => 50);
     my $file_infos = $search_result->rows;
     debugf("FILES IDS: %s", ddf($file_infos));
