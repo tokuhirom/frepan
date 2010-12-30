@@ -263,7 +263,7 @@ sub view_seq_link {
 
 sub view_seq_link_transform_path {
     my ( $self, $page ) = @_;
-    return "/perldoc?" . URI::Escape::uri_escape($page);
+    return "/perldoc?" . URI::Escape::uri_escape_utf8($page);
 }
 
 sub make_href {
