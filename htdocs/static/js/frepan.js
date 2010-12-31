@@ -50,6 +50,10 @@ $(function () {
             $('pre').addClass('prettyprint').addClass('lang-perl');
             prettyPrint();
         });
+        $('#i_use_this_form').ajaxForm(function (html) {
+            $('.IUseThisContainer').html(html).effect("highlight", {}, 1000);
+            return false;
+        });
     });
 
     // http://tech.kayac.com/archive/javascript-url-dispatcher.html

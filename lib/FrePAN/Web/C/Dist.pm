@@ -59,7 +59,30 @@ sub show {
         $dist->{dist_id}, $dist->{name}
     );
 
-    return $c->render("dist/show.tx", {dist => $dist, special_files => \@special_files, other_releases => $other_releases});
+    my @reviews = $c->db->search_by_sql(
+        q{SELECT i_use_this.*, user.gravatar_id, user.name AS user_name, user.login AS user_login FROM i_use_this INNER JOIN user USING(user_id) WHERE i_use_this.dist_name=? ORDER BY mtime DESC},
+        [ $dist->{name} ],
+        'i_use_this'
+    );
+    my $my_review = do {
+        if (my $user = $c->session_user) {
+            my ($r) = map { $_->body } grep { $_->user_id eq $user->user_id } @reviews;
+            $r;
+        } else {
+            undef;
+        }
+    };
+
+    return $c->render(
+        "dist/show.tx",
+        {
+            dist           => $dist,
+            special_files  => \@special_files,
+            other_releases => $other_releases,
+            reviews        => \@reviews,
+            my_review      => $my_review,
+        }
+    );
 }
 
 # show pod
@@ -96,6 +119,16 @@ sub other_version {
     } else {
         return $c->redirect($dist->relative_url());
     }
+}
+
+# /dist/.+/?
+sub permalink {
+    my ($class, $c) = @_;
+
+    my $dist_name = $c->{args}->{dist_name} // die;
+    my $dist = $c->db->single(dist => {name => $dist_name}, {order_by => {'released' => 'DESC'}, limit => 1});
+
+    return $c->redirect(sprintf('/~%s/%s-%s/', $dist->author, $dist->name, $dist->version));
 }
 
 1;

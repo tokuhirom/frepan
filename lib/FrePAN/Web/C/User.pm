@@ -93,6 +93,7 @@ sub oauth_callback {
                 user => {
                     login           => $data->{login},
                     name            => $data->{name},
+                    gravatar_id     => $data->{gravatar_id},
                     github_response => encode_json($data)
                 },
             );
@@ -111,6 +112,16 @@ sub logout {
     $c->session->expire();
 
     return $c->redirect('/');
+}
+
+sub show {
+    my ($class, $c) = @_;
+    my $user_login = $c->{args}->{user_login} // die;
+    my $user = $c->db->single(user => {login => $user_login}) or return $c->res_404();
+
+    my @reviews = $c->db->search('i_use_this', {user_id => $user->user_id});
+
+    return $c->render('user/show.tx', {user => $user, reviews => \@reviews});
 }
 
 # hmmm.. github oauth is bit buggy. i need patched version of OAuth::Lite2::Client::WebServer->get_access_token();

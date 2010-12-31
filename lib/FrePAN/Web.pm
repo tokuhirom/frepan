@@ -8,6 +8,7 @@ useall 'FrePAN::Web::C';
 use FrePAN::M::CPAN;
 
 use Tiffany::Text::Xslate;
+use FrePAN::M::Formatter;
 {
     my $conf = __PACKAGE__->config->{'Text::Xslate'} || +{};
     my $view = Tiffany::Text::Xslate->new(+{
@@ -21,6 +22,7 @@ use Tiffany::Text::Xslate;
             amon_version => sub { $Amon2::VERSION }, 
             email2gravatar_url => sub { FrePAN::M::CPAN->email2gravatar_url(@_) },
             'ref' => sub { ref($_[0]) },
+            'i_use_this_filter' => \&FrePAN::M::Formatter::format,
         },
         path => [File::Spec->catdir(__PACKAGE__->base_dir, 'tmpl')],
         %$conf,

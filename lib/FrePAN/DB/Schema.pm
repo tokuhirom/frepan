@@ -23,6 +23,11 @@ install_table 'file' => sub {
 };
 
 
+install_table 'i_use_this' => sub {
+    columns qw(body dist_name dist_version ctime mtime user_id);
+};
+
+
 install_table 'kvs' => sub {
     pk      qw(k);
     columns qw(k v);
@@ -49,7 +54,7 @@ install_table 'meta_uploads' => sub {
 
 install_table 'user' => sub {
     pk      qw(user_id);
-    columns qw(name login user_id github_response);
+    columns qw(gravatar_id ctime mtime name login user_id github_response);
 };
 
 

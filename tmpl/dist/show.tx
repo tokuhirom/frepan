@@ -68,6 +68,21 @@
 [% END %]
 </table>
 
-[% INCLUDE 'include/disqus.tx' %]
+<hr />
+
+<div class="IUseThis">
+    [% IF c().session_user() %]
+        <a href="javascript:$('#i_use_this_form').toggle();">If you are using this module, please post the review message!</a><br />
+        <form method="post" action="/i_use_this/post" id="i_use_this_form" style="display:none">
+            <textarea name="body" cols="80" rows="7">[% my_review %]</textarea><br />
+            <input type="hidden" name="dist_name" value="[% dist.name %]" />
+            <input type="submit" value="I use this!" />
+        </form>
+    [% ELSE %]
+        Please login first to post entry.
+    [% END %]
+
+    [% INCLUDE 'include/table/i_use_this.tx' %]
+</div>
 
 [% INCLUDE 'include/footer.tx' %]
