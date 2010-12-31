@@ -2,7 +2,7 @@
 
 
 <div class="blead-list">
-<a href="http://search.cpan.org/~[% lower(dist.author) %]">[% dist.author %]</a> &gt;
+<a href="/~[% lower(dist.author) %]/">[% dist.author %]</a> &gt;
 <a href="/~[% lower(dist.author) %]/[% dist.name %]-[% dist.version %]/">[% dist.name %]-[% dist.version %]</a> &gt;
 [% file.path %]
 </div>
@@ -10,5 +10,7 @@
 <div class="source"><a href="/src/[% upper(dist.author) %]/[% dist.name %]-[% dist.version %]/[% file.path %]">SOURCE</a></div>
 
 <div class="pod">[% file.html | raw %]</div>
+
+[% INCLUDE 'include/disqus.tx' %]
 
 [% INCLUDE 'include/footer.tx' %]

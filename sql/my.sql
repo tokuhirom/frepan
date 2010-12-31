@@ -15,7 +15,9 @@ CREATE TABLE IF NOT EXISTS dist (
     ,has_meta_json tinyint(1) not null default 0
     ,requires text
     ,released int unsigned not null
+    ,old      tinyint(1) not null default 0
     ,UNIQUE idx_author_name_version (author, name, version)
+    ,INDEX  name (name) -- search by name for removing fts index
 ) engine=InnoDB DEFAULT charset=UTF8;
 create index dist_released ON dist (released);
 
@@ -26,7 +28,8 @@ CREATE TABLE IF NOT EXISTS file (
     ,package     varchar(255)
     ,description varchar(255)
     ,html        text
-    ,UNIQUE(dist_id, path)
+    ,UNIQUE(dist_id, path),
+    ,INDEX (package)
 ) engine=InnoDB DEFAULT charset=UTF8;
 
 CREATE TABLE IF NOT EXISTS changes (
@@ -37,12 +40,14 @@ CREATE TABLE IF NOT EXISTS changes (
     ,UNIQUE(dist_id, version)
 ) engine=InnoDB DEFAULT charset=UTF8;
 
+-- authors/01mailrc.txt.gz
 CREATE TABLE IF NOT EXISTS meta_author (
      pause_id    varchar(255) not null PRIMARY KEY
     ,fullname    varchar(255) not null
     ,email       varchar(255) not null
 ) engine=InnoDB DEFAULT charset=UTF8;
 
+-- modules/02packages.details.txt.gz
 CREATE TABLE IF NOT EXISTS meta_packages (
      package      varchar(255) BINARY not null PRIMARY KEY
     ,version      varchar(255) BINARY not null
@@ -54,13 +59,15 @@ CREATE TABLE IF NOT EXISTS meta_packages (
 ) engine=InnoDB DEFAULT charset=UTF8;
 alter table meta_packages add index (pause_id, dist_name, dist_version);
 
+-- from http://devel.cpantesters.org/uploads/uploads.db.bz2
 -- select pkg.dist_name, MAX(pkg.dist_version), upl.released from meta_packages as pkg left join meta_uploads as upl on (pkg.dist_name=upl.dist_name AND pkg.pause_id=upl.pause_id) where pkg.pause_id="TOKUHIROM" GROUP BY pkg.dist_name;
 CREATE TABLE IF NOT EXISTS meta_uploads (
-    pause_id      varchar(255) binary not null
+    type          varchar(255) binary not null
+    ,pause_id     varchar(255) binary not null
     ,dist_name    varchar(255) binary not null
     ,dist_version varchar(255) binary not null
     ,filename     varchar(255) binary not null
     ,released     int unsigned        not null -- 'unix time'
     ,PRIMARY KEY (pause_id, dist_name, dist_version)
 ) engine=InnoDB DEFAULT charset=UTF8;
-
+-- alter table meta_uploads add type          varchar(255) binary not null before pause_id;

@@ -12,6 +12,7 @@ use FrePAN::M::Injector;
 use FrePAN::M::FriendFeed;
 use Time::HiRes qw/gettimeofday tv_interval/;
 use Time::Piece;
+use Try::Tiny;
 
 sub new {
     my $class = shift;
@@ -42,7 +43,7 @@ sub batch_run {
     my $furl = Furl->new();
     my $url = 'http://friendfeed-api.com/v2/feed/cpan?format=json';
     my $res = $furl->get($url);
-    die "cannot fetch from friendfeed: " . $res->status_line unless $res->is_success;
+    die "cannot fetch from friendfeed: ($url): " . $res->status_line . ':' . $res->content unless $res->is_success;
 
     my $data = JSON::decode_json($res->content);
     for my $entry (@{$data->{entries}}) {
@@ -61,7 +62,14 @@ sub realtime_run {
             critf("error occured: %s", ddf($err));
             $cv->send();
         },
-        on_entry => sub { $self->on_entry($_[0]) },
+        on_entry => sub {
+            my $entry = shift;
+            try {
+                $self->on_entry($entry)
+            } catch {
+                critf("Cannot process the package: $_: %s", ddf($entry));
+            };
+        },
     );
     infof("ready to run");
     $cv->recv();
@@ -82,6 +90,7 @@ sub on_entry {
 
     my $released = Time::Piece->strptime($date, '%Y-%m-%dT%H:%M:%SZ')->epoch;
     my ($name, $version, $path) = FrePAN::M::FriendFeed->parse_entry($body);
+    die "Cannot parse entry: $body" unless $path;
     my $author = FrePAN::M::FriendFeed->path2author($path);
     unless ($name) {
         critf("cannot parse body: %s", $body);

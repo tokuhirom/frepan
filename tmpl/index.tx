@@ -9,6 +9,7 @@ FrePAN is realtime mirror site of cpan.<a href="/about">see here for more detail
     <div class="module-info">
         <div class="abstract">[% dist.abstract || '' %]</div>
         <pre class="changes">[% dist.diff || '' %]</pre>
+        <div class="diff"><a href="/diff?dist_id=[% dist.dist_id %]">diff</a></div>
         <div class="timestamp">[% dist.timestamp %]</div>
     </div>
     <div class="author">

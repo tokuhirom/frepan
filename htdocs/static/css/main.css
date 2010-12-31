@@ -17,6 +17,10 @@ body {
     background-color: #fccccc;
 }
 
+#SearchBox {
+    display: inline;
+}
+
 #Container {
     width: 780px;
     margin-left: auto;
@@ -103,13 +107,21 @@ body {
     width: 600px;
     margin-left: 10px;
 }
+#RootPage #Content .modules .diff {
+    margin-left: 10px;
+    text-align: right;
+    margin-top: 7px;
+}
+#RootPage #Content .modules .diff a {
+    color: #999999;
+}
 #RootPage #Content .modules .timestamp {
     margin-left: 10px;
     color: #cccccc;
     text-align: right;
-    margin-top: 7px;
+    margin-top: 3px;
 }
-#RootPage #Content .author {
+#RootPage #Content .modules .author {
     float: right;
 }
 #RootPage #Content .author img {
@@ -144,16 +156,35 @@ body {
     margin-right: 10px;
     margin-top: 20px;
 }
+#PodPage .pod pre {
+    margin-left: 30px;
+}
 #PodPage .pod h1 {
     font-size: 120%;
     font-weight: bold;
     margin-top: 20px;
     margin-bottom: 10px;
+    color: #681818;
+}
+#PodPage .pod h2 {
+    font-size: 100%;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #681818;
+}
+#PodPage .pod h3 {
+    font-size: 90%;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #681818;
 }
 #PodPage .pod pre {
     background-color: #fceeee;
     padding: 4px;
     border-radius: 8px;
+    font-size: 80%;
     -moz-border-radius: 8px;
     -webkit-border-radius: 8px;
 }
@@ -168,4 +199,49 @@ body {
     list-style-type: none;
 }
 
+#AuthorPage th {
+    font-weight: bold;
+}
+
+/** search result */
+
+.SearchResultElement {
+    margin-bottom: 10px;
+}
+.SearchResultElement .description {
+    font-size: small;
+    margin-left: 10px;
+}
+.SearchResultElement .search-footer {
+    margin-left: 10px;
+    font-size: small;
+}
+.SearchResultElement .search-score {
+    color: #cccccc;
+}
+.search-header {
+    text-align: right;
+    font-size: small;
+}
+
+/* diff */
+
+#DiffPage h2 {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#DiffPage .file {
+    margin-left: 20px;
+}
+#DiffPage .file ins {
+    background-color: #CAFFCA;
+}
+#DiffPage .file del {
+    background-color: #FFCACA;
+}
+
+.highlight { background-color: yellow }
+
+.pager { text-align: center; }
 

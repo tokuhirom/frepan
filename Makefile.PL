@@ -25,6 +25,7 @@ requires 'RPC::XML';
 requires 'Log::Minimal';
 requires 'Smart::Args';
 requires 'Time::Duration';
+requires 'Text::Diff';
 recursive_author_tests('xt');
 
 WriteAll;
