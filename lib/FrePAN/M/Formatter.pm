@@ -6,7 +6,7 @@ use Smart::Args;
 
 sub format {
     args_pos my $src;
-
+    $src =~ s!\n!<br />!g;
     return $src;
 }
 
