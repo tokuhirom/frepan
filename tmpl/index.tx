@@ -1,7 +1,5 @@
 [% INCLUDE 'include/header.tx' WITH bodyID="RootPage" %]
 
-FrePAN is realtime mirror site of cpan.<a href="/about">see here for more details</a>.
-
 <div class="modules">
 [% FOR dist IN dists %]
 <div class="module">
