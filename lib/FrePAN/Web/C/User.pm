@@ -77,7 +77,7 @@ sub oauth_callback {
     $c->session->set(
         oauth_info => {
             access_token  => $access_token->access_token,
-            expires_at    => time() + $access_token->expires_in,
+            expires_at    => time() + ($access_token->expires_in||0),
             refresh_token => $access_token->refresh_token,
         }
     );
