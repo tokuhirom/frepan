@@ -12,29 +12,6 @@ sub minicpan_path {
     c->config->{'M::CPAN'}->{minicpan} // die;
 }
 
-sub dist2path {
-    my ($class, $distname) = @_;
-    my $row = c->db->single(
-        meta_packages => {
-            dist_name => $distname,
-        }
-    );
-    if ($row) {
-        my ($cpanid, $distfile) = split m{/}, $row->path;
-        my $minicpan = $class->minicpan_path();
-        return File::Spec->catfile(
-            $minicpan,
-            'authors', 'id',
-            substr($cpanid, 0, 1),
-            substr($cpanid, 0, 2),
-            $cpanid,
-            $distfile,
-        );
-    } else {
-        return;
-    }
-}
-
 sub download_url {
     my ($self, $path, $released) = @_;
     my $base = time() - $released > 24*60*60 ?
