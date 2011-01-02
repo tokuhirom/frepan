@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS file (
     ,package     varchar(255)
     ,description varchar(255)
     ,html        text
-    ,UNIQUE(dist_id, path),
+    ,UNIQUE(dist_id, path)
     ,INDEX (package)
 ) engine=InnoDB DEFAULT charset=UTF8;
 
