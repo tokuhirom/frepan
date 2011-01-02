@@ -17,8 +17,6 @@ use Guard;
 use JSON::XS;
 use LWP::UserAgent;
 use Path::Class;
-use Pod::POM;
-use Pod::POM::View::Text;
 use RPC::XML::Client;
 use RPC::XML;
 use Try::Tiny;
@@ -34,8 +32,7 @@ use Amon2::Declare;
 use FrePAN::M::CPAN;
 use FrePAN::M::Archive;
 use FrePAN::M::RSSMaker;
-use FrePAN::Pod::POM::View::HTML;
-use FrePAN::Pod::POM::View::Text;
+use FrePAN::Pod;
 
 our $DEBUG;
 our $PATH;
@@ -316,55 +313,22 @@ sub insert_files {
                 return;
             }
             debugf("do processing $f");
-            my $parser = Pod::POM->new();
-            my $pom = $parser->parse_file("$f") or do {
-                print $parser->error,"\n";
+            my $parser = FrePAN::Pod->new();
+            $parser->parse_file("$f") or do {
+                critf("Cannot parse pod: %s", $parser->error);
                 return;
             };
-            my ($pkg, $desc);
-            my ($name_section) = map { $_->content } grep { $_->title eq 'NAME' } $pom->head1();
-            if ($name_section) {
-                $name_section = FrePAN::Pod::POM::View::Text->print($name_section);
-                $name_section =~ s/\n//g;
-                debugf "name: $name_section";
-                ($pkg, $desc) = ($name_section =~ /^(\S+)\s+-\s*(.+)$/);
-                if ($pkg) {
-                    # workaround for Graph::Centrality::Pagerank
-                    $pkg =~ s/[CB]<(.+)>/$1/;
-                }
-            }
-            unless ($pkg) {
-                my $fh = $f->openr or return;
-                SCAN: while (my $line = <$fh>) {
-                    if ($line =~ /^package\s+([a-zA-Z0-9:_]+)/) {
-                        $pkg = $1;
-                        last SCAN;
-                    }
-                }
-            }
-            unless ($pkg) {
-                $pkg = "$f";
-                if ($pkg =~ /\.pm$/) {
-                    $pkg =~ s!/!::!g;
-                    $pkg =~ s!^lib/!!g;
-                    $pkg =~ s!\.pm$!!g;
-                }
-            }
 
-            {
-                my $html = FrePAN::Pod::POM::View::HTML->print($pom);
-
-                my $path = $f->relative->stringify;
-                $c->db->insert(
-                    file => {
-                        dist_id     => $dist->dist_id,
-                        path        => $path,
-                        'package'   => $pkg,
-                        description => $desc || '',
-                        html        => $html,
-                    }
-                );
-            }
+            my $path = $f->relative->stringify;
+            $c->db->insert(
+                file => {
+                    dist_id     => $dist->dist_id,
+                    path        => $path,
+                    'package'   => $parser->package(),
+                    description => $parser->description(),
+                    html        => $parser->html(),
+                }
+            );
         }
     );
 
