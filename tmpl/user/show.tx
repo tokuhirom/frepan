@@ -10,6 +10,7 @@
     <div class="IUseThisEntry">
         <a href="/dist/[% v.dist_name %]">[% v.dist_name %]</a><br />
         [% v.body | i_use_this_filter %]
+        <div class="IUseThisEntry-Footer"><span class="timestap">at [% v.mtime_piece().strftime('%Y-%m-%d') %]</span></div>
     </div>
     <hr />
 [% END %]

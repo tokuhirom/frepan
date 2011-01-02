@@ -244,3 +244,8 @@ body {
 
 .pager { text-align: center; }
 
+.IUseThisEntry-Footer {
+    font-size: x-small;
+    text-align: right;
+}
+
