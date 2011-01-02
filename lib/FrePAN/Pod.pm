@@ -33,7 +33,10 @@ sub parse_file {
 		$name_section = FrePAN::Pod::POM::View::Text->print($name_section);
 		$name_section =~ s/\n//g;
 		debugf "name: $name_section";
-		($pkg, $desc) = ($name_section =~ /^(\S+)\s+-\s*(.+)$/);
+		# some modules contains
+		#      "Package::Name -- description here"
+		# e.g. http://frepan.64p.org/~vti/Bootylicious-0.910102/bootylicious
+		($pkg, $desc) = ($name_section =~ /^(\S+)\s+-+\s*(.+)$/);
 		if ($pkg) {
 			# workaround for Graph::Centrality::Pagerank
 			$pkg =~ s/[CBL]<(.+)>/$1/;
