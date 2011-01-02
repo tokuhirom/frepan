@@ -52,6 +52,7 @@ sub parse_file {
 		$pkg = $file;
 		if ($pkg =~ /\.pm$/) {
 			$pkg =~ s!^lib/!!g;
+			$pkg =~ s!^\./!!g;
 			$pkg =~ s!/!::!g;
 			$pkg =~ s!\.pm$!!g;
 		}
