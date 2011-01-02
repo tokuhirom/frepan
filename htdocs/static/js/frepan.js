@@ -36,7 +36,6 @@ $(function () {
     // dist page
     dispatcher('^/~.+/.+/', function () {
         require(['/static/prettify/prettify.js'], function () {
-            $('pre').addClass('prettyprint').addClass('lang-perl');
             prettyPrint();
         });
         $('#i_use_this_form').ajaxForm(function (html) {

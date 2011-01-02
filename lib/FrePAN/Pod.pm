@@ -62,7 +62,7 @@ sub parse_file {
 	$self->description($desc);
 	
 	{
-        my $parser = Pod::Simple::XHTML->new(
+        my $parser = FrePAN::Pod::Parser->new(
             html_header        => '',
             html_footer        => '',
         );
@@ -73,6 +73,13 @@ sub parse_file {
 	}
 
 	return $self;
+}
+
+{
+	package FrePAN::Pod::Parser;
+	use parent qw/Pod::Simple::XHTML/;
+	# for google source code prettifier
+	sub start_Verbatim { $_[0]{'scratch'} = '<pre class="prettyprint lang-perl"><code>' }
 }
 
 1;
