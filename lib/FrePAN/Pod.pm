@@ -11,7 +11,6 @@ use Class::Accessor::Lite (
 use Log::Minimal;
 use Pod::POM;
 use Pod::POM::View::Text;
-use FrePAN::Pod::POM::View::HTML;
 use FrePAN::Pod::POM::View::Text;
 
 sub new {
@@ -60,7 +59,17 @@ sub parse_file {
 
 	$self->package($pkg);
 	$self->description($desc);
-	$self->html(FrePAN::Pod::POM::View::HTML->print($pom));
+	
+	{
+        my $parser = Pod::Simple::XHTML->new(
+            html_header        => '',
+            html_footer        => '',
+        );
+		$parser->perldoc_url_prefix('/perldoc?');
+		$parser->output_string(\my $out);
+		$parser->parse_file($file);
+		$self->html($out);
+	}
 
 	return $self;
 }

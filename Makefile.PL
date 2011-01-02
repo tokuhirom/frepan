@@ -13,6 +13,7 @@ requires 'Guard';
 requires 'Path::Class';
 requires 'autodie';
 requires 'Pod::POM' => 0.27;
+requires 'Pod::Simple::XHTML';
 requires 'parent';
 requires 'XML::Feed';
 requires 'Algorithm::Diff';
