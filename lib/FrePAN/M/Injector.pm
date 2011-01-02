@@ -299,6 +299,9 @@ sub insert_files {
             return if -d $f;
             debugf("processing $f");
 
+            if ($f =~ /(?:\.PL)$/) {
+                return;
+            }
             unless ($f =~ /(?:\.pm|\.pod)$/) {
                 my $fh = $f->openr or return;
                 read $fh, my $buf, 1024;
