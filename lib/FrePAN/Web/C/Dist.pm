@@ -16,7 +16,7 @@ sub show {
     my $dist = $c->dbh->selectrow_hashref(
         q{
             SELECT
-                dist_id, author, name, version, path, abstract, has_meta_yml, has_meta_json, resources_json, has_manifest, has_makefile_pl, has_changes, has_change_log, has_build_pl, requires, released, DATE_FORMAT(FROM_UNIXTIME(released), '%Y-%m-%d') AS released_date, meta_author.email
+                dist_id, author, name, version, path, abstract, has_meta_yml, has_meta_json, resources_json, has_manifest, has_makefile_pl, has_changes, has_change_log, has_build_pl, requires, released, DATE_FORMAT(FROM_UNIXTIME(released), '%Y-%m-%d') AS released_date, meta_author.email, meta_author.gravatar_id
             FROM dist LEFT JOIN meta_author ON (meta_author.pause_id = dist.author)
             WHERE concat(name, '-', version) = ? AND author=?
             ORDER BY dist_id DESC
@@ -26,7 +26,6 @@ sub show {
         $dist_ver, uc($author)
     ) or return $c->res_404();
     $dist->{resources}    = decode_json($dist->{resources_json}) if $dist->{resources_json};
-    $dist->{gravatar_url} = FrePAN::M::CPAN->email2gravatar_url($dist->{email});
     $dist->{download_url} = FrePAN::M::CPAN->download_url($dist->{path}, $dist->{released});
 
     $dist->{files} = $c->dbh->selectall_arrayref(

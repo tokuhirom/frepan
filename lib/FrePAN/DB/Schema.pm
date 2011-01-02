@@ -36,7 +36,7 @@ install_table 'kvs' => sub {
 
 install_table 'meta_author' => sub {
     pk      qw(pause_id);
-    columns qw(email pause_id fullname);
+    columns qw(gravatar_id email pause_id fullname);
 };
 
 

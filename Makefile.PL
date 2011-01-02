@@ -14,7 +14,6 @@ requires 'Path::Class';
 requires 'autodie';
 requires 'Pod::POM' => 0.27;
 requires 'parent';
-requires 'Gravatar::URL';
 requires 'XML::Feed';
 requires 'Algorithm::Diff';
 requires 'Class::Accessor::Fast';

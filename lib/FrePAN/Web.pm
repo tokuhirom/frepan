@@ -20,7 +20,6 @@ use FrePAN::M::Formatter;
             uri_for  => sub { Amon2->context()->uri_for(@_) },
             version => sub { @_ == 1 ? $_[0]->VERSION : FrePAN->VERSION }, 
             amon_version => sub { $Amon2::VERSION }, 
-            email2gravatar_url => sub { FrePAN::M::CPAN->email2gravatar_url(@_) },
             'ref' => sub { ref($_[0]) },
             'i_use_this_filter' => \&FrePAN::M::Formatter::format,
         },

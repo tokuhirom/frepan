@@ -1,29 +1,12 @@
 package FrePAN::M::CPAN;
 use strict;
 use warnings;
-use Gravatar::URL qw/gravatar_url/;
 use DBI;
 use Path::Class qw/dir file/;
 use Amon2::Declare;
 use Log::Minimal;
 use Smart::Args;
 use CPAN::DistnameInfo;
-
-sub pause_id2gravatar_url {
-    my ($self, $pause_id) = @_;
-    my $author = c->db->single( meta_author => { pause_id => $pause_id } );
-    if ($author) {
-        return $self->email2gravatar_url($author->email);
-    } else {
-        infof("cannot detect author: $pause_id");
-        return;
-    }
-}
-
-sub email2gravatar_url {
-    my ($self, $email) = @_;
-    return gravatar_url(email => $email, default => 'http://st.pimg.net/tucs/img/who.png');
-}
 
 sub minicpan_path {
     c->config->{'M::CPAN'}->{minicpan} // die;
