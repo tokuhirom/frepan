@@ -299,7 +299,7 @@ sub insert_files {
             return if -d $f;
             debugf("processing $f");
 
-            if ($f =~ /(?:\.PL)$/) {
+            if ($f =~ /(?:\.PL)$/ || $f =~ /MANIFEST\.SKIP$/) {
                 return;
             }
             unless ($f =~ /(?:\.pm|\.pod)$/) {
