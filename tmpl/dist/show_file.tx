@@ -11,6 +11,4 @@
 
 <div class="pod">[% file.html | raw %]</div>
 
-[% INCLUDE 'include/disqus.tx' %]
-
 [% INCLUDE 'include/footer.tx' %]
