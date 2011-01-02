@@ -41,9 +41,6 @@
 <tr><th>Released</th><td>
     [% dist.released_date %]
 </td></tr>
-<tr><th>Social</th><td>
-    <iframe src="http://www.facebook.com/plugins/like.php?href=[% 'http://search.cpan.org/dist/' _ dist.name | uri %]&amp;layout=button_count&amp;show_faces=true&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:21px;" allowTransparency="true"></iframe>
-</td></tr>
 
 </table>
 
