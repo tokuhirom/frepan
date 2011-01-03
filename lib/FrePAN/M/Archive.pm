@@ -20,7 +20,7 @@ sub extract {
          ;
 
     mkpath($author_dir);
-    die "cannot create directory" unless -d $author_dir;
+    die "cannot create directory: $!: $author_dir" unless -d $author_dir;
 
     my $guard = FrePAN::CwdSaver->new($author_dir);
     remove_tree($distvname); # clanup before extract
