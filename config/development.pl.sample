@@ -1,0 +1,40 @@
+use Cwd 'abs_path';
+{
+    'DB'        => [
+        'dbi:mysql:database=dev_FrePAN',
+        'root',
+        '',
+        +{
+            'mysql_enable_utf8' => 1,
+            'mysql_read_default_file' => '/etc/mysql/my.cnf',
+            RaiseError => 1,
+        },
+    ],
+    'M::CPAN'        => {
+        minicpan => abs_path('tmp/minicpan/'),
+        # minicpan => '/home/cpan/minicpan/',
+    },
+    'FriendFeed' => {
+        username   => 'XXXX',
+        remote_key => 'XXXX',
+    },
+    'M::RSSMaker' => {
+        'path' => '/tmp/index.rdf',
+    },
+    'srcdir' => abs_path('tmp/src/'),
+    'Text::Xslate' => {
+        cache => 0,
+    },
+    'Cache::Memcached::Fast' => {
+        servers => ['127.0.0.1:11211'],
+        namespace => 'dev_FrePAN:',
+    },
+    FTS => {
+        host => '127.0.0.1',
+        port => 10043,
+    },
+    'OAuth::Lite2' => {
+        id => 'XXXX',
+        secret => 'XXXX',
+    },
+}
