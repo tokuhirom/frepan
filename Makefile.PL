@@ -23,7 +23,7 @@ requires 'Archive::Zip';
 requires 'Cache::Memcached::Fast' => 0.19;
 requires 'RPC::XML';
 requires 'Log::Minimal';
-requires 'Smart::Args';
+requires 'Smart::Args' => 0.07;
 requires 'Time::Duration';
 requires 'Text::Diff';
 recursive_author_tests('xt');
