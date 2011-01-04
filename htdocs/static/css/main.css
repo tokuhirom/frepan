@@ -197,6 +197,9 @@ body {
     background-position: left center;
     list-style-type: none;
 }
+#PodPage .pod dd {
+    margin-left: 40px;
+}
 
 #AuthorPage th {
     font-weight: bold;
