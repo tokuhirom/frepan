@@ -84,7 +84,8 @@ sub inject {
     my $extracted_dir = do {
         my $distnameinfo = CPAN::DistnameInfo->new($path);
         FrePAN::M::Archive->extract(
-            distvname    => $distnameinfo->distvname,
+            dist_name    => $name,
+            version      => $version,
             archive_path => "$archivepath",
             srcdir       => $c->config()->{srcdir},
             author       => $author,

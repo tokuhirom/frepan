@@ -17,7 +17,8 @@ use Log::Minimal;
 # $distvname should be "$dist-$ver"
 sub extract {
     args my $class,
-         my $distvname,
+         my $dist_name,
+         my $version,
          my $archive_path,
          my $srcdir,
          my $author,
@@ -30,7 +31,7 @@ sub extract {
     my $author_dir = dir($srcdir, uc($author));
     $author_dir->mkpath();
 
-    my $pkgdir = dir($author_dir, $distvname);
+    my $pkgdir = dir($author_dir, "$dist_name-$version");
     $pkgdir->rmtree(); # cleanup before extract
     $pkgdir->mkpath();
 
@@ -44,11 +45,10 @@ sub extract {
             next if $file->name =~ /\.\./; # directory travarsal
             next if $file->name =~ /\0/; # WTF
 
-            my $name = $file->name;
-               $name = $file->prefix . '/' . $name if $file->prefix;
-            $name =~ s!^$distvname/?!!;
+            my $name = $file->full_path;
+            $name =~ s!^$dist_name[^/]+/?!!;
             $name = dir($pkgdir, $name);
-            infof("extract %s to %s", $file->name, $name);
+            infof("extract %s to %s", $file->full_path, $name);
             $file->extract($name);
         }
     } elsif ($archive_path =~ /\.zip$/) {
@@ -61,7 +61,7 @@ sub extract {
         die "empty archive: $archive_path" unless @members;
         for my $member (@members) {
             my $name = $member->fileName();
-            $name =~ s!^$distvname/?!!;
+            $name =~ s!^$dist_name[^/]+/?!!;
             $name = dir($pkgdir, $name);
             infof("extract %s to %s", $member->fileName, $name);
 
