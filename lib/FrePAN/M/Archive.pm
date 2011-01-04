@@ -30,7 +30,7 @@ sub extract {
       or die "archive path is not absolute.";
 
     make_path($author_dir);
-    die "cannot create directory" unless -d $author_dir;
+    die "cannot create directory: $!: $author_dir" unless -d $author_dir;
 
     my $pkgdir = dir($author_dir, $distvname);
     $pkgdir->rmtree(); # cleanup before extract
