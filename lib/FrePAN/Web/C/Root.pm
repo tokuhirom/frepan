@@ -13,39 +13,19 @@ sub index {
     my $rows_per_page = 20;
 
     my $entries = $c->dbh->selectall_arrayref(
-        "SELECT SQL_CACHE dist.dist_id, dist.name, dist.author, dist.version, dist.abstract, dist.released
+        "SELECT SQL_CACHE
+            dist.dist_id, dist.name, dist.author, dist.version, dist.abstract, dist.released,
+            meta_author.gravatar_id,
+            changes.body AS diff
         FROM dist
+            LEFT JOIN meta_author ON (dist.author=meta_author.pause_id)
+            LEFT JOIN changes     ON (dist.dist_id=changes.dist_id)
         ORDER BY released DESC
         LIMIT @{[ $rows_per_page + 1 ]} OFFSET @{[ $rows_per_page*($page-1) ]}",
         { Slice => {} }
     );
     my $has_next =  ($rows_per_page+1 == @$entries);
     if ($has_next) { pop @$entries }
-
-    # fill email address
-    my $pause_id2email = $c->memcached->get_or_set_cb(
-        "pause_id2email:2" => 24 * 60 * 60 => sub {
-            +{ map { $_->[0] => $_->[1] } @{
-                $c->dbh->selectall_arrayref(
-                    q{SELECT pause_id, email FROM meta_author})
-              } };
-        }
-    );
-    for my $entry (@$entries) {
-        $entry->{email} = $pause_id2email->{$entry->{author}};
-    }
-
-    # fill changes
-    if (@$entries) {
-        my @dist_ids = map { $_->{dist_id} } @$entries;
-        my ($sql, @bind) = sql_interp q{SELECT dist_id, body FROM changes WHERE dist_id IN }, \@dist_ids;
-        my %rows =
-          ( map { $_->[0] => $_->[1] }
-              @{ $c->dbh->selectall_arrayref( $sql, {}, @bind ) } );
-        for my $entry (@$entries) {
-            $entry->{diff} = $rows{$entry->{dist_id}};
-        }
-    }
 
     my $now = time();
     for (@$entries) {

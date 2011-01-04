@@ -2,7 +2,7 @@ package FrePAN::M::Diff;
 use strict;
 use warnings;
 use utf8;
-use Text::Diff;
+use Text::Diff ();
 use Text::Diff::HTML;
 use File::Find::Rule;
 use Smart::Args;

@@ -9,6 +9,7 @@ use File::Spec::Functions qw/catfile/;
 use version ();
 use Try::Tiny;
 use Log::Minimal;
+use Digest::MD5 qw/md5_hex/;
 
 sub new {
     my ($class, ) = @_;
@@ -34,9 +35,10 @@ sub mk_author {
                 die "cannot parse:$_" unless $email;
                 $rows->push(
                     {
-                        pause_id => uc($pauseid),
-                        fullname => $fullname,
-                        email    => $email
+                        pause_id    => uc($pauseid),
+                        fullname    => $fullname,
+                        email       => $email,
+                        gravatar_id => md5_hex($email),
                     }
                 );
                 $rows->insert() if $rows->count() > 1000;

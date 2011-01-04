@@ -34,7 +34,6 @@ body {
 
 #Header {
     height: 70px;
-    font-size: 36px;
     padding: 2px;
 }
 
@@ -244,4 +243,9 @@ body {
 .highlight { background-color: yellow }
 
 .pager { text-align: center; }
+
+.IUseThisEntry-Footer {
+    font-size: x-small;
+    text-align: right;
+}
 

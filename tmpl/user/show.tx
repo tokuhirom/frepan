@@ -1,0 +1,18 @@
+[% INCLUDE 'include/header.tx' WITH bodyID="RootPage" %]
+
+<div>
+    <img src="http://www.gravatar.com/avatar/[% user.gravatar_id %]?s=64" width="64" height="64" />
+    [% user.name %]([% user.login %])<br />
+    <a href="http://github.com/[% user.login %]">github</a>
+</div>
+
+[% FOR v IN reviews %]
+    <div class="IUseThisEntry">
+        <a href="/dist/[% v.dist_name %]">[% v.dist_name %]</a><br />
+        [% v.body | i_use_this_filter %]
+        <div class="IUseThisEntry-Footer"><span class="timestap">at [% v.mtime_piece().strftime('%Y-%m-%d') %]</span></div>
+    </div>
+    <hr />
+[% END %]
+
+[% INCLUDE 'include/footer.tx' %]

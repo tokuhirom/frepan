@@ -1,7 +1,5 @@
 [% INCLUDE 'include/header.tx' WITH bodyID="RootPage" %]
 
-FrePAN is realtime mirror site of cpan.<a href="/about">see here for more details</a>.
-
 <div class="modules">
 [% FOR dist IN dists %]
 <div class="module">
@@ -14,7 +12,7 @@ FrePAN is realtime mirror site of cpan.<a href="/about">see here for more detail
     </div>
     <div class="author">
         <a href="/~[% lower(dist.author) %]/">
-        <div class="gravatar_container" email="[% dist.email %]">now loading</div>
+        <img src="http://www.gravatar.com/avatar/[% dist.gravatar_id %]?d=http://st.pimg.net/tucs/img/who.png&s=80" width="80" height="80" alt="gravatar" />
         [% lower(dist.author) %]
         </a>
     </div>

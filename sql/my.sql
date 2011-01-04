@@ -1,3 +1,25 @@
+CREATE TABLE user (
+     user_id int unsigned not null auto_increment primary key
+    ,login varchar(255) not null
+    ,name varchar(255) default null
+    ,gravatar_id varchar(255) default null
+    ,github_response text
+    ,ctime        int unsigned not null
+    ,mtime        int unsigned not null
+    ,unique (login)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE i_use_this (
+     user_id       int unsigned not null
+    ,dist_name    varchar(255) not null
+    ,dist_version varchar(255) not null
+    ,body         text
+    ,ctime        int unsigned not null
+    ,mtime        int unsigned not null
+    ,UNIQUE (user_id, dist_name)
+    ,INDEX (dist_name)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 CREATE TABLE IF NOT EXISTS dist (
      dist_id int unsigned not null AUTO_INCREMENT PRIMARY KEY
     ,author   varchar(255) not null
@@ -28,7 +50,7 @@ CREATE TABLE IF NOT EXISTS file (
     ,package     varchar(255)
     ,description varchar(255)
     ,html        text
-    ,UNIQUE(dist_id, path),
+    ,UNIQUE(dist_id, path)
     ,INDEX (package)
 ) engine=InnoDB DEFAULT charset=UTF8;
 
@@ -45,6 +67,7 @@ CREATE TABLE IF NOT EXISTS meta_author (
      pause_id    varchar(255) not null PRIMARY KEY
     ,fullname    varchar(255) not null
     ,email       varchar(255) not null
+    ,gravatar_id varchar(255) not null
 ) engine=InnoDB DEFAULT charset=UTF8;
 
 -- modules/02packages.details.txt.gz

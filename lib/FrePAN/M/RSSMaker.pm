@@ -24,11 +24,16 @@ sub generate {
     $feed->title('Yet Another CPAN Recent Changes');
     $feed->link('http://frepan.64p.org/');
     my $iter = $c->db->search_by_sql(
-        q{SELECT dist.dist_id, dist.name, dist.author, dist.version, dist.path, dist.abstract, changes.body AS diff, dist.released FROM dist LEFT JOIN changes ON (changes.dist_id = dist.dist_id) ORDER BY dist.released DESC LIMIT 10}
+        q{SELECT
+            dist.dist_id, dist.name, dist.author, dist.version, dist.path, dist.abstract, changes.body AS diff, dist.released, meta_author.gravatar_id
+            FROM dist
+                LEFT JOIN meta_author ON (dist.author=meta_author.pause_id)
+                LEFT JOIN changes ON (changes.dist_id = dist.dist_id)
+            ORDER BY dist.released DESC
+            LIMIT 10}
     );
     while (my $row = $iter->next) {
         $feed->add_entry(do {
-            my $gravatar = FrePAN::M::CPAN->pause_id2gravatar_url($row->author);
             my $e = XML::Feed::Entry->new('RSS');
                $e->title(join(' ', $row->name, $row->version));
                $e->link("http://frepan.64p.org/~@{[ lc($row->author) ]}/@{[ $row->name ]}-@{[ $row->version ]}/");
@@ -37,7 +42,7 @@ sub generate {
                     DateTime->from_epoch(epoch => $row->released)
                });
                $e->summary($row->diff);
-               $e->content(make_content($row, $gravatar));
+               $e->content(make_content($row));
                $e;
         });
     }
@@ -48,11 +53,11 @@ sub generate {
 }
 
 sub make_content {
-    my ($row, $gravatar) = @_;
+    my ($row) = @_;
 
     my $html;
-    if (defined $gravatar) {
-        $html .= qq{<img src="$gravatar" /><br />};
+    if ($row->gravatar_id) {
+        $html .= qq{<img src="http://gravatar.com/avatar/@{[ $row->gravatar_id ]}?s=80&d=http://st.pimg.net/tucs/img/who.png" width="80" height="80" /><br />};
     }
 
     $html .= <<"...";

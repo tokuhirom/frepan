@@ -14,7 +14,7 @@ my $html = FrePAN::Pod::POM::View::HTML->print($pom);
 is $html, <<'...';
 <h1>SEE ALSO</h1>
 
-<p><a href="http://search.cpan.org/perldoc?Acme%3A%3APrettyCure">Acme::PrettyCure</a></p>
+<p><a href="/perldoc?Acme%3A%3APrettyCure">Acme::PrettyCure</a></p>
 ...
 
 done_testing;

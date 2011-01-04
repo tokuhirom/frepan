@@ -13,8 +13,8 @@ requires 'Guard';
 requires 'Path::Class';
 requires 'autodie';
 requires 'Pod::POM' => 0.27;
+requires 'Pod::Simple::XHTML';
 requires 'parent';
-requires 'Gravatar::URL';
 requires 'XML::Feed';
 requires 'Algorithm::Diff';
 requires 'Class::Accessor::Fast';
@@ -26,6 +26,7 @@ requires 'Log::Minimal';
 requires 'Smart::Args' => 0.07;
 requires 'Time::Duration';
 requires 'Text::Diff';
+requires 'OAuth::Lite2';
 recursive_author_tests('xt');
 
 WriteAll;

@@ -41,13 +41,10 @@
 <tr><th>Released</th><td>
     [% dist.released_date %]
 </td></tr>
-<tr><th>Social</th><td>
-    <iframe src="http://www.facebook.com/plugins/like.php?href=[% 'http://search.cpan.org/dist/' _ dist.name | uri %]&amp;layout=button_count&amp;show_faces=true&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:21px;" allowTransparency="true"></iframe>
-</td></tr>
 
 </table>
 
-<img src="[% dist.gravatar_url %]" width="80" height="80" class="gravatar" />
+<img src="http://gravatar.com/avatar/[% dist.gravatar_id %]?s=80&d=http://st.pimg.net/tucs/img/who.png" width="80" height="80" class="gravatar" />
 <div class="clear-both">&nbsp;</div>
 
 
@@ -68,6 +65,21 @@
 [% END %]
 </table>
 
-[% INCLUDE 'include/disqus.tx' %]
+<hr />
+
+<div class="IUseThis">
+    [% IF c().session_user() %]
+        <a href="javascript:$('#i_use_this_form').toggle();">If you are using this module, please post the review message!</a><br />
+        <form method="post" action="/i_use_this/post" id="i_use_this_form" style="display:none">
+            <textarea name="body" cols="80" rows="7">[% my_review %]</textarea><br />
+            <input type="hidden" name="dist_name" value="[% dist.name %]" />
+            <input type="submit" value="I use this!" />
+        </form>
+    [% ELSE %]
+        Please login first to post entry.
+    [% END %]
+
+    [% INCLUDE 'include/table/i_use_this.tx' %]
+</div>
 
 [% INCLUDE 'include/footer.tx' %]

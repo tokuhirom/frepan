@@ -14,5 +14,12 @@ connect '/search'        => 'Search#result';
 connect '/perldoc'       => 'Perldoc#redirect';
 connect '/other_version' => 'Dist#other_version';
 connect '/diff'          => 'Diff#show';
+connect '/login'         => 'User#login';
+connect '/oauth_callback'         => 'User#oauth_callback';
+connect '/logout'         => 'User#logout';
+connect '/i_use_this/post'=> 'IUseThis#post';
+connect '/i_use_this/list'=> 'IUseThis#list';
+connect '/user/{user_login}'=> 'User#show';
+connect '/dist/{dist_name}'=> 'Dist#permalink';
 
 1;

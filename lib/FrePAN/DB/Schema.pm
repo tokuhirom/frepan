@@ -23,6 +23,11 @@ install_table 'file' => sub {
 };
 
 
+install_table 'i_use_this' => sub {
+    columns qw(body dist_name dist_version ctime mtime user_id);
+};
+
+
 install_table 'kvs' => sub {
     pk      qw(k);
     columns qw(k v);
@@ -31,7 +36,7 @@ install_table 'kvs' => sub {
 
 install_table 'meta_author' => sub {
     pk      qw(pause_id);
-    columns qw(email pause_id fullname);
+    columns qw(gravatar_id email pause_id fullname);
 };
 
 
@@ -44,6 +49,12 @@ install_table 'meta_packages' => sub {
 install_table 'meta_uploads' => sub {
     pk      qw(dist_name pause_id dist_version);
     columns qw(dist_name dist_version released pause_id filename type);
+};
+
+
+install_table 'user' => sub {
+    pk      qw(user_id);
+    columns qw(gravatar_id ctime mtime name login user_id github_response);
 };
 
 

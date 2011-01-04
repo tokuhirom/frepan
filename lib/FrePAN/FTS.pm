@@ -118,7 +118,7 @@ sub search {
     );
     debugf("Sending search query: %s", $uri);
     my $res = $self->furl->get($uri->as_string);
-    $res->is_success or die "Cannot insert: " . $res->content;
+    $res->is_success or die "Cannot search: " . $res->content;
     debugf("search result: %s, %s", $uri, $res->content);
     my $data = decode_json($res->content);
     my $file_ids = $data->[1]->[0]; # return value is array of file_ids

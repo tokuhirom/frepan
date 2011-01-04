@@ -1,0 +1,11 @@
+<div class="IUseThisContainer">
+[% FOR v IN reviews %]
+    <div class="IUseThisEntry">
+        <img src="http://www.gravatar.com/avatar/[% v.get_column('gravatar_id') %]?s=32" width="32" height="32" />
+        <a href="/user/[% v.get_column('user_login') %]">[% v.get_column('user_name') %]([% v.get_column('user_login') %])</a><br />
+        [% (v.body || '') | i_use_this_filter%]<br />
+        <div class="IUseThisEntry-Footer"><span class="timestap">at [% v.mtime_piece().strftime('%Y-%m-%d') %]</span></div>
+    </div>
+    <hr />
+[% END %]
+</div>

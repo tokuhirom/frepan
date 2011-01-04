@@ -8,6 +8,7 @@ useall 'FrePAN::Web::C';
 use FrePAN::M::CPAN;
 
 use Tiffany::Text::Xslate;
+use FrePAN::M::Formatter;
 {
     my $conf = __PACKAGE__->config->{'Text::Xslate'} || +{};
     my $view = Tiffany::Text::Xslate->new(+{
@@ -19,8 +20,8 @@ use Tiffany::Text::Xslate;
             uri_for  => sub { Amon2->context()->uri_for(@_) },
             version => sub { @_ == 1 ? $_[0]->VERSION : FrePAN->VERSION }, 
             amon_version => sub { $Amon2::VERSION }, 
-            email2gravatar_url => sub { FrePAN::M::CPAN->email2gravatar_url(@_) },
             'ref' => sub { ref($_[0]) },
+            'i_use_this_filter' => \&FrePAN::M::Formatter::format,
         },
         path => [File::Spec->catdir(__PACKAGE__->base_dir, 'tmpl')],
         %$conf,
@@ -31,7 +32,35 @@ use Tiffany::Text::Xslate;
 use FrePAN::Web::Dispatcher;
 sub dispatch { FrePAN::Web::Dispatcher->dispatch(@_) }
 
+sub show_error {
+    my ($c, $msg) = @_;
+    return $c->render('/error.tx', {msg => $msg});
+}
+
+sub session_user {
+    my ($c) = @_;
+    $c->{session_user} //= do {
+        my $user_id = $c->session->get('user_id');
+        if ( $user_id) {
+            $c->db->single(user => {user_id => $user_id});
+        } else {
+            undef;
+        }
+    };
+}
+
+use HTTP::Session::Store::Memcached;
 __PACKAGE__->load_plugins('Web::FillInFormLite');
+__PACKAGE__->load_plugins('Web::HTTPSession' => {
+    state => 'Cookie',
+    store => sub {
+        my ($c) = @_;
+        HTTP::Session::Store::Memcached->new(
+            memd => $c->memcached
+        )
+    }
+});
+__PACKAGE__->load_plugins('Web::CSRFDefender');
 __PACKAGE__->load_plugins('Web::NoCache');
 
 1;

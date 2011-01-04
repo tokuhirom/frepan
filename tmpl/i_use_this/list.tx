@@ -1,0 +1,6 @@
+<!doctype html>
+<html>
+    <body>
+        [% INCLUDE 'include/table/i_use_this.tx' %]
+    </body>
+</html>

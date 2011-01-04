@@ -16,7 +16,7 @@ sub show {
     my $dist = $c->dbh->selectrow_hashref(
         q{
             SELECT
-                dist_id, author, name, version, path, abstract, has_meta_yml, has_meta_json, resources_json, has_manifest, has_makefile_pl, has_changes, has_change_log, has_build_pl, requires, released, DATE_FORMAT(FROM_UNIXTIME(released), '%Y-%m-%d') AS released_date, meta_author.email
+                dist_id, author, name, version, path, abstract, has_meta_yml, has_meta_json, resources_json, has_manifest, has_makefile_pl, has_changes, has_change_log, has_build_pl, requires, released, DATE_FORMAT(FROM_UNIXTIME(released), '%Y-%m-%d') AS released_date, meta_author.email, meta_author.gravatar_id
             FROM dist LEFT JOIN meta_author ON (meta_author.pause_id = dist.author)
             WHERE concat(name, '-', version) = ? AND author=?
             ORDER BY dist_id DESC
@@ -26,7 +26,6 @@ sub show {
         $dist_ver, uc($author)
     ) or return $c->res_404();
     $dist->{resources}    = decode_json($dist->{resources_json}) if $dist->{resources_json};
-    $dist->{gravatar_url} = FrePAN::M::CPAN->email2gravatar_url($dist->{email});
     $dist->{download_url} = FrePAN::M::CPAN->download_url($dist->{path}, $dist->{released});
 
     $dist->{files} = $c->dbh->selectall_arrayref(
@@ -59,7 +58,30 @@ sub show {
         $dist->{dist_id}, $dist->{name}
     );
 
-    return $c->render("dist/show.tx", {dist => $dist, special_files => \@special_files, other_releases => $other_releases});
+    my @reviews = $c->db->search_by_sql(
+        q{SELECT i_use_this.*, user.gravatar_id, user.name AS user_name, user.login AS user_login FROM i_use_this INNER JOIN user USING(user_id) WHERE i_use_this.dist_name=? ORDER BY mtime DESC},
+        [ $dist->{name} ],
+        'i_use_this'
+    );
+    my $my_review = do {
+        if (my $user = $c->session_user) {
+            my ($r) = map { $_->body } grep { $_->user_id eq $user->user_id } @reviews;
+            $r;
+        } else {
+            undef;
+        }
+    };
+
+    return $c->render(
+        "dist/show.tx",
+        {
+            dist           => $dist,
+            special_files  => \@special_files,
+            other_releases => $other_releases,
+            reviews        => \@reviews,
+            my_review      => $my_review,
+        }
+    );
 }
 
 # show pod
@@ -96,6 +118,16 @@ sub other_version {
     } else {
         return $c->redirect($dist->relative_url());
     }
+}
+
+# /dist/.+/?
+sub permalink {
+    my ($class, $c) = @_;
+
+    my $dist_name = $c->{args}->{dist_name} // die;
+    my $dist = $c->db->single(dist => {name => $dist_name}, {order_by => {'released' => 'DESC'}, limit => 1});
+
+    return $c->redirect(sprintf('/~%s/%s-%s/', $dist->author, $dist->name, $dist->version));
 }
 
 1;
