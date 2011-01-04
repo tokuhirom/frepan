@@ -318,7 +318,8 @@ sub insert_files {
             if ($no_index && "$f" =~ $no_index) {
                 return;
             }
-            if ("$f" =~ m{^(?:t/|inc/|sample/|blib/)} || "$f" eq './Build.PL') {
+            # lib/auto/ is a workaround for http://search.cpan.org/~schwigon/Benchmark-Perl-Formance-Cargo-0.02/
+            if ("$f" =~ m{^(?:t/|inc/|sample/|blib/|lib/auto/)} || "$f" eq './Build.PL') {
                 return;
             }
             debugf("do processing $f");
