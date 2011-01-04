@@ -82,9 +82,14 @@ sub inject {
 
     # extract and chdir
     my $extracted_dir = do {
-        my $srcdir = dir(c->config()->{srcdir}, uc($author));
         my $distnameinfo = CPAN::DistnameInfo->new($path);
-        FrePAN::M::Archive->extract(distvname => $distnameinfo->distvname, archive_path => "$archivepath", author_dir => $srcdir);
+        FrePAN::M::Archive->extract(
+            distvname    => $distnameinfo->distvname,
+            archive_path => "$archivepath",
+            srcdir       => $c->config()->{srcdir},
+            author       => $author,
+            c            => $c,
+        );
     };
     infof("extracted directory is: $extracted_dir");
 

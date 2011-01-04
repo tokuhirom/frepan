@@ -3,3 +3,7 @@ FTS scoring
  * package カラムが前方一致する場合にスコアをあげたい
  * package カラムが完全一致する場合にスコアをあげたい
 
+- lock the rows for injector
+- http://cpanratings.perl.org/csv/all_ratings.csv
+- more better design for diff view
+
