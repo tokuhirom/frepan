@@ -11,6 +11,8 @@ use FrePAN::CwdSaver;
 use Text::Xslate qw/mark_raw/;
 use Amon2::Declare;
 
+our ($NEW_AUTHOR, $OLD_AUTHOR);
+
 {
     # a lot of code taken from Text::Diff::HTML.
     package FrePAN::M::Diff::HTML;
@@ -29,9 +31,24 @@ use Amon2::Declare;
     );
 
     sub file_header {
-        return '<pre class="file"><span class="fileheader">'
-            . encode_entities(shift->SUPER::file_header(@_))
-            . '</span>';
+    use Data::Dumper; warn Dumper(@_);
+        my ($self, $x, $y, $options) = @_;
+     #  $VAR4 = {
+     #      'OFFSET_A' => 1,
+     #      'MTIME_B'  => 1294109424,
+     #      'FILENAME_A' => 'Geo-Coordinates-Converter-0.08/lib/Geo/Coordinates/Converter/Point.pm',
+     #      'OFFSET_B' => 1,
+     #      'STYLE'    => 'FrePAN::M::Diff::HTML',
+     #      'FILENAME_B' => 'Geo-Coordinates-Converter-0.09/lib/Geo/Coordinates/Converter/Point.pm',
+     #      'MTIME_A' => 1293821249
+     #  };
+        return sprintf(
+            '<pre class="file"><span class="fileheader"><a class="old" href="%s">--- %s</a><br /><a class="new" href="%s">+++ %s</a></span>',
+            encode_entities( "/src/$OLD_AUTHOR/$options->{FILENAME_A}" ),
+            encode_entities( $options->{FILENAME_A} ),
+            encode_entities( "/src/$NEW_AUTHOR/$options->{FILENAME_B}" ),
+            encode_entities( $options->{FILENAME_B} )
+        );
     }
 
     sub hunk_header {
@@ -85,8 +102,9 @@ use Amon2::Declare;
 sub diff {
     args_pos my $class, my $new_dist => { isa => 'FrePAN::DB::Row::Dist'}, my $old_dist => { isa => 'FrePAN::DB::Row::Dist'};
 
+    my $k = c->is_devel ? rand() : 3;
     my $ret = c()->memcached->get_or_set_cb(
-        "diff2:@{[ $new_dist->dist_id ]}:@{[ $old_dist->dist_id ]}" => 24*60*60,
+        "diff$k:@{[ $new_dist->dist_id ]}:@{[ $old_dist->dist_id ]}" => 24*60*60,
         sub {
             [$class->_diff($new_dist, $old_dist)];
         }
@@ -139,6 +157,8 @@ sub _diff {
 
             my $new_name = File::Spec->abs2rel( "$new_dir/$old_file", $base );
             my $old_name = File::Spec->abs2rel( "$old_dir/$old_file", $base ),;
+            local $NEW_AUTHOR = $new_dist->author;
+            local $OLD_AUTHOR = $old_dist->author;
             my $diff = Text::Diff::diff(
                 $old_name, $new_name,
                 { STYLE => 'FrePAN::M::Diff::HTML' }
