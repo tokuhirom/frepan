@@ -23,14 +23,12 @@ sub extract {
          my $author,
          ;
 
-    my $author_dir = dir($srcdir, uc($author));
-
     # validation
-    File::Spec->file_name_is_absolute($author_dir)
+    File::Spec->file_name_is_absolute($srcdir)
       or die "archive path is not absolute.";
 
-    make_path($author_dir);
-    die "cannot create directory: $!: $author_dir" unless -d $author_dir;
+    my $author_dir = dir($srcdir, uc($author));
+    $author_dir->mkpath();
 
     my $pkgdir = dir($author_dir, $distvname);
     $pkgdir->rmtree(); # cleanup before extract
@@ -47,6 +45,7 @@ sub extract {
             next if $file->name =~ /\0/; # WTF
 
             my $name = $file->name;
+               $name = $file->prefix . '/' . $name if $file->prefix;
             $name =~ s!^$distvname/?!!;
             $name = dir($pkgdir, $name);
             infof("extract %s to %s", $file->name, $name);
