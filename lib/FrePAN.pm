@@ -2,6 +2,7 @@ package FrePAN;
 use strict;
 use warnings;
 use parent qw/Amon2/;
+use constant is_devel => $ENV{PLACK_ENV} eq 'development' ? 1 : 0;
 use DBI;
 use Cache::Memcached::Fast;
 

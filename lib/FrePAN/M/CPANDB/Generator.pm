@@ -38,7 +38,7 @@ sub mk_author {
                         pause_id    => uc($pauseid),
                         fullname    => $fullname,
                         email       => $email,
-                        gravatar_id => md5_hex($email),
+                        gravatar_id => md5_hex(lc($pauseid) . '@cpan.org'),
                     }
                 );
                 $rows->insert() if $rows->count() > 1000;

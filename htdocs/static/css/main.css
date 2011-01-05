@@ -197,6 +197,9 @@ body {
     background-position: left center;
     list-style-type: none;
 }
+#PodPage .pod dd {
+    margin-left: 40px;
+}
 
 #AuthorPage th {
     font-weight: bold;
@@ -232,6 +235,14 @@ body {
 
 #DiffPage .file {
     margin-left: 20px;
+    margin-top: 10px;
+    border-bottom: 1px solid #999999;
+}
+#DiffPage .file a.new {
+    background-color: #CAFFCA;
+}
+#DiffPage .file a.old {
+    background-color: #FFCACA;
 }
 #DiffPage .file ins {
     background-color: #CAFFCA;

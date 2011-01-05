@@ -82,9 +82,15 @@ sub inject {
 
     # extract and chdir
     my $extracted_dir = do {
-        my $srcdir = dir(c->config()->{srcdir}, uc($author));
         my $distnameinfo = CPAN::DistnameInfo->new($path);
-        FrePAN::M::Archive->extract(distvname => $distnameinfo->distvname, archive_path => "$archivepath", author_dir => $srcdir);
+        FrePAN::M::Archive->extract(
+            dist_name    => $name,
+            version      => $version,
+            archive_path => "$archivepath",
+            srcdir       => $c->config()->{srcdir},
+            author       => $author,
+            c            => $c,
+        );
     };
     infof("extracted directory is: $extracted_dir");
 
@@ -312,7 +318,8 @@ sub insert_files {
             if ($no_index && "$f" =~ $no_index) {
                 return;
             }
-            if ("$f" =~ m{^(?:t/|inc/|sample/|blib/)} || "$f" eq './Build.PL') {
+            # lib/auto/ is a workaround for http://search.cpan.org/~schwigon/Benchmark-Perl-Formance-Cargo-0.02/
+            if ("$f" =~ m{^(?:t/|inc/|sample/|blib/|lib/auto/)} || "$f" eq './Build.PL') {
                 return;
             }
             debugf("do processing $f");
