@@ -13,7 +13,7 @@ sub parse_entry {
     #   v1.0.3
     #   PNI-Node-Tk 0.02-withoutworldwriteables by Casati Gianluca <-- yes. it's invalid. but, parser should show tolerance.
     #   FusionInventory-Agent 2.1_rc1 by FusionInventory Project
-    if ($body =~ m!(?<name>[\w\-]+) (?<version>v?[0-9\._-]*[a-zA-Z0-9+]*) by (?:.+?) - <a.*href="http:.*?/authors/id/(?<path>.*?\.tar\.gz)"!) {
+    if ($body =~ m!(?<name>\S+) (?<version>\S+) by (?:.+?) - <a.*href="http:.*?/authors/id/(?<path>.*?\.tar\.gz)"!) {
          # name, version, path
         return ($+{name}, $+{version}, $+{path});
     }

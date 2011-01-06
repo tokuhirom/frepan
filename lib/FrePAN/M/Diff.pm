@@ -31,7 +31,6 @@ our ($NEW_AUTHOR, $OLD_AUTHOR);
     );
 
     sub file_header {
-    use Data::Dumper; warn Dumper(@_);
         my ($self, $x, $y, $options) = @_;
      #  $VAR4 = {
      #      'OFFSET_A' => 1,
