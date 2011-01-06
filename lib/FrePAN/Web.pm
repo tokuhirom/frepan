@@ -62,5 +62,11 @@ __PACKAGE__->load_plugins('Web::HTTPSession' => {
 });
 __PACKAGE__->load_plugins('Web::CSRFDefender');
 __PACKAGE__->load_plugins('Web::NoCache');
+__PACKAGE__->add_trigger(
+    AFTER_DISPATCH => sub {
+        my ($c, $res) = @_;
+        $res->header('X-Content-Type-Options' => 'nosniff');
+    },
+);
 
 1;

@@ -5,5 +5,5 @@ FTS scoring
 
 - lock the rows for injector
 - http://cpanratings.perl.org/csv/all_ratings.csv
-- more better design for diff view
+- cannot found Module::Install
 
