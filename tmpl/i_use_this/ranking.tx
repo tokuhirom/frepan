@@ -5,7 +5,7 @@
 <table class="RankingTable">
     [% FOR v IN ranking %]
         <tr>
-            <td class="RankingRank">[% loop.count %]</td>
+            <td align="right" class="RankingRank">[% loop.count %]</td>
             <td>[% v.name %]-[% v.version %] <span style="color: #ff6765; background-color: #ffefef;">[% v.cnt %]users</span></td>
         </tr>
     [% END %]
