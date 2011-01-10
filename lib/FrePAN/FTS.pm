@@ -108,7 +108,7 @@ sub search {
     my $uri = URI->new("http://$self->{host}:$self->{port}/d/select");
     $uri->query_form(
         table          => 'File',
-        match_columns  => 'package * 10000000 || description * 5 || text * 1',
+        match_columns  => 'package * 100 || description * 5 || text * 1',
         query          => $self->make_query($query),
         output_columns => '_key,_score',
         sortby         => '-_score',

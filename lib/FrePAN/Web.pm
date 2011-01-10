@@ -22,6 +22,11 @@ use FrePAN::M::Formatter;
             amon_version => sub { $Amon2::VERSION }, 
             'ref' => sub { ref($_[0]) },
             'i_use_this_filter' => \&FrePAN::M::Formatter::format,
+            commify => sub {
+                local $_ = shift;
+                1 while s/((?:\A|[^.0-9])[-+]?\d+)(\d{3})/$1,$2/s;
+                return $_;
+            },
         },
         path => [File::Spec->catdir(__PACKAGE__->base_dir, 'tmpl')],
         %$conf,
