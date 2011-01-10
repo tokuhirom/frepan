@@ -63,7 +63,7 @@ sub search_module {
         $rdbms_row->{score} = $row->{score};
         # if the query matched to package name, give the 10x score.
         if (lc($rdbms_row->{package}) eq lc($query)) {
-            $rdbms_row->{score} *= 10;
+            $rdbms_row->{score} *= 20;
         }
         # if the query matched to package prefix, give the 2x score
         if (index(lc($rdbms_row->{package}), lc($query)) == 0) {
@@ -71,7 +71,7 @@ sub search_module {
         }
         # i use this!
         if (exists $i_use_this->{$rdbms_row->{dist_name}}) {
-            $rdbms_row->{score} *= $i_use_this->{$rdbms_row->{dist_name}}+1;
+            $rdbms_row->{score} *= $i_use_this->{$rdbms_row->{dist_name}}+7;
         }
         push @files, $rdbms_row;
     }
