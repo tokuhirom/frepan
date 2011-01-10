@@ -12,9 +12,10 @@ sub search_module {
          my $c,
          my $query,
          my $page,
+         my $rows => {isa => 'Int', default => 1024},
          ;
 
-    my $search_result = $c->fts->search(query => $query, page => $page, rows => 1024);
+    my $search_result = $c->fts->search(query => $query, page => $page, rows => $rows);
     my $file_infos = $search_result->rows;
     # debugf("FILES IDS: %s", ddf($file_infos));
 
