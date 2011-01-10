@@ -23,6 +23,16 @@ sub search_module {
         return ([], $search_result->pager);
     }
 
+    # get "I use this" info for scoring
+    my $cache_ver = $c->is_devel ? rand : 1;
+    my $i_use_this = +{
+        map { $_->[0] => $_->[1] } @{
+            $c->dbh->selectall_arrayref(
+                q{select SQL_CACHE dist_name, count(*) from i_use_this group by dist_name;}
+            )
+          }
+    };
+
     my ($sql, @binds) = q{
         SELECT SQL_CACHE
             file.file_id, file.package, file.description, file.path,
@@ -57,7 +67,11 @@ sub search_module {
         }
         # if the query matched to package prefix, give the 2x score
         if (index(lc($rdbms_row->{package}), lc($query)) == 0) {
-            $rdbms_row->{score} *= 2;
+            $rdbms_row->{score} *= 5;
+        }
+        # i use this!
+        if (exists $i_use_this->{$rdbms_row->{dist_name}}) {
+            $rdbms_row->{score} *= $i_use_this->{$rdbms_row->{dist_name}}+1;
         }
         push @files, $rdbms_row;
     }
