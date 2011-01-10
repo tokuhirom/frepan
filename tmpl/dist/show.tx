@@ -65,6 +65,8 @@
 [% END %]
 </table>
 
+[% IF c().is_admin() %]<a href="/admin/regen?dist_id=[% dist.dist_id %]">regen!</a>[% END %]
+
 <hr />
 
 <div class="IUseThis">

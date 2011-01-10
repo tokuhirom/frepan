@@ -55,6 +55,14 @@ sub session_user {
     };
 }
 
+sub is_admin {
+    my $c = shift;
+    my $u = $c->session_user();
+    return 0 unless $u;
+    return 1 if $u->login eq 'tokuhirom';
+    return 0;
+}
+
 use HTTP::Session::Store::Memcached;
 __PACKAGE__->load_plugins('Web::FillInFormLite');
 __PACKAGE__->load_plugins('Web::HTTPSession' => {

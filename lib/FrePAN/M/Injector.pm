@@ -67,36 +67,6 @@ sub inject {
         }
     }
 
-    # fetch archive
-    my $archivepath = file(FrePAN::M::CPAN->minicpan_path(), 'authors', 'id', $path)->absolute;
-    debugf "$archivepath, $path";
-    unless ( -f $archivepath ) {
-        my $url = 'http://cpan.cpantesters.org/authors/id/' . $path;
-        $class->mirror($url, $archivepath);
-    }
-
-    # extract and chdir
-    my $extracted_dir = do {
-        my $distnameinfo = CPAN::DistnameInfo->new($path);
-        FrePAN::M::Archive->extract(
-            dist_name    => $name,
-            version      => $version,
-            archive_path => "$archivepath",
-            srcdir       => $c->config()->{srcdir},
-            author       => $author,
-            c            => $c,
-        );
-    };
-    infof("extracted directory is: $extracted_dir");
-
-    my $guard = FrePAN::CwdSaver->new($extracted_dir);
-
-    # render and register files.
-    my $meta = $class->load_meta(dir => $extracted_dir);
-    my $requires = $meta->{requires};
-
-    $c->db->do(q{UPDATE dist SET old=1 WHERE name=?}, {}, $name);
-
     debugf 'creating database entry';
     my $dist = $c->db->find_or_create(
         dist => {
@@ -105,10 +75,31 @@ sub inject {
             author  => $author,
         }
     );
-    $dist->update(
+    $dist->set_columns({
+        path     => $path,
+        released => $released,
+    });
+
+    # fetch archive
+    $dist->mirror_archive();
+
+    # extract and chdir
+    my $extracted_dir = $dist->extract_archive();
+    infof("extracted directory is: $extracted_dir");
+
+    debugf 'removing symlinks';
+    $class->remove_symlinks(dir => $extracted_dir);
+
+    my $guard = FrePAN::CwdSaver->new($extracted_dir);
+
+    # render and register files.
+    my $meta = $dist->load_meta(dir => $extracted_dir);
+
+    $c->db->do(q{UPDATE dist SET old=1 WHERE name=?}, {}, $name);
+
+    my $requires = $meta->{requires};
+    $dist->set_columns(
         {
-            path     => $path,
-            released => $released,
             requires => scalar($requires ? encode_json($requires) : ''),
             abstract => $meta->{abstract},
             resources_json  => $meta->{resources} ? encode_json($meta->{resources}) : undef,
@@ -122,16 +113,13 @@ sub inject {
             old             => 0,
         }
     );
-
-    debugf 'removing symlinks';
-    $class->remove_symlinks(dir => $extracted_dir);
+    $dist->update();
 
     debugf 'generating file table';
-    $class->insert_files(
+    $dist->insert_files(
         meta     => $meta,
         dir      => $extracted_dir,
         c        => $c,
-        dist     => $dist,
     );
 
     debugf("register to groonga");
@@ -222,124 +210,6 @@ sub write_file {
     open my $fh, '>', $fname;
     print {$fh} $content;
     close $fh;
-}
-
-sub load_meta {
-    args my $class,
-         my $dir,
-    ;
-
-    my $guard = FrePAN::CwdSaver->new($dir);
-
-    if (-f 'META.json') {
-        try {
-            open my $fh, '<', 'META.json';
-            my $src = do { local $/; <$fh> };
-            decode_json($src);
-        } catch {
-            warn "cannot open META.json file: $_";
-            +{};
-        };
-    } elsif (-f 'META.yml') {
-        try {
-            YAML::Tiny::LoadFile('META.yml');
-        } catch {
-            warn "Cannot parse META.yml($dir): $_";
-            +{};
-        };
-    } else {
-        infof("missing META file in $dir");
-        +{};
-    }
-}
-
-sub mirror {
-    my ($self, $url, $dstpath) = @_;
-
-    debugf "mirror '$url' to '$dstpath'";
-    my $ua = LWP::UserAgent->new(agent => "FrePAN/$FrePAN::VERSION");
-    make_path($dstpath->dir->stringify, {error => \my $err});
-    if (@$err) {
-        for my $diag (@$err) {
-            my ( $file, $message ) = %$diag;
-            print "mkpath: error: '@{[ $file || '' ]}', $message\n";
-        }
-    }
-    my $res = $ua->get($url, ':content_file' => "$dstpath");
-    $res->code =~ /^(?:304|200)$/ or die "fetch failed: $url, $dstpath, " . $res->status_line;
-}
-
-# insert to 'file' table.
-sub insert_files {
-    args my $class,
-         my $meta,
-         my $dir,
-         my $c,
-         my $dist => {isa => 'FrePAN::DB::Row::Dist'},
-         ;
-
-    my $txn = $c->db->txn_scope();
-
-    my $no_index = join '|', map { quotemeta $_ } @{
-        do {
-            my $x = $meta->{no_index}->{directory} || [];
-            $x = [$x] unless ref $x; # http://cpansearch.perl.org/src/CFAERBER/Net-IDN-Nameprep-1.100/META.yml
-            $x;
-          }
-      };
-       $no_index = qr/^(?:$no_index)/ if $no_index;
-
-    # remove old things
-    $c->db->dbh->do(q{DELETE FROM file WHERE dist_id=?}, {}, $dist->dist_id) or die;
-
-    my $guard = FrePAN::CwdSaver->new($dir);
-
-    dir('.')->recurse(
-        callback => sub {
-            my $f = shift;
-            return if -d $f;
-            debugf("processing $f");
-
-            if ($f =~ /(?:\.PL)$/ || $f =~ /MANIFEST\.SKIP$/) {
-                return;
-            }
-            unless ($f =~ /(?:\.pm|\.pod)$/) {
-                my $fh = $f->openr or return;
-                read $fh, my $buf, 1024;
-                if ($buf !~ /#!.+perl/) { # script contains shebang
-                    return;
-                }
-            }
-            if ($no_index && "$f" =~ $no_index) {
-                return;
-            }
-            # lib/auto/ is a workaround for http://search.cpan.org/~schwigon/Benchmark-Perl-Formance-Cargo-0.02/
-            if ("$f" =~ m{(^|/)(?:t/|inc/|sample/|blib/|lib/auto/)} || "$f" eq './Build.PL') {
-                return;
-            }
-            debugf("do processing $f");
-            my $parser = FrePAN::Pod->new();
-            $parser->parse_file("$f") or do {
-                critf("Cannot parse pod: %s", $parser->error);
-                return;
-            };
-
-            my $path = $f->relative->stringify;
-            $c->db->insert(
-                file => {
-                    dist_id     => $dist->dist_id,
-                    path        => $path,
-                    'package'   => $parser->package(),
-                    description => $parser->description(),
-                    html        => $parser->html(),
-                }
-            );
-        }
-    );
-
-    $txn->commit;
-
-    return;
 }
 
 sub remove_symlinks {

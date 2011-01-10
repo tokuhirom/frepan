@@ -30,6 +30,7 @@ requires 'Text::Diff';
 requires 'OAuth::Lite2';
 requires 'HTTP::Session::Store::Memcached';
 requires 'SQL::Interp';
+requires 'Jonk';
 requires 'Data::Page';
 recursive_author_tests('xt');
 

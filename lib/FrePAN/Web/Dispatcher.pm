@@ -22,5 +22,6 @@ connect '/i_use_this/post'=> 'IUseThis#post';
 connect '/i_use_this/list'=> 'IUseThis#list';
 connect '/user/{user_login}'=> 'User#show';
 connect '/dist/{dist_name}'=> 'Dist#permalink';
+connect '/admin/regen'=> 'Admin#regen';
 
 1;

@@ -7,6 +7,148 @@ use Log::Minimal;
 use Smart::Args;
 use autodie;
 use File::Spec;
+use FrePAN::M::CPAN;
+use LWP::UserAgent;
+use Path::Class;
+use Try::Tiny;
+use FrePAN::M::Archive;
+use FrePAN::Pod;
+
+sub download_url {
+    my ($self) = @_;
+    my $base = time() - $self->released > 24*60*60 ?
+        'http://search.cpan.org/CPAN/authors/id/'
+        : 'http://cpan.cpantesters.org/authors/id/';
+    return $base . $self->path;
+}
+
+sub mirror_archive {
+    my $self = shift;
+
+    my $dstpath = file($self->archive_path);
+    unless ( -f $dstpath ) {
+        my $url = $self->download_url;
+        debugf "mirror '$url' to '$dstpath'";
+        my $ua = LWP::UserAgent->new(agent => "FrePAN/$FrePAN::VERSION");
+        make_path($dstpath->dir->stringify);
+        my $res = $ua->get($url, ':content_file' => "$dstpath");
+        $res->code =~ /^(?:304|200)$/ or die "fetch failed: $url, $dstpath, " . $res->status_line;
+    }
+    return;
+}
+
+sub extract_archive {
+    my $self = shift;
+
+    FrePAN::M::Archive->extract(
+        dist_name    => $self->name,
+        version      => $self->version,
+        archive_path => $self->archive_path,
+        srcdir       => c->config()->{srcdir},
+        author       => $self->author,
+        c            => c(),
+    );
+}
+
+sub load_meta {
+    args my $self,  my $dir;
+
+    my $json_file = file($dir, 'META.json');
+    my $yml_file = file($dir, 'META.yml');
+
+    if (-f $json_file) {
+        try {
+            my $fh = $json_file->openr;
+            my $src = do { local $/; <$fh> };
+            decode_json($src);
+        } catch {
+            warn "cannot open META.json file: $_";
+            +{};
+        };
+    } elsif (-f $yml_file) {
+        try {
+            YAML::Tiny::LoadFile("$yml_file");
+        } catch {
+            warn "Cannot parse META.yml($dir): $_";
+            +{};
+        };
+    } else {
+        infof("missing META file in $dir");
+        +{};
+    }
+}
+
+# insert to 'file' table.
+sub insert_files {
+    args my $self,
+         my $meta,
+         my $dir,
+         my $c,
+         ;
+
+    my $txn = $c->db->txn_scope();
+
+    my $no_index = join '|', map { quotemeta $_ } @{
+        do {
+            my $x = $meta->{no_index}->{directory} || [];
+            $x = [$x] unless ref $x; # http://cpansearch.perl.org/src/CFAERBER/Net-IDN-Nameprep-1.100/META.yml
+            $x;
+          }
+      };
+       $no_index = qr/^(?:$no_index)/ if $no_index;
+
+    # remove old things
+    $c->db->dbh->do(q{DELETE FROM file WHERE dist_id=?}, {}, $self->dist_id) or die;
+
+    my $guard = FrePAN::CwdSaver->new($dir);
+
+    dir('.')->recurse(
+        callback => sub {
+            my $f = shift;
+            return if -d $f;
+            debugf("processing $f");
+
+            if ($f =~ /(?:\.PL)$/ || $f =~ /MANIFEST\.SKIP$/) {
+                return;
+            }
+            unless ($f =~ /(?:\.pm|\.pod)$/) {
+                my $fh = $f->openr or return;
+                read $fh, my $buf, 1024;
+                if ($buf !~ /#!.+perl/) { # script contains shebang
+                    return;
+                }
+            }
+            if ($no_index && "$f" =~ $no_index) {
+                return;
+            }
+            # lib/auto/ is a workaround for http://search.cpan.org/~schwigon/Benchmark-Perl-Formance-Cargo-0.02/
+            if ("$f" =~ m{(^|/)(?:t/|inc/|sample/|blib/|lib/auto/)} || "$f" eq './Build.PL') {
+                return;
+            }
+            debugf("do processing $f");
+            my $parser = FrePAN::Pod->new();
+            $parser->parse_file("$f") or do {
+                critf("Cannot parse pod: %s", $parser->error);
+                return;
+            };
+
+            my $path = $f->relative->stringify;
+            $c->db->insert(
+                file => {
+                    dist_id     => $self->dist_id,
+                    path        => $path,
+                    'package'   => $parser->package(),
+                    description => $parser->description(),
+                    html        => $parser->html(),
+                }
+            );
+        }
+    );
+
+    $txn->commit;
+
+    return;
+}
 
 sub files {
     my ($self) = @_;
