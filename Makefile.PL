@@ -4,6 +4,7 @@ all_from "lib/FrePAN.pm";
 use lib 'extlib/lib/perl5/';
 
 tests 't/*.t t/*/*.t t/*/*/*.t';
+requires 'AnyEvent::FriendFeed::Realtime';
 requires 'Amon2' => 2.04;
 requires 'JSON::XS';
 requires 'URI';
