@@ -19,7 +19,7 @@ sub search {
     # debugf("FILES IDS: %s", ddf($file_infos));
 
     my ($sql, @binds) = sql_interp(q{
-        SELECT
+        SELECT SQL_CACHE
             file.file_id, file.package, file.description, file.path,
             dist.dist_id, dist.author, dist.name AS dist_name, dist.version AS dist_version, dist.released AS dist_released,
             meta_author.fullname AS fullname
