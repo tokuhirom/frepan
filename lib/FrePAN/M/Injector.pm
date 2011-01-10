@@ -36,8 +36,6 @@ use FrePAN::Pod;
 
 our $DEBUG;
 
-sub p { warn "DEPRECATED" }
-
 sub inject {
     args my $class,
          my $path => 'Str',
