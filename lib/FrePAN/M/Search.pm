@@ -6,6 +6,8 @@ use Log::Minimal;
 use Time::Duration ();
 use SQL::Interp qw/sql_interp/;
 use Smart::Args;
+use Data::Page;
+use FrePAN::FTS;
 
 sub search_module {
     args my $class,
@@ -14,6 +16,8 @@ sub search_module {
          my $page,
          my $rows => {isa => 'Int', default => 1024},
          ;
+
+    return ([], Data::Page->new(0, $rows, $page)) unless $query =~ /\S/;
 
     my $search_result = $c->fts->search(query => $query, page => $page, rows => $rows);
     my $file_infos = $search_result->rows;
