@@ -20,7 +20,6 @@ sub result {
             ();
         }
     };
-    warn ddf(\@authors);
 
     my ($files, $pager) = FrePAN::M::Search->search_module(
         query => $query,
