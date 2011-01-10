@@ -73,6 +73,10 @@ sub search_module {
         if (exists $i_use_this->{$rdbms_row->{dist_name}}) {
             $rdbms_row->{score} *= $i_use_this->{$rdbms_row->{dist_name}}+7;
         }
+        # give low score for module released at older than 2005-01-01
+        if ($rdbms_row->{dist_released} < 1104537600) {
+            $rdbms_row->{score} /= (1104537600-$rdbms_row->{dist_released})/(24*60*60*365);
+        }
         push @files, $rdbms_row;
     }
 
