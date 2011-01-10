@@ -117,7 +117,7 @@ sub insert_files {
             unless ($f =~ /(?:\.pm|\.pod)$/) {
                 my $fh = $f->openr or return;
                 read $fh, my $buf, 1024;
-                if ($buf !~ /#!.+perl/) { # script contains shebang
+                if ($buf !~ /#![^\n]*perl/) { # script contains shebang
                     return;
                 }
             }
