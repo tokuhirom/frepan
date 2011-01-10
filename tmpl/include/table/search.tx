@@ -1,5 +1,19 @@
 <div class="search-header"><span class="total_entries">[% pager.total_entries %] hits.</span></div>
 
+[% IF authors.size() > 0 %]
+<div class="SearchAuthorResult">
+<div class="SearchAuthorResultHeader">Authors:</div>
+<ul>
+[% FOR author IN authors %]
+<li><a href="/~[% author.pause_id | lower %]/">[% author.fullname %]([% author.pause_id %])</a></li>
+[% END %]
+</ul>
+</div>
+[% END %]
+
+<div class="SearchModuleResult">
+<div class="SearchModuleResultHeader">Modules:</div>
+<div class="SearchModuleResultContainer">
 [% FOR file IN files %]
 <div class="SearchResultElement">
 <a href="/~[% lower(file.author) %]/[% file.dist_name %]-[% file.dist_version %]/[% file.path %]">[% file.package %]</a><br />
@@ -7,3 +21,5 @@
 <div class="search-footer"><a class="dist" href="/~[% file.author | lower %]/[% file.dist_name %]-[% file.dist_version %]/">[% file.dist_name %]-[% file.dist_version %]</a> at [% file.timestamp %] by <a href="/~[% file.author | lower %]/" class="author">[% file.fullname %]</a><span class="search-score">([% file.score | commify %])</span></div>
 </div>
 [% END %]
+</div>
+</div>

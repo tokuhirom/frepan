@@ -207,6 +207,27 @@ body {
 
 /** search result */
 
+.SearchAuthorResult {
+    margin-bottom: 20px;
+}
+.SearchAuthorResult ul {
+    margin-left: 10px;
+    padding: 0;
+    list-style-type: none;
+}
+.SearchAuthorResultHeader {
+    font-size: normal;
+    text-align: left;
+}
+.SearchModuleResult {
+}
+.SearchModuleResultHeader {
+    font-size: normal;
+    text-align: left;
+}
+.SearchModuleResultContainer {
+    margin-left: 10px;
+}
 .SearchResultElement {
     margin-bottom: 10px;
 }
