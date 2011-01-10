@@ -19,7 +19,11 @@ sub search_module {
     my $file_infos = $search_result->rows;
     # debugf("FILES IDS: %s", ddf($file_infos));
 
-    my ($sql, @binds) = sql_interp(q{
+    if ($search_result->pager->total_entries == 0) {
+        return ([], $search_result->pager);
+    }
+
+    my ($sql, @binds) = q{
         SELECT SQL_CACHE
             file.file_id, file.package, file.description, file.path,
             dist.dist_id, dist.author, dist.name AS dist_name, dist.version AS dist_version, dist.released AS dist_released,
@@ -27,11 +31,16 @@ sub search_module {
         FROM file
             INNER JOIN dist ON (dist.dist_id=file.dist_id)
             LEFT JOIN meta_author ON (meta_author.pause_id=dist.author)
-        WHERE file_id IN }, [map { $_->{file_id} } @$file_infos]);
+        WHERE file_id IN (} . join(',', ('?')x@$file_infos) . ')';
 
     my %files =
-      map { $_->{file_id} => $_ }
-      @{$c->dbh->selectall_arrayref( $sql, {Slice => +{}}, @binds )};
+      map { $_->{file_id} => $_ } @{
+        $c->dbh->selectall_arrayref(
+            $sql,
+            { Slice => +{} },
+            map { $_->{file_id} } @$file_infos
+        )
+      };
 
     my @files;
     for my $row (@$file_infos) {
