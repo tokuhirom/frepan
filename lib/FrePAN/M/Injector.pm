@@ -203,7 +203,7 @@ sub send_ping {
         RPC::XML::Client->new('http://ping.feedburner.com/')
         ->send_request( 'weblogUpdates.ping',
         "Yet Another CPAN Recent Changes",
-        "http://frepan.64p.org/" );
+        "http://frepan.org/" );
     return $result;
 }
 
