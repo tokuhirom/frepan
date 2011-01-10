@@ -22,6 +22,7 @@ use FrePAN::M::Formatter;
             amon_version => sub { $Amon2::VERSION }, 
             'ref' => sub { ref($_[0]) },
             'i_use_this_filter' => \&FrePAN::M::Formatter::format,
+            'int' => sub { int($_[0]) },
             commify => sub {
                 local $_ = shift;
                 1 while s/((?:\A|[^.0-9])[-+]?\d+)(\d{3})/$1,$2/s;

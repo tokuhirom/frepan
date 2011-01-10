@@ -18,7 +18,7 @@
 <div class="SearchResultElement">
 <a href="/~[% lower(file.author) %]/[% file.dist_name %]-[% file.dist_version %]/[% file.path %]">[% file.package %]</a><br />
 <div class="description">[% file.description %]</div>
-<div class="search-footer"><a class="dist" href="/~[% file.author | lower %]/[% file.dist_name %]-[% file.dist_version %]/">[% file.dist_name %]-[% file.dist_version %]</a> at [% file.timestamp %] by <a href="/~[% file.author | lower %]/" class="author">[% file.fullname %]</a><span class="search-score">([% file.score | commify %])</span>[% IF file.i_use_this_cnt %]<span style="color: #ff6765; background-color: #ffefef;">[% file.i_use_this_cnt %]users</span>[% END %]</div>
+<div class="search-footer"><a class="dist" href="/~[% file.author | lower %]/[% file.dist_name %]-[% file.dist_version %]/">[% file.dist_name %]-[% file.dist_version %]</a> at [% file.timestamp %] by <a href="/~[% file.author | lower %]/" class="author">[% file.fullname %]</a><span class="search-score">([% file.score | int | commify %])</span>[% IF file.i_use_this_cnt %]<span style="color: #ff6765; background-color: #ffefef;">[% file.i_use_this_cnt %]users</span>[% END %]</div>
 </div>
 [% END %]
 </div>
