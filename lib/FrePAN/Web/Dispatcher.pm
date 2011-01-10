@@ -17,6 +17,7 @@ connect '/diff'          => 'Diff#show';
 connect '/login'         => 'User#login';
 connect '/oauth_callback'         => 'User#oauth_callback';
 connect '/logout'         => 'User#logout';
+connect '/i_use_this/ranking'=> 'IUseThis#ranking';
 connect '/i_use_this/post'=> 'IUseThis#post';
 connect '/i_use_this/list'=> 'IUseThis#list';
 connect '/user/{user_login}'=> 'User#show';

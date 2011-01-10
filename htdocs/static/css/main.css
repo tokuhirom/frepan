@@ -272,6 +272,14 @@ body {
     background-color: #FFCACA;
 }
 
+/* Ranking */
+#RankingPage .RankingTable {
+    margin-top: 30px;
+}
+#RankingPage .RankingRank {
+    font-weight: bold;
+}
+
 .highlight { background-color: yellow }
 
 .pager { text-align: center; }
