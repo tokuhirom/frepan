@@ -15,6 +15,7 @@ use FrePAN::M::Archive;
 use FrePAN::Pod;
 use YAML::Tiny;
 use JSON::XS ();
+use File::Path ();
 
 sub download_url {
     my ($self) = @_;
@@ -32,7 +33,7 @@ sub mirror_archive {
         my $url = $self->download_url;
         debugf "mirror '$url' to '$dstpath'";
         my $ua = LWP::UserAgent->new(agent => "FrePAN/$FrePAN::VERSION");
-        make_path($dstpath->dir->stringify);
+        $dstpath->dir->mkpath;
         my $res = $ua->get($url, ':content_file' => "$dstpath");
         $res->code =~ /^(?:304|200)$/ or die "fetch failed: $url, $dstpath, " . $res->status_line;
     }
