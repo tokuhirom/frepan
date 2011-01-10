@@ -14,3 +14,9 @@ ALTER TABLE dist CHANGE ctime released  int unsigned not null;
 DROP TRIGGER dist_ctime;
 
 ALTER TABLE dist ADD INDEX name (name);
+
+DELETE  FROM file WHERE dist_id NOT IN (select dist_id FROM dist);
+ALTER TABLE file ADD FOREIGN KEY (dist_id) REFERENCES dist(dist_id) ON DELETE CASCADE;
+DELETE  FROM changes WHERE dist_id NOT IN (select dist_id FROM dist);
+ALTER TABLE changes ADD FOREIGN KEY (dist_id) REFERENCES dist(dist_id) ON DELETE CASCADE;
+
