@@ -186,7 +186,7 @@ sub make_changes_diff {
             infof("old changes file is available");
             $old_changes
         } elsif ($new_changes) {
-            infof("missing old changes: %s(%d)", $new_changes->name, $new_changes->dist_id);
+            infof("missing old changes: %s(%d)", $old->name, $old->dist_id);
             $new_changes;
         } else {
             infof("no changes file is available");

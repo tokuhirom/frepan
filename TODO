@@ -6,4 +6,5 @@ FTS scoring
 - lock the rows for injector
 - http://cpanratings.perl.org/csv/all_ratings.csv
 - cannot found Module::Install
+- add foreign key for file table and changes table
 

@@ -53,6 +53,7 @@ CREATE TABLE IF NOT EXISTS file (
     ,UNIQUE(dist_id, path)
     ,INDEX (package)
 ) engine=InnoDB DEFAULT charset=UTF8;
+ALTER TABLE file ADD FOREIGN KEY (dist_id) REFERENCES dist(dist_id) ON DELETE CASCADE;
 
 CREATE TABLE IF NOT EXISTS changes (
      changes_id  int unsigned not null AUTO_INCREMENT PRIMARY KEY
@@ -61,6 +62,7 @@ CREATE TABLE IF NOT EXISTS changes (
     ,body        text
     ,UNIQUE(dist_id, version)
 ) engine=InnoDB DEFAULT charset=UTF8;
+ALTER TABLE changes ADD FOREIGN KEY (dist_id) REFERENCES dist(dist_id) ON DELETE CASCADE;
 
 -- authors/01mailrc.txt.gz
 CREATE TABLE IF NOT EXISTS meta_author (
