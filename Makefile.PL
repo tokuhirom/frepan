@@ -28,6 +28,9 @@ requires 'Smart::Args' => 0.07;
 requires 'Time::Duration';
 requires 'Text::Diff';
 requires 'OAuth::Lite2';
+requires 'HTTP::Session::Store::Memcached';
+requires 'SQL::Interp';
+requires 'Data::Page';
 recursive_author_tests('xt');
 
 WriteAll;
