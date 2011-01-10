@@ -20,7 +20,7 @@ sub search {
 
     my ($sql, @binds) = sql_interp(q{
         SELECT
-            file.*,
+            file.file_id, file.package, file.description, file.path,
             dist.dist_id, dist.author, dist.name AS dist_name, dist.version AS dist_version, dist.released AS dist_released,
             meta_author.fullname AS fullname
         FROM file
