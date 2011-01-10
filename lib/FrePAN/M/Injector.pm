@@ -186,14 +186,14 @@ sub make_changes_diff {
             infof("old changes file is available");
             $old_changes
         } elsif ($new_changes) {
-            infof("missing old changes");
+            infof("missing old changes: %d", $old_changes->dist_id);
             $new_changes;
         } else {
             infof("no changes file is available");
             "no changes file";
         }
     };
-    infof("diff is : %s", ddf($diff));
+    debugf("diff is : %s", ddf($diff));
     $c->db->do(q{INSERT INTO changes (dist_id, version, body) VALUES (?,?,?)
                     ON DUPLICATE KEY UPDATE body=?}, {}, $dist->dist_id, $dist->version, $diff, $diff);
 }
