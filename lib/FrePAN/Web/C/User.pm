@@ -12,6 +12,31 @@ use OAuth::Lite2::Formatters;
 use Furl;
 use JSON qw/decode_json encode_json/;
 
+sub show_i_use_this_txt {
+    my ($class, $c) = @_;
+
+    my $user_login = $c->{args}->{user_login} // die "missing user_login";
+
+    my $txt = join("\n",
+        map { $_->download_url }
+        $c->db->search_by_sql(q{
+            SELECT dist.*
+            FROM i_use_this
+                INNER JOIN dist ON (dist.name=i_use_this.dist_name AND dist.old=0)
+                INNER JOIN user ON (user.user_id=i_use_this.user_id)
+            WHERE user.login=?}, [$user_login], 'dist')
+    );
+
+    return $c->create_response(
+        200,
+        [
+            'Content-Type'   => 'text/plain; charset=utf-8',
+            'Content-Length' => length($txt)
+        ],
+        [$txt]
+    );
+}
+
 # login with github's oauth
 # https://gist.github.com/419219
 

@@ -21,6 +21,7 @@ connect '/i_use_this/ranking'=> 'IUseThis#ranking';
 connect '/i_use_this/post'=> 'IUseThis#post';
 connect '/i_use_this/list'=> 'IUseThis#list';
 connect '/user/{user_login}'=> 'User#show';
+connect '/user/{user_login}/i_use_this.txt'=> 'User#show_i_use_this_txt';
 connect '/dist/{dist_name}'=> 'Dist#permalink';
 connect '/admin/regen'=> 'Admin#regen';
 
