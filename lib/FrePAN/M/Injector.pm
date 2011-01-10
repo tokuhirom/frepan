@@ -35,7 +35,6 @@ use FrePAN::M::RSSMaker;
 use FrePAN::Pod;
 
 our $DEBUG;
-our $PATH;
 
 sub p { warn "DEPRECATED" }
 
@@ -49,8 +48,6 @@ sub inject {
          my $force => {default => 0, isa => 'Bool'},
          ;
     infof("Run $path");
-
-    local $PATH = $path;
 
     my $c = c();
 
