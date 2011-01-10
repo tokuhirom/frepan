@@ -13,6 +13,8 @@ use Path::Class;
 use Try::Tiny;
 use FrePAN::M::Archive;
 use FrePAN::Pod;
+use YAML::Tiny;
+use JSON::XS ();
 
 sub download_url {
     my ($self) = @_;
@@ -60,7 +62,7 @@ sub load_meta {
         try {
             my $fh = $json_file->openr;
             my $src = do { local $/; <$fh> };
-            decode_json($src);
+            JSON::XS::decode_json($src);
         } catch {
             warn "cannot open META.json file: $_";
             +{};
