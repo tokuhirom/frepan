@@ -72,6 +72,7 @@ sub search_module {
         # i use this!
         if (exists $i_use_this->{$rdbms_row->{dist_name}}) {
             $rdbms_row->{score} *= $i_use_this->{$rdbms_row->{dist_name}}+7;
+            $rdbms_row->{i_use_this_cnt} = $i_use_this->{$rdbms_row->{dist_name}};
         }
         # give low score for module released at older than 2005-01-01
         if ($rdbms_row->{dist_released} < 1104537600) {
