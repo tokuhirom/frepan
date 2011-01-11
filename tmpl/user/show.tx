@@ -7,7 +7,7 @@
 </div>
 
 <form>
-    Install all modules: <input type="text" value="curl http://[% c().req().hostname() %]/user/[% user.login %]/i_use_this.txt | cpanm" onclick="$(this).select(); return false" size="120" />
+    Install all modules: <input type="text" value="curl http://[% c().req().env().HTTP_HOST %]/user/[% user.login %]/i_use_this.txt | cpanm" onclick="$(this).select(); return false" size="120" />
 </form>
 
 [% FOR v IN reviews %]
