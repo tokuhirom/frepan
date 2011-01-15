@@ -24,9 +24,7 @@ while (1) {
                     c        => $c,
                     dist     => $dist,
                 );
-                unless ($dist->old) {
-                    $dist->insert_to_fts();
-                }
+                $dist->insert_to_fts();
             }
             default {
                 die "FATAL"
