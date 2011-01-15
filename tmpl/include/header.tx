@@ -15,7 +15,7 @@
     <script src="/static/js/jquery-ui-1.8.7.custom.min.js" type="text/javascript"></script>
     <script src="/static/js/jquery.form.js" type="text/javascript"></script>
     <script src="/static/js/jquery.ajaxmanager.3.js" type="text/javascript"></script>
-    <script src="/static/js/frepan.js?v=7" type="text/javascript"></script>
+    <script src="/static/js/frepan.js?v=8" type="text/javascript"></script>
 </head>
 <body id="[% IF bodyID %][% bodyID %][% ELSE %]Default[% END %]">
     <div id="Container">
