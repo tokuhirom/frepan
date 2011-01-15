@@ -96,3 +96,14 @@ CREATE TABLE IF NOT EXISTS meta_uploads (
     ,PRIMARY KEY (pause_id, dist_name, dist_version)
 ) engine=InnoDB DEFAULT charset=UTF8;
 -- alter table meta_uploads add type          varchar(255) binary not null before pause_id;
+
+-- from http://cpan.yimg.com/modules/06perms.txt
+--     best-permission is one of "m" for "modulelist", "f" for
+--    "first-come", "c" for "co-maint"
+CREATE TABLE meta_perms (
+    package varchar(255) binary not null,
+    pause_id varchar(255) binary not null,
+    permission char(1) binary not null,
+    INDEX package (package)
+) engine=InnoDB DEFAULT charset=utf8;
+

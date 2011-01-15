@@ -9,8 +9,9 @@ GetOptions(
     'packages' => sub { push @meth, 'packages' },
     'uploads'  => sub { push @meth, 'uploads' },
     'author'   => sub { push @meth, 'author' },
+    'perms'   => sub { push @meth, 'perms' },
 );
-@meth = qw/packages author uploads/ unless @meth;
+@meth = qw/packages author uploads perms/ unless @meth;
 
 my $c = FrePAN->bootstrap();
 

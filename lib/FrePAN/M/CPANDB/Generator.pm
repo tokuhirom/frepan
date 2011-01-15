@@ -23,6 +23,38 @@ sub new {
     }
 }
 
+# fetch permission information and insert it to db
+sub mk_perms {
+    my ($self, ) = @_;
+
+    my $url = 'http://cpan.yimg.com/modules/06perms.txt';
+    my $ua = LWP::UserAgent->new();
+    my $fname = catfile(minicpan, 'modules/06perms.txt');
+    my $res = $ua->get($url, ':content_file' => $fname);
+    $res->is_success or die $res->status_line;
+
+    open my $fh, '<', $fname or die "Cannot open file : $fname";
+
+    # skip headers
+    while (<$fh>) {
+        last unless /\S/;
+    }
+
+    $self->_swap(
+        'perms' => sub {
+            my $rows = shift;
+            chomp;
+
+            while (<$fh>) {
+                my %row;
+                @row{qw/package pause_id permission/} = split /,/, $_;
+                $rows->push(\%row);
+                $rows->insert() if $rows->count() > 1000;
+            }
+        }
+    );
+}
+
 sub mk_author {
     my ($self, ) = @_;
 
