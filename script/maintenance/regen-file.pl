@@ -18,11 +18,11 @@ while (my $dist = $iter->next) {
 
     infof("regen: " . $dist->path);
 
-    my $meta = FrePAN::M::Injector->load_meta(
+    my $meta = $dist->load_meta(
         dir => $dir
     );
     FrePAN::M::Injector->remove_symlinks(dir => $dir);
-    FrePAN::M::Injector->insert_files(
+    $dist->insert_files(
         meta => $meta,
         dist => $dist,
         dir  => $dist->extracted_dir(),
