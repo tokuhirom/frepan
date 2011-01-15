@@ -16,7 +16,7 @@ sub show {
     my $dist = $c->dbh->selectrow_hashref(
         q{
             SELECT
-                dist_id, author, name, version, path, abstract, has_meta_yml, has_meta_json, resources_json, has_manifest, has_makefile_pl, has_changes, has_change_log, has_build_pl, requires, released, DATE_FORMAT(FROM_UNIXTIME(released), '%Y-%m-%d') AS released_date, meta_author.email, meta_author.gravatar_id
+                dist_id, author, name, version, path, abstract, has_meta_yml, has_meta_json, resources_json, has_manifest, has_makefile_pl, has_changes, has_change_log, has_build_pl, requires, released, authorized, DATE_FORMAT(FROM_UNIXTIME(released), '%Y-%m-%d') AS released_date, meta_author.email, meta_author.gravatar_id
             FROM dist LEFT JOIN meta_author ON (meta_author.pause_id = dist.author)
             WHERE concat(name, '-', version) = ? AND author=?
             ORDER BY dist_id DESC
@@ -31,7 +31,7 @@ sub show {
     $dist->{files} = $c->dbh->selectall_arrayref(
         q{
             SELECT
-                path, package, description, LENGTH(html) AS has_html
+                path, package, description, LENGTH(html) AS has_html, authorized
             FROM
                 file
             WHERE
