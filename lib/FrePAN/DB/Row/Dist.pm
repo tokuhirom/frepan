@@ -199,7 +199,8 @@ sub insert_to_fts {
         # is this latest release?
         my ($latest_version) =
           reverse
-          sort          { version->parse($a) <=> version->parse($b) }
+          sort          { eval { version->parse($a) } <=> eval { version->parse($b) } }
+          grep { $_ !~ /-withoutworldwriteables$/ }
           grep { $_ !~ /_/ }
           map { $_->version } @old_dists;
         if ($self->version ne $latest_version) {
