@@ -3,7 +3,7 @@
 <h2>[% dist.name %]</h2>
 
 <table class="modulemeta">
-<tr><th>This Release</th><td><span class="dist-name">[% dist.name %]</span>-<span class="dist-version">[% dist.version %]</span>
+<tr><th>This Release</th><td><span class="dist-name">[% dist.name %]</span>-<span class="dist-version">[% dist.version %][% UNLESS dist.authorized %] <span style="color: red">*UNAUTHORIZED RELEASE*</span>[% END %]</span>
     [<a href="[% dist.download_url %]">Download</a>]
     [<a href="/src/[% upper(dist.author) %]/[% dist.name %]-[% dist.version %]/">Browse</a>]
 </td>
@@ -60,7 +60,7 @@
     [% ELSE %]
         <td>[% file.package %]</td>
     [% END %]
-        <td>[% file.description %]</td>
+        <td>[% file.description %][% UNLESS file.authorized %]<span style="color: red">UNAUTHORIZED RELEASE</span>[% END %]</td>
     </tr>
 [% END %]
 </table>
