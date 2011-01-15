@@ -31,6 +31,12 @@ $(function () {
                 });
             }
         });
+
+        // mylingual
+        var lang = navigator.language;
+        var m = location.hash.match(/[#&]lang=(\w+)/);
+        if (m) lang = m[1];
+        document.write( "<script src=\"http://mylingual.net/userjs/mylingual-core.js?lang=" + lang + "\"><\/script>" );                                                                         
     })();
 
     // dist page
