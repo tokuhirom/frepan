@@ -263,10 +263,13 @@ sub author_dir {
 sub last_release {
     args_pos my $self;
 
-    c->db->single(dist => {
-        released => { '<', $self->released },
-        name     => $self->name,
-    }, {order_by => {released => 'DESC'}, limit => 1});
+    c->db->search_by_sql(q{
+        SELECT *
+        FROM dist
+        WHERE released < ? AND name = ? AND version NOT LIKE '%-withoutworldwriteables'
+        ORDER BY released DESC
+        LIMIT 1
+    }, [$self->released, $self->name])->next;
 }
 
 sub get_changes {
