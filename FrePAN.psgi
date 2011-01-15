@@ -13,6 +13,7 @@ builder {
     enable 'Plack::Middleware::Static',
         path => qr{^(?:/static/|/favicon\.ico)},
         root => './htdocs/';
+    enable 'Plack::Middleware::ReverseProxy';
 
     mount '/' => FrePAN::Web->to_app();
     mount '/src/' =>
