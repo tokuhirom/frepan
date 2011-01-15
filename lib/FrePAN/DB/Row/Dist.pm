@@ -16,6 +16,7 @@ use FrePAN::Pod;
 use YAML::Tiny;
 use JSON::XS ();
 use File::Path ();
+use FrePAN::M::CPANDB;
 
 sub download_url {
     my ($self) = @_;
@@ -105,6 +106,7 @@ sub insert_files {
 
     my $guard = FrePAN::CwdSaver->new($dir);
 
+    my $dist_authorized = 1;
     dir('.')->recurse(
         callback => sub {
             my $f = shift;
@@ -135,6 +137,14 @@ sub insert_files {
                 return;
             };
 
+            my $authorized = FrePAN::M::CPANDB->is_authorized(
+                c        => $c,
+                package  => $parser->package,
+                pause_id => $self->author,
+            );
+            $dist_authorized = 0 unless $authorized;
+            infof("authorization status for '%s' is %d", $parser->package, $authorized);
+
             my $path = $f->relative->stringify;
             $c->db->insert(
                 file => {
@@ -143,10 +153,14 @@ sub insert_files {
                     'package'   => $parser->package(),
                     description => $parser->description(),
                     html        => $parser->html(),
+                    authorized  => $authorized,
                 }
             );
         }
     );
+    $self->update({
+        authorized => $dist_authorized
+    });
 
     $txn->commit;
 
@@ -188,7 +202,7 @@ sub insert_to_fts {
 
     # insert to fts
     for my $file ($self->files) {
-        $file->insert_to_fts() if $file->html();
+        $file->insert_to_fts() if $file->html() && $file->authorized;
     }
 }
 

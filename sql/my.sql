@@ -38,10 +38,13 @@ CREATE TABLE IF NOT EXISTS dist (
     ,requires text
     ,released int unsigned not null
     ,old      tinyint(1) not null default 0
+    ,authorized tinyint(1) not null default 1
     ,UNIQUE idx_author_name_version (author, name, version)
     ,INDEX  name (name) -- search by name for removing fts index
 ) engine=InnoDB DEFAULT charset=UTF8;
 create index dist_released ON dist (released);
+-- alter table dist add authorized tinyint(1) not null default 1;
+-- alter table file add authorized tinyint(1) not null default 1;
 
 CREATE TABLE IF NOT EXISTS file (
      file_id     int unsigned not null AUTO_INCREMENT PRIMARY KEY
@@ -50,6 +53,7 @@ CREATE TABLE IF NOT EXISTS file (
     ,package     varchar(255)
     ,description varchar(255)
     ,html        text
+    ,authorized tinyint(1) not null default 1
     ,UNIQUE(dist_id, path)
     ,INDEX (package)
 ) engine=InnoDB DEFAULT charset=UTF8;

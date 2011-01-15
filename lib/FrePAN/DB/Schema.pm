@@ -13,13 +13,13 @@ install_table 'changes' => sub {
 
 install_table 'dist' => sub {
     pk      qw(dist_id);
-    columns qw(latest has_makefile_pl bugtracker author has_manifest has_meta_json requires has_change_log has_build_pl repository version has_meta_yml name released path dist_id license old homepage resources_json abstract has_changes);
+    columns qw(latest has_makefile_pl bugtracker author has_manifest has_meta_json requires has_change_log has_build_pl authorized repository version has_meta_yml name released path dist_id license old homepage resources_json abstract has_changes);
 };
 
 
 install_table 'file' => sub {
     pk      qw(file_id);
-    columns qw(html path description dist_id package file_id);
+    columns qw(html authorized path description dist_id package file_id);
 };
 
 
@@ -28,9 +28,9 @@ install_table 'i_use_this' => sub {
 };
 
 
-install_table 'kvs' => sub {
-    pk      qw(k);
-    columns qw(k v);
+install_table 'job' => sub {
+    pk      qw(id);
+    columns qw(arg id enqueue_time func);
 };
 
 
@@ -43,6 +43,11 @@ install_table 'meta_author' => sub {
 install_table 'meta_packages' => sub {
     pk      qw(package);
     columns qw(dist_name dist_version_numified dist_version version pause_id path package);
+};
+
+
+install_table 'meta_perms' => sub {
+    columns qw(permission pause_id package);
 };
 
 
