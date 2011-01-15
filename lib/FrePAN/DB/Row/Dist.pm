@@ -17,6 +17,7 @@ use YAML::Tiny;
 use JSON::XS ();
 use File::Path ();
 use FrePAN::M::CPANDB;
+use version;
 
 sub download_url {
     my ($self) = @_;
@@ -192,9 +193,21 @@ sub insert_to_fts {
         return;
     }
 
-    # remove old entries
     {
         my @old_dists = c->db->search(dist => {name => $self->name});
+
+        # is this latest release?
+        my ($latest_version) =
+          reverse
+          sort          { version->parse($a) <=> version->parse($b) }
+          grep { $_ !~ /_/ }
+          map { $_->version } @old_dists;
+        if ($self->version ne $latest_version) {
+            infof("I don't make index since this is not a latest release, %s-%s", $self->name, $self->version);
+            return;
+        }
+
+        # remove old entries
         for my $old_dist (@old_dists) {
             $old_dist->remove_from_fts();
         }
