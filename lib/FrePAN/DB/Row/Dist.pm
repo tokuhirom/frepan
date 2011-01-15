@@ -111,6 +111,7 @@ sub insert_files {
         callback => sub {
             my $f = shift;
             return if -d $f;
+            return unless $f->isa('Path::Class::File');
             debugf("processing $f");
 
             if ($f =~ /(?:\.PL)$/ || $f =~ /MANIFEST\.SKIP$/) {
