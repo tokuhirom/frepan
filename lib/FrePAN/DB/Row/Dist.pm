@@ -107,7 +107,8 @@ sub insert_files {
 
     my $guard = FrePAN::CwdSaver->new($dir);
 
-    my $dist_authorized = 1;
+    # scan indexable files
+    my @files;
     dir('.')->recurse(
         callback => sub {
             my $f = shift;
@@ -132,34 +133,21 @@ sub insert_files {
             if ("$f" =~ m{(^|/)(?:t/|inc/|sample/|blib/|lib/auto/|xt/|eg/|examples/|benchmarks?/)} || "$f" eq './Build.PL') {
                 return;
             }
-            debugf("do processing $f");
-            my $parser = FrePAN::Pod->new();
-            $parser->parse_file("$f") or do {
-                critf("Cannot parse pod: %s", $parser->error);
-                return;
-            };
 
-            my $authorized = FrePAN::M::CPANDB->is_authorized(
-                c        => $c,
-                package  => $parser->package,
-                pause_id => $self->author,
-            );
-            $dist_authorized = 0 unless $authorized;
-            infof("authorization status for '%s' is %d", $parser->package, $authorized);
-
-            my $path = $f->relative->stringify;
-            $c->db->insert(
-                file => {
-                    dist_id     => $self->dist_id,
-                    path        => $path,
-                    'package'   => $parser->package(),
-                    description => $parser->description(),
-                    html        => $parser->html(),
-                    authorized  => $authorized,
-                }
-            );
+            push @files, $f;
         }
     );
+
+    my $dist_authorized = 1;
+    @files = sort { length("$a") <=> length("$b") } @files;
+    for my $file (@files) {
+        my ($authorized) = $self->index_file(
+            c        => $c,
+            file     => $file,
+            base_dir => $dir,
+        );
+        $dist_authorized = 0 unless $authorized;
+    }
     $self->update({
         authorized => $dist_authorized
     });
@@ -167,6 +155,42 @@ sub insert_files {
     $txn->commit;
 
     return;
+}
+
+sub index_file {
+    args my $self,
+         my $c,
+         my $file,
+         my $base_dir,
+         ;
+
+    debugf("do processing $file");
+    my $parser = FrePAN::Pod->new();
+    $parser->parse_file("$file") or do {
+        critf("Cannot parse pod: %s", $parser->error);
+        return;
+    };
+
+    my $authorized = FrePAN::M::CPANDB->is_authorized(
+        c        => $c,
+        package  => $parser->package,
+        pause_id => $self->author,
+    );
+    infof("authorization status for '%s' is %d", $parser->package, $authorized);
+
+    my $path = $file->relative($base_dir)->stringify;
+    $c->db->replace(
+        file => {
+            dist_id     => $self->dist_id,
+            path        => $path,
+            'package'   => $parser->package(),
+            description => $parser->description(),
+            html        => $parser->html(),
+            authorized  => $authorized,
+        }
+    );
+
+    return ($authorized);
 }
 
 sub files {
