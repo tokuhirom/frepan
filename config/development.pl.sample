@@ -1,4 +1,6 @@
 use Cwd 'abs_path';
+use File::Path;
+mkpath 'tmp/minicpan/' unless -d 'tmp/minicpan/';
 {
     'DB'        => [
         'dbi:mysql:database=dev_FrePAN',
