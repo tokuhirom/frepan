@@ -45,7 +45,6 @@ sub fts {
 
 sub minicpan_dir {
     my $c = shift;
-    use Data::Dumper; warn Dumper($c->config->{'M::CPAN'});
     $c->config->{'M::CPAN'}->{minicpan} // die "missing configuration for minicpan directory";
 }
 
