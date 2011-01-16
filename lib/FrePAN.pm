@@ -43,6 +43,12 @@ sub fts {
     };
 }
 
+sub minicpan_dir {
+    my $c = shift;
+    use Data::Dumper; warn Dumper($c->config->{'M::CPAN'});
+    $c->config->{'M::CPAN'}->{minicpan} // die "missing configuration for minicpan directory";
+}
+
 sub Cache::Memcached::Fast::get_or_set_cb {
     my ($self, $key, $expire, $cb) = @_;
     my $data = $self->get($key);
