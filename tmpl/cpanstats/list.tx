@@ -6,7 +6,7 @@
     <tr><th>state</th><th>osname</th><th>platform</th><th>perl</th></tr>
     [% FOR row IN rows %]
     <tr>
-        <td class="cpanstats_state_[% row.state %]"><a href="http://cpantesters.org/cpan/report/[% row.guid %]">[% row.state %]</a></td>
+        <td><a href="http://cpantesters.org/cpan/report/[% row.guid %]" class="cpanstats_state_[% row.state %]">[% row.state %]</a></td>
         <td>[% row.osname %]</td>
         <td>[% row.platform %]</td>
         <td>[% row.perl %]</td>
