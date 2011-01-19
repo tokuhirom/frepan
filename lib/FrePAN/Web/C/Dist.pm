@@ -4,6 +4,7 @@ use warnings;
 use String::CamelCase qw/decamelize/;
 use JSON::XS qw/decode_json/;
 use Smart::Args;
+use Log::Minimal;
 
 # show distribution meta data
 sub show {
@@ -43,6 +44,14 @@ sub show {
         $dist->{dist_id},
     );
 
+    my %test_stats = map { @{$_} } @{$c->dbh->selectall_arrayref(
+        q{
+            SELECT state, cnt
+            FROM cpanstats_summary
+            WHERE dist=? AND version=?
+        }, {}, $dist->{name}, $dist->{version}
+    )};
+
     # detect special files
     my @special_files;
     for my $fname ('MANIFEST', 'Makefile.PL', 'Build.PL', 'Changes', 'ChangeLog', 'META.yml', 'META.json') {
@@ -80,6 +89,7 @@ sub show {
             other_releases => $other_releases,
             reviews        => \@reviews,
             my_review      => $my_review,
+            test_stats     => \%test_stats,
         }
     );
 }

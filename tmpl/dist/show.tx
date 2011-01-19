@@ -22,6 +22,11 @@
     </td>
 [% END %]
 <tr><th>Author</th><td><a href="/~[% lower(dist.author) %]/">[% dist.author  %]</a></td></tr>
+<tr><th>Testers</th><td>
+    [% IF test_stats.pass %]PASS([% test_stats.pass %])[% END %]
+    [% IF test_stats.fail %]FAIL([% test_stats.fail %])[% END %]
+    [% IF test_stats.na %]NA([% test_stats.na %])[% END %]
+</td></tr>
 <tr><th>Links</th><td>[<a href="http://rt.cpan.org/NoAuth/Bugs.html?Dist=[% dist.name %]">View/Report Bugs</a>] [ <a href="http://deps.cpantesters.org/?module=[% dist.name %];perl=latest">Dependencies</a> ] [ <a href="http://search.cpan.org/~[% lower(dist.author) %]/[% dist.name %]-[% dist.version %]">search.cpan.org</a> ]</td></tr>
 [% FOR meth IN ['repository', 'homepage', 'bugtrack'] %]
     [% IF dist.resources.exists(meth) %]
