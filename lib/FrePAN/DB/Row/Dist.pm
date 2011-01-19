@@ -166,8 +166,8 @@ sub index_file {
 
     debugf("do processing $file");
     my $parser = FrePAN::Pod->new();
-    $parser->parse_file("$file") or do {
-        critf("Cannot parse pod: %s", $parser->error);
+    eval { $parser->parse_file("$file"); 1; } or do {
+        critf("Cannot parse pod: %s", $@ || $parser->error);
         return;
     };
 
