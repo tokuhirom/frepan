@@ -28,6 +28,9 @@ for my $line (@lines) {
         push @row, $1;
     }
     my ( $postdate, $tester, $state, $path, $platform, $perl, $guid, $date ) = @row;
+    $perl =~ s!^perl-v!!;
+    (my $osname = $platform) =~ s/-thread-multi.*//;
+    $osname =~ s/^[^-]+-//;
     my $distvinfo = CPAN::DistnameInfo->new($path);
     my ($sql, @bind) = sql_interp(q{INSERT IGNORE INTO cpanstats }, {
         guid     => $guid,
@@ -37,6 +40,7 @@ for my $line (@lines) {
         dist     => $distvinfo->dist,
         version  => $distvinfo->version,
         platform => $platform,
+        osname   => $osname,
         perl     => $perl,
         date     => $date,
     });

@@ -19,7 +19,7 @@ while (1) {
     my $inserted;
     my $txn = $c->db->txn_scope;
     while (my $row = $sth->fetchrow_hashref('NAME_lc')) {
-        my ($sql, @bind) = sql_interp(q{INSERT IGNORE INTO cpanstats }, {
+        my ($sql, @bind) = sql_interp(q{REPLACE INTO cpanstats }, {
             guid     => $row->{guid},
             postdate => $row->{postdate},
             tester   => $row->{tester},
@@ -27,6 +27,8 @@ while (1) {
             dist     => $row->{dist},
             version  => $row->{version},
             platform => $row->{platform},
+            osname   => $row->{osname},
+            osvers   => $row->{osvers},
             perl     => $row->{perl},
             date     => $row->{date},
         });
