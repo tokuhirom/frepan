@@ -14,7 +14,7 @@ sub search_for_dist {
          ;
 
     my $rows = $c->dbh->selectall_arrayref(q{
-        SELECT osname, perl, state, platform
+        SELECT guid, osname, perl, state, platform
         FROM cpanstats
         WHERE dist=? AND version=?
     }, {Slice => {}}, $dist_name, $dist_version);
