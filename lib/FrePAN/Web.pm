@@ -7,6 +7,8 @@ use Module::Find qw/useall/;
 useall 'FrePAN::Web::C';
 use FrePAN::M::CPAN;
 
+sub args { shift->{args} }
+
 use Tiffany::Text::Xslate;
 use FrePAN::M::Formatter;
 {

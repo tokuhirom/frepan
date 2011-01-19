@@ -1,0 +1,18 @@
+[% INCLUDE 'include/header.tx' WITH bodyID="CPANStatsPage" subtitle=dist_name _ '-' _ dist_version %]
+
+<h2>Test results for [% dist_name %]-[% dist_version %]<B>(ALPHA)</B></h2>
+
+<table>
+    <tr><th>state</th><th>osname</th><th>platform</th><th>perl</th></tr>
+    [% FOR row IN rows %]
+    <tr>
+        <td class="cpanstats_state_[% row.state %]">[% row.state %]</td>
+        <td>[% row.osname %]</td>
+        <td>[% row.platform %]</td>
+        <td>[% row.perl %]</td>
+    </tr>
+    [% END %]
+</table>
+
+
+[% INCLUDE 'include/footer.tx' %]

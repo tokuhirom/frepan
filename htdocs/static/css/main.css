@@ -289,3 +289,16 @@ body {
     text-align: right;
 }
 
+.cpanstats_state_fail {
+    color: red;
+}
+.cpanstats_state_pass {
+    color: green;
+}
+.cpanstats_state_na {
+    color: yellow;
+}
+.cpanstats_state_unknown {
+    color: yellow;
+}
+
