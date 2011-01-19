@@ -111,3 +111,36 @@ CREATE TABLE meta_perms (
     INDEX package (package)
 ) engine=InnoDB DEFAULT charset=utf8;
 
+-- 132673|cpan
+-- 939737|fail
+-- 1603|fail:invalid
+-- 194270|na
+-- 859|na:invalid
+-- 8472276|pass
+-- 428762|unknown
+-- 462|unknown:invalid
+CREATE TABLE cpanstats (
+    guid char(36) NOT NULL,
+    state         VARCHAR(255),
+    postdate      VARCHAR(255),
+    tester        VARCHAR(255),
+    dist          VARCHAR(255),
+    version       VARCHAR(255),
+    platform      VARCHAR(255),
+    perl          VARCHAR(255),
+    osname        VARCHAR(255),
+    osvers        VARCHAR(255),
+    date          VARCHAR(255),
+    type int(2) default 0,
+    PRIMARY KEY (guid)
+) engine=InnoDB DEFAULT charset=utf8;
+CREATE INDEX distver ON cpanstats (dist, version);
+
+CREATE TABLE cpanstats_summary (
+    dist    VARCHAR(255),
+    version VARCHAR(255),
+    state   VARCHAR(255),
+    cnt     INTEGER UNSIGNED NOT NULL,
+    PRIMARY KEY (dist, version, state)
+) engine=InnoDB DEFAULT charset=utf8;
+

@@ -20,3 +20,15 @@ DELIMITER |
         SET NEW.mtime = UNIX_TIMESTAMP(NOW());
     END
 |
+DELIMITER |
+    CREATE TRIGGER before_insert_cpanstats BEFORE INSERT ON cpanstats FOR EACH ROW BEGIN
+        INSERT INTO cpanstats_summary (dist, version, state, cnt) VALUES (NEW.dist, NEW.version, NEW.state, 1)
+            ON DUPLICATE KEY UPDATE cnt = cnt + 1;
+    END
+|
+DELIMITER |
+    CREATE TRIGGER before_delete_cpanstats BEFORE DELETE ON cpanstats FOR EACH ROW BEGIN
+       UPDATE cpanstats_summary SET cnt = cnt - 1
+        WHERE dist=OLD.dist AND version=OLD.version AND state=OLD.state;
+    END
+|
