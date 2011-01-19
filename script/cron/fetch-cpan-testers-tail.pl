@@ -30,7 +30,11 @@ for my $line (@lines) {
     my ( $postdate, $tester, $state, $path, $platform, $perl, $guid, $date ) = @row;
     $perl =~ s!^perl-v!!;
     (my $osname = $platform) =~ s/-thread-multi.*//;
-    $osname =~ s/^[^-]+-//;
+    if ($osname =~ /MSWin32/) {
+        $osname = 'MSWin32';
+    } else {
+        $osname =~ s/^[^-]+-//;
+    }
     my $distvinfo = CPAN::DistnameInfo->new($path);
     my ($sql, @bind) = sql_interp(q{INSERT IGNORE INTO cpanstats }, {
         guid     => $guid,
