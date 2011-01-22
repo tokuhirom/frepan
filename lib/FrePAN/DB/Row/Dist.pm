@@ -178,6 +178,7 @@ sub index_file {
 
     my $authorized = FrePAN::M::CPANDB->is_authorized(
         c        => $c,
+        dist     => $self,
         package  => $parser->package,
         pause_id => $self->author,
     );
@@ -229,7 +230,7 @@ sub insert_to_fts {
         # is this latest release?
         my ($latest_version) =
           reverse
-          sort          { eval { version->parse($a) } <=> eval { version->parse($b) } }
+          sort          { (eval { version->parse($a) } || 0) <=> (eval { version->parse($b) } || 0) }
           grep { $_ !~ /-withoutworldwriteables$/ }
           grep { $_ !~ /_/ }
           map { $_->version } @old_dists;

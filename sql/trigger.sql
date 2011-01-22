@@ -21,7 +21,7 @@ DELIMITER |
     END
 |
 DELIMITER |
-    CREATE TRIGGER before_insert_cpanstats BEFORE INSERT ON cpanstats FOR EACH ROW BEGIN
+    CREATE TRIGGER after_insert_cpanstats AFTER INSERT ON cpanstats FOR EACH ROW BEGIN
         INSERT INTO cpanstats_summary (dist, version, state, cnt) VALUES (NEW.dist, NEW.version, NEW.state, 1)
             ON DUPLICATE KEY UPDATE cnt = cnt + 1;
     END
