@@ -90,6 +90,7 @@ sub load_meta {
 
 sub _should_index_file {
     my ( $meta, $filename ) = @_;
+    $filename =~ s!^\./!!;
 
     my $no_index = $meta->{no_index};
     return 1 unless $no_index;
