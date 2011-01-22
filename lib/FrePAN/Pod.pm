@@ -28,8 +28,17 @@ sub parse_file {
 	my $pom = $self->parser->parse_file($file) or return undef;
 
 	my ($pkg, $desc);
-	my ($name_section) = map { $_->content } grep { $_->title eq 'NAME' } $pom->head1();
-	if ($name_section) {
+    # Note: 'm' option is required for pod/perlfunc.pod
+    # perlfunc.pod contains following format:
+    #
+    #     =head1 NAME
+    #     X<function>
+    #     
+    #     perlfunc - Perl builtin functions
+    my ($name_section) = map { $_->content }
+      grep { $_->title =~ /^NAME$/m }
+      $pom->head1();
+    if ($name_section) {
 		$name_section = FrePAN::Pod::POM::View::Text->print($name_section);
 		$name_section =~ s/\n//g;
 		debugf "name: $name_section";
