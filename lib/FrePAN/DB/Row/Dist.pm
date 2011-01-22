@@ -135,7 +135,7 @@ sub insert_files {
                 return;
             }
             # lib/auto/ is a workaround for http://search.cpan.org/~schwigon/Benchmark-Perl-Formance-Cargo-0.02/
-            if ("$f" =~ m{(^|/)(?:t/|inc/|sample/|blib/|lib/auto/|xt/|eg/|examples/|benchmarks?/)} || "$f" eq './Build.PL') {
+            if ("$f" =~ m{(^|/)(?:t/|inc/|sample/|blib/|lib/auto/|xt/|eg/|examples/|benchmarks?/)} || "$f" =~ /\.t$/ || "$f" eq './Build.PL') {
                 return;
             }
 
