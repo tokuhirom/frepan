@@ -22,11 +22,13 @@ sub extract {
          my $archive_path,
          my $srcdir,
          my $author,
+         my $c,
          ;
 
     # validation
     File::Spec->file_name_is_absolute($srcdir)
       or die "archive path is not absolute.";
+    Carp::croak("'$archive_path' is not exists.") unless -f $archive_path;
 
     my $author_dir = dir($srcdir, uc($author));
     $author_dir->mkpath();
@@ -61,7 +63,9 @@ sub extract {
         die "empty archive: $archive_path" unless @members;
         for my $member (@members) {
             my $name = $member->fileName();
-            $name =~ s!^$dist_name[^/]+/?!!;
+            unless ($name =~ m{^$dist_name\.(pm|xs)}) {
+                $name =~ s!^$dist_name[^/]+/?!!;
+            }
             $name = dir($pkgdir, $name);
             infof("extract %s to %s", $member->fileName, $name);
 

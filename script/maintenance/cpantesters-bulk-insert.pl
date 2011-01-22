@@ -7,7 +7,7 @@ use FrePAN;
 use SQL::Interp ':all';
 use Log::Minimal;
 use DBI;
-use Sub::Throttle;
+use Sub::Throttle qw/throttle/;
 
 my $dbpath = shift or die;
 my $c = FrePAN->bootstrap;

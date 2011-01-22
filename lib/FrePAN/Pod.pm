@@ -40,6 +40,7 @@ sub parse_file {
 		if ($pkg) {
 			# workaround for Graph::Centrality::Pagerank
 			$pkg =~ s/[CBL]<(.+)>/$1/;
+			$pkg =~ s/'(.+)'/$1/;
 		}
 	}
 	unless ($pkg) {

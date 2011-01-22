@@ -31,13 +31,18 @@ sub mirror_archive {
     my $self = shift;
 
     my $dstpath = file($self->archive_path);
-    unless ( -f $dstpath ) {
+    if (-f $dstpath) {
+        infof("%s is already exists.", $dstpath);
+    } else {
         my $url = $self->download_url;
-        debugf "mirror '$url' to '$dstpath'";
+        infof "mirror '$url' to '$dstpath'";
         my $ua = LWP::UserAgent->new(agent => "FrePAN/$FrePAN::VERSION");
         $dstpath->dir->mkpath;
         my $res = $ua->get($url, ':content_file' => "$dstpath");
         $res->code =~ /^(?:304|200)$/ or die "fetch failed: $url, $dstpath, " . $res->status_line;
+        unless ( -f $dstpath ) {
+            Carp::croak("Cannot retrieve archive: %s", $dstpath);
+        }
     }
     return;
 }
