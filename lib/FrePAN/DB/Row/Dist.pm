@@ -88,6 +88,24 @@ sub load_meta {
     }
 }
 
+sub _should_index_file {
+    my ( $meta, $filename ) = @_;
+
+    my $no_index = $meta->{no_index};
+    return 1 unless $no_index;
+
+    for my $no_index_file ( @{ $no_index->{file} || [] } ) {
+        return if $filename eq $no_index_file;
+    }
+
+    for my $no_index_dir ( @{ $no_index->{directory} } ) {
+        $no_index_dir =~ s{$}{/} unless $no_index_dir =~ m{/\z};
+        return if index( $filename, $no_index_dir ) == 0;
+    }
+
+    return 1;
+}
+
 # insert to 'file' table.
 sub insert_files {
     args my $self,
@@ -131,7 +149,8 @@ sub insert_files {
                     return;
                 }
             }
-            if ($no_index && "$f" =~ $no_index) {
+            if (not _should_index_file($meta, "$f")) {
+                infof("%s should not be index", $f);
                 return;
             }
             # lib/auto/ is a workaround for http://search.cpan.org/~schwigon/Benchmark-Perl-Formance-Cargo-0.02/
