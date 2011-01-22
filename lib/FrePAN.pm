@@ -58,5 +58,6 @@ sub Cache::Memcached::Fast::get_or_set_cb {
     return $data;
 }
 
+sub web_host { $_[0]->config->{web_host} // die }
 
 1;
