@@ -5,7 +5,7 @@ use utf8;
 package FrePAN::M::Perldoc;
 use Smart::Args;
 
-sub lookup {
+sub package2url {
     args my $class,
          my $c,
          my $package,
