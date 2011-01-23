@@ -1,5 +1,5 @@
+var FF_DEBUG = {};
 $(function () {
-    console.log("RELOAD");
     // run on every page
     (function () {
         var ajaxManager = $.manageAjax.create('search', {
@@ -35,7 +35,6 @@ $(function () {
 
         if (window.history.pushState) {
             var ajax_part_load = function (url, pushit) {
-                console.log("LOADING: " + url);
                 $.ajax({
                     url: url,
                     data: {slide: 1},
@@ -43,12 +42,14 @@ $(function () {
                     cache: false,
                     dataType: 'html',
                     success: function (src) {
+                        var title = $('title', src).text();
                         if (pushit) {
-                            history.pushState({path:url}, $('title', src), url);
+                            history.pushState({path:url}, title, url);
                         } else {
-                            history.replaceState({path:url}, $('title', src), url);
+                            history.replaceState({path:url}, title, url);
                         }
 
+                        // document.title=title;
                         $('#Content').replaceWith($('#Content', src)).scrollTop();
                         dispatcher(url);
                     }
