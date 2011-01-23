@@ -18,6 +18,4 @@ builder {
 
     mount '/' => FrePAN::Web->to_app();
     mount '/api/' => FrePAN::API->to_app();
-    mount '/src/' =>
-      Plack::App::Directory->new( root => './tmp/src/', )->to_app;
 };

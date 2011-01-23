@@ -25,5 +25,6 @@ connect '/user/{user_login}/i_use_this.txt'=> 'User#show_i_use_this_txt';
 connect '/dist/{dist_name}'=> 'Dist#permalink';
 connect '/cpanstats/{dist_vname}'=> 'CPANStats#list';
 connect '/admin/regen'=> 'Admin#regen';
+connect '/src/*'=> 'Src#show';
 
 1;
