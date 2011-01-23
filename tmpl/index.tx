@@ -1,5 +1,7 @@
 [% INCLUDE 'include/header.tx' WITH bodyID="RootPage" %]
 
+<div id="RootPage">
+
 <div class="modules">
 [% FOR dist IN dists %]
 <div class="module">
@@ -43,5 +45,7 @@
 <br />
 
 <div class="clear-both"></div>
+
+</div>
 
 [% INCLUDE 'include/footer.tx' %]

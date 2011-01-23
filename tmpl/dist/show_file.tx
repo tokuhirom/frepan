@@ -1,5 +1,6 @@
-[% INCLUDE 'include/header.tx' WITH bodyID="PodPage" subtitle=dist.name _ "-" _ dist.version _ " by " _ lower(dist.author) %]
+[% INCLUDE 'include/header.tx' WITH subtitle=dist.name _ "-" _ dist.version _ " by " _ lower(dist.author) %]
 
+<div id="PodPage">
 
 <div class="blead-list">
 <a href="/~[% lower(dist.author) %]/">[% dist.author %]</a> &gt;
@@ -10,5 +11,7 @@
 <div class="source"><a href="/src/[% upper(dist.author) %]/[% dist.name %]-[% dist.version %]/[% file.path %]">SOURCE</a></div>
 
 <div class="pod">[% file.html | raw %]</div>
+
+</div>
 
 [% INCLUDE 'include/footer.tx' %]

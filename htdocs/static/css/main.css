@@ -79,20 +79,20 @@ body {
 }
 
 /** RootPage */
-#RootPage #Content .modules {
+#RootPage .modules {
     margin-top: 20px;
 }
-#RootPage #Content .module {
+#RootPage .module {
     margin-bottom: 10px;
     clear: both;
 }
-#RootPage #Content .module h3 {
+#RootPage .module h3 {
     font-size: 140%;
 }
-#RootPage #Content .modules .module-info {
+#RootPage .modules .module-info {
     float: left;
 }
-#RootPage #Content .modules .changes {
+#RootPage .modules .changes {
     background-color: #fceeee;
     padding: 4px;
     border-radius: 8px;
@@ -106,24 +106,24 @@ body {
     width: 600px;
     margin-left: 10px;
 }
-#RootPage #Content .modules .diff {
+#RootPage .modules .diff {
     margin-left: 10px;
     text-align: right;
     margin-top: 7px;
 }
-#RootPage #Content .modules .diff a {
+#RootPage .modules .diff a {
     color: #999999;
 }
-#RootPage #Content .modules .timestamp {
+#RootPage .modules .timestamp {
     margin-left: 10px;
     color: #cccccc;
     text-align: right;
     margin-top: 3px;
 }
-#RootPage #Content .modules .author {
+#RootPage .modules .author {
     float: right;
 }
-#RootPage #Content .author img {
+#RootPage .author img {
     display: block;
 }
 
@@ -133,13 +133,13 @@ body {
     width: 600px;
     float:left;
 }
-#DistPage #Content .gravatar {
+#DistPage .gravatar {
     float: right;
 }
 #DistPage table.package-list th {
     font-weight: bold;
 }
-#DistPage #Content h2 {
+#DistPage h2 {
     font-size: 200%;
     font-weight: bold;
     text-align: center;
