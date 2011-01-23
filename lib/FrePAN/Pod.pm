@@ -75,10 +75,9 @@ sub parse_file {
 	$self->description($desc);
 	
 	{
-        my $parser = FrePAN::Pod::Parser->new(
-            html_header        => '',
-            html_footer        => '',
-        );
+        my $parser = FrePAN::Pod::Parser->new();
+        $parser->html_header('');
+        $parser->html_footer('');
 		$parser->perldoc_url_prefix('/perldoc?');
 		$parser->output_string(\my $out);
 		$parser->parse_file($file);
