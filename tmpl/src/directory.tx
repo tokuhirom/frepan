@@ -10,7 +10,7 @@
   </tr>
   [% body | raw %]
   [% FOR v IN files %]
-    <tr><td class='name'><a href='[% v.path %]'>[% v.basename %]</a></td><td class='size'>[% v.size %]</td></tr>
+    <tr><td class='name'><a href='[% v.path %]?pretty=1'>[% v.basename %]</a></td><td class='size'>[% v.size %]</td></tr>
   [% END %]
 </table>
 </div>

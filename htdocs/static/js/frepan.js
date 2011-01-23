@@ -86,13 +86,14 @@ $(function () {
 
     // dist page
     dispatcher('^/~.+/.+/', function () {
-        require(['/static/prettify/prettify.js'], function () {
-            prettyPrint();
-        });
+        prettyPrint();
         $('#i_use_this_form').ajaxForm(function (html) {
             $('.IUseThisContainer').html(html).effect("highlight", {}, 1000);
             return false;
         });
+    });
+    dispatcher('^/src/', function () {
+        prettyPrint();
     });
 
     // http://tech.kayac.com/archive/javascript-url-dispatcher.html

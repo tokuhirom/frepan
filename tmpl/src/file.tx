@@ -1,0 +1,13 @@
+[% INCLUDE 'include/header.tx' %]
+
+<div id="FileSourcePage">
+<h2>[% path %]</h2>
+
+<div class="menu">
+    <a href="[% uri_with({pretty => 0}) %]">raw</a>
+    <a href="../">../</a>
+</div>
+<pre class="prettyprint">[% src %]</pre>
+</div>
+
+[% INCLUDE 'include/footer.tx' %]
