@@ -51,6 +51,7 @@ sub serve_plain_file {
     ];
 }
 
+use Text::Xslate::Util qw/mark_raw html_escape/;
 sub serve_plain_file_pretty {
     my ( $self, $c, $env, $file ) = @_;
 
@@ -60,9 +61,31 @@ sub serve_plain_file_pretty {
     my $path = File::Spec->abs2rel($file, $self->root);
 
     return $c->render('src/file.tx' => {
-        path => $path,
+        path => $self->_make_bread_list($path),
         src => $src,
     })->finalize;
+}
+
+sub _make_bread_list {
+    my ($self, $path) = @_;
+
+    my @path = split(m{/}, $path);
+    my @used_path;
+    my @path_parts;
+    while (my $part = shift @path) {
+        if (@path) {
+            push @path_parts,
+                sprintf(
+                    q{<a href="/src/%s">%s</a>},
+                    html_escape( join( "/", @used_path, $part ) ),
+                    html_escape($part)
+                );
+        } else { # last part
+            push @path_parts, html_escape($part);
+        }
+        push @used_path, $part;
+    }
+    return mark_raw(join("&gt; ", @path_parts));
 }
 
 sub serve_path {
@@ -110,7 +133,7 @@ sub serve_path {
 
     return c()->render(
         'src/directory.tx' => {
-            path  => $path,
+            path  => $self->_make_bread_list($path),
             files => \@files,
         }
     )->finalize();

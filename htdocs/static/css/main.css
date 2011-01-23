@@ -302,10 +302,18 @@ body {
     color: yellow;
 }
 
+#DirectoryPage th {
+    font-weight: bold;
+}
+#FileSourcePage .bread-list {
+    float:left;
+}
 #FileSourcePage .menu {
+    float:right;
     text-align: right;
 }
 #FileSourcePage pre {
+    clear: both;
     background-color: white;
     padding: 4px;
     border-radius: 8px;
