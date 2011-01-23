@@ -1,4 +1,6 @@
-[% INCLUDE 'include/header.tx' WITH bodyID="DiffPage" subtitle=author.fullname %]
+[% INCLUDE 'include/header.tx' WITH subtitle=author.fullname %]
+
+<div id="DiffPage">
 
 <h1>diff -u [% old_dist.name %]-[% old_dist.version %] [% new_dist.name %]-[% new_dist.version %]</h1>
 
@@ -28,5 +30,7 @@
 [% FOR v IN diffs %]
     [% v.html %]
 [% END %]
+
+</div>
 
 [% INCLUDE 'include/footer.tx' %]

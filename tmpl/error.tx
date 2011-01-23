@@ -1,5 +1,9 @@
-[% INCLUDE 'include/header.tx' WITH bodyID="RootPage" %]
+[% INCLUDE 'include/header.tx' %]
+
+<div id="ErrorPage">
 
 <div style="color: red; font-weight: bold">[% msg %]</div>
+
+</div>
 
 [% INCLUDE 'include/footer.tx' %]

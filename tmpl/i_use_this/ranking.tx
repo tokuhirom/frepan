@@ -1,4 +1,6 @@
-[% INCLUDE 'include/header.tx' WITH bodyID="RankingPage" subtitle=dist.name %]
+[% INCLUDE 'include/header.tx' WITH subtitle=dist.name %]
+
+<div id="RankingPage">
 
 <h2><B>I Use This</B> Ranking</h2>
 
@@ -10,5 +12,7 @@
         </tr>
     [% END %]
 </table>
+
+</div>
 
 [% INCLUDE 'include/footer.tx' %]

@@ -1,4 +1,4 @@
-[% INCLUDE 'include/header.tx' WITH bodyID="RootPage" %]
+[% INCLUDE 'include/header.tx' %]
 
 <div id="RootPage">
 

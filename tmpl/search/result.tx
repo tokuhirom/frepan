@@ -1,10 +1,13 @@
-[% INCLUDE 'include/header.tx' WITH bodyID="DistPage" subtitle=dist.name %]
+[% INCLUDE 'include/header.tx' WITH subtitle=dist.name %]
 
+<div id="SearchResultPage">
 
 <div id="SearchResult">
 [% INCLUDE 'include/table/search.tx' %]
 </div>
 
 [% INCLUDE 'include/pager.tx' %]
+
+</div>
 
 [% INCLUDE 'include/footer.tx' %]

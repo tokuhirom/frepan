@@ -1,4 +1,6 @@
-[% INCLUDE 'include/header.tx' WITH bodyID="RootPage" %]
+[% INCLUDE 'include/header.tx' %]
+
+<div id="UserPage">
 
 <div>
     <img src="http://www.gravatar.com/avatar/[% user.gravatar_id %]?s=64" width="64" height="64" />
@@ -18,5 +20,7 @@
     </div>
     <hr />
 [% END %]
+
+</div>
 
 [% INCLUDE 'include/footer.tx' %]

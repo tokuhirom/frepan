@@ -1,4 +1,6 @@
-[% INCLUDE 'include/header.tx' WITH bodyID="CPANStatsPage" subtitle=dist_name _ '-' _ dist_version %]
+[% INCLUDE 'include/header.tx' WITH subtitle=dist_name _ '-' _ dist_version %]
+
+<div id="CPANStatsPage">
 
 <h2>Test results for [% dist_name %]-[% dist_version %]<B>(ALPHA)</B></h2>
 
@@ -14,5 +16,6 @@
     [% END %]
 </table>
 
+</div>
 
 [% INCLUDE 'include/footer.tx' %]
