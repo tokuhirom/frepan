@@ -8,7 +8,7 @@
     <h3><img src="/static/img/icons/module.png" alt="." /><a href="/~[% lower(dist.author) %]/[% dist.name %]-[% dist.version %]/">[% dist.name %] [% dist.version %]</a></h3>
     <div class="module-info">
         <div class="abstract">[% dist.abstract || '' %]</div>
-        <pre class="changes">[% dist.diff || '' %]</pre>
+        <pre class="changes">[% (dist.diff || '') | truncate(2048, '...') %]</pre>
         <div class="diff"><a href="/diff?dist_id=[% dist.dist_id %]">diff</a></div>
         <div class="timestamp">[% dist.timestamp %]</div>
     </div>
