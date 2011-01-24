@@ -1,9 +1,6 @@
 package FrePAN::Web::C::Root;
 use strict;
 use warnings;
-use SQL::Interp qw/sql_interp/;
-use FrePAN::M::CPAN;
-use Time::Duration;
 use FrePAN::M::Feed;
 
 sub index {

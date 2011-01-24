@@ -4,6 +4,7 @@ use utf8;
 
 package FrePAN::M::Feed;
 use Smart::Args;
+use Time::Duration;
 
 sub recent {
     args my $class,
