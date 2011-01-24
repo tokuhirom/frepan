@@ -4,7 +4,7 @@ use utf8;
 
 package FrePAN::M::Feed;
 use Smart::Args;
-use Time::Duration;
+use FrePAN::TimeDuration qw/ago/;
 
 sub recent {
     args my $class,
@@ -30,7 +30,7 @@ sub recent {
 
     my $now = time();
     for (@$entries) {
-        $_->{timestamp}    = Time::Duration::ago($now - $_->{released}, 1);
+        $_->{timestamp} = ago($_->{released});
     }
     return ($entries, $has_next);
 }
