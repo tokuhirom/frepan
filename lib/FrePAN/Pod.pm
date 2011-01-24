@@ -55,7 +55,7 @@ sub parse_file {
 	unless ($pkg) {
 		open my $fh, '<:utf8', $file or return;
 		SCAN: while (my $line = <$fh>) {
-			if ($line =~ /^package\s+([a-zA-Z0-9:_]+)/) {
+			if ($line =~ /^package\s+([a-zA-Z0-9:_]+)/ && $1 ne 'main') {
 				$pkg = $1;
 				last SCAN;
 			}
