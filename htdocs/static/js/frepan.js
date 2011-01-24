@@ -84,7 +84,9 @@ $(function () {
         var lang = navigator.language;
         var m = location.hash.match(/[#&]lang=(\w+)/);
         if (m) lang = m[1];
-        $(document.body).add($(document.createElement('script')).attr('src', "http://mylingual.net/userjs/mylingual-core.js?lang=" + lang));
+        require(["http://mylingual.net/userjs/mylingual-core.js?lang=" + lang], function () {
+            // nop.
+        });
     })();
 
     // dist page
