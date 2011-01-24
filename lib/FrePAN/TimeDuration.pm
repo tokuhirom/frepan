@@ -4,7 +4,7 @@ use utf8;
 
 package FrePAN::TimeDuration;
 use parent qw/Exporter/;
-use Time::Duration;
+use Time::Duration ();
 use Time::Piece;
 
 our @EXPORT = qw/ago/;
