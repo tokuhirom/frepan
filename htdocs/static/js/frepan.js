@@ -55,7 +55,10 @@ $(function () {
                     }
                 });
             };
-            $('#Content a').live('click', function () {
+            $('#Content a').live('click', function (event) {
+                if (event.altKey || event.shiftKey || event.metaKey || event.ctrlKey) {
+                    return true; // open in other tabs
+                }
                 var e = $(this);
                 var href = e.attr('href');
                 if (
