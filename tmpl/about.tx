@@ -26,6 +26,11 @@ If you want to get the non-fresh cpan modules, please use <a href="http://search
     This bot gets information from cpantesters fresh mirror.
 </p>
 
+<h3>Help localize FrePAN to your own language</h3>
+<p>
+    You can translate the FrePAN site by yourself. FrePAN is using <a href="http://mylingual.net/">MyLingual</a> for translation.
+</p>
+
 <h3>REQUESTS</h3>
 <p>
     If you have any requests for this site, you can send pull-req from <a href="https://github.com/tokuhirom/frepan/">github</a>.
