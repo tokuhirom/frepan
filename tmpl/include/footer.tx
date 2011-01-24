@@ -3,7 +3,7 @@
         <div id="FooterContainer"><div id="Footer">
             <a href="http://frepan.64p.org/about">about this site.</a><br />
             This is FrePAN. 
-            Powered by <a href="http://amon.64p.org/">Amon [% amon_version() %]</a>, <a href="http://groonga.org/">groonga</a>
+            Powered by <a href="http://amon.64p.org/">Amon [% amon_version() %]</a>, <a href="http://groonga.org/">groonga</a>, translated by <a href="http://mylingual.net/">mylingual</a>
         </div></div>
     </div>
 </body>
