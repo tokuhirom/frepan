@@ -63,7 +63,6 @@ sub search {
 sub prepare {
     my ($self, @args) = @_;
     $self->SUPER::prepare(@args) or do {
-        local $Carp::CarpLevel = $Carp::CarpLevel + 2;
         $self->handle_error($_[1], [], $self->errstr);
     };
 }
