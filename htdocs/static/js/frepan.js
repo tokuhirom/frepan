@@ -86,13 +86,24 @@ $(function () {
         }
         __MYLINGUAL.updateStatus = function () {} // display completed message
         __MYLINGUAL.debugAlert = function (msg) { /* display debug message */ }
-        var lang = navigator.language;
-        var m = location.hash.match(/[#&]lang=(\w+)/);
-        if (m) lang = m[1];
+        var lang;
+        var m;
+        if( typeof localStorage == "object" ){
+            lang = localStorage[ "lang" ];
+        }
+        if( ( m = location.hash.match( /[#&]lang=(\w+)/ ) ) && m[ 1 ] ){
+            lang = m[ 1 ];
+        }
+        if( !lang ){
+            lang = navigator.language.replace( /\-\w+$/,"" ); // fix "ja-JP" to "ja"
+        }
         var scr = document.createElement('script');
         scr.setAttribute("id", "mylingual-core");
         scr.setAttribute("src", "http://mylingual.net/userjs/mylingual-core.js?lang=" + lang);
         document.body.appendChild(scr);
+        if( typeof localStorage == "object" ){
+            localStorage[ "lang" ] = lang;
+        }
     })();
 
     // dist page
