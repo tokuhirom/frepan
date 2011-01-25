@@ -84,8 +84,8 @@ $(function () {
         if (typeof __MYLINGUAL != 'object') {
             var __MYLINGUAL = {};
         }
-        __MYLINGUAL.updateStatus = function () {} // display completed message
-        __MYLINGUAL.debugAlert = function (msg) { /* display debug message */ }
+        __MYLINGUAL.updateStatus = function () {}; // display completed message
+        __MYLINGUAL.debugAlert = function (msg) { /* display debug message */ };
         var lang;
         var m;
         if( typeof localStorage == "object" ){
