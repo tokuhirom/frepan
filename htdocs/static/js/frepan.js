@@ -81,6 +81,11 @@ $(function () {
         }
 
         // mylingual
+        if (typeof __MYLINGUAL != 'object') {
+            var __MYLINGUAL = {};
+        }
+        __MYLINGUAL.updateStatus = function () {} // display completed message
+        __MYLINGUAL.debugAlert = function (msg) { /* display debug message */ }
         var lang = navigator.language;
         var m = location.hash.match(/[#&]lang=(\w+)/);
         if (m) lang = m[1];
