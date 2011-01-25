@@ -81,11 +81,11 @@ $(function () {
         }
 
         // mylingual
-        if (typeof __MYLINGUAL != 'object') {
-            var __MYLINGUAL = {};
+        if (typeof window.__MYLINGUAL != 'object') {
+            window.__MYLINGUAL = {};
         }
-        __MYLINGUAL.updateStatus = function () {}; // display completed message
-        __MYLINGUAL.debugAlert = function (msg) { /* display debug message */ };
+        window.__MYLINGUAL.updateStatus = function () {}; // display completed message
+        window.__MYLINGUAL.debugAlert = function (msg) { /* display debug message */ };
         var lang;
         var m;
         if( typeof localStorage == "object" ){
