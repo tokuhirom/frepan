@@ -52,6 +52,9 @@ sub single {
 
 sub search {
     my ($self, $table, $where, $opt) = @_;
+    my ($sql, @bind) = $self->sql_maker->select($table, ['*'], $where, $opt);
+
+    # inject file/line to help tuning
     my ($package, $file, $line);
     my $i = 0;
     while (($package, $file, $line) = caller($i++)) {
@@ -59,8 +62,8 @@ sub search {
             last;
         }
     }
-    my ($sql, @bind) = $self->sql_maker->select($table, ['*'], $where, $opt);
     $sql =~ s! !/* at $file line $line */ !;
+
     my $sth = $self->prepare($sql);
     $sth->execute(@bind);
     return $sth;
