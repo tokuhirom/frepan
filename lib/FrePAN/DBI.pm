@@ -49,34 +49,43 @@ sub insert {
 sub single {
     my ($self, $table, $where, $opt) = @_;
     my ($sql, @bind) = $self->sql_maker->select($table, ['*'], $where, $opt);
-    my $sth = $self->_execute($sql, \@bind);
+    my $sth = $self->prepare($sql);
+    $sth->execute(@bind);
     return $sth->fetchrow_hashref();
 }
 
 sub search {
     my ($self, $table, $where, $opt) = @_;
     my ($sql, @bind) = $self->sql_maker->select($table, ['*'], $where, $opt);
-    my $sth = $self->_execute($sql, \@bind);
+    my $sth = $self->prepare($sql);
+    $sth->execute(@bind);
     return $sth;
 }
 
 sub prepare {
     my ($self, @args) = @_;
-    $self->SUPER::prepare(@args) or do {
-        $self->handle_error($_[1], [], $self->errstr);
+    my $sth = $self->SUPER::prepare(@args) or do {
+        FrePAN::DBI::Util::handle_error($_[1], [], $self->errstr);
     };
-}
-
-sub _execute {
-    my ($self, $sql, $binds) = @_;
-
-    my $sth = $self->prepare($sql);
-    $sth->execute(@$binds);
+    $sth->{private_sql} = $_[1];
     return $sth;
 }
 
+package FrePAN::DBI::st;
+use parent -norequire, qw/DBI::st/;
+
+sub execute {
+    my ($self, @args) = @_;
+    $self->SUPER::execute(@args) or do {
+        FrePAN::DBI::Util::handle_error($self->{private_sql}, \@args, $self->errstr);
+    };
+}
+
+package FrePAN::DBI::Util;
+use Carp::Clan qw{^(DBI::|FrePAN::DBI::)};
+
 sub handle_error {
-    my ( $self, $stmt, $bind, $reason ) = @_;
+    my ( $stmt, $bind, $reason ) = @_;
 
     $stmt =~ s/\n/\n          /gm;
     my $err = sprintf <<"TRACE", $reason, $stmt, Data::Dumper::Dumper($bind);
@@ -89,17 +98,7 @@ BIND    : %s
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 TRACE
     $err =~ s/\n\Z//;
-    Carp::Clan::croak $err;
-}
-
-package FrePAN::DBI::st;
-use parent -norequire, qw/DBI::st/;
-
-sub execute {
-    my ($self, @args) = @_;
-    $self->SUPER::execute(@args) or do {
-        Carp::croak($self->errstr);
-    };
+    croak $err;
 }
 
 1;

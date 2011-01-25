@@ -5,7 +5,7 @@ use Test::More;
 use FrePAN::DBI;
 
 my $d = FrePAN::DBI->connect('dbi:SQLite:');
-$d->do(q{create table foo (a, b)});
+$d->do(q{create table foo (a primary key, b)});
 isa_ok $d->sql_maker, 'SQL::Maker';
 my $txn = $d->txn_scope;
 isa_ok $txn, 'DBIx::TransactionManager::ScopeGuard';
@@ -17,14 +17,23 @@ is_deeply $d->search('foo')->fetchall_arrayref({}), [{a => 1, b => 2}];
 $d->do_i(q{INSERT INTO foo}, {a => 29, b => 39});
 is_deeply $d->search('foo', {}, {order_by => 'a ASC'})->fetchall_arrayref({}), [{a => 1, b => 2}, {a => 29, b => 39}];
 
-eval {
-    $d->do_i(q{F*CKING foo}, {a => 29, b => 39});
+subtest 'exception from prepare' => sub {
+    eval {
+        $d->do_i(q{ERRRR foo}, {a => 24, b => 39});
+    };
+    note $@;
+    unlike $@, qr{at lib/FrePAN/DBI.pm};
+    like $@, qr/@{[ __FILE__ ]}/;
 };
-warn "===";
-note $@;
-warn "===";
-unlike $@, qr{at lib/FrePAN/DBI.pm};
-like $@, qr/@{[ __FILE__ ]}/;
+
+subtest 'exception from execute' => sub {
+    eval {
+        $d->do_i(q{INSERT INTO foo}, {a => 29, b => 39});
+    };
+    note $@;
+    unlike $@, qr{at lib/FrePAN/DBI.pm};
+    like $@, qr/@{[ __FILE__ ]}/;
+};
 
 done_testing;
 
