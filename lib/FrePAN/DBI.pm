@@ -20,7 +20,6 @@ use DBIx::TransactionManager;
 use SQL::Interp ();
 use Try::Tiny;
 use Data::Dumper ();
-use Carp::Clan qw{^(DBI::|FrePAN::DBI::)};
 
 sub sql_maker { $_[0]->{private_sql_maker} // SQL::Maker->new(driver => $_[0]->{Driver}->{Name}, new_line => q{ }) }
 
@@ -36,8 +35,7 @@ sub txn_end   { $_[0]->txn_manager->txn_end }
 sub do_i {
     my $self = shift;
     my ($sql, @bind) = SQL::Interp::sql_interp(@_);
-    my $sth = $self->prepare($sql);
-    $sth->execute(@bind);
+    $self->do($sql, {}, @bind);
 }
 
 sub insert {
@@ -90,7 +88,7 @@ sub execute {
 sub sql { $_[0]->{private_sql} }
 
 package FrePAN::DBI::Util;
-use Carp::Clan qw{^(DBI::|FrePAN::DBI::)};
+use Carp::Clan qw{^(DBI::|FrePAN::DBI::|DBD::)};
 
 sub handle_error {
     my ( $stmt, $bind, $reason ) = @_;
