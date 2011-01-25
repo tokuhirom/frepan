@@ -22,7 +22,7 @@ use Try::Tiny;
 use Data::Dumper ();
 use Carp::Clan qw{^(DBI::|FrePAN::DBI::)};
 
-sub sql_maker { $_[0]->{private_sql_maker} // SQL::Maker->new(driver => $_[0]->{Driver}->{Name}) }
+sub sql_maker { $_[0]->{private_sql_maker} // SQL::Maker->new(driver => $_[0]->{Driver}->{Name}, new_line => q{ }) }
 
 sub txn_manager {
     my $self = shift;
@@ -48,15 +48,21 @@ sub insert {
 
 sub single {
     my ($self, $table, $where, $opt) = @_;
-    my ($sql, @bind) = $self->sql_maker->select($table, ['*'], $where, $opt);
-    my $sth = $self->prepare($sql);
-    $sth->execute(@bind);
+    my $sth = $self->search($table, $where, $opt);
     return $sth->fetchrow_hashref();
 }
 
 sub search {
     my ($self, $table, $where, $opt) = @_;
+    my ($package, $file, $line);
+    my $i = 0;
+    while (($package, $file, $line) = caller($i++)) {
+        unless ($package eq __PACKAGE__) {
+            last;
+        }
+    }
     my ($sql, @bind) = $self->sql_maker->select($table, ['*'], $where, $opt);
+    $sql =~ s! !/* at $file line $line */ !;
     my $sth = $self->prepare($sql);
     $sth->execute(@bind);
     return $sth;
@@ -80,6 +86,8 @@ sub execute {
         FrePAN::DBI::Util::handle_error($self->{private_sql}, \@args, $self->errstr);
     };
 }
+
+sub sql { $_[0]->{private_sql} }
 
 package FrePAN::DBI::Util;
 use Carp::Clan qw{^(DBI::|FrePAN::DBI::)};

@@ -16,6 +16,8 @@ is_deeply $d->single('foo', {a => 1}), +{ a => 1, b => 2 };
 is_deeply $d->search('foo')->fetchall_arrayref({}), [{a => 1, b => 2}];
 $d->do_i(q{INSERT INTO foo}, {a => 29, b => 39});
 is_deeply $d->search('foo', {}, {order_by => 'a ASC'})->fetchall_arrayref({}), [{a => 1, b => 2}, {a => 29, b => 39}];
+my $sth = $d->search('foo'); my $line = __LINE__;
+like $sth->sql(), qr{/\* at @{[ __FILE__ ]} line $line \*/};
 
 subtest 'exception from prepare' => sub {
     eval {
