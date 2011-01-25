@@ -95,7 +95,7 @@ $(function () {
             lang = m[ 1 ];
         }
         if( !lang ){
-            lang = navigator.language.replace( /\-\w+$/,"" ); // fix "ja-JP" to "ja"
+            lang = navigator.language;
         }
         var scr = document.createElement('script');
         scr.setAttribute("id", "mylingual-core");
