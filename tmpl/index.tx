@@ -5,7 +5,7 @@
 <div class="modules">
 [% FOR dist IN dists %]
 <div class="module">
-    <h3><img src="/static/img/icons/module.png" alt="." /><a href="/~[% lower(dist.author) %]/[% dist.name %]-[% dist.version %]/">[% dist.name %] [% dist.version %]</a></h3>
+    <h3><img src="/static/img/icons/module.png" alt="." width="24" height="24" /><a href="/~[% lower(dist.author) %]/[% dist.name %]-[% dist.version %]/">[% dist.name %] [% dist.version %]</a></h3>
     <div class="module-info">
         <div class="abstract">[% dist.abstract || '' %]</div>
         <pre class="changes">[% (dist.diff || '') | truncate(2048, '...') %]</pre>

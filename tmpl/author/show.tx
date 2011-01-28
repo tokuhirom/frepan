@@ -3,7 +3,7 @@
 <div id="AuthorPage">
 
 <h1>[% author.fullname %]</h1>
-<img src="http://gravatar.com/avatar/[% author.gravatar_id %]?s=80&d=http://st.pimg.net/tucs/img/who.png" alt="[% author.fullname %]" width="80" height="80" />
+<img src="http://gravatar.com/avatar/[% author.gravatar_id %]?s=80&d=http://st.pimg.net/tucs/img/who.png" width="80" height="80" />
 
 <table>
 <tr>
