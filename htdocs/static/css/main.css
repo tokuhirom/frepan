@@ -322,3 +322,10 @@ body {
     -webkit-border-radius: 8px;
 }
 
+@media screen and (max-device-width: 480px) {
+    body {
+        font-size: 80%;
+    }
+    #Container, #FooterContainer { width: 95% }
+}
+
