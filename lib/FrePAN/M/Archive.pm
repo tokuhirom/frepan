@@ -20,14 +20,14 @@ sub extract {
          my $dist_name,
          my $version,
          my $archive_path,
-         my $srcdir,
+         my $srcdir => { isa => 'Str' },
          my $author,
          my $c,
          ;
 
     # validation
     File::Spec->file_name_is_absolute($srcdir)
-      or die "archive path is not absolute.";
+      or die "archive path is not absolute.: $srcdir";
     Carp::croak("'$archive_path' is not exists.") unless -f $archive_path;
 
     my $author_dir = dir($srcdir, uc($author));
