@@ -50,11 +50,12 @@ sub mirror_archive {
 sub extract_archive {
     my $self = shift;
 
+    my $srcdir = c->config->{srcdir} // die "missing configuration for srcdir";
     FrePAN::M::Archive->extract(
         dist_name    => $self->name,
         version      => $self->version,
         archive_path => $self->archive_path,
-        srcdir       => c->config()->{srcdir},
+        srcdir       => $srcdir,
         author       => $self->author,
         c            => c(),
     );

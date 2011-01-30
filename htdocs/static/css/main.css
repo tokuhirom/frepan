@@ -322,3 +322,13 @@ body {
     -webkit-border-radius: 8px;
 }
 
+/* media queries */
+@media only screen and (max-width: 479px) {
+    body { margin: 1.5em; }
+    #header h1 { font-size: 200% }
+    #content { font-size: 170%;
+    line-height: 1.5em; }
+    pre { overflow:auto; }
+}
+
+
