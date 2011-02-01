@@ -4,6 +4,7 @@ use warnings;
 use utf8;
 use URI::Escape qw/uri_unescape/;
 use FrePAN::M::Perldoc;
+use Log::Minimal;
 
 sub redirect {
     my ($class, $c) = @_;
