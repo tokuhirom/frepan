@@ -2,6 +2,7 @@ use Cwd 'abs_path';
 use File::Path;
 mkpath 'tmp/minicpan/' unless -d 'tmp/minicpan/';
 {
+    web_host => '127.0.0.1',
     'DB'        => [
         'dbi:mysql:database=dev_FrePAN',
         'root',
