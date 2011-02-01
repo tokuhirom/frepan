@@ -9,6 +9,8 @@ use Log::Minimal;
 sub redirect {
     my ($class, $c) = @_;
     my $package = uri_unescape($c->req->env->{QUERY_STRING});
+    $package =~ s/&.+//; # query is like a 'Perl::Critic&_=1296596694992&slide=1'
+
     my $url = FrePAN::M::Perldoc->package2url(
         package => $package,
         c       => $c,
