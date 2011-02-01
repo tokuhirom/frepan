@@ -15,6 +15,7 @@ sub redirect {
     if ($url) {
         return $c->redirect($url);
     } else {
+        warnf("package '%s' is not found in frepan", $package);
         return $c->res_404();
     }
 }
