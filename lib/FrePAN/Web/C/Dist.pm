@@ -44,6 +44,28 @@ sub show {
         $dist->{dist_id},
     );
 
+    my $deps_module;
+    unless ($dist->{name} eq 'perl') {
+        (my $dist_name_dc = $dist->{name}) =~ s/-/::/g;
+        for my $file (@{$dist->{files}}) {
+            my $path    = $file->{path}    or next;
+            my $package = $file->{package} or next;
+            next if $path eq $package;
+
+            if ($package eq $dist_name_dc) {
+                $deps_module = $package;
+                last;
+            }
+            next if defined $deps_module;
+
+            (my $file_basename = $path) =~ s!.*/!!s;
+            (my $pkg_basename = $package) =~ s/.*:://s;
+            if ($file_basename eq "${pkg_basename}.pm") {
+                $deps_module = $package;
+            }
+        }
+    }
+
     my %test_stats = map { @{$_} } @{$c->dbh->selectall_arrayref(
         q{
             SELECT state, cnt
@@ -90,6 +112,7 @@ sub show {
             reviews        => \@reviews,
             my_review      => $my_review,
             test_stats     => \%test_stats,
+            deps_module    => $deps_module,
         }
     );
 }
