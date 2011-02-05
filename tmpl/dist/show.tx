@@ -81,7 +81,7 @@
 
 <div class="IUseThis">
     [% IF c().session_user() %]
-        <a href="#" onclick="$('#i_use_this_form').toggle();return false;">If you are using this module, please post the review message!</a><br />
+        <input type="button" onclick="$('#i_use_this_form').toggle();return false;" value="If you are using this module, please post the review message!" /><br />
         <form method="post" action="/i_use_this/post" id="i_use_this_form" style="display:none">
             <textarea name="body" cols="80" rows="7">[% my_review %]</textarea><br />
             <input type="hidden" name="dist_name" value="[% dist.name %]" />
