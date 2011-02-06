@@ -2,47 +2,26 @@
 
 <div id="RootPage">
 
-<div class="modules">
+<ul class="modules">
 [% FOR dist IN dists %]
-<div class="module">
-    <h3><img src="/static/img/icons/module.png" alt="." width="24" height="24" /><a href="/~[% lower(dist.author) %]/[% dist.name %]-[% dist.version %]/">[% dist.name %] [% dist.version %]</a></h3>
-    <div class="module-info">
-        <div class="abstract">[% dist.abstract || '' %]</div>
-        <pre class="changes">[% (dist.diff || '') | truncate(2048, '...') %]</pre>
-        <div class="diff"><a href="/diff?dist_id=[% dist.dist_id %]">diff</a></div>
-        <div class="timestamp">[% dist.timestamp %]</div>
-    </div>
-    <div class="author">
-        <a href="/~[% lower(dist.author) %]/">
-        <img src="http://www.gravatar.com/avatar/[% dist.gravatar_id %]?d=http://st.pimg.net/tucs/img/who.png&s=80" width="80" height="80" alt="gravatar" />
-        [% lower(dist.author) %]
-        </a>
-    </div>
-    <div class="clear-both">&nbsp;</div>
-</div>
+    <li class="module">
+        <h3><img src="/static/img/icons/module.png" alt="." width="24" height="24" /><a href="/~[% lower(dist.author) %]/[% dist.name %]-[% dist.version %]/">[% dist.name %] [% dist.version %]</a></h3>
+        <div class="module-info">
+            <div class="abstract">[% dist.abstract || '' %]</div>
+            <pre class="changes">[% (dist.diff || '') | truncate(2048, '...') %]</pre>
+            <div class="diff"><a href="/diff?dist_id=[% dist.dist_id %]">diff</a></div>
+            <div class="timestamp">[% dist.timestamp %]</div>
+        </div>
+        <div class="author">
+            <a href="/~[% lower(dist.author) %]/">
+            <img src="http://www.gravatar.com/avatar/[% dist.gravatar_id %]?d=http://st.pimg.net/tucs/img/who.png&s=80" width="80" height="80" alt="gravatar" />
+            [% lower(dist.author) %]
+            </a>
+        </div>
+        <div class="clear-both">&nbsp;</div>
+    </li>
 [% END %]
-</div>
-
-<div class="pager">
-    [% IF page != 1 %]
-        <a href="[% uri_with({page => page - 1 }) %]" rel="prev" accesskey="4">&lt;Prev</a>
-    [% ELSE %]
-        &lt;Prev
-    [% END %]
-    |
-    [% IF has_next %]
-        <a href="[% uri_with({page => page + 1}) %]" rel="next" accesskey="6">Next&gt;</a>
-    [% ELSE %]
-        Next&gt;
-    [% END %]
-</div>
-
-<div class="clear-both"></div>
-
-<a href="http://feeds.feedburner.com/YetAnotherCpanRecentChanges">
-<img src="/static/img/icons/feed.png" width="28" height="28" alt="feed" />
-</a>
-<br />
+</ul>
 
 <div class="clear-both"></div>
 

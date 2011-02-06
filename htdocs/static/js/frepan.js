@@ -1,4 +1,7 @@
 var FF_DEBUG = {};
+
+if (!console) { console = { log: function () { } }; }
+
 $(function () {
     // run on every page
     (function () {
@@ -116,6 +119,43 @@ $(function () {
     });
     dispatcher('^/src/', function () {
         prettyPrint();
+    });
+    // top page
+    dispatcher('^/$', function () {
+        var page = 1;
+        var didScroll = false;
+        var in_request = false;
+        var finished = false;
+
+        $(window).scroll(function () {
+            didScroll = true;
+        });
+        setInterval(function () {
+            if (didScroll) {
+                var remain = $(document).height() - $(document).scrollTop() - $(window).height()
+                if (remain < 500 && in_request==false && !finished) {
+                    in_request = true;
+                    $.ajax({
+                        type: 'get',
+                        cache: false,
+                        data: { page: ++page },
+                        url: location.href,
+                        success: function (html) {
+                            in_request = false;
+                            var elements = $('.modules li', html);
+                            if (elements.length == 0) {
+                                finished = true;
+                            }
+                            $('.modules').append( elements );
+                            $('html,body').animate({scrollTop: $(window).scrollTop() + 10 + 'px'}, 800, function () { in_request=false; });
+                        },
+                        error: function () { /* nop */ }
+                    });
+                    console.log("remains");
+                }
+                didScroll = false;
+            }
+        }, 250);
     });
 
     // http://tech.kayac.com/archive/javascript-url-dispatcher.html

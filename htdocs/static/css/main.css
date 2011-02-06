@@ -81,6 +81,7 @@ body {
 /** RootPage */
 #RootPage .modules {
     margin-top: 20px;
+    list-style: none;
 }
 #RootPage .module {
     margin-bottom: 10px;
