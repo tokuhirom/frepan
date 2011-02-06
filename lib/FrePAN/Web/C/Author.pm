@@ -14,7 +14,13 @@ sub show {
         select SQL_CACHE name, MAX(version) AS version, DATE_FORMAT(FROM_UNIXTIME(MAX(released)), '%Y-%m-%d') AS released from dist where author=? GROUP BY name;
     }, {Slice => {}}, $pause_id);
 
-    $c->render('author/show.tx', {author => $author, packages => $packages});
+    $c->render2(
+        '#title' => $author->fullname . ' - FrePAN',
+        '#Content' => [
+            'author/show.tx',
+            {author => $author, packages => $packages}
+        ]
+    );
 }
 
 1;

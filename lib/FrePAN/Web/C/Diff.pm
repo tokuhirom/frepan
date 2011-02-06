@@ -45,18 +45,22 @@ sub show {
         ($new_dist, $old_dist) = ($old_dist, $new_dist);
     }
 
+    # TODO: Do not timeout
     timeout 1, sub {
         my ($added, $removed, $diffs) = FrePAN::M::Diff->diff($old_dist, $new_dist);
 
-        return $c->render(
-            'diff/show.tx',
-            {
-                added    => $added,
-                removed  => $removed,
-                diffs    => $diffs,
-                new_dist => $new_dist,
-                old_dist => $old_dist
-            }
+        return $c->render2(
+            'title' => "diff -u $old_dist $new_dist - FrePAN",
+            '#Content' => [
+                'diff/show.tx',
+                {
+                    added    => $added,
+                    removed  => $removed,
+                    diffs    => $diffs,
+                    new_dist => $new_dist,
+                    old_dist => $old_dist
+                }
+            ]
         );
     } or do {
         warnf("diff timeout: %s(%s), %s(%s)", $new_dist->name, $new_dist->dist_id, $old_dist->name, $old_dist->dist_id);

@@ -81,16 +81,19 @@ sub show {
         }
     };
 
-    return $c->render(
-        "dist/show.tx",
-        {
-            dist           => $dist,
-            special_files  => \@special_files,
-            other_releases => $other_releases,
-            reviews        => \@reviews,
-            my_review      => $my_review,
-            test_stats     => \%test_stats,
-        }
+    return $c->render2(
+        'title' => "$dist->{name}-$dist->{version} - FrePAN",
+        '#Content' => [
+            "dist/show.tx",
+            {
+                dist           => $dist,
+                special_files  => \@special_files,
+                other_releases => $other_releases,
+                reviews        => \@reviews,
+                my_review      => $my_review,
+                test_stats     => \%test_stats,
+            }
+        ]
     );
 }
 
@@ -114,7 +117,14 @@ sub show_file {
         $path,
     ) or return $c->res_404();
 
-    $c->render("dist/show_file.tx", {dist => $dist, file => $file});
+
+    $c->render2(
+        title => "$file->{path} - FrePAN",
+        '#Content' => [
+            "dist/show_file.tx",
+            {dist => $dist, file => $file},
+        ]
+    );
 }
 
 # other version

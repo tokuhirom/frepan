@@ -15,8 +15,14 @@ sub list {
         dist_version => $version,
         c            => $c,
     );
-    return $c->render( 'cpanstats/list.tx',
-        { rows => $data, dist_name => $name, dist_version => $version } );
+
+    return $c->render2(
+        title => $dist_vname,
+        '#Content' => [
+            'cpanstats/list.tx',
+            { rows => $data, dist_name => $name, dist_version => $version }
+        ],
+    );
 }
 
 1;

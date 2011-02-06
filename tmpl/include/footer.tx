@@ -1,7 +1,7 @@
         </div>
         <div class="clear-both"></div>
         <div id="FooterContainer"><div id="Footer">
-            <a href="http://frepan.64p.org/about">about this site.</a><br />
+            <a href="/about">about this site.</a><br />
             This is FrePAN. 
             Powered by <a href="http://amon.64p.org/">Amon [% amon_version() %]</a>, <a href="http://groonga.org/">groonga</a><br />
             <a href="http://mylingual.net/">Localize FrePAN to your own language using Mylingual</a>

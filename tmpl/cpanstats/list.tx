@@ -1,5 +1,3 @@
-[% INCLUDE 'include/header.tx' WITH subtitle=dist_name _ '-' _ dist_version %]
-
 <div id="CPANStatsPage">
 
 <h2>Test results for [% dist_name %]-[% dist_version %]<B>(ALPHA)</B></h2>
@@ -18,4 +16,3 @@
 
 </div>
 
-[% INCLUDE 'include/footer.tx' %]

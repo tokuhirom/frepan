@@ -1,5 +1,3 @@
-[% INCLUDE 'include/header.tx' %]
-
 <div id="DirectoryPage">
 <h2>[% path %]</h2>
 
@@ -14,5 +12,3 @@
   [% END %]
 </table>
 </div>
-
-[% INCLUDE 'include/footer.tx' %]

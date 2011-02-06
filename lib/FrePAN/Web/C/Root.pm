@@ -15,13 +15,20 @@ sub index {
         c             => $c,
     );
 
-    return $c->render( "index.tx",
-        { dists => $dists, page => $page, has_next => $has_next } );
+    return $c->render2(
+        '#Content' => [
+            "index.tx",
+            { dists => $dists, page => $page, has_next => $has_next }
+        ]
+    );
 }
 
 sub about {
     my ($class, $c) = @_;
-    $c->render('about.tx');
+    $c->render2(
+        'title' => 'About this site - FrePAN',
+        '#Content' => ['about.tx', {}],
+    );
 }
 
 1;

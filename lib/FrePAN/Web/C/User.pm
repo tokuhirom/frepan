@@ -146,7 +146,12 @@ sub show {
 
     my @reviews = $c->db->search('i_use_this', {user_id => $user->user_id});
 
-    return $c->render('user/show.tx', {user => $user, reviews => \@reviews});
+    return $c->render2(
+        title => "@{[ $user->name ]} - FrePAN",
+        '#Content' => [
+            'user/show.tx', {user => $user, reviews => \@reviews}
+        ]
+    );
 }
 
 # hmmm.. github oauth is bit buggy. i need patched version of OAuth::Lite2::Client::WebServer->get_access_token();

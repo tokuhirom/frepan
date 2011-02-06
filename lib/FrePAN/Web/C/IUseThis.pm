@@ -2,19 +2,18 @@ package FrePAN::Web::C::IUseThis;
 use strict;
 use warnings;
 use utf8;
+use FrePAN::M::IUseThis;
 
 sub ranking {
     my ($class, $c) = @_;
 
-    my $ranking = $c->dbh->selectall_arrayref(
-        q{SELECT dist.name, dist.version, dist.author, COUNT(*) AS cnt
-         FROM i_use_this
-            INNER JOIN dist ON (dist.name=i_use_this.dist_name AND old=0)
-         GROUP BY dist_name
-         ORDER BY cnt DESC
-         LIMIT 30}, {Slice => +{}}
+    my $ranking = FrePAN::M::IUseThis->get_ranking();
+    return $c->render2(
+        title => 'I-Use-This ranking - FrePAN',
+        '#Content' => [
+            'i_use_this/ranking.tx', {ranking => $ranking}
+        ]
     );
-    return $c->render('i_use_this/ranking.tx', {ranking => $ranking});
 }
 
 sub post {
@@ -41,7 +40,16 @@ sub post {
 sub list {
     my ($class, $c) = @_;
     my $dist_name = $c->req->param('dist_name') // die;
-    my @reviews = $c->db->search_by_sql(q{SELECT i_use_this.*, user.login AS user_login, user.name AS user_name, user.gravatar_id FROM i_use_this INNER JOIN user USING (user_id) WHERE dist_name=? ORDER BY mtime DESC}, [$dist_name], 'i_use_this');
+
+    my @reviews = $c->db->search_by_sql(q{
+        SELECT i_use_this.*, user.login AS user_login, user.name AS user_name, user.gravatar_id
+        FROM i_use_this
+            INNER JOIN user USING (user_id)
+        WHERE dist_name=?
+        ORDER BY mtime DESC},
+        [$dist_name],
+        'i_use_this'
+    );
 
     return $c->render('/i_use_this/list.tx', {reviews => \@reviews});
 }

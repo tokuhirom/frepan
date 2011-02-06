@@ -36,14 +36,17 @@ sub result {
             }
         );
     } else {
-        return $c->render(
-            'search/result.tx',
-            {
-                files   => $files,
-                query   => $query,
-                pager   => $pager,
-                authors => \@authors,
-            }
+        return $c->render2(
+            'title' => "Search result of '$query' - FrePAN",
+            '#Content' => [
+                'search/result.tx',
+                {
+                    files   => $files,
+                    query   => $query,
+                    pager   => $pager,
+                    authors => \@authors,
+                }
+            ]
         );
     }
 }

@@ -1,5 +1,3 @@
-[% INCLUDE 'include/header.tx' %]
-
 <div id="RootPage">
 
 <ul class="modules">
@@ -26,5 +24,3 @@
 <div class="clear-both"></div>
 
 </div>
-
-[% INCLUDE 'include/footer.tx' %]

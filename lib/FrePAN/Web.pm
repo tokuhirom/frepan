@@ -12,6 +12,7 @@ sub args { shift->{args} }
 use Log::Minimal;
 use Text::Xslate;
 use FrePAN::M::Formatter;
+use HTML::Zoom;
 {
     my $conf = __PACKAGE__->config->{'Text::Xslate'} || +{};
     my $view = Text::Xslate->new(+{
@@ -36,6 +37,39 @@ use FrePAN::M::Formatter;
         %$conf,
     });
     sub create_view { $view }
+
+    sub render2 {
+        my ($self, %args) = @_;
+        warn "rendr2";
+        my $view = $self->create_view();
+        my $base = $view->render('include/layout.tx');
+        my $zoom = HTML::Zoom->from_html("$base");
+        while (my ($selector, $stuff) = each %args) {
+            $zoom = $zoom->select($selector)->replace_content(do {
+                if (ref $stuff eq 'ARRAY') {
+                    HTML::Zoom->from_html($view->render(@$stuff));
+                } else {
+                    $stuff;
+                }
+            });
+        }
+        my $html = $zoom->to_html();
+
+        for my $code ( $self->get_trigger_code('HTML_FILTER') ) {
+            $html = $code->( $self, $html );
+        }
+
+        $html = $self->encode_html($html);
+
+        return $self->create_response(
+            200,
+            [
+                'Content-Type'   => $self->html_content_type,
+                'Content-Length' => length($html)
+            ],
+            $html,
+        );
+    }
 }
 
 use FrePAN::Web::Dispatcher;

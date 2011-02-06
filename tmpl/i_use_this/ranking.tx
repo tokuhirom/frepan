@@ -1,5 +1,3 @@
-[% INCLUDE 'include/header.tx' WITH subtitle=dist.name %]
-
 <div id="RankingPage">
 
 <h2><B>I Use This</B> Ranking</h2>
@@ -14,5 +12,3 @@
 </table>
 
 </div>
-
-[% INCLUDE 'include/footer.tx' %]

@@ -1,0 +1,2 @@
+[% INCLUDE 'include/header.tx' %]
+[% INCLUDE 'include/footer.tx' %]
