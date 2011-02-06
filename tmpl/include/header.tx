@@ -18,7 +18,7 @@
     <script src="/static/prettify/prettify.js" type="text/javascript"></script>
     <script src="/static/js/frepan.js?v=21" type="text/javascript"></script>
 </head>
-<body id="[% IF bodyID %][% bodyID %][% ELSE %]Default[% END %]">
+<body>
     <div id="Container">
         <div id="Header">
             <a href="/"><img src="/static/img/frepan-logo.png" width="164" height="58" alt="FrePAN" /></a>
