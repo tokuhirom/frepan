@@ -15,5 +15,12 @@ sub dispatch {
     FrePAN::API::Dispatcher->dispatch($c);
 }
 
+sub res_404 {
+    my $c = shift;
+    my $res = $c->render_json({});
+    $res->code(404);
+    return $res;
+}
+
 1;
 
