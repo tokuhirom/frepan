@@ -151,7 +151,6 @@ $(function () {
                         },
                         error: function () { /* nop */ }
                     });
-                    console.log("remains");
                 }
                 didScroll = false;
             }
