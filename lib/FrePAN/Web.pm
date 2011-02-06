@@ -10,11 +10,11 @@ use FrePAN::M::CPAN;
 sub args { shift->{args} }
 
 use Log::Minimal;
-use Tiffany::Text::Xslate;
+use Text::Xslate;
 use FrePAN::M::Formatter;
 {
     my $conf = __PACKAGE__->config->{'Text::Xslate'} || +{};
-    my $view = Tiffany::Text::Xslate->new(+{
+    my $view = Text::Xslate->new(+{
         'syntax'   => 'TTerse',
         'module'   => [ 'Text::Xslate::Bridge::TT2Like' ],
         'function' => {
