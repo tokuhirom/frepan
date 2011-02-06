@@ -1,5 +1,7 @@
 package FrePAN::M::CPANDB;
-use common::sense;
+use strict;
+use warnings;
+use utf8;
 use Amon2::Declare;
 use Smart::Args;
 
