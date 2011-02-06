@@ -7,7 +7,7 @@ sub show {
     my ($class, $c, $args) = @_;
     my $pause_id = $args->{author};
 
-    my $author = $c->db->single( meta_author => { pause_id => $pause_id } )
+    my $author = $c->dbh->selectrow_hashref( q{SELECT * FROM meta_author WHERE pause_id=?}, { }, $pause_id )
       or return $c->res_404();
 
     my $packages = $c->dbh->selectall_arrayref(q{
@@ -15,7 +15,7 @@ sub show {
     }, {Slice => {}}, $pause_id);
 
     $c->render2(
-        '#title' => $author->fullname . ' - FrePAN',
+        '#title' => $author->{fullname} . ' - FrePAN',
         '#Content' => [
             'author/show.tx',
             {author => $author, packages => $packages}

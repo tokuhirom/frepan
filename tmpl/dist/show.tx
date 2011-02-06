@@ -6,6 +6,7 @@
 <tr><th>This Release</th><td><span class="dist-name">[% dist.name %]</span>-<span class="dist-version">[% dist.version %][% UNLESS dist.authorized %] <span style="color: red">*UNAUTHORIZED RELEASE*</span>[% END %]</span>
     [<a href="[% dist.download_url %]">Download</a>]
     [<a href="/src/[% upper(dist.author) %]/[% dist.name %]-[% dist.version %]/">Browse</a>]
+	<a href="/dist/[% dist.name %]/" style="float:right">Permalink</a>
 </td>
 [% IF other_releases.size() > 0 %]
     <tr><th>Other Releases</th><td>

@@ -171,7 +171,11 @@ sub permalink {
     my $dist_name = $c->{args}->{dist_name} // die;
     my $dist = $c->db->single(dist => {name => $dist_name}, {order_by => {'released' => 'DESC'}, limit => 1});
 
-    return $c->redirect(sprintf('/~%s/%s-%s/', $dist->author, $dist->name, $dist->version));
+    if ($dist) {
+        return $c->redirect(sprintf('/~%s/%s-%s/', $dist->author, $dist->name, $dist->version));
+    } else {
+        return $c->res_404();
+    }
 }
 
 1;
