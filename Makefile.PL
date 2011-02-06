@@ -33,6 +33,9 @@ requires 'HTTP::Session::Store::Memcached';
 requires 'SQL::Interp';
 requires 'Jonk';
 requires 'Data::Page';
+requires 'String::CamelCase';
+requires 'HTML::FillInForm::Lite';
+requires 'HTML::FormatText';
 recursive_author_tests('xt');
 
 WriteAll;
