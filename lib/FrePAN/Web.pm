@@ -9,6 +9,7 @@ use FrePAN::M::CPAN;
 
 sub args { shift->{args} }
 
+use Log::Minimal;
 use Tiffany::Text::Xslate;
 use FrePAN::M::Formatter;
 {
@@ -84,5 +85,11 @@ __PACKAGE__->add_trigger(
         $res->header('X-Content-Type-Options' => 'nosniff');
     },
 );
+
+sub res_404 {
+    my ($c) = @_;
+    infof("404 : %s", $c->req->path_info);
+    return $c->SUPER::res_404();
+}
 
 1;
