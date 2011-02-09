@@ -37,6 +37,7 @@ $(function () {
         });
 
         if (window.history.pushState) {
+			/*
             var ajax_part_load = function (url, pushit) {
                 $.ajax({
                     url: url,
@@ -55,7 +56,10 @@ $(function () {
                         // document.title=title;
                         $('#Content').replaceWith($('#Content', src)).scrollTop();
                         dispatcher(url);
-                    }
+                    },
+					error: function (ret) {
+						location.href = url; // follback to normal page operation
+					}
                 });
             };
             $('#Content a').live('click', function (event) {
@@ -81,6 +85,7 @@ $(function () {
                     return true;
                 }
             }, false);
+			*/
         }
 
         // mylingual
@@ -88,7 +93,9 @@ $(function () {
             window.__MYLINGUAL = {};
         }
         window.__MYLINGUAL.updateStatus = function () {}; // display completed message
-        window.__MYLINGUAL.debugAlert = function (msg) { /* display debug message */ };
+        window.__MYLINGUAL.debugAlert = function (msg) {
+			// display debug message
+		};
         var lang;
         var m;
         if( typeof localStorage == "object" ){
