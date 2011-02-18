@@ -175,9 +175,11 @@ sub _swap {
     sub insert {
         my ($self, ) = @_;
         debugf('insert');
-        c->db->bulk_insert(
+        my ($sql, @binds) = c->dbh->sql_maker->insert_multi(
             $self->{table} => $self->{rows},
         );
+        $sql =~ s/^INSERT/REPLACE/;
+        c->dbh->do($sql, {}, @binds);
         @{$self->{rows}}= ();
     }
 }
