@@ -21,6 +21,8 @@ use SQL::Interp ();
 use Try::Tiny;
 use Data::Dumper ();
 
+SQL::Maker->load_plugin('InsertMulti');
+
 sub sql_maker { $_[0]->{private_sql_maker} // SQL::Maker->new(driver => $_[0]->{Driver}->{Name}, new_line => q{ }) }
 
 sub txn_manager {
