@@ -40,7 +40,6 @@ use HTML::Zoom;
 
     sub render2 {
         my ($self, %args) = @_;
-        warn "rendr2";
         my $view = $self->create_view();
         my $base = $view->render('include/layout.tx');
         my $zoom = HTML::Zoom->from_html("$base");
