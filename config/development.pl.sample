@@ -1,6 +1,7 @@
 use Cwd 'abs_path';
 use File::Path;
-mkpath 'tmp/minicpan/' unless -d 'tmp/minicpan/';
+mkpath 'tmp/minicpan/';
+mkpath 'tmp/src/';
 {
     web_host => '127.0.0.1',
     'DB'        => [

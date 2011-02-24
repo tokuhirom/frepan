@@ -244,6 +244,10 @@ sub insert_to_fts {
         infof("This is a developer release(%s). Do not register to groonga", $self->version);
         return;
     }
+    if ($ENV{NO_GROONGA}) {
+        infof("NO_GROONGA");
+        return;
+    }
 
     {
         my @old_dists = c->db->search(dist => {name => $self->name});
