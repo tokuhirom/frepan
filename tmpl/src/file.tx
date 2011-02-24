@@ -1,3 +1,5 @@
+[% WRAPPER 'include/layout.tx' %]
+
 <div id="FileSourcePage">
 <h2 class="bread-list">[% path %]</h2>
 
@@ -6,3 +8,5 @@
 </div>
 <pre class="prettyprint">[% src %]</pre>
 </div>
+
+[% END %]

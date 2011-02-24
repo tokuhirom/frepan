@@ -15,11 +15,9 @@ sub index {
         c             => $c,
     );
 
-    return $c->render2(
-        '#Content' => [
-            "index.tx",
-            { dists => $dists, page => $page, has_next => $has_next }
-        ]
+    return $c->render(
+        "index.tx",
+        { dists => $dists, page => $page, has_next => $has_next }
     );
 }
 

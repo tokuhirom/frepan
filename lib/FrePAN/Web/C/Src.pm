@@ -62,14 +62,12 @@ sub serve_plain_file_pretty {
     my $src = do { local $/; <$fh> };
     my $path = File::Spec->abs2rel( $file, $self->root );
 
-    return $c->render2(
-        'title' => "$path - FrePAN",
-        '#Content' => [
-            'src/file.tx' => {
-                path => $self->_make_bread_list($path),
-                src  => $src,
-            }
-        ]
+    return $c->render(
+        'src/file.tx' => {
+            path => $self->_make_bread_list($path),
+            src  => $src,
+            'title' => "$path - FrePAN",
+        }
     )->finalize;
 }
 
@@ -140,14 +138,12 @@ sub serve_path {
     my $path = c()->req->path_info();
     $path =~ s!^/src/!!;
 
-    return c()->render2(
-        'title' => "$path - FrePAN",
-        '#Content' => [
-            'src/directory.tx' => {
-                path  => $self->_make_bread_list($path),
-                files => \@files,
-            }
-        ]
+    return c()->render(
+        'src/directory.tx' => {
+            'title' => "$path - FrePAN",
+            path  => $self->_make_bread_list($path),
+            files => \@files,
+        }
     )->finalize();
 }
 
