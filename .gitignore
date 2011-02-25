@@ -8,3 +8,4 @@ config/production.pl
 feed/index.rss
 script/deploy.sh
 tmp/src/
+apidocs/build/

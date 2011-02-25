@@ -7,6 +7,7 @@ use Amon2::Web::Dispatcher::Lite;
 use CPAN::DistnameInfo;
 use FrePAN::M::CPANStats;
 use FrePAN::M::Dist;
+use JSON;
 
 get '/v1/dist/show.json' => sub {
     my $c = shift;
@@ -19,10 +20,19 @@ get '/v1/dist/show.json' => sub {
     unless ($version = $c->req->param('dist_version')) {
         $version = FrePAN::M::Dist->get_latest_version(name => $args{dist_name});
     }
-    my $dist = $c->dbh->selectrow_hashref(q{SELECT name, version, abstract FROM dist WHERE name=? AND version=?}, {Slice => {}}, $args{dist_name}, $version);
-    return $c->render_json(
-        $dist
-    );
+
+    my $dist = FrePAN::M::Dist->get(c => $c, dist_name => $args{dist_name}, dist_version => $version);
+    if ($dist) {
+        return $c->render_json(
+            $dist
+        );
+    } else {
+        my $res = $c->render_json(
+            {error => 'Not found'}
+        );
+        $res->status(404);
+        return $res;
+    }
 };
 
 get '/v1/cpanstats/list' => sub {

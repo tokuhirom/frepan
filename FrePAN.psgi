@@ -7,6 +7,7 @@ use Plack::App::Directory;
 use Plack::App::URLMap;
 use Plack::MIME;
 use FrePAN::API;
+use Plack::App::File;
 
 delete $Plack::MIME::MIME_TYPES->{$_} for qw/.pl .pm .yml .json/;
 
@@ -18,4 +19,5 @@ builder {
 
     mount '/' => FrePAN::Web->to_app();
     mount '/api/' => FrePAN::API->to_app();
+    mount '/docs/' => Plack::App::Directory->new(root => 'apidocs/build/html/')->to_app;
 };
