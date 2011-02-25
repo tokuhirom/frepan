@@ -1,5 +1,5 @@
 config.pl
-Makefile
+/Makefile
 inc/
 MYMETA.yml
 tmp/
