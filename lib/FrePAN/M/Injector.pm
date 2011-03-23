@@ -137,7 +137,7 @@ sub inject {
     unless ($DEBUG) {
         debugf 'sending ping';
         my $result = $class->send_ping();
-        critf(ref($result) ? ddf($result->value) : "Error: $result");
+        warnf(ref($result) ? ddf($result->value) : "Error: $result");
     }
 
     debugf 'commit';
