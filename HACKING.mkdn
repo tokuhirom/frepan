@@ -9,6 +9,14 @@ Requirements
   * and other CPAN modules written in Makefile.PL
   * Groonga server(optional)
 
+Run groonga daemon
+------------------
+
+    # create new groonga database
+    % groonga -n groonga.db
+    # run httpd
+    % groonga -s --port 10043 --log-path /dev/stderr --protocol http groonga.db
+
 Setup
 -----
 
