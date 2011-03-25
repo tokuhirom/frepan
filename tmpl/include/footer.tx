@@ -1,6 +1,6 @@
         </div>
         <div class="clear-both"></div>
-        <div id="FooterContainer"><div id="Footer">
+        <div id="FooterContainer" style="clear:both;"><div id="Footer">
             <a href="/about">about this site.</a><br />
             This is FrePAN. 
             Powered by <a href="http://amon.64p.org/">Amon [% amon_version() %]</a>, <a href="http://groonga.org/">groonga</a><br />

@@ -20,7 +20,7 @@
 </head>
 <body>
     <div id="Container">
-        <div id="Header">
+        <div id="Header" class="clearfix">
             <a href="/"><img src="/static/img/frepan-logo.png" width="164" height="58" alt="FrePAN" /></a>
 
             <form method="get" action="/search" id="SearchBox" style="display:inline">
@@ -38,5 +38,6 @@
                 [% END %]
             </div>
         </div>
-        <div id="Content">
+
+        <div id="Content" style="clear: both">
 

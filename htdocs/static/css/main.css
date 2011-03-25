@@ -48,12 +48,18 @@ body {
     font-weight: normal;
 }
 
+#Header #SearchBox {
+    margin-left: 10px;
+}
+
 #Content {
     padding: 10px;
     background-color: white;
     border-radius: 8px;
     -moz-border-radius: 8px;
     -webkit-border-radius: 8px;
+
+    margin-bottom: 20px;
 
     -webkit-box-shadow: #feeeee 5px 5px 10px;
     -moz-box-shadow: #feeeee 10px 10px 10px;
