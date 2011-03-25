@@ -113,7 +113,7 @@ sub mk_uploads {
     my $ua = LWP::UserAgent->new();
     my $bz2 = catfile(minicpan, 'modules/uploads.db.bz2');
     my $res = $ua->get($url, ':content_file' => $bz2);
-    $res->is_success or die $res->status_line;
+    $res->is_success or die "$url: " . $res->status_line;
     (my $db = $bz2) =~ s/\.bz2//;
     unlink($db) if -f $db;
     system('bunzip2', $bz2)==0 or die "cannot bunzip2: $bz2";
