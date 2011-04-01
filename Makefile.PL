@@ -36,6 +36,10 @@ requires 'Data::Page';
 requires 'String::CamelCase';
 requires 'HTML::FillInForm::Lite';
 requires 'HTML::FormatText';
-recursive_author_tests('xt');
+requires 'DBIx::Skinny';
+requires 'Furl';
+requires 'DBD::mysql';
+requires 'DBIx::Inspector';
+# recursive_author_tests('xt');
 
 WriteAll;
