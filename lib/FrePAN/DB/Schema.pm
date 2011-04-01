@@ -11,9 +11,21 @@ install_table 'changes' => sub {
 };
 
 
+install_table 'cpanstats' => sub {
+    pk      qw(guid);
+    columns qw(date version dist osvers state perl osname postdate type guid platform tester);
+};
+
+
+install_table 'cpanstats_summary' => sub {
+    pk      qw(version dist state);
+    columns qw(version dist cnt state);
+};
+
+
 install_table 'dist' => sub {
     pk      qw(dist_id);
-    columns qw(latest has_makefile_pl bugtracker author has_manifest has_meta_json requires has_change_log has_build_pl authorized repository version has_meta_yml name released path dist_id license old homepage resources_json abstract has_changes);
+    columns qw(has_makefile_pl author has_manifest has_meta_json requires has_change_log has_build_pl authorized version has_meta_yml name path released dist_id old resources_json abstract has_changes);
 };
 
 
@@ -25,12 +37,6 @@ install_table 'file' => sub {
 
 install_table 'i_use_this' => sub {
     columns qw(body dist_name dist_version ctime mtime user_id);
-};
-
-
-install_table 'job' => sub {
-    pk      qw(id);
-    columns qw(arg id enqueue_time func);
 };
 
 
