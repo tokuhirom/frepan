@@ -38,7 +38,6 @@ requires 'HTML::FillInForm::Lite';
 requires 'HTML::FormatText';
 requires 'DBIx::Skinny';
 requires 'Furl';
-requires 'DBD::mysql';
 requires 'DBIx::Inspector';
 # recursive_author_tests('xt');
 
