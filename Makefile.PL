@@ -39,6 +39,7 @@ requires 'HTML::FormatText';
 requires 'DBIx::Skinny';
 requires 'Furl';
 requires 'DBIx::Inspector';
+requires 'DBD::mysql';
 # recursive_author_tests('xt');
 
 WriteAll;
