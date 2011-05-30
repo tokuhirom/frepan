@@ -40,6 +40,7 @@ requires 'DBIx::Skinny';
 requires 'Furl';
 requires 'DBIx::Inspector';
 requires 'DBD::mysql';
+requires 'YAML::Tiny';
 # recursive_author_tests('xt');
 
 WriteAll;
