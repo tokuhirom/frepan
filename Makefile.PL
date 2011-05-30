@@ -14,6 +14,7 @@ WriteMakefile(
         map { $_ => 0 } (
 			qw(
 			SQL::Maker
+			Carp::Clan
 			),
             'HTML::Zoom',
             'AnyEvent::FriendFeed::Realtime',
