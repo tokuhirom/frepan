@@ -18,6 +18,7 @@ WriteMakefile(
 			File::Find::Rule
 			Getopt::Long::Descriptive
 			Web::Query
+			CPAN::Mini
 			),
             'HTML::Zoom',
             'AnyEvent::FriendFeed::Realtime',
