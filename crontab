@@ -1,4 +1,4 @@
 MAILTO=tokuhirom@gmail.com
 
-0 *  *   *   *     semaphore --max=1 --file=/tmp/metadata.semaphore -- cronlog  --logfile=/tmp/metadata.cronlog --timestamp perl /home/dotcloud/code/script/cron/mk_metadata.pl
-10 *  *   *   *     semaphore --max=1 --file=/tmp/minicpan.semaphore -- cronlog  --logfile=/tmp/minicpan.cronlog --timestamp minicpan -l ~/minicpan/ -r http://cpan.yahoo.com/
+0 *  *   *   *     semaphore --max=1 --file=/tmp/metadata.semaphore  -- cronlog  --logfile=/tmp/metadata.cronlog --timestamp -- perl /home/dotcloud/code/script/cron/mk_metadata.pl
+10 *  *   *   *     semaphore --max=1 --file=/tmp/minicpan.semaphore -- cronlog  --logfile=/tmp/minicpan.cronlog --timestamp -- minicpan -l ~/minicpan/ -r http://cpan.yahoo.com/
