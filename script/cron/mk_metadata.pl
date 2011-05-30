@@ -1,5 +1,9 @@
 use strict;
 use warnings;
+use File::Spec;
+use File::Basename;
+use FindBin;
+use lib File::Spec->catdir($FindBin::Bin, '../../lib');
 use FrePAN;
 use Getopt::Long;
 use FrePAN::M::CPANDB::Generator;
