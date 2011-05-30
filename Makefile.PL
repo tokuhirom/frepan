@@ -17,6 +17,7 @@ WriteMakefile(
 			Carp::Clan
 			File::Find::Rule
 			Getopt::Long::Descriptive
+			Web::Query
 			),
             'HTML::Zoom',
             'AnyEvent::FriendFeed::Realtime',
