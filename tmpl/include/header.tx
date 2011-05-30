@@ -22,21 +22,6 @@
     <div id="Container">
         <div id="Header" class="clearfix">
             <a href="/"><img src="/static/img/frepan-logo.png" width="164" height="58" alt="FrePAN" /></a>
-
-            <form method="get" action="/search" id="SearchBox" style="display:inline">
-                <input id="search_query" type="text" name="q" style="font-size: xx-large" value="[% query %]" />
-                <input type="submit" value="search" />
-            </form>
-            <div class="UserInfo" style="display:inline">
-                [% IF c().session_user() %]
-                    Hi, <a href="https://github.com/[% c().session_user().login() %]">[% c().session_user().login() %]</a>!
-                    <form method="post" action="/logout" style="display:inline">
-                        <input type="submit" value="logout" />
-                    </form>
-                [% ELSE %]
-                    <a href="/login">login</a>
-                [% END %]
-            </div>
         </div>
 
         <div id="Content" style="clear: both">
