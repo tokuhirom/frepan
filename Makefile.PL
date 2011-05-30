@@ -15,6 +15,7 @@ WriteMakefile(
 			qw(
 			SQL::Maker
 			Carp::Clan
+			File::Find::Rule
 			),
             'HTML::Zoom',
             'AnyEvent::FriendFeed::Realtime',
