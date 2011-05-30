@@ -20,5 +20,6 @@ connect '/dist/{dist_name}{p:/?}'=> 'Dist#permalink';
 connect '/cpanstats/{dist_vname}'=> 'CPANStats#list';
 connect '/admin/regen'=> 'Admin#regen';
 connect '/src/*'=> 'Src#show';
+connect '/feed/index.rss'=> 'Feed#index';
 
 1;
