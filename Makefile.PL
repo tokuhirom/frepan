@@ -1,5 +1,12 @@
 use ExtUtils::MakeMaker;
 
+which('cronlog') or do {
+	use File::Temp;
+	my $tmp = File::Temp->new(UNLINK => 1);
+	system "curl -L --output $tmp http://github.com/kazuho/kaztools/tarball/master";
+	system "cpanm -nv $tmp";
+};
+
 WriteMakefile(
     NAME         => 'FrePAN',
     AUTHOR       => 'tokuhirom <person@example.com>',
@@ -64,4 +71,14 @@ WriteMakefile(
     ? ( test => { TESTS => 't/*.t xt/*.t', }, )
     : (),
 );
+
+use File::Spec;
+sub which {
+	my $basename = shift;
+	for $dir (split /:/, $ENV{PATH}) {
+		my $path = File::Spec->catfile($dir, $basename);
+		return $path if -x $path;
+	}
+	return;
+}
 
