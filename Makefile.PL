@@ -1,46 +1,62 @@
-use inc::Module::Install;
-all_from "lib/FrePAN.pm";
+use ExtUtils::MakeMaker;
 
-use lib 'extlib/lib/perl5/';
+WriteMakefile(
+    NAME         => 'FrePAN',
+    AUTHOR       => 'tokuhirom <person@example.com>',
+    VERSION_FROM => 'lib/FrePAN.pm',
+    PREREQ_PM    => {
+        'Amon2'                           => '2.35',
+        'Text::Xslate'                    => '1.1005',
+        'Text::Xslate::Bridge::TT2Like'   => '0.00008',
+        'Plack::Middleware::ReverseProxy' => '0.09',
+        'HTML::FillInForm::Lite'          => '1.09',
+        'Time::Piece'                     => '1.20',
+        map { $_ => 0 } (
+			qw(
+			SQL::Maker
+			),
+            'HTML::Zoom',
+            'AnyEvent::FriendFeed::Realtime',
+            'Amon2',
+            'JSON::XS',
+            'URI',
+            'LWP::UserAgent',
+            'Archive::Extract',
+            'Guard',
+            'Path::Class',
+            'autodie',
+            'Pod::POM',
+            'Pod::Simple::XHTML',
+            'parent',
+            'XML::Feed',
+            'Algorithm::Diff',
+            'Class::Accessor::Fast',
+            'CPAN::DistnameInfo',    # parse path name
+            'Archive::Zip',
+            'Cache::Memcached::Fast',
+            'RPC::XML',
+            'Log::Minimal',
+            'Smart::Args',
+            'Time::Duration',
+            'Text::Diff',
+            'OAuth::Lite2',
+            'HTTP::Session::Store::Memcached',
+            'SQL::Interp',
+            'Jonk',
+            'Data::Page',
+            'String::CamelCase',
+            'HTML::FillInForm::Lite',
+            'HTML::FormatText',
+            'DBIx::Skinny',
+            'Furl',
+            'DBIx::Inspector',
+            'DBD::mysql',
+            'YAML::Tiny',
+        )
+    },
+    MIN_PERL_VERSION => '5.008001',
+    ( -d 'xt' and $ENV{AUTOMATED_TESTING} || $ENV{RELEASE_TESTING} )
+    ? ( test => { TESTS => 't/*.t xt/*.t', }, )
+    : (),
+);
 
-tests 't/*.t t/*/*.t t/*/*/*.t';
-requires 'HTML::Zoom';
-requires 'AnyEvent::FriendFeed::Realtime';
-requires 'Amon2' => 2.04;
-requires 'JSON::XS';
-requires 'URI';
-requires 'LWP::UserAgent';
-requires 'Archive::Extract';
-requires 'Guard';
-requires 'Path::Class';
-requires 'autodie';
-requires 'Pod::POM' => 0.27;
-requires 'Pod::Simple::XHTML';
-requires 'parent';
-requires 'XML::Feed';
-requires 'Algorithm::Diff';
-requires 'Class::Accessor::Fast';
-requires 'CPAN::DistnameInfo'; # parse path name
-requires 'Archive::Zip';
-requires 'Cache::Memcached::Fast' => 0.19;
-requires 'RPC::XML';
-requires 'Log::Minimal';
-requires 'Smart::Args' => 0.07;
-requires 'Time::Duration';
-requires 'Text::Diff';
-requires 'OAuth::Lite2';
-requires 'HTTP::Session::Store::Memcached';
-requires 'SQL::Interp';
-requires 'Jonk';
-requires 'Data::Page';
-requires 'String::CamelCase';
-requires 'HTML::FillInForm::Lite';
-requires 'HTML::FormatText';
-requires 'DBIx::Skinny';
-requires 'Furl';
-requires 'DBIx::Inspector';
-requires 'DBD::mysql';
-requires 'YAML::Tiny';
-# recursive_author_tests('xt');
-
-WriteAll;
