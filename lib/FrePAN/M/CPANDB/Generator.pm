@@ -85,7 +85,10 @@ sub mk_packages {
     $self->_swap(
         'packages' => sub {
             my $rows = shift;
-            my $fh = IO::Zlib->new(File::Spec->catfile(minicpan, 'modules/02packages.details.txt.gz'), "rb") or die "cannot open file";
+            my $fname = File::Spec->catfile( minicpan,
+                'modules/02packages.details.txt.gz' );
+            my $fh = IO::Zlib->new( $fname, "rb" )
+              or die "cannot open file: $fname";
             while (<$fh>) {
                 last unless /\S/; # strip header lines.
             }
