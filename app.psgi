@@ -21,7 +21,7 @@ builder {
     mount '/api/' => FrePAN::API->to_app();
     mount '/docs/' => Plack::App::Directory->new(root => 'apidocs/build/html/')->to_app;
     mount '/feed/index.rss' => sub {
-        my $fname = Pikubo->config->{'M::RSSMaker'}->{'path'} // die "Missing configuration for rss file";
+        my $fname = FrePAN->config->{'M::RSSMaker'}->{'path'} // die "Missing configuration for rss file";
         open my $fh, '<', $fname or die "Cannot open rss file: $fname";
         return [200, ['Content-Type' => 'text/xml;charset=utf-8', 'Content-Length' => -s $fname], $fh];
     };
