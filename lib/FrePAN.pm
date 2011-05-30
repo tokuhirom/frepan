@@ -35,15 +35,6 @@ sub memcached {
     Cache::Memcached::Fast->new($conf);
 }
 
-sub fts {
-    my ($c) = @_;
-    $c->{fts} //= do {
-        require FrePAN::FTS;
-        my $fts = $c->config->{FTS} // die "missing configuration for FTS";
-        FrePAN::FTS->new($fts);
-    };
-}
-
 sub minicpan_dir {
     my $c = shift;
     $c->config->{'M::CPAN'}->{minicpan} // die "missing configuration for minicpan directory";

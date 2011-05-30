@@ -3,7 +3,6 @@ use strict;
 use warnings;
 use autodie;
 
-use FrePAN::FTS;
 use Algorithm::Diff;
 use CPAN::DistnameInfo;
 use Carp ();
@@ -121,9 +120,6 @@ sub inject {
         dir      => $extracted_dir,
         c        => $c,
     );
-
-    debugf("register to groonga");
-    $dist->insert_to_fts();
 
     # save changes
     debugf 'make diff';

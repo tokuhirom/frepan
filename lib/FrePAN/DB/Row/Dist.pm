@@ -230,52 +230,6 @@ sub delete_files {
     c->dbh->do(q{DELETE FROM file WHERE dist_id=?}, {}, $self->dist_id);
 }
 
-sub remove_from_fts {
-    my ($self) = @_;
-    for my $file ($self->files()) {
-        c->fts->delete($file->file_id);
-    }
-}
-
-sub insert_to_fts {
-    my ($self) = @_;
-
-    if ($self->version =~ /_/) {
-        infof("This is a developer release(%s). Do not register to groonga", $self->version);
-        return;
-    }
-    if ($ENV{NO_GROONGA}) {
-        infof("NO_GROONGA");
-        return;
-    }
-
-    {
-        my @old_dists = c->db->search(dist => {name => $self->name});
-
-        # is this latest release?
-        my ($latest_version) =
-          reverse
-          sort          { (eval { version->parse($a) } || 0) <=> (eval { version->parse($b) } || 0) }
-          grep { $_ !~ /-withoutworldwriteables$/ }
-          grep { $_ !~ /_/ }
-          map { $_->version } @old_dists;
-        if ($self->version ne $latest_version) {
-            infof("I don't make index since this is not a latest release, %s-%s", $self->name, $self->version);
-            return;
-        }
-
-        # remove old entries
-        for my $old_dist (@old_dists) {
-            $old_dist->remove_from_fts();
-        }
-    }
-
-    # insert to fts
-    for my $file ($self->files) {
-        $file->insert_to_fts() if $file->html() && $file->authorized;
-    }
-}
-
 sub archive_path {
     args_pos my $self;
 
@@ -295,7 +249,6 @@ sub delete {
         unlink $self->archive_path();
     }
 
-    $self->remove_from_fts();
     $self->delete_files();
 
     $self->SUPER::delete();
