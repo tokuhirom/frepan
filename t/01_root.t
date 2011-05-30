@@ -5,7 +5,7 @@ use Plack::Util;
 use Test::More;
 use t::Util;
 
-my $app = Plack::Util::load_psgi 'FrePAN.psgi';
+my $app = Plack::Util::load_psgi 'app.psgi';
 test_psgi
     app => $app,
     client => sub {

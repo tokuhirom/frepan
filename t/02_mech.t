@@ -6,7 +6,7 @@ use Test::More;
 use Test::Requires 'Test::WWW::Mechanize::PSGI';
 use t::Util;
 
-my $app = Plack::Util::load_psgi 'FrePAN.psgi';
+my $app = Plack::Util::load_psgi 'app.psgi';
 
 my $mech = Test::WWW::Mechanize::PSGI->new(app => $app);
 $mech->get_ok('/');
