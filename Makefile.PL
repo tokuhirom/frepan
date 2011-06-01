@@ -26,6 +26,7 @@ WriteMakefile(
 			Getopt::Long::Descriptive
 			Web::Query
 			CPAN::Mini
+			DBD::SQLite
 			),
             'HTML::Zoom',
             'AnyEvent::FriendFeed::Realtime',
