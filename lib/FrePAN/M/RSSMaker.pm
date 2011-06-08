@@ -36,7 +36,7 @@ sub generate {
         $feed->add_entry(do {
             my $e = XML::Feed::Entry->new('RSS');
                $e->title(join(' ', $row->name, $row->version));
-               $e->link("http://frepan.org/~@{[ lc($row->author) ]}/@{[ $row->name ]}-@{[ $row->version ]}/");
+               $e->link("http://beta.metacpan.org/release/@{[ $row->name ]}/");
                $e->author($row->author);
                $e->issued(do {
                     DateTime->from_epoch(epoch => $row->released)
@@ -62,7 +62,7 @@ sub make_content {
 
     $html .= <<"...";
 <pre>@{[ html_escape($row->diff || '') ]}</pre>
-<a href="http://frepan.org/diff?dist_id=@{[ $row->dist_id ]}">Diff</a><br />
+<!--<a href="http://frepan.org/diff?dist_id=@{[ $row->dist_id ]}">Diff</a><br />-->
 <a href="http://search.cpan.org/dist/@{[ $row->name ]}/">search.cpan.org</a><br />
 <a href="http://cpan.cpantesters.org/authors/id/@{[ html_escape($row->path) ]}">Download</a>
 ...
