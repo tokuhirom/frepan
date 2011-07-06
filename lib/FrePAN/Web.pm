@@ -125,4 +125,11 @@ sub res_404 {
     return $c->SUPER::res_404();
 }
 
+sub redirect_metacpan {
+    my ($self, $path) = @_;
+    my $uri = URI->new('http://beta.metacpan.org/');
+    $uri->path($path);
+    return $self->redirect($uri->as_string);
+}
+
 1;
