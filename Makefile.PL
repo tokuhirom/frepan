@@ -28,7 +28,6 @@ WriteMakefile(
 			CPAN::Mini
 			DBD::SQLite
 			),
-            'HTML::Zoom',
             'AnyEvent::FriendFeed::Realtime',
             'Amon2',
             'JSON::XS',
