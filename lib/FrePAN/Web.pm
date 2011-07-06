@@ -80,7 +80,6 @@ sub show_error {
 }
 
 __PACKAGE__->load_plugins('Web::FillInFormLite');
-__PACKAGE__->load_plugins('Web::CSRFDefender');
 __PACKAGE__->load_plugins('Web::NoCache');
 __PACKAGE__->add_trigger(
     AFTER_DISPATCH => sub {
