@@ -79,37 +79,7 @@ sub show_error {
     return $c->render('/error.tx', {msg => $msg});
 }
 
-sub session_user {
-    my ($c) = @_;
-    $c->{session_user} //= do {
-        my $user_id = $c->session->get('user_id');
-        if ( $user_id) {
-            $c->db->single(user => {user_id => $user_id});
-        } else {
-            undef;
-        }
-    };
-}
-
-sub is_admin {
-    my $c = shift;
-    my $u = $c->session_user();
-    return 0 unless $u;
-    return 1 if $u->login eq 'tokuhirom';
-    return 0;
-}
-
-use HTTP::Session::Store::Memcached;
 __PACKAGE__->load_plugins('Web::FillInFormLite');
-__PACKAGE__->load_plugins('Web::HTTPSession' => {
-    state => 'Cookie',
-    store => sub {
-        my ($c) = @_;
-        HTTP::Session::Store::Memcached->new(
-            memd => $c->memcached
-        )
-    }
-});
 __PACKAGE__->load_plugins('Web::CSRFDefender');
 __PACKAGE__->load_plugins('Web::NoCache');
 __PACKAGE__->add_trigger(
