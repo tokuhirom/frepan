@@ -23,10 +23,7 @@ sub index {
 
 sub about {
     my ($class, $c) = @_;
-    $c->render2(
-        'title' => 'About this site - FrePAN',
-        '#Content' => ['about.tx', {}],
-    );
+    $c->render('about.tx');
 }
 
 1;

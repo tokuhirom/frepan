@@ -1,4 +1,4 @@
-[% INCLUDE 'include/header.tx' %]
+[% WRAPPER 'include/layout.tx' title="Error - FrePAN" %]
 
 <div id="ErrorPage">
 
@@ -6,4 +6,4 @@
 
 </div>
 
-[% INCLUDE 'include/footer.tx' %]
+[% END %]

@@ -1,3 +1,5 @@
+[% WRAPPER 'include/layout.tx' title="About this site - FrePAN" %]
+
 <h2>about FrePAN</h2>
 
 <p>
@@ -34,3 +36,6 @@ If you want to get the non-fresh cpan modules, please use <a href="http://search
     If you have any requests for this site, you can send pull-req from <a href="https://github.com/tokuhirom/frepan/">github</a>.
     And, you can create a ticket on <a href="https://github.com/tokuhirom/frepan/issues">Issue Tracking System</a>.
 </p>
+
+
+[% END %]
