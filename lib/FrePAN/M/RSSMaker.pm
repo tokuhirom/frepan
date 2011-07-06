@@ -62,7 +62,6 @@ sub make_content {
 
     $html .= <<"...";
 <pre>@{[ html_escape($row->diff || '') ]}</pre>
-<!--<a href="http://frepan.org/diff?dist_id=@{[ $row->dist_id ]}">Diff</a><br />-->
 <a href="http://search.cpan.org/dist/@{[ $row->name ]}/">search.cpan.org</a><br />
 <a href="http://cpan.cpantesters.org/authors/id/@{[ html_escape($row->path) ]}">Download</a>
 ...
