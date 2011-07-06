@@ -11,7 +11,6 @@ submapper('/~{author}', {}, {on_match => sub { $_[1]->{author} = uc($_[1]->{auth
     ->connect('/{dist_ver}/',          {controller => 'Dist', action => 'show'})
     ->connect('/{dist_ver}/{path:.+}', {controller => 'Dist', action => 'show_file'});
 connect '/perldoc'       => 'Perldoc#redirect';
-connect '/other_version' => 'Dist#other_version';
 connect '/dist/{dist_name}{p:/?}'=> 'Dist#permalink';
 connect '/cpanstats/{dist_vname}'=> 'CPANStats#list';
 connect '/src/*'=> 'Src#show';
