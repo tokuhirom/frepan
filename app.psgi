@@ -14,7 +14,7 @@ delete $Plack::MIME::MIME_TYPES->{$_} for qw/.pl .pm .yml .json/;
 builder {
     enable 'Plack::Middleware::Static',
         path => qr{^(?:/static/|/favicon\.ico|/robots\.txt)},
-        root => './htdocs/';
+        root => './';
     enable 'Plack::Middleware::ReverseProxy';
 
     mount '/' => FrePAN::Web->to_app();
