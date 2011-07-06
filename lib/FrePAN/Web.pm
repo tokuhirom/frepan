@@ -79,7 +79,6 @@ sub show_error {
     return $c->render('/error.tx', {msg => $msg});
 }
 
-__PACKAGE__->load_plugins('Web::FillInFormLite');
 __PACKAGE__->load_plugins('Web::NoCache');
 __PACKAGE__->add_trigger(
     AFTER_DISPATCH => sub {
