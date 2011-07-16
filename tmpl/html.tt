@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset=utf-8 />
+        <title>FrePAN - CPAN recent changes</title>
+        <meta http-equiv="Content-Style-Type" content="text/css" />  
+        <meta http-equiv="Content-Script-Type" content="text/javascript" />  
+        <link rel="alternate" type="application/rss+xml" title="RSS" href="http://feeds.feedburner.com/YetAnotherCpanRecentChanges" />
+        <link href="/static/css/screen.css" rel="stylesheet" type="text/css" media="screen" />
+        <link href="/static/css/typography.css" rel="stylesheet" type="text/css" media="screen" />
+        <link href="/static/css/main.css?v=19" rel="stylesheet" type="text/css" media="screen" />
+    </head>
+    <body>
+        <div id="Container">
+            <div id="Header">
+                <a href="/"><img src="/static/img/frepan-logo.png" width="164" height="58" alt="FrePAN" /></a>
+            </div>
+             <div id="Content" style="clear: both">
+             <div id="RootPage">
+                <ul class="modules">
+                [% FOR v IN entries %]
+                    <li class="module">
+                        <h3>
+                            <img src="/static/img/icons/module.png" alt="." width="24" height="24" />
+                            <a href="[% v.link %]">[% v.title %]</a>
+                        </h3>
+                        [% v.content.body | raw %]
+                        <div class="clear-both">&nbsp;</div>
+                    </li>
+                [% END %]
+                </ul>
+            </div>
+            </div>
+            <div class="clear-both"></div>
+                <div id="FooterContainer" style="clear:both;"><div id="Footer">
+                    This is FrePAN, freshness CPAN feed powered by metacpan API.
+                    <a href="http://mylingual.net/">Localize FrePAN to your own language using Mylingual</a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

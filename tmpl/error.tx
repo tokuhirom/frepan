@@ -1,9 +1,0 @@
-[% WRAPPER 'include/layout.tx' title="Error - FrePAN" %]
-
-<div id="ErrorPage">
-
-<div style="color: red; font-weight: bold">[% msg %]</div>
-
-</div>
-
-[% END %]

@@ -1,8 +1,4 @@
 use strict;
-use warnings;
-use Test::More;
+use Test::More tests => 1;
 
-use_ok 'FrePAN::M::Injector';
-
-done_testing;
-
+BEGIN { use_ok 'FrePAN2' }

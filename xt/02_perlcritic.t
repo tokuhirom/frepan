@@ -6,7 +6,8 @@ eval q{
         'Subroutines::ProhibitExplicitReturnUndef',
         'TestingAndDebugging::ProhibitNoStrict',
         'ControlStructures::ProhibitMutatingListFunctions',
+        'InputOutput::RequireEncodingWithUTF8Layer',
     ]
 };
-plan skip_all => "Test::Perl::Critic is not installed." if $@;
+plan skip_all => "Test::Perl::Critic 1.02+ is not installed." if $@;
 all_critic_ok('lib');

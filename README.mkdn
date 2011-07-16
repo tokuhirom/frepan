@@ -1,9 +1,0 @@
-FrePAN
-======
-
-This is FrePAN - Fresh CPAN mirror.
-
-SEE ALSO
---------
-http://github.com/bricas/cpanhq
-
