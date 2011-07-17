@@ -13,3 +13,5 @@ PLACK_ENV=$ENV{PLACK_ENV}
 END_OF_PERL
 echo installed crontab
 
+echo run script
+./script/cron/generate.pl
