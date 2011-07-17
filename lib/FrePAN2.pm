@@ -47,18 +47,22 @@ has ua => (
 );
 
 {
-    my $TMPL_DIR = File::Spec->catfile(Cwd::abs_path(dirname(__FILE__)), '../tmpl/');
-    has xslate => (
-        is => 'ro',
-        default => sub {
-            Text::Xslate->new(
-                syntax => 'TTerse',
-                path   => [$TMPL_DIR],
-                module => ['Text::Xslate::Bridge::TT2Like'],
-            );
-        },
-    );
+    my $BASE_DIR =
+      File::Spec->catfile( Cwd::abs_path( dirname(__FILE__) ), '../' );
+    sub base_dir { $BASE_DIR }
 }
+
+has xslate => (
+    is => 'ro',
+    default => sub {
+        my $self = shift;
+        Text::Xslate->new(
+            syntax => 'TTerse',
+            path   => [$self->base_dir],
+            module => ['Text::Xslate::Bridge::TT2Like'],
+        );
+    },
+);
 
 sub write_file {
     my ($fname, $content) = @_;
@@ -71,15 +75,15 @@ sub run {
 
     my $rss;
     if ($ENV{HTML_DEBUG}) {
-        open my $fh, '<', 'dat/index.rss' or die $!;
+        open my $fh, '<', File::Spec->catfile($self->base_dir, 'dat/index.rss') or die $!;
         $rss = XML::Feed->parse($fh);
     } else {
         $rss = $self->create_rss();
-        write_file('dat/index.rss' => $rss->as_xml);
+        write_file(File::Spec->catfile($self->base_dir, 'dat/index.rss') => $rss->as_xml);
     }
 
     my $html = $self->create_html($rss);
-    write_file('dat/index.html' => $html);
+    write_file(File::Spec->catfile($self->base_dir, 'dat/index.html') => $html);
 }
 
 sub create_html {
