@@ -25,6 +25,7 @@ WriteMakefile(
 				Algorithm::Diff
 				XML::Feed
 				FindBin::libs
+				Cache::FileCache
 			),
         )
     },
