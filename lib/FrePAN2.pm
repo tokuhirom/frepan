@@ -10,7 +10,6 @@ use LWP::UserAgent;
 use HTTP::Request;
 use Data::Dumper;
 use Text::Xslate;
-use LWP::UserAgent::WithCache;
 use version;
 use File::Spec;
 use File::HomeDir;
@@ -36,7 +35,7 @@ has ua => (
     is => 'rw',
     default => sub {
         my $self = shift;
-        LWP::UserAgent::WithCache->new(
+        LWP::UserAgent->new(
             agent => "FrePAN2/$VERSION",
             timeout => 60
         );
@@ -65,15 +64,15 @@ sub run {
 
     my $rss;
     if ($ENV{HTML_DEBUG}) {
-        open my $fh, '<', 'htdocs/index.rss' or die $!;
+        open my $fh, '<', 'dat/index.rss' or die $!;
         $rss = XML::Feed->parse($fh);
     } else {
         $rss = $self->create_rss();
-        write_file('htdocs/index.rss' => $rss->as_xml);
+        write_file('dat/index.rss' => $rss->as_xml);
     }
 
     my $html = $self->create_html($rss);
-    write_file('htdocs/index.html' => $html);
+    write_file('dat/index.html' => $html);
 }
 
 sub create_html {

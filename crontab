@@ -1,0 +1,4 @@
+MAILTO=tokuhirom@gmail.com
+
+*/10 *  *   *   *     semaphore --max=1 --file=/tmp/metadata.semaphore -- cronlog  --logfile=/tmp/frepan.cronlog --timestamp -- perl /home/dotcloud/code/script/cron/generate.pl
+

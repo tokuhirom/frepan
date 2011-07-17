@@ -3,12 +3,11 @@ abstract: unknown
 author:
   - 'Tokuhiro Matsuno <tokuhirom AAJKLFJEF GMAIL COM>'
 build_requires:
-  ExtUtils::MakeMaker: 6.42
-  Test::More: 0.96
-configure_requires:
   ExtUtils::MakeMaker: 0
+configure_requires:
+  ExtUtils::MakeMaker: 6.42
 dynamic_config: 0
-generated_by: 'ExtUtils::MakeMaker version 6.58, CPAN::Meta::Converter version 2.110930001'
+generated_by: 'Module::Install version 1.01, CPAN::Meta::Converter version 2.110930001'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -16,8 +15,11 @@ meta-spec:
 name: FrePAN2
 no_index:
   directory:
-    - t
     - inc
+    - t
+    - xt
 requires:
-  perl: 5.008008
+  perl: 5.008001
+resources:
+  license: http://dev.perl.org/licenses/
 version: 0.01

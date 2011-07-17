@@ -1,17 +1,45 @@
-use inc::Module::Install;
-use Module::Install::AuthorTests;
+use ExtUtils::MakeMaker;
 
-name 'FrePAN2';
-all_from 'lib/FrePAN2.pm';
+which('cronlog') or do {
+	use File::Temp;
+	my $tmp = File::Temp->new(UNLINK => 1);
+	system "curl -L --output $tmp http://github.com/kazuho/kaztools/tarball/master";
+	system "cpanm -nv $tmp";
+};
 
-# requires '';
-# requires 'Exporter' => 5.63; # use Exporter 'import';
-# requires 'Plack' =>  0.9949;
+WriteMakefile(
+    NAME         => 'FrePAN',
+    AUTHOR       => 'tokuhirom <person@example.com>',
+    VERSION_FROM => 'lib/FrePAN2.pm',
+    PREREQ_PM    => {
+        map { $_ => 0 } (
+			qw(
+				JSON
+				LWP::UserAgent
+				HTTP::Request
+				Data::Dumper
+				Text::Xslate
+				version
+				File::Spec
+				File::HomeDir
+				Algorithm::Diff
+				XML::Feed
+			),
+        )
+    },
+    MIN_PERL_VERSION => '5.008001',
+    ( -d 'xt' and $ENV{AUTOMATED_TESTING} || $ENV{RELEASE_TESTING} )
+    ? ( test => { TESTS => 't/*.t xt/*.t', }, )
+    : (),
+);
 
+use File::Spec;
+sub which {
+	my $basename = shift;
+	for $dir (split /:/, $ENV{PATH}) {
+		my $path = File::Spec->catfile($dir, $basename);
+		return $path if -x $path;
+	}
+	return;
+}
 
-
-tests 't/*.t t/*/*.t t/*/*/*.t t/*/*/*/*.t';
-test_requires 'Test::More' => 0.96; # done_testing, subtest
-# test_requires 'Test::Requires';
-author_tests('xt');
-WriteAll;
