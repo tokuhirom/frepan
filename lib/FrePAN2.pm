@@ -16,6 +16,9 @@ use File::HomeDir;
 use Algorithm::Diff qw/diff/;
 use XML::Feed;
 use Cache::FileCache;
+use FindBin;
+use File::Basename;
+use Cwd;
 
 has 'cache' => (
     is      => 'rw',
@@ -43,16 +46,19 @@ has ua => (
     },
 );
 
-has xslate => (
-    is => 'ro',
-    default => sub {
-        Text::Xslate->new(
-            syntax => 'TTerse',
-            path => ['./tmpl/'],
-            module => ['Text::Xslate::Bridge::TT2Like'],
-        );
-    },
-);
+{
+    my $TMPL_DIR = File::Spec->catfile(Cwd::abs_path(dirname(__FILE__)), '../tmpl/');
+    has xslate => (
+        is => 'ro',
+        default => sub {
+            Text::Xslate->new(
+                syntax => 'TTerse',
+                path   => [$TMPL_DIR],
+                module => ['Text::Xslate::Bridge::TT2Like'],
+            );
+        },
+    );
+}
 
 sub write_file {
     my ($fname, $content) = @_;
