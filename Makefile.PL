@@ -24,6 +24,7 @@ WriteMakefile(
 				File::HomeDir
 				Algorithm::Diff
 				XML::Feed
+				FindBin::libs
 			),
         )
     },

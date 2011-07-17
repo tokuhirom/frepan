@@ -15,6 +15,7 @@ use File::Spec;
 use File::HomeDir;
 use Algorithm::Diff qw/diff/;
 use XML::Feed;
+use Cache::FileCache;
 
 has 'cache' => (
     is      => 'rw',
@@ -224,6 +225,8 @@ sub create_request {
         $request->content(encode_json($search));
         $request->content_type('application/json');
     }
+    $request->content_length(length $request->content);
+    warn $request->as_string;
     return $request;
 }
 

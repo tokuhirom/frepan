@@ -5,6 +5,7 @@ use utf8;
 use 5.010000;
 
 use FrePAN2;
+use FindBin::libs;
 
 my $c = FrePAN2->new();
 $c->run();
