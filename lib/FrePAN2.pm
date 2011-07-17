@@ -58,7 +58,7 @@ has xslate => (
         my $self = shift;
         Text::Xslate->new(
             syntax => 'TTerse',
-            path   => [$self->base_dir],
+            path   => [File::Spec->catfile($self->base_dir, 'tmpl')],
             module => ['Text::Xslate::Bridge::TT2Like'],
         );
     },
