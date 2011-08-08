@@ -15,7 +15,7 @@ WriteMakefile(
         map { $_ => 0 } (
 			qw(
 				JSON
-				LWP::UserAgent
+				LWP::UserAgent::Determined
 				HTTP::Request
 				Data::Dumper
 				Text::Xslate

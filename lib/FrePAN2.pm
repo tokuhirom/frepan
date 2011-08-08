@@ -6,7 +6,7 @@ use 5.010001;
 our $VERSION = '0.01';
 
 use JSON;
-use LWP::UserAgent;
+use LWP::UserAgent::Determined;
 use HTTP::Request;
 use Data::Dumper;
 use Text::Xslate;
@@ -39,7 +39,7 @@ has ua => (
     is => 'rw',
     default => sub {
         my $self = shift;
-        LWP::UserAgent->new(
+        LWP::UserAgent::Determined->new(
             agent => "FrePAN2/$VERSION",
             timeout => 60
         );
