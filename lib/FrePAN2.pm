@@ -101,7 +101,7 @@ sub create_rss {
     my @release = $self->search(
         '/release/_search',
         {
-            size => 20,
+            size => $ENV{DEBUG} ? 1 : 20,
             from => 0,
             sort => [ { 'date' => { order => "desc" } } ],
             query => { match_all => {} },
@@ -113,7 +113,9 @@ sub create_rss {
     for my $entry (@release) {
         my $link = "http://beta.metacpan.org/release/$entry->{author}/$entry->{name}";
         my $author = $self->call_api("/author/$entry->{author}");
-        my $changes_diff = $self->get_changes_diff($entry);
+        my $prev_version = $self->get_prev_version($entry->{distribution}, $entry->{version});
+        my $changes_diff = $self->get_changes_diff($prev_version, $entry);
+        my $diff_url = $prev_version ? "https://metacpan.org/diff/release/" . join('/', $prev_version->{author}, $prev_version->{name}, $entry->{author}, $entry->{name}) : undef;
 
         my $e = XML::Feed::Entry->new();
         $e->title($entry->{name} . ' ' . $entry->{author});
@@ -125,6 +127,7 @@ sub create_rss {
                 gravatar_url => $author->{gravatar_url},
                 changes_diff => $changes_diff,
                 link => $link,
+                diff_url => $diff_url,
                 map { $_ => $entry->{$_} } qw(download_url date name version distribution abstract author date),
             };
             $self->xslate->render('rss.tt', $params);
@@ -136,11 +139,10 @@ sub create_rss {
 
 
 sub get_changes_diff {
-    my ($self, $entry) = @_;
+    my ($self, $prev_version, $entry) = @_;
     $entry // die;
 
-    my $prev_version = $self->get_prev_version($entry->{distribution}, $entry->{version});
-    return '' unless defined $prev_version;
+    return undef unless defined $prev_version;
 
     my $changes_new = $self->get_changes_file($entry->{name}, $entry->{author});
     my $changes_old = $self->get_changes_file($prev_version->{name}, $prev_version->{author});
@@ -226,6 +228,7 @@ sub search_versions {
 
 sub create_request {
     my ($self, $path, $search) = @_;
+    $path =~ s!^/!!; # normalize
 
     my $endpoint = 'http://api.beta.metacpan.org/';
     my $url = $endpoint . $path;

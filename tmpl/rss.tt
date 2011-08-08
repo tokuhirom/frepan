@@ -1,6 +1,8 @@
 <div class="module-info">
     <div class="abstract">[% abstract %]</div>
-    <pre class="changes">[% changes_diff %]</pre>
+    [% IF changes_diff %]
+        <pre class="changes">[% changes_diff %]</pre>
+    [% END %]
     <div class="timestamp">[% date %]</div>
 </div>
 
@@ -13,6 +15,9 @@
 
 <div class="footer">
     <a href="[% link %]">metacpan</a>
+    [% IF diff_url %]
+        <a href="[% diff_url %]">Diff</a>
+    [% END %]
     <a href="[% download_url %]">Download</a>
 </div>
 
