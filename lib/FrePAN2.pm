@@ -3,7 +3,7 @@ use Mouse;
 use strict;
 use warnings FATAL => 'all';
 use 5.010001;
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 use JSON;
 use LWP::UserAgent;
