@@ -147,6 +147,7 @@ sub get_changes_diff {
     my $changes_new = $self->get_changes_file($entry->{name}, $entry->{author});
     my $changes_old = $self->get_changes_file($prev_version->{name}, $prev_version->{author});
     return '' unless defined $changes_old;
+    return '' unless defined $changes_new;
 
     my $diff = diff [split /\n/, $changes_old], [split /\n/, $changes_new];
     my $ret = join("\n", map { $_->[2] } grep { $_->[0] eq '+' } @{$diff->[0]});
