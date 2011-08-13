@@ -1,4 +1,4 @@
 ---
 www:
-    perl
+    type: perl
 
