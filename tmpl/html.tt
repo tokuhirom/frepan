@@ -17,7 +17,7 @@
             </div>
              <div id="Content" style="clear: both">
              <div id="RootPage">
-                <ul class="modules">
+                <ul class="module clearfix">
                 [% FOR v IN entries %]
                     <li class="module">
                         <h3>
