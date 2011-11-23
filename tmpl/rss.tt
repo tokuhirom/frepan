@@ -7,7 +7,7 @@
 </div>
 
 <div class="author">
-    <a href="http://beta.metacpan.org/author/[% author %]">
+    <a href="http://metacpan.org/author/[% author %]">
         <div><img src="[% gravatar_url %]" width="80" height="80" /></div>
         [% author | lower %]
     </a>

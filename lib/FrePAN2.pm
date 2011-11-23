@@ -111,7 +111,7 @@ sub create_rss {
     );
 
     for my $entry (@release) {
-        my $link = "http://beta.metacpan.org/release/$entry->{author}/$entry->{name}";
+        my $link = "http://metacpan.org/release/$entry->{author}/$entry->{name}";
         my $author = $self->call_api("/author/$entry->{author}");
         my $prev_version = $self->get_prev_version($entry->{distribution}, $entry->{version});
         my $changes_diff = $self->get_changes_diff($prev_version, $entry);
@@ -231,7 +231,7 @@ sub create_request {
     my ($self, $path, $search) = @_;
     $path =~ s!^/!!; # normalize
 
-    my $endpoint = 'http://api.beta.metacpan.org/';
+    my $endpoint = 'http://api.metacpan.org/';
     my $url = $endpoint . $path;
 
     my $request = HTTP::Request->new('POST', $url);
