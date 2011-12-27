@@ -112,7 +112,7 @@ sub create_rss {
 
     for my $entry (@release) {
         my $link = "http://metacpan.org/release/$entry->{author}/$entry->{name}";
-        my $author = $self->call_api("/author/$entry->{author}");
+        my $author = eval { $self->call_api("/author/$entry->{author}") } || +{ };
         my $prev_version = $self->get_prev_version($entry->{distribution}, $entry->{version});
         my $changes_diff = $self->get_changes_diff($prev_version, $entry);
         my $diff_url = $prev_version ? "https://metacpan.org/diff/release/" . join('/', $prev_version->{author}, $prev_version->{name}, $entry->{author}, $entry->{name}) : undef;
