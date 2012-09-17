@@ -194,7 +194,10 @@ sub get_changes_file {
 sub get_prev_version {
     my ($class, $dist, $target_version) = @_;
 
-    $target_version = version->parse($target_version);
+    $target_version = eval { version->parse($target_version) };
+    if ($@) {
+        return undef;
+    }
     for my $entry ($class->search_versions($dist)) {
         if (version->parse($entry->{version}) < $target_version) {
             return $entry;
