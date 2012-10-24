@@ -96,7 +96,7 @@ sub create_rss {
     
     my $feed = XML::Feed->new('RSS', version => 2.0);
     $feed->title('Yet Another CPAN Recent Changes');
-    $feed->link('http://frepan.org/');
+    $feed->link('http://frepan.64p.org/');
 
     my @release = $self->search(
         '/release/_search',
