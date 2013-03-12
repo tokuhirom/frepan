@@ -66,6 +66,8 @@ has xslate => (
 
 sub write_file {
     my ($fname, $content) = @_;
+    $content = Encode::encode_utf8($content) if Encode::is_utf8($content);
+
     open my $fh, '>', $fname or die "Cannot open file $fname: $!";
     print {$fh} $content;
 }
@@ -199,7 +201,9 @@ sub get_prev_version {
         return undef;
     }
     for my $entry ($class->search_versions($dist)) {
-        if (version->parse($entry->{version}) < $target_version) {
+        my $entry_version = eval { version->parse($entry->{version}) };
+        next unless defined $entry_version;
+        if ($entry_version < $target_version) {
             return $entry;
         }
     }
