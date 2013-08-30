@@ -6,14 +6,13 @@
         <meta http-equiv="Content-Style-Type" content="text/css" />  
         <meta http-equiv="Content-Script-Type" content="text/javascript" />  
         <link rel="alternate" type="application/rss+xml" title="RSS" href="http://feeds.feedburner.com/YetAnotherCpanRecentChanges" />
-        <link href="/static/css/screen.css" rel="stylesheet" type="text/css" media="screen" />
-        <link href="/static/css/typography.css" rel="stylesheet" type="text/css" media="screen" />
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
         <link href="/static/css/main.css?v=19" rel="stylesheet" type="text/css" media="screen" />
     </head>
     <body>
         <div id="Container">
             <div id="Header">
-                <a href="/"><img src="/static/img/frepan-logo.png" width="164" height="58" alt="FrePAN" /></a>
+                <a href="/" class="brand">FrePAN</a>
             </div>
              <div id="Content" style="clear: both">
              <div id="RootPage">
@@ -21,7 +20,7 @@
                 [% FOR v IN entries %]
                     <li class="module">
                         <h3>
-                            <img src="/static/img/icons/module.png" alt="." width="24" height="24" />
+                            <span class="glyphicon glyphicon-asterisk"></span>
                             <a href="[% v.link %]">[% v.title %]</a>
                         </h3>
                         [% v.content.body | raw %]

@@ -1,20 +1,13 @@
-/* reset.css */
-html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, em, img, q, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {margin:0;padding:0;border:0;font-weight:inherit;font-style:inherit;font-size:100%;font-family:inherit;vertical-align:baseline;}
-body {line-height:1.5;}
-table {border-collapse:separate;border-spacing:0;}
-caption, th, td {text-align:left;font-weight:normal;}
-table, td, th {vertical-align:middle;}
-blockquote:before, blockquote:after, q:before, q:after {content:"";}
-blockquote, q {quotes:"" "";}
-a img {border:none;}
-
 /* main */
 html,body {height:100%;}
 body > #Container {height:auto;}
 
+a { color: #660853; }
+
+.glyphicon { color: #e366ca }
+
 body {
     color: white;
-    background-color: #fccccc;
 }
 
 #Container {
@@ -26,40 +19,27 @@ body {
     height: 100%;
     min-height:100%;
     color: black;
+    border-color: #fccccc 1px solid;
 }
 
-#Header {
-    height: 70px;
+#Header .brand {
     padding: 2px;
-}
-
-#Header a {
-    color: black;
-    font-weight: bold;
+    font-size: 500%;
+    color: white;
+    background-color: #da8cab;
+    width: 100%;
+    display: block;
+    padding-left: 20px;
+    height: 100px;
     text-decoration: none;
 }
 
-#Header .subtitle {
-    font-size: 40%;
-    font-weight: normal;
-}
-
-#Header #SearchBox {
-    margin-left: 10px;
-}
 
 #Content {
     padding: 10px;
     background-color: white;
-    border-radius: 8px;
-    -moz-border-radius: 8px;
-    -webkit-border-radius: 8px;
 
     margin-bottom: 20px;
-
-    -webkit-box-shadow: #feeeee 5px 5px 10px;
-    -moz-box-shadow: #feeeee 10px 10px 10px;
-    box-shadow: #feeeee 10px 10px 10px;
 }
 #Content a {
     text-decoration: none;
@@ -96,15 +76,8 @@ body {
     float: left;
 }
 #RootPage .modules .changes {
-    background-color: #fceeee;
+    background-color: #f4ebf2;
     padding: 4px;
-    border-radius: 8px;
-    -moz-border-radius: 8px;
-    -webkit-border-radius: 8px;
-
-    -webkit-box-shadow: #feeeee 5px 5px 10px;
-    -moz-box-shadow: #feeeee 10px 10px 10px;
-    box-shadow: #feeeee 10px 10px 10px;
 
     width: 600px;
     margin-left: 10px;
